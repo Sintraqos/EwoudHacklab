@@ -1,0 +1,18 @@
+
+
+java:S2293$"YReplace the type specification in this constructor call with the diamond operator ("<>").(φ¦επ8³Έυλ1J$bae6039c-ec14-4ef1-8c50-5985497591be
+΅
+java:S2293%"YReplace the type specification in this constructor call with the diamond operator ("<>").(›‡³γϋÿÿÿÿ8³Έυλ1J$e16aa6e0-cc20-4cc3-8f8d-583a0695b120
+
+java:S2293&"YReplace the type specification in this constructor call with the diamond operator ("<>").(›νμ8³Έυλ1J$ea2cc75b-c54f-4e17-a6cd-d88bedde43f0
+]
+java:S1220""Move this file to a named package.8Ηµυλ1J$3e5a876c-5b6c-4b45-8dbc-64fdbd2121b8
+”
+java:S1223+"LRename this method to prevent any misunderstanding or make it a constructor.(¨ϋξΫύÿÿÿÿ8…ΣΉυλ1J$84f26e53-d0cd-4f3b-86bb-aa28c33dd0f7
+n
+java:S1172"+Remove this unused method parameter "args".(¦ψέλ8—ÿµυλ1J$ffea76a7-571a-4ffa-91e0-96f050e7070d
+m	java:S106"+Replace this use of System.out by a logger.(ό…πΈ8¥ÿµυλ1J$e3ebaf3b-a8ff-46de-85d2-cb705b8097b9
+	java:S100"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(§¨›υ8ωª·υλ1J$7103dc37-4edb-4985-8a7e-d4e8866e8eaa
+•	java:S100+"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¨ϋξΫύÿÿÿÿ8£ΣΉυλ1J$b05ace58-6adf-4fca-9561-9941487162da
+l	java:S106-"+Replace this use of System.out by a logger.(–¨ύj8¤ΣΉυλ1J$1ea060b3-0367-414e-8577-0655e48d29db
+r	java:S106="+Replace this use of System.out by a logger.(ΜΉ«ÿÿÿÿÿ8«ΣΉυλ1J$0ce74cf3-99be-4ecb-afa0-aa4574b8bb89
