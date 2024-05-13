@@ -2,10 +2,30 @@ package lessonRevised;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Scanner;
+import java.util.Map;
 import java.util.regex.Pattern;
 
+import static java.util.Map.entry;
+
+//region Main
+
 public class Main {
+    static Main instance;
+
+    public static Main getInstance() {
+        if (instance == null) {
+            instance = new Main();
+        }
+
+        return instance;
+    }
+
+    StudentManager studentManager ;
+    TeacherManager teacherManager ;
+    MentorManager mentorManager ;
+    ClassroomManager classroomManager ;
+    Mailer mailer;
+
     public void main(String[] args) {
 
         //region Test Logs
@@ -33,14 +53,47 @@ public class Main {
         //endregion
 
         // Create instance of all the managers
-        StudentManager studentManager = StudentManager.getInstance();
-        TeacherManager teacherManager = MentorManager.getInstance();
-        MentorManager mentorManager = MentorManager.getInstance();
-        ClassroomManager classroomManager = ClassroomManager.getInstance();
+         studentManager = StudentManager.getInstance();
+         teacherManager = MentorManager.getInstance();
+         mentorManager = MentorManager.getInstance();
+         classroomManager = ClassroomManager.getInstance();
+         mailer = Mailer.getInstance();
 
-        studentManager.HandleStudentManager();
+        HandleInput();
+    }
+
+    void HandleInput()
+    {
+        Logger.Log("""
+                Student Settings:
+                Enter: '1' / 'student' to manage students
+                Enter: '2' / 'teacher' to manage teachers
+                Enter: '3' / 'mentor' to manage mentors
+                """);
+
+        String input = System.console().readLine();
+        switch (input.toLowerCase()) {
+            case "1", "student":
+                studentManager.HandleStudentManager();
+                break;
+
+            case "2", "teacher":
+                teacherManager.HandleTeacherManager();
+                break;
+
+            case "3", "mentor":
+                mentorManager.HandleTeacherManager();
+                break;
+
+            default:
+                Exceptions.InvalidInputException(input);
+                HandleInput();
+                break;
+        }
     }
 }
+
+//endregion
 
 //region Text Formats
 
@@ -127,7 +180,7 @@ class Logger {
 
     // Log writer
     static void Log(String textFormat, String input) {
-        System.out.printf(STR."\{textFormat}%n", input);
+        System.out.printf(String.format("%s", input));
     }
 }
 
@@ -205,6 +258,8 @@ class Student extends PersonMaster {
     // Variables
     int studentNumber;
 
+    Map<Subject, int> studentSubjects;
+
     // Getters
     public int getStudentNumber() {
         return studentNumber;
@@ -240,20 +295,35 @@ class Student extends PersonMaster {
 
     public void getStudentInfo()
     {
-        Logger.Log(STR."""
-                        Student Name:\{getName()}
-                        Student Age:\{getAge()}
-                        Student Phone Number:\{getPhoneNumber()}
-                        Student E-Mail:\{getEMail()}
-                        Student Address:\{getAddress()}
-                        Student Number:\{getStudentNumber()}
-                        """);
+        Logger.Log(String.format("""
+                        Student Name: %s
+                        Student Age: %s
+                        Student Phone Number: %s
+                        Student E-Mail: %s
+                        Student Address: %s
+                        Student Number: %s
+                        """, personName, getAge(), personPhoneNumber,personEMail, getAddress(), studentNumber));
     }
 }
 
 class Teacher extends PersonMaster {
     // Variables
     int employeeNumber;
+
+    Map<String, Boolean> hoursDeclared = Map.ofEntries(
+            entry("januari", false),
+            entry("februari", false),
+            entry("march", false),
+            entry("april", false),
+            entry("may", false),
+            entry("june", false),
+            entry("juli", false),
+            entry("august", false),
+            entry("september", false),
+            entry("october", false),
+            entry("november", false),
+            entry("december", false)
+    );
 
     // Getters
     public int getEmployeeNumber() {
@@ -265,7 +335,8 @@ class Teacher extends PersonMaster {
         this.employeeNumber = employeeNumber;
     }
 
-    public  Teacher(){}
+    public Teacher() {
+    }
 
     public Teacher(
             String teacherName,
@@ -290,16 +361,29 @@ class Teacher extends PersonMaster {
                 '}';
     }
 
-    public void getTeacherInfo()
-    {
-        Logger.Log(STR."""
-                        Teacher Name:\{getName()}
-                        Teacher Age:\{getAge()}
-                        Teacher Phone Number:\{getPhoneNumber()}
-                        Teacher E-Mail:\{getEMail()}
-                        Teacher Address:\{getAddress()}
-                        Employee Number:\{getEmployeeNumber()}
-                        """);
+    public void getTeacherInfo() {
+        Logger.Log(String.format("""
+                Teacher Name: %s
+                Teacher Age: %s
+                Teacher Phone Number: %s
+                Teacher E-Mail: %s
+                Teacher Address: %s
+                Teacher Number: %s
+                """, personName, getAge(), personPhoneNumber, personEMail, getAddress(), employeeNumber));
+    }
+
+    public void DeclareHour(String month, Boolean hasDeclared) {
+        // Check if the given month is valid
+        if (!hoursDeclared.containsKey(month)) {
+            Logger.LogWarning("Invalid Month!");
+            return;
+        }
+
+        hoursDeclared.put(month, hasDeclared);
+    }
+
+    public Map<String, Boolean> getHoursDeclared() {
+        return hoursDeclared;
     }
 }
 
@@ -336,15 +420,15 @@ class Mentor extends Teacher {
 
     public void getTeacherInfo()
     {
-        Logger.Log(STR."""
-                        Mentor Name:\{getName()}
-                        Mentor Age:\{getAge()}
-                        Mentor Phone Number:\{getPhoneNumber()}
-                        Mentor E-Mail:\{getEMail()}
-                        Mentor Address:\{getAddress()}
-                        Employee Number:\{getEmployeeNumber()}
-                        Mentor Class:\{getMentorClass()}
-                        """);
+        Logger.Log(String.format("""
+                        Mentor Name: %s
+                        Mentor Age: %s
+                        Mentor Phone Number: %s
+                        Mentor E-Mail: %s
+                        Mentor Address: %s
+                        Employee Number: %s
+                        Mentor Class: %s
+                        """, personName, getAge(), personPhoneNumber,personEMail, getAddress(), employeeNumber, mentorClass));
     }
 }
 
@@ -352,9 +436,12 @@ class Mentor extends Teacher {
 
 //region Managers
 
+//region ---- Student Manager
+
 class StudentManager {
 
     // Variables
+    Main main;
     ArrayList<Student> studentList;
     static StudentManager instance;
 
@@ -368,6 +455,7 @@ class StudentManager {
 
     StudentManager() {
         studentList = new ArrayList<>();
+        main = Main.getInstance();
 
         studentList.add(new Student("Student 1", new DateOfBirth(), "06 12341234", "student1@mail.com", new Address("SmithStreet", 1, "Smith Town", "1234AB"), 1234));
         studentList.add(new Student("Student 2", new DateOfBirth(), "06 12341234", "student1@mail.com", new Address("SmithStreet", 1, "Smith Town", "1234AB"), 1235));
@@ -393,6 +481,8 @@ class StudentManager {
                 Enter: '2' / 'remove' to remove given student
                 Enter: '3' / 'list' to show all students
                 Enter: '4' / 'info' to show info of given student
+                Enter: '5' / 'mail' to send a mail to all the students
+                Enter: '6' / 'return' to return to the main functions
                 """);
 
         String input = System.console().readLine();
@@ -411,6 +501,14 @@ class StudentManager {
 
             case "4", "info":
                 StudentInfo();
+                break;
+
+            case "5", "mail":
+                SendMail();
+                break;
+
+            case "6", "return":
+                main.HandleInput();
                 break;
 
             default:
@@ -444,13 +542,13 @@ class StudentManager {
     }
 
     void RemoveStudent() {
-        System.out.println("Which mentor do you wish to remove?");
+        Logger.Log("Which mentor do you wish to remove?");
 
         Student student = GetStudent(System.console().readLine());
 
         // Check if the student is in the list, if not, return back
         if (student == null) {
-            System.out.println("The student couldn't be found!");
+            Logger.LogWarning("The student couldn't be found!");
             HandleStudentManager();
             return;
         }
@@ -464,7 +562,7 @@ class StudentManager {
 
         Logger.Log("All Students:");
         for (Student studentListItem : studentList)
-            Logger.Log(STR."\{studentListItem.toString()}");
+            Logger.Log(studentListItem.toString());
     }
 
     void StudentInfo() {
@@ -474,7 +572,7 @@ class StudentManager {
 
         // Check if the student is in the list, if not, return back
         if (student == null) {
-            System.out.println("The student couldn't be found!");
+            Logger.LogWarning("The student couldn't be found!");
             HandleStudentManager();
             return;
         }
@@ -488,10 +586,40 @@ class StudentManager {
                 .filter(student -> student.getName().equalsIgnoreCase(studentName))
                 .findFirst().orElse(null);
     }
+
+    public void SendMail() {
+        // Go through the entire student list
+        for (Student student : studentList) {
+            // Go through all the subject the student takes, and check if the student has failed the class, if true send the email
+            for (Map.Entry<Subject, int> entry : student.studentSubjects.entrySet()) {
+
+                StringBuilder stringBuilder = new StringBuilder();
+                if (entry.getValue() < 6) {
+                    stringBuilder.append(String.format("%s class grade: %d,\n", entry.getKey(), entry.getValue()));
+                }
+
+                // Check if the string builder is empty, if not send the mail
+                if (!stringBuilder.toString().isEmpty()) {
+                    Mailer.instance.SendMail(student, String.format("""
+                            Dear %s,
+                                                        
+                            You have failed %s, you currently have an %d for this subject.
+                                                        
+                            This is an automated mail, and you don't need to respond back
+                            """, student.personName, stringBuilder, entry.getValue()));
+                }
+            }
+        }
+    }
 }
+
+//endregion
+
+//region ---- Teacher Manager
 
 class TeacherManager {
     // Variables
+    Main main;
     ArrayList<Teacher> teacherList;
 
     static TeacherManager instance;
@@ -506,16 +634,159 @@ class TeacherManager {
 
     TeacherManager() {
         teacherList = new ArrayList<>();
+        main = Main.getInstance();
     }
 
     // Getters
-    public ArrayList<Teacher> getStudentList() {
+    public ArrayList<Teacher> getTeacherList() {
         return teacherList;
+    }
+
+    public void HandleTeacherManager() {
+        Logger.Log("""
+                Teacher Settings:
+                Enter: '1' / 'create' to make a new teacher
+                Enter: '2' / 'remove' to remove given teacher
+                Enter: '3' / 'list' to show all teacher
+                Enter: '4' / 'info' to show info of given teacher
+                Enter: '5' / 'mail' to send a mail to all the teachers
+                Enter: '6' / 'return' to return to the main functions
+                """);
+
+        String input = System.console().readLine();
+        switch (input.toLowerCase()) {
+            case "1", "create":
+                AddTeacher();
+                break;
+
+            case "2", "remove":
+                RemoveTeacher();
+                break;
+
+            case "3", "list":
+                TeacherList();
+                break;
+
+            case "4", "info":
+                TeacherInfo();
+                break;
+
+            case "5", "mail":
+                SendMail();
+                break;
+
+            case "6", "return":
+                main.HandleInput();
+                break;
+
+            default:
+                Exceptions.InvalidInputException(input);
+                HandleTeacherManager();
+                break;
+        }
+    }
+
+    void AddTeacher() {
+        String teacherName = Functions.TryParseInfoString("Enter Teacher Name: IE: John Smith", TextFormatting.namePattern);
+        Logger.Log("Enter Teacher Age: IE: 16");
+        DateOfBirth teacherAge = new DateOfBirth();
+        String teacherPhoneNumber = Functions.TryParseInfoString("Enter Teacher Phone Number: IE: 06 12341234", TextFormatting.phoneNumberPattern);
+        String teacherEMail = Functions.TryParseInfoString("Enter Teacher E-Mail Address: IE: John@Smith.com", TextFormatting.eMailPattern);
+        Logger.Log("Enter Teacher Address: IE: SmithStreet a05");
+        Address teacherAddress = new Address("", 1, "", "");
+        String teacherResidence = Functions.TryParseInfoString("Enter Teacher City Of Residence: SmithCity", TextFormatting.residencePattern);
+        int employeeNumber = Functions.TryParseInfoInt("Enter Employee Number: IE: 12341234");
+
+        Teacher teacher = new Teacher(teacherName, teacherAge, teacherPhoneNumber, teacherEMail, teacherAddress, employeeNumber);
+
+        // Check if the student is valid, or if a student with the given name already exists
+        if (GetTeacher(teacher.getName()) != null) {
+            System.out.println("The teacher already exists!");
+            HandleTeacherManager();
+            return;
+        }
+
+        teacherList.add(teacher);
+    }
+
+    void RemoveTeacher() {
+        Logger.Log("Which mentor do you wish to remove?");
+
+        Teacher teacher = GetTeacher(System.console().readLine());
+
+        // Check if the student is in the list, if not, return back
+        if (teacher == null) {
+            Logger.LogWarning("The teacher couldn't be found!");
+            HandleTeacherManager();
+            return;
+        }
+
+        // Otherwise remove the student from the list
+        teacherList.remove(teacher);
+    }
+
+    void TeacherList() {
+        if (teacherList.isEmpty()) return;
+
+        Logger.Log("All Teachers:");
+        for (Teacher teacher : teacherList)
+            Logger.Log(teacher.toString());
+    }
+
+    void TeacherInfo() {
+        Logger.Log("Which teacher do you wish to see the information of?");
+
+        Teacher teacher = GetTeacher(System.console().readLine());
+
+        // Check if the student is in the list, if not, return back
+        if (teacher == null) {
+            Logger.LogWarning("The teacher couldn't be found!");
+            HandleTeacherManager();
+            return;
+        }
+
+        teacher.getTeacherInfo();
+    }
+
+    public void SendMail() {
+        // Go through the entire teacher list
+        for (Teacher teacher : teacherList) {
+            // Go through all the subject the student takes, and check if the student has failed the class, if true send the email
+            for (Map.Entry<String, Boolean> entry : teacher.hoursDeclared.entrySet()) {
+                StringBuilder stringBuilder = new StringBuilder();
+                if (!entry.getValue()) {
+                        stringBuilder.append(String.format("%s,\n", entry.getKey()));
+                }
+
+                // Check if the string builder is empty, if not send the mail
+                if(!stringBuilder.toString().isEmpty())                {
+                    Mailer.instance.SendMail(teacher, String.format("""
+                            Dear %s,
+                                                        
+                            You have not yet filled the months of: %s please do so as soon as possible
+                                                        
+                            This is an automated mail, and you don't need to respond back
+                            """, teacher.personName, stringBuilder));
+                }
+            }
+        }
+    }
+
+    Teacher GetTeacher(String teacherName) {
+        // Get first teacher with given name, return null if it isn't in the list
+        return teacherList.stream()
+                .filter(teacher -> teacher.getName().equalsIgnoreCase(teacherName))
+                .findFirst().orElse(null);
     }
 }
 
+//endregion
+
+//region ---- Mentor Manager
+
 class MentorManager extends TeacherManager {
     // Variables
+    Main main;
     ArrayList<Mentor> mentorList;
 
     static MentorManager instance;
@@ -529,6 +800,7 @@ class MentorManager extends TeacherManager {
 
     MentorManager() {
         mentorList = new ArrayList<>();
+        main = Main.getInstance();
     }
 
     public ArrayList<Mentor> getMentorList() {
@@ -538,6 +810,7 @@ class MentorManager extends TeacherManager {
 
 class ClassroomManager {
     // Variables
+    Main main;
     ArrayList<Classroom> classrooms;
 
     static ClassroomManager instance;
@@ -553,6 +826,7 @@ class ClassroomManager {
     public ClassroomManager()
     {
         classrooms = new ArrayList<>();
+        main = Main.getInstance();
 
         classrooms.add(new Classroom("Class 1"));
         classrooms.add(new Classroom("Class 2"));
@@ -565,6 +839,8 @@ class ClassroomManager {
         return classrooms;
     }
 }
+
+//endregion
 
 //endregion
 
@@ -612,6 +888,53 @@ class Classroom {
                 "classroomName='" + classroomName + '\'' +
                 ", classMentor=" + classMentor +
                 '}';
+    }
+}
+
+//endregion
+
+//region Mailer
+
+class Mailer{
+
+    static Mailer instance;
+
+    public static Mailer getInstance() {
+        if (instance == null) {
+            instance = new Mailer();
+        }
+
+        return instance;
+    }
+
+    // Since both teachers and students are derived from PersonMaster, use it as the input
+    public void SendMail(PersonMaster person, String eMailContent)    {
+        Logger.Log(String.format("""
+                Send Mail to: %s
+                Email Content:
+                %s
+                """, person.getEMail(), eMailContent));
+
+    }
+}
+
+//endregion
+
+//region Subject
+
+class Subject{
+    String subjectName;
+    Teacher subjectTeacher;
+    int subjectMaxStudentCount = 10;
+
+    public String getSubjectName(){
+        return subjectName;
+    }
+
+    public Subject(String subjectName,    Teacher subjectTeacher,    int subjectMaxStudentCount) {
+        this.subjectName = subjectName;
+        this.subjectTeacher = subjectTeacher;
+        this.subjectMaxStudentCount = subjectMaxStudentCount;
     }
 }
 
@@ -702,7 +1025,7 @@ class Functions {
         if (!userInput.isEmpty() && textPattern.matcher(userInput).find())
             return userInput;
         else {
-            Logger.LogError(STR."Invalid Input: \{userInput}");
+            Exceptions.InvalidInputException(userInput);
             return TryParseInfoString(printText, textPattern);
         }
     }
@@ -736,20 +1059,20 @@ class Functions {
         // Check if the given string ends with punctuation, if true just return it, otherwise add a dot to the end
         if (string.matches(".*\\p{Punct}")) return string;
         else
-            return STR."\{string}.";
+            return String.format("%s.",string);
     }
 
     static String capitalize(String string) {
         // Get the first character of the string, make that uppercase, then add the remaining text after it
         if (string.isEmpty()) return string;
         else
-            return STR."\{string.substring(0, 1).toUpperCase()}\{string.substring(1)}";
+            return String.format("%s%s",string.substring(0, 1).toUpperCase(),string.substring(1));
     }
 
     static String toTitleCase(String string) {
         StringBuilder stringBuilder = new StringBuilder();
         for (String stringPart : string.toLowerCase().split(" "))
-            stringBuilder.append(STR."\{capitalize(stringPart)} ");
+            stringBuilder.append(String.format("%s ",capitalize(stringPart)));
 
         return stringBuilder.toString();
     }
@@ -779,12 +1102,8 @@ class Exceptions {
 
     //region Invalid Input
 
-    public static void InvalidInputException() {
-        ThrowException("Invalid Input!");
-    }
-
     public static void InvalidInputException(String input) {
-        ThrowException(STR."Invalid Input:\{input}!");
+        ThrowException(String.format("Invalid Input: %s!", input));
     }
 
     //endregion
