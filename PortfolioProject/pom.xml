@@ -11,7 +11,7 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>PortfolioProject.Console</module>
+        <module>PortfolioProject.Output</module>
         <module>PortfolioProject.Connect</module>
         <module>PortfolioProject.Core</module>
         <module>PortfolioProject.DataObjects</module>
