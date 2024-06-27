@@ -1,0 +1,11 @@
+bed_xxABC – These are ambient tracks that play while you explore. ‘xx’ is an arbitrary number which is tied to different maps within areas, the ‘ABC’ is abbreviations of locations. For example, ‘ebo’ is Ebon Hawk; ‘per’ is Peragus; ‘dan’ is Dantoine etc
+
+mus_a_xx – These are event specific tracks. The ‘xx’ is an arbitrary number which is tied to events. For example, ‘mus_a_261’ plays when you crash into the Polar Area of Telos.
+
+mus_bat_xx – These are cacophonous and horrifying battle tracks. The ‘xx’ is an arbitrary number to differentiate the music for each battle. I don’t know which one is which since I hate them all, but “mus_bat_000” will play when you fight the droids on Peragus, and ‘mus_bat_final” plays when you fight Kreia on Malachor etc.
+
+mus_s_whatever – These are short (‘s’) tracks that reoccur occasionally. The ‘whatever’ is the instance it’s tied to. Each of these are pretty self explanatory – for example ‘mus_s_darkside’ plays when you get darkside points. ‘mus_s_romance’ plays during your character romance etc etc.
+
+mus_sbat_xx – These are very short sequences that allow the respective battle track to end naturally when you exit combat.
+
+There are some other themes in the folder too. “mus_sion” is the MENU piece (which we’ll use in the next steps as an example). “Mus_traya” is Traya’s theme etc etc you can work the rest out I believe in u.

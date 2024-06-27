@@ -1,0 +1,17 @@
+
+v	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(º÷ôò8ÊÔİ³…2
+u	java:S116"TRename this field "TESTImage" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÕÇ÷şÿÿÿÿ8ÓÔİ³…2
+f
+java:S3252"IUse static access with "javax.swing.WindowConstants" for "EXIT_ON_CLOSE".(¢¡´8Î±Å´…2
+B
+java:S1128"%Remove this unused import 'java.awt'.(ï´µ©8×Ôİ³…2
+M
+java:S1128"+Remove this unused import 'java.awt.event'.(Ã®ÎÙÿÿÿÿÿ8ØÔİ³…2
+V
+java:S1128"9Remove this unused import 'java.awt.image.ImageObserver'.(¥Óô”8ØÔİ³…2
+[
+java:S1128"9Remove this unused import 'java.awt.image.ImageProducer'.(ô³¸Ûüÿÿÿÿ8ØÔİ³…2
+S
+java:S1068"1Remove this unused "registerLabel" private field.(Ñ­¾áıÿÿÿÿ8ØÔİ³…2
+O
+java:S1068"-Remove this unused "TESTImage" private field.(ÕÇ÷şÿÿÿÿ8ØÔİ³…2

@@ -67,12 +67,24 @@ public class Enums {
     //region Game State
 
     // Current game state
+
     public enum gameState{
         GAME_STATE_INITIALIZE,
         GAME_STATE_PLAYER_TURN,
         GAME_STATE_ENTITY_TURN,
         GAME_STATE_VICTORY,
         GAME_STATE_LOSS
+    }
+
+    //endregion
+
+    //region Audio
+
+    public enum audioType{
+        AUDIO_TYPE_MASTER,
+        AUDIO_TYPE_MUSIC,
+        AUDIO_TYPE_SFX,
+        AUDIO_TYPE_DIALOGUE
     }
 
     //endregion

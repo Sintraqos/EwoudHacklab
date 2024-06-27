@@ -1,0 +1,25 @@
+
+x
+java:S1104"VMake windowName a static final constant or non-public and provide accessors if needed.(οÒωψÿÿÿÿ8νώ’Ω…2
+t
+java:S1104"WMake windowSizeX a static final constant or non-public and provide accessors if needed.(Σƒ¥—8νώ’Ω…2
+t
+java:S1104"WMake windowSizeY a static final constant or non-public and provide accessors if needed.(α•’Ρ8νώ’Ω…2
+}
+java:S1104"[Make defaultFontSize a static final constant or non-public and provide accessors if needed.(›®ΗΤωÿÿÿÿ8νώ’Ω…2
+x
+java:S1104"[Make defaultIconSize a static final constant or non-public and provide accessors if needed.(ρϋ΅–8νώ’Ω…2
+€
+java:S1104"^Make defaultButtonSizeX a static final constant or non-public and provide accessors if needed.(±™άΕόÿÿÿÿ8νώ’Ω…2
+{
+java:S1104"^Make defaultButtonSizeY a static final constant or non-public and provide accessors if needed.(ΆΖή8νώ’Ω…2
+u
+java:S1104"XMake masterVolume a static final constant or non-public and provide accessors if needed.(§Ηζο8νώ’Ω…2
+t
+java:S1104"WMake musicVolume a static final constant or non-public and provide accessors if needed.(γΐπ8νώ’Ω…2
+q
+java:S1104"UMake sfxVolume a static final constant or non-public and provide accessors if needed.(¦Τφi8νώ’Ω…2
+v
+java:S1104"ZMake dialogueVolume a static final constant or non-public and provide accessors if needed.(ύ¥‰<8νώ’Ω…2
+{	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(θΡΙψÿÿÿÿ8νώ’Ω…2
+j	java:S100"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ΰ¤όχ8οώ’Ω…2

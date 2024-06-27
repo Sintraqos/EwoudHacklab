@@ -1,0 +1,13 @@
+{
+  "windowName": "Game Window",
+  "windowSizeX": 1600,
+  "windowSizeY": 1200,
+  "defaultFontSize": 25,
+  "defaultIconSize": 50,
+  "defaultButtonSizeX": 200,
+  "defaultButtonSizeY": 50,
+  "masterVolume": 0.15,
+  "musicVolume": 1.0,
+  "sfxVolume": 1.0,
+  "dialogueVolume": 1.0
+}
