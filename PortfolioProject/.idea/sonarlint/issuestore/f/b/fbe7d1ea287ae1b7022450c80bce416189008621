@@ -1,0 +1,9 @@
+
+w
+java:S1450"bRemove the "itemWeaponMaxDamage" field and declare it as a local variable in the relevant methods.(—·¯a
+}
+java:S1450"bRemove the "itemWeaponMinDamage" field and declare it as a local variable in the relevant methods.(Î¨¾âüÿÿÿÿ
+R
+java:S1068"7Remove this unused "itemWeaponMinDamage" private field.(Î¨¾âüÿÿÿÿ
+L
+java:S1068"7Remove this unused "itemWeaponMaxDamage" private field.(—·¯a

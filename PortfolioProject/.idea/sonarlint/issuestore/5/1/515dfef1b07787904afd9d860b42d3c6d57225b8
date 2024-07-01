@@ -1,0 +1,20 @@
+
+h	java:S112"FDefine and throw a dedicated exception instead of using a generic one.(Ò‚Òéüÿÿÿÿ8Ñ†’÷†2
+x
+java:S2095l"VUse try-with-resources or close this "ScheduledExecutorService" in a "finally" clause.(ú²Ó¸ûÿÿÿÿ8‚‡’÷†2
+x
+java:S2095["VUse try-with-resources or close this "ScheduledExecutorService" in a "finally" clause.(ú²Ó¸ûÿÿÿÿ8‚‡’÷†2
+x
+java:S2095x"VUse try-with-resources or close this "ScheduledExecutorService" in a "finally" clause.(ú²Ó¸ûÿÿÿÿ8‚‡’÷†2
+c
+java:S2438\"AReplace "argument 1" of type Thread with an instance of Runnable.(Ñ‰úßúÿÿÿÿ8’‡’÷†2
+^
+java:S2438]"AReplace "argument 1" of type Thread with an instance of Runnable.(í¨½ø8’‡’÷†2
+c
+java:S2438m"AReplace "argument 1" of type Thread with an instance of Runnable.(œÍÙƒÿÿÿÿÿ8”‡’÷†2
+^
+java:S2438y"AReplace "argument 1" of type Thread with an instance of Runnable.(Œ–ÀÇ8–‡’÷†2
+|
+java:S2142"^Either re-interrupt this method or rethrow the "InterruptedException" that can be caught here.(ä ¹€8˜‡’÷†2
+p	java:S100„"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(­ºòÑøÿÿÿÿ8§‡’÷†2
+Y	java:S125Š"<This block of commented-out lines of code should be removed.(‰×Äâ8¨‡’÷†2

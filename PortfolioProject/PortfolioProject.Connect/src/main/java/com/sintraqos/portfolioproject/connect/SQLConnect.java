@@ -18,7 +18,7 @@ public class SQLConnect extends ConnectBase {
     public SQLConnect() {
 
         // Get current settings and apply where needed
-        HandleSettings();
+        handleSettings();
 
         // Make connection to the database
         try (Connection con = DriverManager
@@ -63,11 +63,11 @@ public class SQLConnect extends ConnectBase {
     }
 
     @Override
-    public void Connect() {
+    public void connect() {
 
     }
 
-    void HandleSettings() {
+    void handleSettings() {
 
         settings = new SQLSettings();
 
@@ -135,6 +135,7 @@ class SQLSettings implements java.io.Serializable{
     public void setDbUser(String dbUser){this.dbUser = dbUser;}
     public void setDbPassword(String dbPassword){this.dbPassword = dbPassword;}
     public void setDbRootPassword(String dbRootPassword){this.dbRootPassword = dbRootPassword;}
+    
     public void setDbVariables(SQLSettings sqlSettings)    {
         dbAddress = sqlSettings.dbAddress;
         dbPort = sqlSettings.dbPort;

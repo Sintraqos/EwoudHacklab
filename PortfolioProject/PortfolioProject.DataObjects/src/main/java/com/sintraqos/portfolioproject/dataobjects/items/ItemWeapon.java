@@ -8,7 +8,7 @@ public class ItemWeapon extends ItemEquipable {
     private int itemWeaponMaxDamage = 6;
     private Enums.itemWeaponDamageType itemWeaponDamageType;
 
-    public void Setup(
+    public void setup(
             int itemID,
             String itemName,
             String itemDescription,
@@ -18,7 +18,7 @@ public class ItemWeapon extends ItemEquipable {
             Enums.itemWeaponDamageType itemWeaponDamageType
     ) {
         // Setup the item base
-        Setup(itemID, itemName, itemDescription, com.sintraqos.portfolioproject.statics.Enums.itemArmorSlot.ITEM_ARMOR_SLOT_NONE, itemWeaponSlot);
+        setup(itemID, itemName, itemDescription, com.sintraqos.portfolioproject.statics.Enums.itemArmorSlot.ITEM_ARMOR_SLOT_NONE, itemWeaponSlot);
 
         this.itemWeaponMinDamage = itemWeaponMinDamage;
         this.itemWeaponMaxDamage = itemWeaponMaxDamage;

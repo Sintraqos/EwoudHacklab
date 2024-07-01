@@ -1,0 +1,8 @@
+
+g	java:S101"MRename this class name to match the regular expression '^[A-Z][a-zA-Z0-9]*$'.(µÿà«ýÿÿÿÿ
+G
+java:S1068"*Remove this unused "panel1" private field.(–¾Ê‰8¨âƒÚ†2
+H
+java:S1068"+Remove this unused "button1" private field.(Ý¢ÈÒ8âú„Ú†2
+H
+java:S1068"+Remove this unused "button2" private field.(”µ±‘8ä“…Ú†2

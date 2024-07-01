@@ -1,0 +1,35 @@
+
+|
+java:S1192`"`Use already-defined constant 'OST_AMBIENT_PREFIX_PERAGUS' instead of duplicating its value here.(¾ëÃ8Õö¯‚†2
+}
+java:S1192]"`Use already-defined constant 'OST_AMBIENT_PREFIX_RAVAGER' instead of duplicating its value here.(ğ¤ë8Öö¯‚†2
+€
+java:S1192V"dUse already-defined constant 'OST_AMBIENT_PREFIX_NAR_SHADDAA' instead of duplicating its value here.(‰ÓÚ:8Öö¯‚†2
+~
+java:S1192T"aUse already-defined constant 'OST_AMBIENT_PREFIX_KORRIBAN' instead of duplicating its value here.(¥¼”¼8Öö¯‚†2
+
+java:S1192\"bUse already-defined constant 'OST_AMBIENT_PREFIX_HARBINGER' instead of duplicating its value here.(‘â¼ƒ8Öö¯‚†2
+…
+java:S1192U"cUse already-defined constant 'OST_AMBIENT_PREFIX_MALACHOR_V' instead of duplicating its value here.(ÄŸşÂşÿÿÿÿ8Öö¯‚†2
+{
+java:S1192X"^Use already-defined constant 'OST_AMBIENT_PREFIX_TELOS' instead of duplicating its value here.(ıü¬€8Öö¯‚†2
+z
+java:S1192S"]Use already-defined constant 'OST_AMBIENT_PREFIX_DXUN' instead of duplicating its value here.(êòõ„8Öö¯‚†2
+‚
+java:S1192W"`Use already-defined constant 'OST_AMBIENT_PREFIX_ONDERON' instead of duplicating its value here.(ìªêúÿÿÿÿ8Öö¯‚†2
+
+java:S1192R"bUse already-defined constant 'OST_AMBIENT_PREFIX_DANTOOINE' instead of duplicating its value here.(êÏ˜ù8Öö¯‚†2
+„
+java:S1192["bUse already-defined constant 'OST_AMBIENT_PREFIX_EBON_HAWK' instead of duplicating its value here.(Èú™õúÿÿÿÿ8Öö¯‚†2
+‘
+java:S1319O"tThe type of "OST_AMBIENT_PREFIXES" should be an interface such as "List" rather than the implementation "ArrayList".(°º¼8×ö¯‚†2
+:
+java:S2386O"Make this member "protected".(°º¼8Ùö¯‚†2
+\
+java:S1118":Add a private constructor to hide the implicit public one.(…Òûƒıÿÿÿÿ8®ç­‚†2
+c
+java:S1075&"ARefactor your code to get this URI from a customizable parameter.(¢áúËùÿÿÿÿ8¯ç­‚†2
+I
+java:S3599O",Use another way to initialize this instance.(°º¼8Ûö¯‚†2
+{
+java:S1171P"YMove the contents of this initializer to a standard constructor or to field initializers.(ÒÌâ–øÿÿÿÿ8Üö¯‚†2

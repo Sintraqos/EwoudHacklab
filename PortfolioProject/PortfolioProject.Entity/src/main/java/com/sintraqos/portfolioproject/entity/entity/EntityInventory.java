@@ -2,11 +2,12 @@ package com.sintraqos.portfolioproject.entity.entity;
 
 import com.sintraqos.portfolioproject.dataobjects.items.InventoryItem;
 import java.util.ArrayList;
+import java.util.List;
 
 public class EntityInventory {
-    private ArrayList<InventoryItem> entityInventory;
+    private final List<InventoryItem> entityInventory;
 
-    public ArrayList<InventoryItem> getEntityInventory() {
+    public List<InventoryItem> getEntityInventory() {
         return entityInventory;
     }
 
@@ -14,7 +15,7 @@ public class EntityInventory {
         entityInventory = new ArrayList<>();
     }
 
-    public EntityInventory(ArrayList<InventoryItem> entityInventory) {
+    public EntityInventory(List<InventoryItem> entityInventory) {
         this.entityInventory = entityInventory;
     }
 }

@@ -88,4 +88,15 @@ public class Enums {
     }
 
     //endregion
+
+    //region Screen
+
+    public enum activeScreen{
+        ACTIVE_SCREEN_MAIN_MENU,
+        ACTIVE_SCREEN_CHARACTER_SCREEN,
+        ACTIVE_SCREEN_OPTIONS_SCREEN,
+        ACTIVE_SCREEN_LOAD_GAME_SCREEN,
+    }
+
+    //endregion
 }

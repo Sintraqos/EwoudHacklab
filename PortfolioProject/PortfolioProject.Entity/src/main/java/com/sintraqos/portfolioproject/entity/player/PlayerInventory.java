@@ -9,11 +9,11 @@ public class PlayerInventory extends EntityInventory {
     // Add Item
 
     // Different add item scenarios
-    public void AddItem(Item item) {
-        AddItem(item, 1);
+    public void addItem(Item item) {
+        addItem(item, 1);
     }
 
-    public void AddItem(Item item, int itemCount) {
+    public void addItem(Item item, int itemCount) {
         // Check if there is an item with the given ID in the item list
         // If the item exists, add it to the inventory
         // If the item exists, check if the inventory has the given item in the inventory
@@ -29,11 +29,11 @@ public class PlayerInventory extends EntityInventory {
     }
 
     // Remove item
-    public boolean RemoveItem(Item item) {
-        return RemoveItem(item, 1);
+    public boolean removeItem(Item item) {
+        return removeItem(item, 1);
     }
 
-    public boolean RemoveItem(Item item, int itemCount) {
+    public boolean removeItem(Item item, int itemCount) {
         // Check if the player has the item in their inventory
         InventoryItem inventoryItem = getEntityInventory().stream()
                 .filter(itemListObject -> itemListObject.item == item)
@@ -43,8 +43,9 @@ public class PlayerInventory extends EntityInventory {
             inventoryItem.itemCount -= itemCount;
 
             // If the inventory item doesn't have a count remove it from the list so it doesn't stay around
-            if (inventoryItem.itemCount < 1)
-                getEntityInventory().remove(item);
+            if (inventoryItem.itemCount < 1) {
+                getEntityInventory().remove(inventoryItem);
+            }
 
             return true;
         }

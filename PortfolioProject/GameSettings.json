@@ -1,13 +1,27 @@
 {
   "windowName": "Game Window",
-  "windowSizeX": 1600,
-  "windowSizeY": 1200,
+  "windowSize": {
+    "width": 1920,
+    "height": 1080
+  },
   "defaultFontSize": 25,
-  "defaultIconSize": 50,
-  "defaultButtonSizeX": 200,
-  "defaultButtonSizeY": 50,
-  "masterVolume": 0.15,
+  "defaultIconSize": 64,
+  "defaultButtonSizeX": 512,
+  "defaultButtonSizeY": 64,
+  "masterVolume": 0,
   "musicVolume": 1.0,
   "sfxVolume": 1.0,
-  "dialogueVolume": 1.0
+  "dialogueVolume": 1.0,
+  "gameTickSpeed": 60,
+  "guiTickSpeed": 60,
+  "keyBindings": {
+    "Move Forward": "W",
+    "Move Left": "A",
+    "Move Right": "D",
+    "Move Back": "S",
+    "Pause": "Space",
+    "Inventory": "I",
+    "Character Screen": "C",
+    "Escape Menu": "Escape"
+  }
 }

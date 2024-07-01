@@ -13,7 +13,7 @@ public class ConnectBase {
         return instance;
     }
 
-    public void Connect(){
+    public void connect(){
         // Base connect functionality
         // Call from other scripts
     }

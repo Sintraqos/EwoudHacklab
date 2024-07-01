@@ -9,8 +9,8 @@ public class ItemEquipable extends Item{
 
     private ArrayList<Enums.itemUpgradeSlot> itemUpgradeSlots;
 
-    public void Setup(int itemID, String itemName, String itemDescription, Enums.itemArmorSlot itemArmorSlot, Enums.itemWeaponSlot itemWeaponSlot) {
-    Setup(itemID, itemName, itemDescription);
+    public void setup(int itemID, String itemName, String itemDescription, Enums.itemArmorSlot itemArmorSlot, Enums.itemWeaponSlot itemWeaponSlot) {
+    setup(itemID, itemName, itemDescription);
 
         this.itemArmorSlot = itemArmorSlot;
         this.itemWeaponSlot = itemWeaponSlot;

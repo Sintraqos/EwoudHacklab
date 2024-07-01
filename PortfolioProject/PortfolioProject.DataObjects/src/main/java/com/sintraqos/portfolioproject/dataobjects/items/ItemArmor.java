@@ -10,7 +10,7 @@ public class ItemArmor extends ItemEquipable {
         return itemArmorValue;
     }
 
-    public void Setup(
+    public void setup(
             int itemID,
             String itemName,
             String itemDescription,
@@ -19,7 +19,7 @@ public class ItemArmor extends ItemEquipable {
             Enums.itemArmorType itemArmorType
     ) {
         // Setup the item base
-        Setup(itemID, itemName, itemDescription, itemArmorSlot, Enums.itemWeaponSlot.ITEM_WEAPON_SLOT_NONE);
+        setup(itemID, itemName, itemDescription, itemArmorSlot, Enums.itemWeaponSlot.ITEM_WEAPON_SLOT_NONE);
 
         this.itemArmorValue = itemArmorValue;
         this.itemArmorType = itemArmorType;

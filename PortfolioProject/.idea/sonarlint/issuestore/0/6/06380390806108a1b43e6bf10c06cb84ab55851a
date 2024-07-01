@@ -1,0 +1,16 @@
+
+`	java:S112Z"FDefine and throw a dedicated exception instead of using a generic one.(Ò‚Òéüÿÿÿÿ
+`	java:S112e"FDefine and throw a dedicated exception instead of using a generic one.(Ò‚Òéüÿÿÿÿ
+—
+java:S1186B"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(‰¦àý
+Q	java:S125"<This block of commented-out lines of code should be removed.(ù‡âÞ
+V	java:S125;"<This block of commented-out lines of code should be removed.(€Î¾çþÿÿÿÿ
+Q
+java:S2696K"6Make the enclosing method "static" or remove this set.(ÀñÙ®þÿÿÿÿ
+P	java:S125R"<This block of commented-out lines of code should be removed.(Á´ðo
+P	java:S125W"<This block of commented-out lines of code should be removed.(Øà:
+V	java:S125Y"<This block of commented-out lines of code should be removed.(ÕòÞÌúÿÿÿÿ
+Q	java:S125_"<This block of commented-out lines of code should be removed.(Ôë’¶
+V	java:S125b"<This block of commented-out lines of code should be removed.(ã¦›Œùÿÿÿÿ
+V	java:S125d"<This block of commented-out lines of code should be removed.(Œ—ú´ûÿÿÿÿ
+V	java:S125j"<This block of commented-out lines of code should be removed.(ø°õŠÿÿÿÿÿ

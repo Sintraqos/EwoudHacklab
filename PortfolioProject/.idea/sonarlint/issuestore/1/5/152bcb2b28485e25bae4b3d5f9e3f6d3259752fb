@@ -1,0 +1,9 @@
+
+a
+java:S2095$"DUse try-with-resources or close this "Stream" in a "finally" clause.(Ð´‰†8Ñ Óƒ†2
+?
+java:S2386"Make this member "protected".(ð¡ò™øÿÿÿÿ8Ó Óƒ†2
+o
+java:S6204'"RReplace this usage of 'Stream.collect(Collectors.toList())' with 'Stream.toList()'(ª™¨¹8Ö Óƒ†2
+[
+java:S1612&"9Replace this lambda with method reference 'Path::toFile'.(ˆÞ¥„øÿÿÿÿ8Ø Óƒ†2

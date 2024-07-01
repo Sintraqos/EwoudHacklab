@@ -5,6 +5,18 @@ import com.sintraqos.portfolioproject.output.Console;
 import java.util.ArrayList;
 
 public class ItemManager {
+
+    // Get instance
+    static ItemManager instance;
+
+    public static ItemManager getInstance() {
+        if (instance == null) {
+            instance = new ItemManager();
+        }
+
+        return instance;
+    }
+
     static ArrayList<Item> itemList;
     static ArrayList<ItemEquipable> itemEquipableList;
     static ArrayList<ItemArmor> itemArmorList;
@@ -12,15 +24,9 @@ public class ItemManager {
     static ArrayList<ItemUpgradeResource> itemUpgradeResourceList;
 
 
-    public ItemManager() {
-        Console.StringTitleOutput("Initializing ItemManager");
-        itemList = new ArrayList<>();
-        itemEquipableList = new ArrayList<>();
-        itemArmorList = new ArrayList<>();
-        itemWeaponList = new ArrayList<>();
-        itemUpgradeResourceList = new ArrayList<>();
-
-        Console.StringOutput("Finished setting up ItemManager");
+    ItemManager() {
+        Console.StringTitleOutput("Initializing Item Manager");
+        Console.StringOutput("Finished setting up Item Manager");
     }
 
     //region Get Item
@@ -56,10 +62,7 @@ public class ItemManager {
     }
 
     public  static boolean isValidItem(int itemID) {
-        if (getItem(itemID) != null)
-            return true;
-        else
-            return false;
+        return getItem(itemID) != null;
     }
 
     //endregion
