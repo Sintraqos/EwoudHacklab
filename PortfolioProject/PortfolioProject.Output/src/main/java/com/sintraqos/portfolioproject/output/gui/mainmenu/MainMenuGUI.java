@@ -9,6 +9,7 @@ import com.sintraqos.portfolioproject.statics.ResourcePaths;
 import java.awt.event.*;
 
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import javax.swing.JPanel;
 
 public class MainMenuGUI extends GUIScreen {    // GUI Components
@@ -16,17 +17,18 @@ public class MainMenuGUI extends GUIScreen {    // GUI Components
     JPanel titleScreenLogo;
     JPanel newGameButton;
     JPanel loadGameButton;
+    JPanel musicButton;
     JPanel optionsButton;
     JPanel quitGameButton;
-
-    int guiPadding = 25;
 
     // Setup
     public MainMenuGUI() {
         setup(rootPanel);
 
+        int guiPadding = (int) (25 * getGameGUIManager().getGUIScale());
+
         // Logo
-        titleScreenLogo = setParent(rootPanel,addUnscaledLabel((int) (640 * getGameGUIManager().getGUIScale()), (int) (320 * getGameGUIManager().getGUIScale()), "", ResourcePaths.TITLE_SCREEN_LOGO, (int) (guiPadding * getGameGUIManager().getGUIScale())));
+        titleScreenLogo = setParent(rootPanel, addPadding(addUnscaledLabel((int) (640 * getGameGUIManager().getGUIScale()), (int) (320 * getGameGUIManager().getGUIScale()), "", ResourcePaths.TITLE_SCREEN_LOGO), guiPadding));
 
         // Button
 
@@ -36,6 +38,9 @@ public class MainMenuGUI extends GUIScreen {    // GUI Components
         };
         // Load Game
         ActionListener loadGameListener = e -> {
+        };
+        // Music
+        ActionListener musicListener = e -> {
         };
         // Options
         ActionListener optionsListener = e -> {
@@ -50,12 +55,12 @@ public class MainMenuGUI extends GUIScreen {    // GUI Components
         // Create buttons
         int fixedButtonSizeX = (int) (getSettings().getDefaultButtonSizeX() * getGameGUIManager().getGUIScale());
         int fixedButtonSizeY = (int) (getSettings().getDefaultButtonSizeY() * getGameGUIManager().getGUIScale());
-        int fixedButtonPadding = (int) (guiPadding * getGameGUIManager().getGUIScale());
 
-        newGameButton =         setParent(rootPanel,addButton(fixedButtonSizeX, fixedButtonSizeY, "New Game", fixedButtonPadding, newGameListener));
-        loadGameButton =         setParent(rootPanel,addButton(fixedButtonSizeX, fixedButtonSizeY, "Load Game", fixedButtonPadding, loadGameListener));
-        optionsButton =         setParent(rootPanel,addButton(fixedButtonSizeX, fixedButtonSizeY, "Options", fixedButtonPadding, optionsListener));
-        quitGameButton =         setParent(rootPanel,addButton(fixedButtonSizeX, fixedButtonSizeY, "Quit Game", fixedButtonPadding, quitGameListener));
+        newGameButton = setParent(rootPanel, addPadding(addButton(fixedButtonSizeX, fixedButtonSizeY, "New Game", newGameListener), guiPadding));
+        loadGameButton = setParent(rootPanel, addPadding(addButton(fixedButtonSizeX, fixedButtonSizeY, "Load Game", loadGameListener), guiPadding));
+        musicButton = setParent(rootPanel, addPadding(addButton(fixedButtonSizeX, fixedButtonSizeY, "Music", musicListener), guiPadding));
+        optionsButton = setParent(rootPanel, addPadding(addButton(fixedButtonSizeX, fixedButtonSizeY, "Options", optionsListener), guiPadding));
+        quitGameButton = setParent(rootPanel, addPadding(addButton(fixedButtonSizeX, fixedButtonSizeY, "Quit Game", quitGameListener), guiPadding));
 
         // Apply settings to the window
         setWindowSize();

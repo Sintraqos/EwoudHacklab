@@ -187,6 +187,7 @@ public class GameGUIManager {
 
     //region Get / Set Image
 
+    // Set Image
     public void setImage(GUI_JPanelBackground panel, String imageName, int imageWidth, int imageHeight) {
         panel.setImage(getImage(imageName, imageWidth, imageHeight));
         panel.setOpaque(true);
@@ -212,6 +213,7 @@ public class GameGUIManager {
         panelBackground.setOpaque(true);
     }
 
+    // Get Image
     Image getImage(String imageName, int imageWidth, int imageHeight) {
         if (!scaledSprites.containsKey(imageName + imageWidth + imageHeight)) {
             scaledSprites.put(imageName + imageWidth + imageHeight, Functions.sliceImage(baseSpites.get(imageName), imageWidth, imageHeight));
@@ -220,8 +222,8 @@ public class GameGUIManager {
         return scaledSprites.get(imageName + imageWidth + imageHeight);
     }
 
-    Image getUnscaledImage(String imageName, int imageWidth, int imageHeight){
-        return baseSpites.get(imageName).getScaledInstance(imageWidth, imageHeight,  java.awt.Image.SCALE_SMOOTH);
+    Image getUnscaledImage(String imageName, int imageWidth, int imageHeight) {
+        return baseSpites.get(imageName).getScaledInstance(imageWidth, imageHeight, java.awt.Image.SCALE_SMOOTH);
     }
 
     //endregion

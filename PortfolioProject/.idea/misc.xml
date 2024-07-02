@@ -5,11 +5,12 @@
     <option name="originalFiles">
       <list>
         <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$PROJECT_DIR$/PortfolioProject.Console/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">
       <set>
-        <option value="$PROJECT_DIR$/PortfolioProject.Input/pom.xml" />
+        <option value="$PROJECT_DIR$/PortfolioProject.ConsoleOLD/pom.xml" />
       </set>
     </option>
   </component>

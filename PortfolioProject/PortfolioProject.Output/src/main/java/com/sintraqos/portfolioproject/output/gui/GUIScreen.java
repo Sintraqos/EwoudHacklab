@@ -8,7 +8,6 @@ import com.sintraqos.portfolioproject.statics.GameSettings;
 import com.sintraqos.portfolioproject.statics.Statics;
 
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionListener;
 
@@ -97,18 +96,18 @@ public class GUIScreen {
     //region Add JPanel Background
 
     public JPanel addJPanelBackground(int width, int height, String imagePath) {
-        return addJPanelBackground(width, height, imagePath, CENTER_ALIGNMENT, CENTER_ALIGNMENT, 0, 0);
+        return addJPanelBackground(width, height, imagePath, CENTER_ALIGNMENT, CENTER_ALIGNMENT);
     }
+//
+//    public JPanel addJPanelBackground(int width, int height, String imagePath, int padding) {
+//        return addJPanelBackground(width, height, imagePath, CENTER_ALIGNMENT, CENTER_ALIGNMENT, padding, padding);
+//    }
+//
+//    public JPanel addJPanelBackground(int width, int height, String imagePath, int paddingX, int paddingY) {
+//        return addJPanelBackground(width, height, imagePath, CENTER_ALIGNMENT, CENTER_ALIGNMENT, paddingX, paddingY);
+//    }
 
-    public JPanel addJPanelBackground(int width, int height, String imagePath, int padding) {
-        return addJPanelBackground(width, height, imagePath, CENTER_ALIGNMENT, CENTER_ALIGNMENT, padding, padding);
-    }
-
-    public JPanel addJPanelBackground(int width, int height, String imagePath, int paddingX, int paddingY) {
-        return addJPanelBackground(width, height, imagePath, CENTER_ALIGNMENT, CENTER_ALIGNMENT, paddingX, paddingY);
-    }
-
-    public JPanel addJPanelBackground(int width, int height, String imagePath, float alignmentX, float alignmentY, int paddingX, int paddingY) {
+    public GUI_JPanelBackground addJPanelBackground(int width, int height, String imagePath, float alignmentX, float alignmentY) {
         // Create new button
         GUI_JPanelBackground jPanelBackground = new GUI_JPanelBackground();
         Dimension size = new Dimension(width, height);
@@ -125,7 +124,7 @@ public class GUIScreen {
         setAlignment(jPanelBackground, alignmentX, alignmentY);
 
         // Add to panel
-        return setPadding(jPanelBackground, paddingX, paddingY);
+        return jPanelBackground;
     }
 
     //endregion
@@ -133,22 +132,22 @@ public class GUIScreen {
     //region Add JPanel
 
     public JPanel addJPanel(int width, int height) {
-        return addJPanel(width, height, CENTER_ALIGNMENT, CENTER_ALIGNMENT, 0,0);
+        return addJPanel(width, height, CENTER_ALIGNMENT, CENTER_ALIGNMENT);
     }
 
-    public JPanel addJPanel(int width, int height, int padding) {
-        return addJPanel(width, height, CENTER_ALIGNMENT, CENTER_ALIGNMENT, padding,padding);
-    }
+//    public JPanel addJPanel(int width, int height, int padding) {
+//        return addJPanel(width, height, CENTER_ALIGNMENT, CENTER_ALIGNMENT, padding,padding);
+//    }
 
-    public JPanel addJPanel(int width, int height, int paddingX, int paddingY) {
-        return addJPanel(width, height, CENTER_ALIGNMENT, CENTER_ALIGNMENT, paddingX,paddingY);
-    }
+//    public JPanel addJPanel(int width, int height, int paddingX, int paddingY) {
+//        return addJPanel(width, height, CENTER_ALIGNMENT, CENTER_ALIGNMENT, paddingX,paddingY);
+//    }
+//
+//    public JPanel addJPanel(int width, int height, float alignmentX, float alignmentY, int padding) {
+//        return addJPanel(width, height, alignmentX, alignmentY, padding,padding);
+//    }
 
-    public JPanel addJPanel(int width, int height, float alignmentX, float alignmentY, int padding) {
-        return addJPanel(width, height, alignmentX, alignmentY, padding,padding);
-    }
-
-    public JPanel addJPanel(int width, int height, float alignmentX, float alignmentY, int paddingX, int paddingY) {
+    public JPanel addJPanel(int width, int height, float alignmentX, float alignmentY) {
         // Create new button
         JPanel jPanel = new JPanel();
         Dimension size = new Dimension(width, height);
@@ -164,7 +163,7 @@ public class GUIScreen {
         setAlignment(jPanel, alignmentX, alignmentY);
 
         // Add to panel
-        return setPadding(jPanel, paddingX, paddingY);
+        return jPanel;
     }
 
     //endregion
@@ -173,15 +172,7 @@ public class GUIScreen {
 
     //region ---- Unscaled
 
-    public JPanel addUnscaledLabel(int width, int height, String labelText, String imageName) {
-        return addUnscaledLabel(width, height, labelText, imageName, 0,0);
-    }
-
-    public JPanel addUnscaledLabel(int width, int height, String labelText, String imageName, int padding) {
-        return addUnscaledLabel(width, height, labelText, imageName, padding,padding);
-    }
-
-    public JPanel addUnscaledLabel(int width, int height, String labelText, String imageName, int paddingX, int paddingY) {
+    public JLabel addUnscaledLabel(int width, int height, String labelText, String imageName) {
         // Create base label
         JLabel label = createBaseLabel(width, height, labelText);
         getGameGUIManager().setUnscaledImage(label, imageName, width, height);
@@ -189,34 +180,22 @@ public class GUIScreen {
         // Set alignment
         setAlignment(label, SwingConstants.CENTER, SwingConstants.CENTER, CENTER_ALIGNMENT, CENTER_ALIGNMENT, SwingConstants.CENTER, SwingConstants.CENTER);
 
-        return setPadding(label, paddingX, paddingY);
+        return label;
     }
 
     //endregion
 
     //region ---- Scaled
 
-    public JPanel addLabel(int width, int height, String labelText, String imageName) {
-        return addLabel(width, height, labelText, imageName, 0,0,SwingConstants.CENTER, SwingConstants.CENTER, CENTER_ALIGNMENT, CENTER_ALIGNMENT, SwingConstants.CENTER, SwingConstants.CENTER);
+    public JLabel addLabel(int width, int height, String labelText, String imageName) {
+        return addLabel(width, height, labelText, imageName, SwingConstants.CENTER, SwingConstants.CENTER, CENTER_ALIGNMENT, CENTER_ALIGNMENT, SwingConstants.CENTER, SwingConstants.CENTER);
     }
 
-    public JPanel addLabel(int width, int height, String labelText, String imageName, int padding) {
-        return addLabel(width, height, labelText, imageName, padding,padding,SwingConstants.CENTER, SwingConstants.CENTER, CENTER_ALIGNMENT, CENTER_ALIGNMENT, SwingConstants.CENTER, SwingConstants.CENTER);
+    public JLabel addLabel(int width, int height, String labelText, String imageName, int textAlignmentX, int textAlignmentY) {
+        return addLabel(width, height, labelText, imageName, textAlignmentX, textAlignmentY, CENTER_ALIGNMENT, CENTER_ALIGNMENT, SwingConstants.CENTER, SwingConstants.CENTER);
     }
 
-    public JPanel addLabel(int width, int height, String labelText, String imageName, int textAlignmentX, int textAlignmentY) {
-        return addLabel(width, height, labelText, imageName, 0,0,textAlignmentX,textAlignmentY, CENTER_ALIGNMENT, CENTER_ALIGNMENT,SwingConstants.CENTER, SwingConstants.CENTER);
-    }
-
-    public JPanel addLabel(int width, int height, String labelText, String imageName, int padding, int textAlignmentX, int textAlignmentY) {
-        return addLabel(width, height, labelText, imageName, padding,padding,textAlignmentX,textAlignmentY, CENTER_ALIGNMENT, CENTER_ALIGNMENT,SwingConstants.CENTER, SwingConstants.CENTER);
-    }
-
-    public JPanel addLabel(int width, int height, String labelText, String imageName, int padding, int horizontalAlignmentX, int verticalAlignmentY, float alignmentX, float alignmentY, int textAlignmentX, int textAlignmentY) {
-        return addLabel(width, height, labelText, imageName, padding,padding, horizontalAlignmentX, verticalAlignmentY, alignmentX, alignmentY,textAlignmentX, textAlignmentY);
-    }
-
-    public JPanel addLabel(int width, int height, String labelText, String imageName, int paddingX, int paddingY, int horizontalAlignmentX, int verticalAlignmentY, float alignmentX, float alignmentY, int textAlignmentX, int textAlignmentY) {
+    public JLabel addLabel(int width, int height, String labelText, String imageName, int horizontalAlignmentX, int verticalAlignmentY, float alignmentX, float alignmentY, int textAlignmentX, int textAlignmentY) {
         // Create base label
         JLabel label = createBaseLabel(width, height, labelText);
         getGameGUIManager().setImage(label, imageName, width, height);
@@ -224,7 +203,7 @@ public class GUIScreen {
         // Set alignment
         setAlignment(label, horizontalAlignmentX, verticalAlignmentY, alignmentX, alignmentY, textAlignmentX, textAlignmentY);
 
-        return setPadding(label, paddingX, paddingY);
+        return label;
     }
 
     //endregion
@@ -250,15 +229,7 @@ public class GUIScreen {
 
     //region Add JButton
 
-    public JPanel addButton(int width, int height, String text, ActionListener actionListener) {
-        return addButton(width, height, text, 0, 0, actionListener);
-    }
-
-    public JPanel addButton(int width, int height, String text, int padding, ActionListener actionListener) {
-        return addButton(width, height, text, padding, padding, actionListener);
-    }
-
-    public JPanel addButton(int width, int height, String text, int paddingX, int paddingY, ActionListener actionListener) {
+    public JButton addButton(int width, int height, String text, ActionListener actionListener) {
         // Create new button
         JButton button = new JButton(text);
         Dimension size = new Dimension(width, height);
@@ -283,22 +254,14 @@ public class GUIScreen {
         button.addActionListener(actionListener);
 
         // Add to panel
-        return setPadding(button, paddingX, paddingY);
+        return button;
     }
 
     //endregion
 
     //region Add JTextPane
 
-    public JPanel addTextPane(int width, int height, String textPaneText) {
-        return addTextPane(width, height, textPaneText, 0, 0);
-    }
-
-    public JPanel addTextPane(int width, int height, String textPaneText, int padding) {
-        return addTextPane(width, height, textPaneText, padding, padding);
-    }
-
-    public JPanel addTextPane(int width, int height, String textPaneText, int paddingX, int paddingY) {
+    public JTextPane addTextPane(int width, int height, String textPaneText) {
         // Create new button
         JTextPane textPane = new JTextPane();
         Dimension size = new Dimension(width, height);
@@ -319,7 +282,7 @@ public class GUIScreen {
         // Set alignment
         setAlignment(textPane, CENTER_ALIGNMENT, CENTER_ALIGNMENT);
 
-        return setPadding(textPane, paddingX, paddingY);
+        return textPane;
     }
 
     //endregion
@@ -426,35 +389,55 @@ public class GUIScreen {
 
     //region Add padding
 
-    public JPanel setPadding(JButton button, int paddingX, int paddingY) {
+    // JButton
+    public JPanel addPadding(JButton button, int padding) {
+        return addPadding(button, padding, padding);
+    }
+
+    public JPanel addPadding(JButton button, int paddingX, int paddingY) {
         // Add padding
-        JPanel paddingPane = createPadding(paddingX, paddingY);
+        JPanel paddingPane = addPadding(paddingX, paddingY);
         setParent(paddingPane, button);
         return paddingPane;
     }
 
-    public JPanel setPadding(JLabel label, int paddingX, int paddingY) {
+    // JLabel
+    public JPanel addPadding(JLabel label, int padding) {
+        return addPadding(label, padding, padding);
+    }
+
+    public JPanel addPadding(JLabel label, int paddingX, int paddingY) {
         // Add padding
-        JPanel paddingPane = createPadding(paddingX, paddingY);
+        JPanel paddingPane = addPadding(paddingX, paddingY);
         setParent(paddingPane, label);
         return paddingPane;
     }
 
-    public JPanel setPadding(JPanel panel, int paddingX, int paddingY) {
+    // JPanel
+    public JPanel addPadding(JPanel panel, int padding) {
+        return addPadding(panel, padding, padding);
+    }
+
+    public JPanel addPadding(JPanel panel, int paddingX, int paddingY) {
         // Add padding
-        JPanel paddingPane = createPadding(paddingX, paddingY);
+        JPanel paddingPane = addPadding(paddingX, paddingY);
         setParent(paddingPane, panel);
         return paddingPane;
     }
 
-    public JPanel setPadding(JTextPane textPane, int paddingX, int paddingY) {
+    // JTextPane
+    public JPanel addPadding(JTextPane textPane, int padding) {
+        return addPadding(textPane, padding, padding);
+    }
+
+    public JPanel addPadding(JTextPane textPane, int paddingX, int paddingY) {
         // Add padding
-        JPanel paddingPane = createPadding(paddingX, paddingY);
+        JPanel paddingPane = addPadding(paddingX, paddingY);
         setParent(paddingPane, textPane);
         return paddingPane;
     }
 
-    JPanel createPadding(int paddingX, int paddingY) {
+    JPanel addPadding(int paddingX, int paddingY) {
         JPanel paddingPane = new JPanel();
         paddingPane.setLayout(new BoxLayout(paddingPane, BoxLayout.Y_AXIS));
         paddingPane.setBorder(BorderFactory.createEmptyBorder(paddingY, paddingX, paddingY, paddingX));
