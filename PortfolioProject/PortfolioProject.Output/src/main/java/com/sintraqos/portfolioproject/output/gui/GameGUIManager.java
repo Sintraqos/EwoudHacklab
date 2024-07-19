@@ -126,7 +126,7 @@ public class GameGUIManager {
         });
     }
 
-    // Create seperate task for switching icon of button, since using Thread.sleep doesn't work as desired
+    // Create separate task for switching icon of button, since using Thread.sleep doesn't work as desired
     static class SetJButtonIcon extends Thread {
         int sleepTime = 0;
         JButton button;
@@ -270,6 +270,24 @@ public class GameGUIManager {
 //        System.out.println("GUI Scale: "  + 1920 / (float) GameSettings.getInstance().getWindowSize().windowSizeX);
         // return (float) GameSettings.getInstance().getWindowSize().windowSizeX / 1920;
         return 1f;
+    }
+
+    //endregion
+
+    //region Set Cursor
+
+    void setCursor(JPanel rootPanel, String cursorImage){
+        rootPanel.setCursor(Toolkit.getDefaultToolkit().createCustomCursor(getImage(cursorImage, 32,32),new Point(0,0),cursorImage));
+    }
+
+    //endregion
+
+    //region Dispose
+
+    public void disposeFiles(){
+        baseSpites = new HashMap<>();
+        scaledSprites = new HashMap<>();
+        font = null;
     }
 
     //endregion

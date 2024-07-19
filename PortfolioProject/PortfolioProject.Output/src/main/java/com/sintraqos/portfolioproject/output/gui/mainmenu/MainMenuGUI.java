@@ -1,7 +1,9 @@
 package com.sintraqos.portfolioproject.output.gui.mainmenu;
 
+import com.sintraqos.portfolioproject.output.audio.GameAudioManager;
 import com.sintraqos.portfolioproject.output.gui.GUIScreen;
 import com.sintraqos.portfolioproject.output.gui.GameGUIManager;
+import com.sintraqos.portfolioproject.output.gui.characterscreen.CharacterScreenGUI;
 import com.sintraqos.portfolioproject.output.gui.options.OptionsGUI;
 import com.sintraqos.portfolioproject.statics.Enums;
 import com.sintraqos.portfolioproject.statics.ResourcePaths;
@@ -35,6 +37,7 @@ public class MainMenuGUI extends GUIScreen {    // GUI Components
         // Create listeners
         // New Game
         ActionListener newGameListener = e -> {
+            new CharacterScreenGUI();
         };
         // Load Game
         ActionListener loadGameListener = e -> {
@@ -48,6 +51,10 @@ public class MainMenuGUI extends GUIScreen {    // GUI Components
         };
         // Quit Game
         ActionListener quitGameListener = e -> {
+            // Dispose all loaded files
+            GameGUIManager.getInstance().disposeFiles();
+            GameAudioManager.getInstance().disposeFiles();
+
             WindowEvent closeWindowEvent = new WindowEvent(GameGUIManager.getInstance().getFrame(), WindowEvent.WINDOW_CLOSING);
             GameGUIManager.getInstance().getFrame().dispatchEvent(closeWindowEvent);
         };

@@ -32,7 +32,7 @@ public class OptionsGUI extends GUIScreen {
         // Create listeners
         // Game Play
         ActionListener gamePlayListener = e -> {
-            new OptionsGUI_Gameplay();
+            //new OptionsGUI_Gameplay();
         };
         // Feedback
         ActionListener feedbackListener = e -> {
@@ -50,15 +50,15 @@ public class OptionsGUI extends GUIScreen {
         ActionListener closeMenuListener = e -> {
             new MainMenuGUI();
         };
-        
+
         // Set sizes
-        int windowSizeX = (int) (getSettings().getWindowSize().width * getGameGUIManager().getGUIScale());
-        int windowSizeY = (int) (getSettings().getWindowSize().height * getGameGUIManager().getGUIScale());
+        int windowSizeX = getSettings().getWindowSize().width;
+        int windowSizeY = getSettings().getWindowSize().height;
 
         int panelPaddingX = (int) (175 * getGameGUIManager().getGUIScale());
         int panelPaddingY = (int) (75 * getGameGUIManager().getGUIScale());
 
-        int guiHeight =(int)( getSettings().getDefaultButtonSizeY() * getGameGUIManager().getGUIScale());
+        int guiHeight = (int) (getSettings().getDefaultButtonSizeY() * getGameGUIManager().getGUIScale());
         int guiWidth = (int) (getSettings().getDefaultButtonSizeX() * getGameGUIManager().getGUIScale());
         int guiPadding = (int) (5 * getGameGUIManager().getGUIScale());
 
@@ -83,13 +83,12 @@ public class OptionsGUI extends GUIScreen {
         buttonPanel = setParent(contentPanel, addJPanelBackground(guiPanelWidth / 2, guiPanelHeight, ResourcePaths.LABEL_IMAGE));
         setLayout(buttonPanel, new BoxLayout(buttonPanel, BoxLayout.Y_AXIS));
         textPanel = setParent(contentPanel, addJPanelBackground(guiPanelWidth / 2, guiPanelHeight, ResourcePaths.LABEL_IMAGE));
-        setParent(objectPanel, addJPanel(guiPanelWidth, guiPadding));
 
         // Add buttons
-        gameplayButton = setParent(buttonPanel, addPadding(addButton(guiPanelWidth /2- (2 * guiPadding), guiHeight, "Gameplay", gamePlayListener), guiPadding));
-        feedbackButton = setParent(buttonPanel, addPadding(addButton(guiPanelWidth /2- (2 * guiPadding), guiHeight, "Feedback", feedbackListener), guiPadding));
-        autoPauseButton = setParent(buttonPanel, addPadding(addButton(guiPanelWidth/2 - (2 * guiPadding), guiHeight, "Auto-Pause", autoPauseListener), guiPadding));
-        graphicsButton = setParent(buttonPanel, addPadding(addButton(guiPanelWidth /2- (2 * guiPadding), guiHeight, "Graphics", graphicsListener), guiPadding));
+        gameplayButton = setParent(buttonPanel, addPadding(addButton(guiPanelWidth / 2 - (2 * guiPadding), guiHeight, "Gameplay", gamePlayListener), guiPadding));
+        feedbackButton = setParent(buttonPanel, addPadding(addButton(guiPanelWidth / 2 - (2 * guiPadding), guiHeight, "Feedback", feedbackListener), guiPadding));
+        autoPauseButton = setParent(buttonPanel, addPadding(addButton(guiPanelWidth / 2 - (2 * guiPadding), guiHeight, "Auto-Pause", autoPauseListener), guiPadding));
+        graphicsButton = setParent(buttonPanel, addPadding(addButton(guiPanelWidth / 2 - (2 * guiPadding), guiHeight, "Graphics", graphicsListener), guiPadding));
 
         closeMenuButton = setParent(objectPanel, addButton(guiWidth, guiHeight, "Close", closeMenuListener));
 

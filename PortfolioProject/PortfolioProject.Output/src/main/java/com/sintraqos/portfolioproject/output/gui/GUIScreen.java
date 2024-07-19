@@ -20,7 +20,6 @@ public class GUIScreen {
     GameSettings settings;
     GameAudioManager audioManager;
     JPanel rootPanel;
-    Container contentPane;
 
     public GameGUIManager getGameGUIManager() {
         return gameGUIManager;
@@ -37,17 +36,7 @@ public class GUIScreen {
     //region Setup
 
     public void setup(JPanel rootPanel) {
-        // Set references
-        gameGUIManager = GameGUIManager.getInstance();
-        outputManager = OutputManager.getInstance();
-        settings = GameSettings.getInstance();
-        audioManager = GameAudioManager.getInstance();
-
-        this.rootPanel = rootPanel;
-        contentPane = gameGUIManager.frame.getContentPane();
-
-        setLayout(this.rootPanel, new BoxLayout(rootPanel, BoxLayout.Y_AXIS));                                           // Set the window layout group
-        setWindowSize();
+        setup(rootPanel,new BoxLayout(rootPanel, BoxLayout.Y_AXIS) );
     }
 
     public void setup(JPanel rootPanel, LayoutManager layout) {
@@ -58,7 +47,6 @@ public class GUIScreen {
         audioManager = GameAudioManager.getInstance();
 
         this.rootPanel = rootPanel;
-        contentPane = gameGUIManager.frame.getContentPane();
 
         setLayout(this.rootPanel, layout);                                           // Set the window layout group
         setWindowSize();
@@ -69,18 +57,16 @@ public class GUIScreen {
     //region Set window size
 
     public void setWindowSize() {
-        gameGUIManager.frame.dispose();
         // Apply settings
-        gameGUIManager.frame.setContentPane(rootPanel);                                                             // Set the window object
-        gameGUIManager.frame.add(Box.createVerticalGlue());
-        gameGUIManager.frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        gameGUIManager.frame.pack();                                                                                // Make sure everything is properly set in the layout
-        gameGUIManager.frame.setSize(settings.getWindowSize().width, settings.getWindowSize().height);              // Set the window size
-        gameGUIManager.frame.setForeground(Statics.GUI_FOREGROUND_COLOR);
-        gameGUIManager.frame.setBackground(Statics.GUI_BACKGROUND_COLOR);
-        gameGUIManager.frame.setResizable(false);
-        gameGUIManager.frame.setLocationRelativeTo(null);                                                           // Center the window object
-        gameGUIManager.frame.setVisible(true);
+        gameGUIManager.getFrame().setContentPane(rootPanel);                                                             // Set the window object
+        gameGUIManager.getFrame().add(Box.createVerticalGlue());
+        gameGUIManager.getFrame().setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);                               // Make sure everything is properly set in the layout
+        gameGUIManager.getFrame().setSize(settings.getWindowSize().width, settings.getWindowSize().height);              // Set the window size
+        gameGUIManager.getFrame().setForeground(Statics.GUI_FOREGROUND_COLOR);
+        gameGUIManager.getFrame().setBackground(Statics.GUI_BACKGROUND_COLOR);
+        gameGUIManager.getFrame().setResizable(false);
+        gameGUIManager.getFrame().setLocationRelativeTo(null);                                                           // Center the window object
+        gameGUIManager.getFrame().setVisible(true);
     }
 
     //endregion
@@ -88,7 +74,7 @@ public class GUIScreen {
     //region Add Keyboard Listener
 
     public void addKeyboardListener() {
-        gameGUIManager.frame.addKeyListener(new GUI_KeyboardListener(settings.getWindowName()));
+        gameGUIManager.getFrame().addKeyListener(new GUI_KeyboardListener(settings.getWindowName()));
     }
 
     //endregion
@@ -98,14 +84,6 @@ public class GUIScreen {
     public JPanel addJPanelBackground(int width, int height, String imagePath) {
         return addJPanelBackground(width, height, imagePath, CENTER_ALIGNMENT, CENTER_ALIGNMENT);
     }
-//
-//    public JPanel addJPanelBackground(int width, int height, String imagePath, int padding) {
-//        return addJPanelBackground(width, height, imagePath, CENTER_ALIGNMENT, CENTER_ALIGNMENT, padding, padding);
-//    }
-//
-//    public JPanel addJPanelBackground(int width, int height, String imagePath, int paddingX, int paddingY) {
-//        return addJPanelBackground(width, height, imagePath, CENTER_ALIGNMENT, CENTER_ALIGNMENT, paddingX, paddingY);
-//    }
 
     public GUI_JPanelBackground addJPanelBackground(int width, int height, String imagePath, float alignmentX, float alignmentY) {
         // Create new button
@@ -134,18 +112,6 @@ public class GUIScreen {
     public JPanel addJPanel(int width, int height) {
         return addJPanel(width, height, CENTER_ALIGNMENT, CENTER_ALIGNMENT);
     }
-
-//    public JPanel addJPanel(int width, int height, int padding) {
-//        return addJPanel(width, height, CENTER_ALIGNMENT, CENTER_ALIGNMENT, padding,padding);
-//    }
-
-//    public JPanel addJPanel(int width, int height, int paddingX, int paddingY) {
-//        return addJPanel(width, height, CENTER_ALIGNMENT, CENTER_ALIGNMENT, paddingX,paddingY);
-//    }
-//
-//    public JPanel addJPanel(int width, int height, float alignmentX, float alignmentY, int padding) {
-//        return addJPanel(width, height, alignmentX, alignmentY, padding,padding);
-//    }
 
     public JPanel addJPanel(int width, int height, float alignmentX, float alignmentY) {
         // Create new button

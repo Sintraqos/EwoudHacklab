@@ -15,23 +15,10 @@ import java.util.*;
 
 public class AudioList {
     public static final Map<String, List<AudioClip>> audioClips = new HashMap<>();
-    Random rnd;
 
-    AudioList(String audioPath, ArrayList<String> audioPrefixes) {
-        rnd = new Random();
+    AudioList(){}
 
-        for (String currentAudioPrefix : audioPrefixes) {
-            createAudioClips(audioPath, currentAudioPrefix);
-        }
-    }
-
-    AudioList(String audioPath, String audioPrefix) {
-        rnd = new Random();
-
-        createAudioClips(audioPath, audioPrefix);
-    }
-
-    void createAudioClips(String audioPath, String audioPrefix) {
+    public void createAudioClips(String audioPath, String audioPrefix) {
         try {
             List<File> files = Files.walk(Paths.get(getClass().getClassLoader().getResource(audioPath.replaceFirst("/", "").substring(0, audioPath.length() - 2)).toURI()))
                     .filter(Files::isRegularFile)
@@ -40,6 +27,9 @@ public class AudioList {
 
             audioClips.put(audioPrefix, new ArrayList<>());
             assignAudioFile(files, audioPrefix);
+
+            // Dispose of the file list
+            files.clear();
 
         } catch (URISyntaxException | IOException e) {
             e.printStackTrace();
@@ -54,9 +44,12 @@ public class AudioList {
                 audioClips.get(audioPrefix).add(new AudioClip(file.getName(), ResourcePaths.AUDIO_PATH + ResourcePaths.SOUND_TRACK_PATH + file.getName()));
             }
         }
+
+        // Dispose of the file list
+        files.clear();
     }
 
     public AudioClip getRandomAudioClip(String audioPrefix) {
-        return audioClips.get(audioPrefix).get(rnd.nextInt(audioClips.get(audioPrefix).size()));
+        return audioClips.get(audioPrefix).get( new Random().nextInt(audioClips.get(audioPrefix).size()));
     }
 }

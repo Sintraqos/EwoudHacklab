@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.util.Objects;
 
 public class AudioClip {
-  public   String audioClipName = "AudioClip";
+    public String audioClipName = "AudioClip";
     public String audioClipPath;
     AudioInputStream audioInputStream;
 

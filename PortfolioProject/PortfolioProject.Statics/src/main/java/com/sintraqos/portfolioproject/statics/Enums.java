@@ -99,4 +99,24 @@ public class Enums {
     }
 
     //endregion
+
+    //region Dialogue
+
+    public enum dialogueEmotion{
+        DIALOGUE_EMOTION_NEUTRAL,           // Default emote state, should show base emote sprite
+        DIALOGUE_EMOTION_LOVE,           // Love emote state, should show whenever romance lines are active, or when dialogue makes NPC super happy
+        DIALOGUE_EMOTION_HAPPY,          // Happy emote state, should show whenever NPC gets happy from actions
+        DIALOGUE_EMOTION_ANGER,          // Angry emote state, should show whenever NPC gets angry from actions
+        DIALOGUE_EMOTION_RAGE            // Raging emote state, should show whenever NPC gets furious from actions
+    }
+
+    //endregion
+
+    public enum alignment{
+        ALIGNMENT_DARK,
+        ALIGNMENT_DARK_GRAY,
+        ALIGNMENT_NEUTRAL,
+        ALIGNMENT_LIGHT_GRAY,
+        ALIGNMENT_LIGHT
+    }
 }
