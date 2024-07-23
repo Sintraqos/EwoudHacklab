@@ -119,4 +119,17 @@ public class Enums {
         ALIGNMENT_LIGHT_GRAY,
         ALIGNMENT_LIGHT
     }
+
+    public enum event{
+        EVENT_NONE,
+        EVENT_DARK_SIDE_GAINED,
+        EVENT_LIGHT_SIDE_GAINED
+    }
+
+    public enum entitySkills{
+        ENTITY_SKILLS_AWARENESS,
+        ENTITY_SKILLS_PERSUADE,
+        ENTITY_SKILLS_INTELLIGENCE,
+        ENTITY_SKILLS_WISDOM
+    }
 }

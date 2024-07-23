@@ -28,5 +28,8 @@ public class Statics {
     public static final Color GUI_FOREGROUND_COLOR = new Color(255, 255, 255);
     public static final Color GUI_DEFAULT_TEXT_COLOR = new Color(32, 131, 109);
     public static final Color GUI_HOVER_TEXT_COLOR = new Color(173, 234, 226);
+
+    // Dialogue
+    public static final String DIALOGUE_EXIT_CONDITION = "EXIT";
 }
 
