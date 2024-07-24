@@ -1,13 +1,16 @@
 package com.sintraqos.portfolioproject.output.audio;
 
 import com.sintraqos.portfolioproject.output.Console;
+import com.sintraqos.portfolioproject.statics.Functions;
 import com.sintraqos.portfolioproject.statics.GameSettings;
-import com.sintraqos.portfolioproject.output.OutputManager;
 import com.sintraqos.portfolioproject.statics.ResourcePaths;
 import com.sintraqos.portfolioproject.statics.Enums;
 
+import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -29,6 +32,7 @@ public class GameAudioManager {
     }
 
     public Map<String, AudioClip> audioClips = new HashMap<>();
+    public Map<String, List<AudioClip>> dialogueAudio= new HashMap<>();
 
     Clip musicClip;
     Clip sfxClip;
@@ -51,16 +55,18 @@ public class GameAudioManager {
         sfxVolume = settings.getSfxVolume();
         dialogueVolume = settings.getDialogueVolume();
 
-        //Load in all the audio files as AudioClips so they're ready to be played at anytime
+        //Load in all the audio files as AudioClips, so they're ready to be played at anytime
         loadAudioFiles();
         // Set the volumes to their proper calculated values
         setVolume(Enums.audioType.AUDIO_TYPE_MASTER, GameSettings.getInstance().getMasterVolume());
 
         Console.StringOutput("Finished setting up Audio Manager");
+        Console.StringOutput();
     }
 
     void loadAudioFiles() {
         audioClips = new HashMap<>();
+        dialogueAudio = new HashMap<>();
 
         // Music
         audioClips.put(ResourcePaths.OST_MAIN_MENU, new AudioClip(ResourcePaths.OST_MAIN_MENU, ResourcePaths.AUDIO_PATH + ResourcePaths.SOUND_TRACK_PATH + ResourcePaths.OST_MAIN_MENU + ResourcePaths.EXTENSION_AUDIO));
@@ -95,6 +101,29 @@ public class GameAudioManager {
         // Battle
         battleAudio = new AudioList();
         battleAudio.createAudioClips(ResourcePaths.AUDIO_PATH + ResourcePaths.SOUND_TRACK_PATH, ResourcePaths.OST_BATTLE_PREFIX);
+
+        // Dialogue
+    }
+
+    public void getDialogueAudio(List<String> dialogueIDs, String dialogueTreeID, String dialogueTreeLocation){
+        Console.StringTitleOutput("Getting audio clips for dialogue tree: ");
+
+        dialogueAudio.put(dialogueTreeID, new ArrayList<>());
+
+        for (String dialogueID : dialogueIDs) {
+            String audioClipPath = ResourcePaths.AUDIO_PATH + ResourcePaths.DIALOGUE_PATH + dialogueTreeLocation + File.separator + dialogueID + ResourcePaths.EXTENSION_AUDIO;
+
+            if (getClass().getResource(audioClipPath) != null) {
+                AudioClip dialogueAudioClip = new AudioClip(dialogueID, audioClipPath);
+
+                dialogueAudio.get(dialogueTreeID).add(dialogueAudioClip);
+
+                Console.StringOutput("Found audio file: " + dialogueAudioClip.getAudioClipName());
+            }
+        }
+
+        Console.StringOutput("Found audio files for dialogue tree: " + dialogueTreeID);
+        Console.StringOutput();
     }
 
     public void setVolume(Enums.audioType audioType, float volume) {
@@ -173,10 +202,8 @@ public class GameAudioManager {
             setVolume(clip, audioVolume);
             clip.start();
             clip.loop(loopCount);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        } catch (LineUnavailableException e) {
-            throw new RuntimeException(e);
+        } catch (IOException | LineUnavailableException ex) {
+            throw new   Functions.ExceptionHandler("Failed play audio clip", ex);
         }
     }
 
@@ -192,10 +219,10 @@ public class GameAudioManager {
             case AUDIO_TYPE_MUSIC -> audioVolume = settings.getMusicVolume();
             case AUDIO_TYPE_SFX -> audioVolume = settings.getSfxVolume();
             case AUDIO_TYPE_DIALOGUE -> audioVolume = settings.getDialogueVolume();
+            default -> audioVolume = settings.getMasterVolume();
         }
-        ExecutorService executor = Executors.newScheduledThreadPool(1);          // Create new service
-        executor.submit(new oneShotAudioTask(audioClips.get(audioName).audioInputStream, audioVolume));
-        executor.shutdown();
+
+        new Thread(new OneShotAudioTask(audioClips.get(audioName).audioInputStream, audioVolume)).start();
     }
 
     public void setVolume(Clip clip, float volume) {
@@ -205,7 +232,7 @@ public class GameAudioManager {
         gainControl.setValue(20f * (float) Math.log10(volume));
     }
 
-    static class oneShotAudioTask extends Thread {
+    static class OneShotAudioTask implements Runnable {
         AudioInputStream audioInputStream;
         float audioVolume;
 
@@ -221,16 +248,13 @@ public class GameAudioManager {
                 audioInputStream.reset();
                 Thread.sleep(clip.getMicrosecondLength() + 25);    // The added time is for preventing the clip from cutting off all of a sudden
                 clip.close();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            } catch (LineUnavailableException e) {
-                throw new RuntimeException(e);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
+            } catch (InterruptedException | LineUnavailableException | IOException ex) {
+                Thread.currentThread().interrupt();
+                throw new   Functions.ExceptionHandler("Failed play audio clip", ex);
             }
         }
 
-        public oneShotAudioTask(AudioInputStream audioInputStream, float audioVolume) {
+        public OneShotAudioTask(AudioInputStream audioInputStream, float audioVolume) {
             this.audioInputStream = audioInputStream;
             this.audioVolume = audioVolume;
         }

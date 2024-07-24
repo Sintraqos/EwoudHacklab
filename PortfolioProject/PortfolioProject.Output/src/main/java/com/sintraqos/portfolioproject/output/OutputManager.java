@@ -10,14 +10,11 @@ public class OutputManager {
     public static OutputManager getInstance() {
         if (instance == null) {
             instance = new OutputManager();
-            instance.Setup();
+
+            GameAudioManager.getInstance();
+            GameGUIManager.getInstance();
         }
 
         return instance;
-    }
-
-    void Setup() {
-        GameAudioManager.getInstance();
-        GameGUIManager.getInstance();
     }
 }

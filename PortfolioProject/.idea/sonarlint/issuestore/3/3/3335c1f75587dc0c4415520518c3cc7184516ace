@@ -1,7 +1,6 @@
 
-g	java:S112"FDefine and throw a dedicated exception instead of using a generic one.(Ò‚Òéüÿÿÿÿ8ÓÝý‚†2
+g	java:S112"FDefine and throw a dedicated exception instead of using a generic one.(Ò‚Òéüÿÿÿÿ8ØªØŒŽ2
 v
-java:S1104
-"YMake audioClipName a static final constant or non-public and provide accessors if needed.(“œª÷8ÓÝý‚†2
+java:S1104"YMake audioClipName a static final constant or non-public and provide accessors if needed.(“œª÷8ØªØŒŽ2
 {
-java:S1104"YMake audioClipPath a static final constant or non-public and provide accessors if needed.(ù«—×þÿÿÿÿ8ÓÝý‚†2
+java:S1104"YMake audioClipPath a static final constant or non-public and provide accessors if needed.(ù«—×þÿÿÿÿ8ØªØŒŽ2

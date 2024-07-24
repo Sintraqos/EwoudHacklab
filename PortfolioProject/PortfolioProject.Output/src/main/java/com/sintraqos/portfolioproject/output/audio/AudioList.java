@@ -1,55 +1,60 @@
 package com.sintraqos.portfolioproject.output.audio;
 
 import com.sintraqos.portfolioproject.output.Console;
+import com.sintraqos.portfolioproject.statics.Functions;
 import com.sintraqos.portfolioproject.statics.ResourcePaths;
 
 import java.io.*;
-import java.net.URISyntaxException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.stream.Collectors;
 import java.util.*;
 
 public class AudioList {
-    public static final Map<String, List<AudioClip>> audioClips = new HashMap<>();
+    protected static final Map<String, List<AudioClip>> audioClips = new HashMap<>();
 
-    AudioList(){}
-
-    public void createAudioClips(String audioPath, String audioPrefix) {
-        try {
-            List<File> files = Files.walk(Paths.get(getClass().getClassLoader().getResource(audioPath.replaceFirst("/", "").substring(0, audioPath.length() - 2)).toURI()))
-                    .filter(Files::isRegularFile)
-                    .map(x -> x.toFile())
-                    .collect(Collectors.toList());
-
-            audioClips.put(audioPrefix, new ArrayList<>());
-            assignAudioFile(files, audioPrefix);
-
-            // Dispose of the file list
-            files.clear();
-
-        } catch (URISyntaxException | IOException e) {
-            e.printStackTrace();
-        }
+    public static Map<String, List<AudioClip>> getAudioClips() {
+        return audioClips;
     }
 
-    void assignAudioFile(List<File> files, String audioPrefix) {
-        Console.StringTitleOutput("New Audio Prefix: " + audioPrefix);
-        for (File file : files) {
-            // Check if the audio file starts with the needed prefix
-            if (file.getName().contains(audioPrefix)) {
-                audioClips.get(audioPrefix).add(new AudioClip(file.getName(), ResourcePaths.AUDIO_PATH + ResourcePaths.SOUND_TRACK_PATH + file.getName()));
+    Random random;
+
+
+    AudioList() {
+        random = new Random();
+    }
+
+    public void createAudioClips(String audioPath, String audioPrefix) {
+
+        audioClips.put(audioPrefix, new ArrayList<>());
+        List<String> fileNames = new ArrayList<>();
+
+        try (
+                InputStream in = getClass().getResourceAsStream(audioPath)) {
+            assert in != null;
+            try (BufferedReader br = new BufferedReader(new InputStreamReader(in))) {
+                String resource;
+
+                while ((resource = br.readLine()) != null) {
+                    if (resource.contains(audioPrefix))
+                        fileNames.add(resource);
+                }
             }
+        } catch (IOException e) {
+            throw new Functions.ExceptionHandler("Error reading audio clips from " + audioPath, e);
+        }
+
+        Console.StringTitleOutput("New Audio Prefix: " + audioPrefix);
+        for (String fileName : fileNames) {
+            // Check if the audio file starts with the needed prefix
+            audioClips.get(audioPrefix).add(new AudioClip(fileName, ResourcePaths.AUDIO_PATH + ResourcePaths.PATH_SEPERATOR + ResourcePaths.SOUND_TRACK_PATH + ResourcePaths.PATH_SEPERATOR + fileName));
         }
 
         // Dispose of the file list
-        files.clear();
+        fileNames.clear();
     }
 
     public AudioClip getRandomAudioClip(String audioPrefix) {
-        return audioClips.get(audioPrefix).get( new Random().nextInt(audioClips.get(audioPrefix).size()));
+        return audioClips.get(audioPrefix).get(random.nextInt(audioClips.get(audioPrefix).size()));
     }
 }

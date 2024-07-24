@@ -6,6 +6,10 @@ import java.awt.image.BufferedImage;
 
 public class Functions {
 
+    private Functions() {
+        throw new IllegalStateException("Utility class");
+    }
+
     //region Slice Image
 
     public static BufferedImage sliceImage(Image image, int imageWidth,int imageHeight) {
@@ -79,6 +83,28 @@ public class Functions {
         imgCreator.drawImage(bufferedImage, 0, 0, imageWidth, imageHeight, sourceFirstX, sourceFirstY, dstCornerX, dstCornerY, null);
 
         return returnImage;
+    }
+
+    //endregion
+
+    //region File names
+
+    public static String getFileNameWithoutExtension(String fileName) {
+        if (fileName.indexOf(".") >= 1) {
+            return fileName.substring(0, fileName.lastIndexOf("."));
+        } else {
+            return fileName;
+        }
+    }
+
+    //endregion
+
+    //region Exceptions
+
+  public static class ExceptionHandler extends RuntimeException {
+        public ExceptionHandler(String message, Throwable cause) {
+            System.out.println(message + ": " + cause.getMessage());
+        }
     }
 
     //endregion

@@ -1,0 +1,13 @@
+{
+  "dialogueTreeID": "Kreia002",
+  "dialogueTreeLocation": "per/001awaken",
+  "dialogueTree": [
+    {
+      "dialogueID": "Per_Intro_Kreia_001",
+      "dialogueOwner": "",
+      "dialogueText": ":: Awaken ::",
+      "dialogueEmotion": "DIALOGUE_EMOTION_NEUTRAL",
+      "dialogueBranches": []
+    }
+  ]
+}

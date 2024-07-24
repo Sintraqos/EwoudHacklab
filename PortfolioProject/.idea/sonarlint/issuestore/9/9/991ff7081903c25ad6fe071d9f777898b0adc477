@@ -1,35 +1,13 @@
 
 O
-java:S2387"2"rootPanel" is the name of a field in "GUIScreen".(ì˜ïÅ8µáÓş†2
-I
-java:S1602$",Remove useless curly braces around statement(§Ÿ»­8ÄáÓş†2
-R
-java:S1481$"5Remove this unused "gamePlayListener" local variable.(§Ÿ»­8ÄáÓş†2
-R
-java:S1481("5Remove this unused "feedbackListener" local variable.(“ÿ€±8ÄáÓş†2
-X
-java:S1481+"6Remove this unused "autoPauseListener" local variable.(ÁßåŒüÿÿÿÿ8ÄáÓş†2
-W
-java:S1481."5Remove this unused "graphicsListener" local variable.(»Ÿ¾ùÿÿÿÿ8ÄáÓş†2
+java:S2387"2"rootPanel" is the name of a field in "GUIScreen".(ì˜ïÅ8µáÓş†2
+]	java:S125$"<This block of commented-out lines of code should be removed.(¸Çÿèûÿÿÿÿ8İ§ïş2
 O
-java:S14811"2Remove this unused "soundListener" local variable.(ØéŒ8ÄáÓş†2
+java:S14810"2Remove this unused "soundListener" local variable.(ØéŒ8ÄáÓş†2
 N
-java:S16024",Remove useless curly braces around statement(À¦ßôıÿÿÿÿ8ÄáÓş†2
-T
-java:S1481I"2Remove this unused "buttonPadding" local variable.(ó¾¦õúÿÿÿÿ8ÆáÓş†2
-]	java:S125^"<This block of commented-out lines of code should be removed.(ÿØÌªÿÿÿÿÿ8ÇáÓş†2
-]	java:S125c"<This block of commented-out lines of code should be removed.(ïì‰Ãÿÿÿÿÿ8ÈáÓş†2
-]	java:S125j"<This block of commented-out lines of code should be removed.(‰ª¤œùÿÿÿÿ8ÈáÓş†2
-]	java:S125p"<This block of commented-out lines of code should be removed.(ğæˆıúÿÿÿÿ8ÈáÓş†2
-]	java:S125u"<This block of commented-out lines of code should be removed.(ˆŠõıÿÿÿÿ8ÈáÓş†2
-]	java:S125"<This block of commented-out lines of code should be removed.(¿Ì‰¥ÿÿÿÿÿ8ÉáÓş†2
-^	java:S125š"<This block of commented-out lines of code should be removed.(ì²ÌŠüÿÿÿÿ8ÉáÓş†2
-r
-java:S1128"PRemove this unused import 'com.sintraqos.portfolioproject.statics.GameSettings'.(¨¸îÖüÿÿÿÿ8ÉáÓş†2
+java:S16023",Remove useless curly braces around statement(À¦ßôıÿÿÿÿ8ÄáÓş†2
 B
 java:S1128
-"%Remove this unused import 'java.awt'.(ï´µ©8ÉáÓş†2
-L
-java:S1128"/Remove this unused import 'java.awt.Component'.(Ò·í8ÉáÓş†2
-L
-java:S1068"/Remove this unused "objectPanel" private field.(ù½µí8ÉáÓş†2
+"%Remove this unused import 'java.awt'.(ï´µ©8½³ı‹2
+O
+java:S1068"-Remove this unused "textPanel" private field.(Áâä»ÿÿÿÿÿ8°©ïş2

@@ -3,6 +3,7 @@ package com.sintraqos.portfolioproject.output.gui.characterscreen;
 import com.sintraqos.portfolioproject.output.gui.GUIScreen;
 import com.sintraqos.portfolioproject.output.gui.guicomponents.GUI_JPanelBackground;
 import com.sintraqos.portfolioproject.output.gui.mainmenu.MainMenuGUI;
+import com.sintraqos.portfolioproject.statics.GameSettings;
 import com.sintraqos.portfolioproject.statics.ResourcePaths;
 
 import javax.swing.*;
@@ -109,14 +110,14 @@ public class CharacterScreenGUI_Base  extends GUIScreen {
         setup(this.rootPanel);
 
         // Set sizes
-        windowSizeX = getSettings().getWindowSize().width;
-        windowSizeY = getSettings().getWindowSize().height;
+        windowSizeX = GameSettings.getInstance().getWindowSize().width;
+        windowSizeY = GameSettings.getInstance().getWindowSize().height;
 
         panelPaddingX = (int) (175 * getGameGUIManager().getGUIScale());
         panelPaddingY = (int) (75 * getGameGUIManager().getGUIScale());
 
-        guiHeight = (int) (getSettings().getDefaultButtonSizeY() * getGameGUIManager().getGUIScale());
-        guiWidth = (int) (getSettings().getDefaultButtonSizeX() * getGameGUIManager().getGUIScale());
+        guiHeight = (int) (GameSettings.getInstance().getDefaultButtonSizeY() * getGameGUIManager().getGUIScale());
+        guiWidth = (int) (GameSettings.getInstance().getDefaultButtonSizeX() * getGameGUIManager().getGUIScale());
         guiPadding = (int) (5 * getGameGUIManager().getGUIScale());
 
         guiPanelWidth = windowSizeX - (panelPaddingX * 2);

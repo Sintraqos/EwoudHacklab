@@ -6,6 +6,7 @@ import com.sintraqos.portfolioproject.output.gui.GameGUIManager;
 import com.sintraqos.portfolioproject.output.gui.characterscreen.CharacterScreenGUI;
 import com.sintraqos.portfolioproject.output.gui.options.OptionsGUI;
 import com.sintraqos.portfolioproject.statics.Enums;
+import com.sintraqos.portfolioproject.statics.GameSettings;
 import com.sintraqos.portfolioproject.statics.ResourcePaths;
 
 import javax.swing.*;
@@ -67,14 +68,14 @@ public class dialogueGUI extends GUIScreen{
         setWindowSize();
 
         // Play Music
-        getAudioManager().playAudio(ResourcePaths.OST_MAIN_MENU, Enums.audioType.AUDIO_TYPE_MUSIC);
+        GameAudioManager.getInstance().playAudio(ResourcePaths.OST_MAIN_MENU, Enums.audioType.AUDIO_TYPE_MUSIC);
     }
 
     public void playDialogueAudio(String audioName){
-        getAudioManager().playAudio(audioName, Enums.audioType.AUDIO_TYPE_DIALOGUE);
+        GameAudioManager.getInstance().playAudio(audioName, Enums.audioType.AUDIO_TYPE_DIALOGUE);
     }
 
     public void playSoundTrackAudio(String audioName){
-        getAudioManager().playAudio(audioName, Enums.audioType.AUDIO_TYPE_MUSIC);
+        GameAudioManager.getInstance().playAudio(audioName, Enums.audioType.AUDIO_TYPE_MUSIC);
     }
 }

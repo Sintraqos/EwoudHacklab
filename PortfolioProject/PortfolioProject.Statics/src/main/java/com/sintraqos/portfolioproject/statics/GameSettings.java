@@ -37,7 +37,7 @@ public class GameSettings implements java.io.Serializable {
 
     // Window
     private String windowName = "Game Window";
-    private Dimension windowSize = new Dimension(1024, 576);
+    private Dimension windowSize = new Dimension(1920, 1080);
 
     // Font
     private int defaultFontSize = 25;

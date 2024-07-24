@@ -3,6 +3,7 @@ package com.sintraqos.portfolioproject.core.gamemanager;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.sintraqos.portfolioproject.dataobjects.items.ItemManager;
+import com.sintraqos.portfolioproject.dialogue.DialogueManager;
 import com.sintraqos.portfolioproject.entity.player.PlayerManager;
 import com.sintraqos.portfolioproject.output.OutputManager;
 import com.sintraqos.portfolioproject.statics.Enums;
@@ -37,7 +38,10 @@ public class GameManager {
         PlayerManager.getInstance();
         OutputManager.getInstance();
 
+        DialogueManager.getInstance();
+
         Console.StringOutput("Finished setting up Game Manager");
+        Console.StringOutput();
     }
 
     public void setGameState(Enums.gameState currentGameState) {

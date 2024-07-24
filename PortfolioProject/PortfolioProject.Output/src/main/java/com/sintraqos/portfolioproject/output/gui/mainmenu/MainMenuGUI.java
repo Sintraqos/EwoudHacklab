@@ -6,6 +6,7 @@ import com.sintraqos.portfolioproject.output.gui.GameGUIManager;
 import com.sintraqos.portfolioproject.output.gui.characterscreen.CharacterScreenGUI;
 import com.sintraqos.portfolioproject.output.gui.options.OptionsGUI;
 import com.sintraqos.portfolioproject.statics.Enums;
+import com.sintraqos.portfolioproject.statics.GameSettings;
 import com.sintraqos.portfolioproject.statics.ResourcePaths;
 
 import java.awt.event.*;
@@ -60,8 +61,8 @@ public class MainMenuGUI extends GUIScreen {    // GUI Components
         };
 
         // Create buttons
-        int fixedButtonSizeX = (int) (getSettings().getDefaultButtonSizeX() * getGameGUIManager().getGUIScale());
-        int fixedButtonSizeY = (int) (getSettings().getDefaultButtonSizeY() * getGameGUIManager().getGUIScale());
+        int fixedButtonSizeX = (int) (GameSettings.getInstance().getDefaultButtonSizeX() * getGameGUIManager().getGUIScale());
+        int fixedButtonSizeY = (int) (GameSettings.getInstance().getDefaultButtonSizeY() * getGameGUIManager().getGUIScale());
 
         newGameButton = setParent(rootPanel, addPadding(addButton(fixedButtonSizeX, fixedButtonSizeY, "New Game", newGameListener), guiPadding));
         loadGameButton = setParent(rootPanel, addPadding(addButton(fixedButtonSizeX, fixedButtonSizeY, "Load Game", loadGameListener), guiPadding));
@@ -73,6 +74,6 @@ public class MainMenuGUI extends GUIScreen {    // GUI Components
         setWindowSize();
 
         // Play Audio
-        getAudioManager().playAudio(ResourcePaths.OST_MAIN_MENU, Enums.audioType.AUDIO_TYPE_MUSIC);
+        GameAudioManager.getInstance().playAudio(ResourcePaths.OST_MAIN_MENU, Enums.audioType.AUDIO_TYPE_MUSIC);
     }
 }

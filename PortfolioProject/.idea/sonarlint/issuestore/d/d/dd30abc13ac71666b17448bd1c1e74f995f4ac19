@@ -1,5 +1,9 @@
 
 O
-java:S2387"2"rootPanel" is the name of a field in "GUIScreen".(ì˜ïÅ8©‹×û†2
+java:S2387"2"rootPanel" is the name of a field in "GUIScreen".(ì˜ïÅ8©‹×û†2
 N
-java:S1602)",Remove useless curly braces around statement(œÁ…Áûÿÿÿÿ8«‹×û†2
+java:S1602(",Remove useless curly braces around statement(Îû¡Óùÿÿÿÿ8ÿ¬ïş2
+N
+java:S16022",Remove useless curly braces around statement(œÁ…Áûÿÿÿÿ8«‹×û†2
+M
+java:S1128"0Remove this unused import 'java.util.ArrayList'.(÷‰îƒ8İ¹ú‹2

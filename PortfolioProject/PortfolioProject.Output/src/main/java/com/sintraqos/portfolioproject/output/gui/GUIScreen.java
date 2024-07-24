@@ -1,11 +1,9 @@
 package com.sintraqos.portfolioproject.output.gui;
 
-import com.sintraqos.portfolioproject.output.OutputManager;
-import com.sintraqos.portfolioproject.output.audio.GameAudioManager;
 import com.sintraqos.portfolioproject.output.gui.guicomponents.GUI_JPanelBackground;
 import com.sintraqos.portfolioproject.output.gui.guicomponents.GUI_KeyboardListener;
 import com.sintraqos.portfolioproject.statics.GameSettings;
-import com.sintraqos.portfolioproject.statics.Statics;
+import com.sintraqos.portfolioproject.statics.StaticUtils;
 
 import javax.swing.*;
 import java.awt.*;
@@ -16,21 +14,10 @@ import static java.awt.Component.CENTER_ALIGNMENT;
 public class GUIScreen {
     // Set references
     GameGUIManager gameGUIManager;
-    OutputManager outputManager;
-    GameSettings settings;
-    GameAudioManager audioManager;
     JPanel rootPanel;
 
     public GameGUIManager getGameGUIManager() {
         return gameGUIManager;
-    }
-
-    public GameSettings getSettings() {
-        return settings;
-    }
-
-    public GameAudioManager getAudioManager() {
-        return audioManager;
     }
 
     //region Setup
@@ -42,9 +29,6 @@ public class GUIScreen {
     public void setup(JPanel rootPanel, LayoutManager layout) {
         // Set references
         gameGUIManager = GameGUIManager.getInstance();
-        outputManager = OutputManager.getInstance();
-        settings = GameSettings.getInstance();
-        audioManager = GameAudioManager.getInstance();
 
         this.rootPanel = rootPanel;
 
@@ -61,9 +45,9 @@ public class GUIScreen {
         gameGUIManager.getFrame().setContentPane(rootPanel);                                                             // Set the window object
         gameGUIManager.getFrame().add(Box.createVerticalGlue());
         gameGUIManager.getFrame().setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);                               // Make sure everything is properly set in the layout
-        gameGUIManager.getFrame().setSize(settings.getWindowSize().width, settings.getWindowSize().height);              // Set the window size
-        gameGUIManager.getFrame().setForeground(Statics.GUI_FOREGROUND_COLOR);
-        gameGUIManager.getFrame().setBackground(Statics.GUI_BACKGROUND_COLOR);
+        gameGUIManager.getFrame().setSize(GameSettings.getInstance().getWindowSize().width, GameSettings.getInstance().getWindowSize().height);    // Set the window size
+        gameGUIManager.getFrame().setForeground(StaticUtils.GUI_FOREGROUND_COLOR);
+        gameGUIManager.getFrame().setBackground(StaticUtils.GUI_BACKGROUND_COLOR);
         gameGUIManager.getFrame().setResizable(false);
         gameGUIManager.getFrame().setLocationRelativeTo(null);                                                           // Center the window object
         gameGUIManager.getFrame().setVisible(true);
@@ -74,7 +58,7 @@ public class GUIScreen {
     //region Add Keyboard Listener
 
     public void addKeyboardListener() {
-        gameGUIManager.getFrame().addKeyListener(new GUI_KeyboardListener(settings.getWindowName()));
+        gameGUIManager.getFrame().addKeyListener(new GUI_KeyboardListener(GameSettings.getInstance().getWindowName()));
     }
 
     //endregion
@@ -94,8 +78,8 @@ public class GUIScreen {
         jPanelBackground.setSize(width, height);
 
         // Set graphics
-        jPanelBackground.setForeground(Statics.GUI_FOREGROUND_COLOR);
-        jPanelBackground.setBackground(Statics.GUI_BACKGROUND_COLOR);
+        jPanelBackground.setForeground(StaticUtils.GUI_FOREGROUND_COLOR);
+        jPanelBackground.setBackground(StaticUtils.GUI_BACKGROUND_COLOR);
         getGameGUIManager().setImage(jPanelBackground, imagePath, width, height);
 
         // Set alignment
@@ -122,8 +106,8 @@ public class GUIScreen {
         jPanel.setSize(size);
 
         // Set graphics
-        jPanel.setForeground(Statics.GUI_FOREGROUND_COLOR);
-        jPanel.setBackground(Statics.GUI_BACKGROUND_COLOR);
+        jPanel.setForeground(StaticUtils.GUI_FOREGROUND_COLOR);
+        jPanel.setBackground(StaticUtils.GUI_BACKGROUND_COLOR);
 
         // Set alignment
         setAlignment(jPanel, alignmentX, alignmentY);
@@ -184,7 +168,7 @@ public class GUIScreen {
         label.setSize(size);
 
         // Set graphics
-        label.setForeground(Statics.GUI_FOREGROUND_COLOR);
+        label.setForeground(StaticUtils.GUI_FOREGROUND_COLOR);
         label.setBackground(new Color(0, 0, 0, 0));
         getGameGUIManager().setFont(label);
 
@@ -204,7 +188,7 @@ public class GUIScreen {
         button.setSize(width, height);
 
         // Set graphics
-        button.setForeground(Statics.GUI_FOREGROUND_COLOR);
+        button.setForeground(StaticUtils.GUI_FOREGROUND_COLOR);
         button.setBackground(new Color(0, 0, 0, 0));
         getGameGUIManager().setFont(button);
         getGameGUIManager().setupButton(button, width, height);
@@ -241,7 +225,7 @@ public class GUIScreen {
         textPane.setEditable(false);
 
         // Set graphics
-        textPane.setForeground(Statics.GUI_FOREGROUND_COLOR);
+        textPane.setForeground(StaticUtils.GUI_FOREGROUND_COLOR);
         textPane.setBackground(new Color(0, 0, 0, 0));
         getGameGUIManager().setFont(textPane);
 

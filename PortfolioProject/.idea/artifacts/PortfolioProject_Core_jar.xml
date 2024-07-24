@@ -1,0 +1,31 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="PortfolioProject.Core:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/PortfolioProject_Core_jar</output-path>
+    <root id="archive" name="PortfolioProject.Core.jar">
+      <element id="directory" name="META-INF">
+        <element id="file-copy" path="$PROJECT_DIR$/PortfolioProject.Connect/META-INF/MANIFEST.MF" />
+      </element>
+      <element id="module-output" name="PortfolioProject.Core" />
+      <element id="module-output" name="PortfolioProject.DataObjects" />
+      <element id="module-output" name="PortfolioProject.Statics" />
+      <element id="module-output" name="Output" />
+      <element id="module-output" name="PortfolioProject.Entity" />
+      <element id="library" level="project" name="Maven: PortfolioProject:PortfolioProject.Input:1.0-SNAPSHOT" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/net/datafaker/datafaker/2.2.2/datafaker-2.2.2.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/junit/jupiter/junit-jupiter/5.8.2/junit-jupiter-5.8.2.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/junit/jupiter/junit-jupiter-api/5.8.2/junit-jupiter-api-5.8.2.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/junit/platform/junit-platform-engine/1.8.2/junit-platform-engine-1.8.2.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/github/curious-odd-man/rgxgen/2.0/rgxgen-2.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/junit/platform/junit-platform-commons/1.8.2/junit-platform-commons-1.8.2.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/opentest4j/opentest4j/1.2.0/opentest4j-1.2.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/google/errorprone/error_prone_annotations/2.27.0/error_prone_annotations-2.27.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/apiguardian/apiguardian-api/1.1.2/apiguardian-api-1.1.2.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/junit/jupiter/junit-jupiter-params/5.8.2/junit-jupiter-params-5.8.2.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/google/code/gson/gson/2.11.0/gson-2.11.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/adonax/audiocue/2.1.0/audiocue-2.1.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/yaml/snakeyaml/2.2/snakeyaml-2.2.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/junit/jupiter/junit-jupiter-engine/5.8.2/junit-jupiter-engine-5.8.2.jar" path-in-jar="/" />
+      <element id="dir-copy" path="$PROJECT_DIR$/PortfolioProject.Output/src/main/resources" />
+    </root>
+  </artifact>
+</component>

@@ -17,6 +17,7 @@
         <module>PortfolioProject.DataObjects</module>
         <module>PortfolioProject.Entity</module>
         <module>PortfolioProject.Statics</module>
+        <module>PortfolioProject.Dialogue</module>
     </modules>
 
     <properties>

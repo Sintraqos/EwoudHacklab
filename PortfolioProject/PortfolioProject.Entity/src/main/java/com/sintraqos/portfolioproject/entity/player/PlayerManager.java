@@ -23,6 +23,7 @@ public class PlayerManager {
         currentPlayer = new PlayerMaster();
 
         Console.StringOutput("Finished setting up Player Manager");
+        Console.StringOutput();
     }
 
 }

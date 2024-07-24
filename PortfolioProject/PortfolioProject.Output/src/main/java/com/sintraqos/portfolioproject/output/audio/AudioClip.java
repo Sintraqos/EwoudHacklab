@@ -1,26 +1,30 @@
 package com.sintraqos.portfolioproject.output.audio;
 
 import com.sintraqos.portfolioproject.output.Console;
+import com.sintraqos.portfolioproject.statics.Functions;
 
 import javax.sound.sampled.*;
 import java.io.IOException;
 import java.util.Objects;
 
 public class AudioClip {
-    public String audioClipName = "AudioClip";
-    public String audioClipPath;
+    String audioClipName = "AudioClip";
+    String audioClipPath = "AudioPath";
     AudioInputStream audioInputStream;
+
+    public String getAudioClipName(){return audioClipName;}
+    public String getAudioClipPath(){return audioClipPath;}
 
     public AudioClip(String audioClipName, String audioClipPath) {
 
-        Console.StringOutput("Created new AudioClip: " + audioClipName.replace(".wav", ""));
+        Console.StringOutput("Created new AudioClip: " + Functions.getFileNameWithoutExtension(audioClipName));
 
         try {
             audioInputStream = AudioSystem.getAudioInputStream(Objects.requireNonNull(getClass().getResource(audioClipPath)));
-            this.audioClipName = audioClipName.replace(".wav", "");
+            this.audioClipName = Functions.getFileNameWithoutExtension(audioClipName);
             this.audioClipPath = audioClipPath;
-        } catch (UnsupportedAudioFileException | IOException e) {
-            throw new RuntimeException(e);
+        } catch (UnsupportedAudioFileException | IOException ex) {
+            throw new Functions.ExceptionHandler("AudioClip could not be created", ex);
         }
     }
 
