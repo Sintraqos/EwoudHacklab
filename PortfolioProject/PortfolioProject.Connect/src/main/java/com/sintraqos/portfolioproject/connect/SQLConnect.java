@@ -2,6 +2,7 @@ package com.sintraqos.portfolioproject.connect;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.sintraqos.portfolioproject.statics.Functions;
 
 import java.io.*;
 import java.sql.Connection;
@@ -55,10 +56,7 @@ public class SQLConnect extends ConnectBase {
                 stmt.execute(tableSql);
             }
         } catch (SQLException ex) {
-            // Handle exception
-            //System.out.println("SQLException: " + ex.getMessage());
-            //System.out.println("SQLState: " + ex.getSQLState());
-            //System.out.println("VendorError: " + ex.getErrorCode());
+            throw new Functions.ExceptionHandler("SQLException", ex);
         }
     }
 
@@ -79,26 +77,20 @@ public class SQLConnect extends ConnectBase {
 
         // Check if the settings file exists
         if (!new File(filePath).exists()) {
-//            System.out.println("Couldn't find a settings file!");
             // Create a new settings file from the default databaseSettings object
             try (Writer writer = new FileWriter(filePath)) {
                 settings = new SQLSettings();
                 gson.toJson(settings, writer);
-//                System.out.println("Created a new settings file!");
-            } catch (IOException e) {
-//                System.out.println("Failed to create a new settings file!");
-                throw new RuntimeException(e);
+            } catch (IOException ex) {
+                throw new Functions.ExceptionHandler("Failed to create settings file", ex);
             }
         }
         // Otherwise, read the JSON and apply read values
         else {
-//            System.out.println("Found a settings file!");
             try (Reader reader = new FileReader(filePath)) {
                 settings.setDbVariables(gson.fromJson(reader, SQLSettings.class));
-//                System.out.println("Applied settings from file!");
-            } catch (IOException e) {
-//                System.out.println("Failed to apply settings from file!");
-                throw new RuntimeException(e);
+            } catch (IOException ex) {
+                throw new Functions.ExceptionHandler("Failed to apply settings from file", ex);
             }
         }
 

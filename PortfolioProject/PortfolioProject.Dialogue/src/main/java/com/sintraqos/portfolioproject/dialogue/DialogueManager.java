@@ -37,7 +37,7 @@ public class DialogueManager {
     }
 
     DialogueManager() {
-        Console.StringTitleOutput("Initializing Dialogue Manager");
+        Console.writeHeader("Initializing Dialogue Manager");
 
         dialogues = new HashMap<>();
 
@@ -45,8 +45,8 @@ public class DialogueManager {
 
         readDialogueFiles(dialoguePath +ResourcePaths.PATH_SEPERATOR+ ResourcePaths.DIALOGUE_PERAGUS_PATH);
 
-        Console.StringOutput("Finished setting up Dialogue Manager");
-        Console.StringOutput();
+        Console.writeLine("Finished setting up Dialogue Manager");
+        Console.writeLine();
     }
 
     void readDialogueFiles(String directory) {
@@ -58,7 +58,7 @@ public class DialogueManager {
                 String cleanFileName = Functions.getFileNameWithoutExtension(currentFile.getName());
 
                 try (Reader reader = new FileReader(currentFile)) {    // Create new reader from file
-                    Console.StringOutput("Successfully read from dialogue file: " + cleanFileName);
+                    Console.writeLine("Successfully read from dialogue file: " + cleanFileName);
 
                     DialogueTree dialogueTree = gson.fromJson(reader, DialogueTree.class);
                     dialogues.put(dialogueTree.dialogueTreeID, dialogueTree);

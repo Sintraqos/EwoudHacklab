@@ -8,17 +8,12 @@ import com.sintraqos.portfolioproject.output.gui.guicomponents.GUI_KeyboardListe
 import com.sintraqos.portfolioproject.output.gui.mainmenu.MainMenuGUI;
 import com.sintraqos.portfolioproject.statics.*;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
-import java.util.HashMap;
+import java.util.*;
 import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 public class GameGUIManager {
 
@@ -51,64 +46,36 @@ public class GameGUIManager {
     HashMap<String, Image> portraitSprites = new HashMap<>();
 
     void setup() {
-        Console.StringTitleOutput("Initializing GUI Manager");
+        Console.writeHeader("Initializing GUI Manager");
 
-        GameSettings.getInstance();
+        // Images Setup
+        Console.writeHeader("Setup images");
 
-        // UI Setup
+        loadImages();
 
-        Console.StringTitleOutput("Setup UI Elements");
+        Console.writeLine("Finished setting up images");
+        Console.writeLine();
 
-        baseSpites.put(ResourcePaths.TITLE_SCREEN_LOGO, loadImage(createImagePath(ResourcePaths.MAIN_MENU_PATH, ResourcePaths.TITLE_SCREEN_LOGO)));
-        baseSpites.put(ResourcePaths.GUI_BACKGROUND, loadImage(createImagePath(ResourcePaths.UI_ELEMENT_PATH, ResourcePaths.GUI_BACKGROUND)));
-        baseSpites.put(ResourcePaths.BUTTON_BASE_IMAGE, loadImage(createImagePath(ResourcePaths.UI_ELEMENT_PATH, ResourcePaths.BUTTON_BASE_IMAGE)));
-        baseSpites.put(ResourcePaths.BUTTON_CLICK_IMAGE, loadImage(createImagePath(ResourcePaths.UI_ELEMENT_PATH, ResourcePaths.BUTTON_CLICK_IMAGE)));
-        baseSpites.put(ResourcePaths.BUTTON_HOVER_IMAGE, loadImage(createImagePath(ResourcePaths.UI_ELEMENT_PATH, ResourcePaths.BUTTON_HOVER_IMAGE)));
-        baseSpites.put(ResourcePaths.LABEL_IMAGE, loadImage(createImagePath(ResourcePaths.UI_ELEMENT_PATH, ResourcePaths.LABEL_IMAGE)));
+        // Portraits Setup
+        Console.writeHeader("Setup portraits");
 
-        Console.StringOutput("Finished setting up UI Elements");
+        loadCompanionPortraits();
 
-        //region Portraits Setup
+        loadPlayerPortraits();
 
-        Console.StringTitleOutput("Setup portraits");
-
-        // Companions
-        Console.StringOutput("Getting companion portraits");
-
-        for (Map.Entry<String, List<String>> entry : ResourcePaths.getPortraitCompanions().entrySet()) {
-            for (String portraitName : entry.getValue()) {
-                portraitSprites.put(portraitName, loadImage(createImagePath(ResourcePaths.PORTRAIT_PATH, ResourcePaths.PORTRAIT_COMPANION_PATH, portraitName)));
-
-                Console.StringOutput("Added portrait: " + portraitName);
-            }
-        }
-
-        Console.StringOutput("Finished getting companion portraits");
-        Console.StringOutput();
-
-        // Player
-        Console.StringOutput("Getting player portraits");
-
-
-        Console.StringOutput("Finished getting player portraits");
-        Console.StringOutput();
-
-        Console.StringOutput("Finished setting up portraits");
-
-        //endregion
+        Console.writeLine("Finished setting up portraits");
+        Console.writeLine();
 
         // Create new font
+        Console.writeHeader("Setup font");
 
-        try {
-            font = Font.createFont(Font.TRUETYPE_FONT, Objects.requireNonNull(getClass().getResourceAsStream(ResourcePaths.PATH_SEPERATOR + ResourcePaths.FONT_PATH + ResourcePaths.PATH_SEPERATOR + ResourcePaths.FONT_FILE_NAME + ResourcePaths.EXTENSION_FONT)));
+        loadFont();
 
-            GraphicsEnvironment.getLocalGraphicsEnvironment().registerFont(font);   // Register the font so it can be used
-        } catch (FontFormatException | IOException ex) {
-            throw new Functions.ExceptionHandler("Failed to get Font file", ex);
-        }
+        Console.writeLine("Finished setting up font");
+        Console.writeLine();
 
-        Console.StringOutput("Finished setting up GUI Manager");
-        Console.StringOutput();
+        Console.writeLine("Finished setting up GUI Manager");
+        Console.writeLine();
 
         // Load the needed GUI
         frame = new GUI_KeyboardListener(GameSettings.getInstance().getWindowName());
@@ -116,36 +83,99 @@ public class GameGUIManager {
         activeScreen = new MainMenuGUI();
     }
 
+    //region Load files
 
-    Image loadImage(String path) {
-        try {
-            return ImageIO.read(Objects.requireNonNull(getClass().getClassLoader().getResource(path)));
-        } catch (IOException exception) {
-            return null;
+    // Load Image
+    void loadImages(){
+        // Title Screen
+        baseSpites.put(ResourcePaths.TITLE_SCREEN_LOGO, Functions.loadImage(ResourcePaths.getImagePath(ResourcePaths.MAIN_MENU_PATH, ResourcePaths.TITLE_SCREEN_LOGO)));
+
+        // Class Icons
+        baseSpites.put(ResourcePaths.GUI_CLASS_ICON_CONSULAR, Functions.loadImage(ResourcePaths.getImagePath(ResourcePaths.UI_ELEMENT_PATH, ResourcePaths.GUI_CLASS_ICON_CONSULAR)));
+        baseSpites.put(ResourcePaths.GUI_CLASS_ICON_GUARDIAN, Functions.loadImage(ResourcePaths.getImagePath(ResourcePaths.UI_ELEMENT_PATH, ResourcePaths.GUI_CLASS_ICON_GUARDIAN)));
+        baseSpites.put(ResourcePaths.GUI_CLASS_ICON_SENTINEL, Functions.loadImage(ResourcePaths.getImagePath(ResourcePaths.UI_ELEMENT_PATH, ResourcePaths.GUI_CLASS_ICON_SENTINEL)));
+
+        // Default Portraits
+        baseSpites.put(ResourcePaths.PORTRAIT_DEFAULT_MALE_PATH, Functions.loadImage(ResourcePaths.getImagePath(ResourcePaths.UI_ELEMENT_PATH, ResourcePaths.PORTRAIT_DEFAULT_MALE_PATH)));
+        baseSpites.put(ResourcePaths.PORTRAIT_DEFAULT_FEMALE_PATH, Functions.loadImage(ResourcePaths.getImagePath(ResourcePaths.UI_ELEMENT_PATH, ResourcePaths.PORTRAIT_DEFAULT_FEMALE_PATH)));
+
+        // GUI Elements
+        baseSpites.put(ResourcePaths.GUI_BACKGROUND, Functions.loadImage(ResourcePaths.getImagePath(ResourcePaths.UI_ELEMENT_PATH, ResourcePaths.GUI_BACKGROUND)));
+        baseSpites.put(ResourcePaths.BUTTON_BASE_IMAGE, Functions.loadImage(ResourcePaths.getImagePath(ResourcePaths.UI_ELEMENT_PATH, ResourcePaths.BUTTON_BASE_IMAGE)));
+        baseSpites.put(ResourcePaths.BUTTON_CLICK_IMAGE, Functions.loadImage(ResourcePaths.getImagePath(ResourcePaths.UI_ELEMENT_PATH, ResourcePaths.BUTTON_CLICK_IMAGE)));
+        baseSpites.put(ResourcePaths.BUTTON_HOVER_IMAGE, Functions.loadImage(ResourcePaths.getImagePath(ResourcePaths.UI_ELEMENT_PATH, ResourcePaths.BUTTON_HOVER_IMAGE)));
+        baseSpites.put(ResourcePaths.LABEL_IMAGE, Functions.loadImage(ResourcePaths.getImagePath(ResourcePaths.UI_ELEMENT_PATH, ResourcePaths.LABEL_IMAGE)));
+    }
+
+    // Companion Portrait
+    void loadCompanionPortraits(){
+        Console.writeLine("Getting companion portraits");
+
+        for (Map.Entry<String, List<String>> entry : ResourcePaths.getPortraitCompanions().entrySet()) {
+            for (String portraitName : entry.getValue()) {
+                addPortrait(Functions.getFileNameWithoutExtension(portraitName), ResourcePaths.PORTRAIT_COMPANION_PATH);
+            }
+        }
+
+        Console.writeLine("Finished getting companion portraits");
+        Console.writeLine();
+    }
+
+    // Player Portrait
+    void loadPlayerPortraits(){
+        Console.writeLine("Getting player portraits");
+
+        loadPlayerPortraits(ResourcePaths.PORTRAIT_MALE_PATH);
+        loadPlayerPortraits(ResourcePaths.PORTRAIT_FEMALE_PATH);
+
+        Console.writeLine("Finished getting player portraits");
+        Console.writeLine();
+    }
+
+    void loadPlayerPortraits(String imagePrefix) {
+        Console.writeHeader("New portrait prefix: " + imagePrefix);
+
+        for (String fileName : Functions.getFiles(ResourcePaths.getPortraitImagePath(ResourcePaths.PORTRAIT_PLAYER_PATH), imagePrefix)) {
+            addPortrait(Functions.getFileNameWithoutExtension(fileName), ResourcePaths.PORTRAIT_PLAYER_PATH);
         }
     }
+
+    void addPortrait(String fileName, String locationDirectory){
+        portraitSprites.put(fileName, Functions.loadImage(ResourcePaths.getImagePath(ResourcePaths.PORTRAIT_PATH, locationDirectory, fileName)));
+        Console.writeLine("Added portrait: " + fileName);
+    }
+
+    // Font
+    void loadFont(){
+
+        try {
+            font = Font.createFont(Font.TRUETYPE_FONT, Objects.requireNonNull(getClass().getResourceAsStream(ResourcePaths.getFontPath())));
+
+            GraphicsEnvironment.getLocalGraphicsEnvironment().registerFont(font);   // Register the font so it can be used
+        } catch (FontFormatException | IOException ex) {
+            throw new Functions.ExceptionHandler("Failed to get Font file", ex);
+        }
+    }
+
+    //endregion
 
     //region Set Button
 
     public void setupButton(JButton button, int buttonWidth, int buttonHeight) {
-
         setImage(button, ResourcePaths.BUTTON_BASE_IMAGE, buttonWidth, buttonHeight);
 
         // Setup events
+
+        // Click event
+        button.addActionListener(e -> {
+            GameAudioManager.getInstance().playOneShotAudio(ResourcePaths.GUI_CLICK, Enums.audioType.AUDIO_TYPE_SFX);
+            button.setForeground(StaticUtils.GUI_HOVER_TEXT_COLOR);
+            new Thread(new SetJButtonIcon(0, button, ResourcePaths.BUTTON_CLICK_IMAGE, buttonWidth, buttonHeight)).start();
+            new Thread(new SetJButtonIcon(75, button, ResourcePaths.BUTTON_HOVER_IMAGE, buttonWidth, buttonHeight)).start();
+        });
+
+        // Mouse events
         button.addMouseListener(new MouseAdapter() {
-            // Click
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                button.setForeground(StaticUtils.GUI_HOVER_TEXT_COLOR);
-
-                new Thread(new SetJButtonIcon(0, button, ResourcePaths.BUTTON_CLICK_IMAGE, buttonWidth, buttonHeight)).start();
-                new Thread(new SetJButtonIcon(75, button, ResourcePaths.BUTTON_HOVER_IMAGE, buttonWidth, buttonHeight)).start();
-
-                // Play audio on click
-                GameAudioManager.getInstance().playOneShotAudio(ResourcePaths.GUI_CLICK, Enums.audioType.AUDIO_TYPE_SFX);
-
-                super.mouseClicked(e);
-            }
 
             // Hover
             @Override
@@ -229,18 +259,7 @@ public class GameGUIManager {
 
     //endregion
 
-    //region Get / Set Image
-
-    // Create Image Path
-    String createImagePath(String locationDirectory, String imageName) {
-        return ResourcePaths.IMAGE_PATH + ResourcePaths.PATH_SEPERATOR + locationDirectory + ResourcePaths.PATH_SEPERATOR + imageName + ResourcePaths.EXTENSION_IMAGE;
-    }
-
-    String createImagePath(String locationDirectory, String locationSubDirectory, String imageName) {
-        return ResourcePaths.IMAGE_PATH + ResourcePaths.PATH_SEPERATOR + locationDirectory + ResourcePaths.PATH_SEPERATOR + locationSubDirectory + ResourcePaths.PATH_SEPERATOR + imageName + ResourcePaths.EXTENSION_IMAGE;
-    }
-
-    // Set Image
+    //region Set Image
     public void setImage(GUI_JPanelBackground panel, String imageName, int imageWidth, int imageHeight) {
         panel.setImage(getImage(imageName, imageWidth, imageHeight));
         panel.setOpaque(true);
@@ -276,12 +295,12 @@ public class GameGUIManager {
     }
 
     Image getUnscaledImage(String imageName, int imageWidth, int imageHeight) {
-        return baseSpites.get(imageName).getScaledInstance(imageWidth, imageHeight, java.awt.Image.SCALE_SMOOTH);
+        return baseSpites.get(imageName).getScaledInstance(imageWidth, imageHeight, Image.SCALE_SMOOTH);
     }
 
     //endregion
 
-    //region Set Font
+    //region Font
 
     public void setFont(JLabel label) {
         label.setFont(font);
@@ -314,7 +333,7 @@ public class GameGUIManager {
     //region Set Window Size
 
     public void setWindowSize(Dimension windowSize) {
-        Console.StringOutput(windowSize.toString());
+        Console.writeLine(windowSize.toString());
         GameSettings.getInstance().setWindowSize(windowSize);
     }
 

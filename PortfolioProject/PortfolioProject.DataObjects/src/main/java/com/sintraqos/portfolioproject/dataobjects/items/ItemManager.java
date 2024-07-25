@@ -25,9 +25,9 @@ public class ItemManager {
 
 
     ItemManager() {
-        Console.StringTitleOutput("Initializing Item Manager");
-        Console.StringOutput("Finished setting up Item Manager");
-        Console.StringOutput();
+        Console.writeHeader("Initializing Item Manager");
+        Console.writeLine("Finished setting up Item Manager");
+        Console.writeLine();
     }
 
     //region Get Item

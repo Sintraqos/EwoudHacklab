@@ -105,7 +105,12 @@ public class CharacterScreenGUI_Base  extends GUIScreen {
     //endregion
 
     // Setup
+
     public void createBase(JPanel rootPanel, String labelText) {
+        createBase(rootPanel, labelText, true);
+    }
+
+    public void createBase(JPanel rootPanel, String labelText, boolean createBasePanels) {
         this.rootPanel = rootPanel;
         setup(this.rootPanel);
 
@@ -137,12 +142,16 @@ public class CharacterScreenGUI_Base  extends GUIScreen {
         // Create empty
         setParent(objectPanel, addJPanel(guiPanelWidth, guiPadding));
         contentPanel = setParent(objectPanel, addJPanel(guiPanelWidth, guiPanelHeight - (2 * (guiHeight + guiPadding))));
-        setLayout(contentPanel, new BoxLayout(contentPanel, BoxLayout.X_AXIS));
-        leftPanel = setParent(contentPanel, addJPanelBackground(guiPanelWidth / 2, guiPanelHeight, ResourcePaths.LABEL_IMAGE));
-        setLayout(leftPanel, new BoxLayout(leftPanel, BoxLayout.Y_AXIS));
-        rightPanel = setParent(contentPanel, addJPanelBackground(guiPanelWidth / 2, guiPanelHeight, ResourcePaths.LABEL_IMAGE));
-        setLayout(rightPanel, new BoxLayout(rightPanel, BoxLayout.Y_AXIS));
 
+        if (createBasePanels) {
+            setLayout(contentPanel, new BoxLayout(contentPanel, BoxLayout.X_AXIS));
+            leftPanel = setParent(contentPanel, addJPanelBackground(guiPanelWidth / 2, guiPanelHeight, ResourcePaths.LABEL_IMAGE));
+            setLayout(leftPanel, new BoxLayout(leftPanel, BoxLayout.Y_AXIS));
+            rightPanel = setParent(contentPanel, addJPanelBackground(guiPanelWidth / 2, guiPanelHeight, ResourcePaths.LABEL_IMAGE));
+            setLayout(rightPanel, new BoxLayout(rightPanel, BoxLayout.Y_AXIS));
+        }
+
+        // Finally set the window size to make sure everything is properly sized
         setWindowSize();
     }
 }

@@ -1,8 +1,3 @@
 
-_	java:S107—"=Method has 10 parameters, which is greater than 7 authorized.(àİâıÿÿÿÿ8Ú†ö‹2
-l
-java:S1128"JRemove this unused import 'com.sintraqos.portfolioproject.output.Console'.(éåÕôøÿÿÿÿ8°šŒ2
-r
-java:S1128"PRemove this unused import 'com.sintraqos.portfolioproject.output.OutputManager'.(ÅË½ùÿÿÿÿ8ì¿‚Œ2
-u
-java:S1128"YRemove this unused import 'com.sintraqos.portfolioproject.output.audio.GameAudioManager'.(óìï8ì¿‚Œ2
+_	java:S107"=Method has 11 parameters, which is greater than 7 authorized.(“»ïüÿÿÿÿ8—ªîÜ2
+Y	java:S125§"<This block of commented-out lines of code should be removed.(˜“‹8õ‘ŒŞ2

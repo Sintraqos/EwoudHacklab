@@ -18,7 +18,7 @@ public class ItemArmor extends ItemEquipable {
             int itemArmorValue,
             Enums.itemArmorType itemArmorType
     ) {
-        // Setup the item base
+        // Set up the item base
         setup(itemID, itemName, itemDescription, itemArmorSlot, Enums.itemWeaponSlot.ITEM_WEAPON_SLOT_NONE);
 
         this.itemArmorValue = itemArmorValue;

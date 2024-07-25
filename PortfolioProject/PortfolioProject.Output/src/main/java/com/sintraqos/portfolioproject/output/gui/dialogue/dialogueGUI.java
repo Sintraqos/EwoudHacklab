@@ -2,16 +2,10 @@ package com.sintraqos.portfolioproject.output.gui.dialogue;
 
 import com.sintraqos.portfolioproject.output.audio.GameAudioManager;
 import com.sintraqos.portfolioproject.output.gui.GUIScreen;
-import com.sintraqos.portfolioproject.output.gui.GameGUIManager;
-import com.sintraqos.portfolioproject.output.gui.characterscreen.CharacterScreenGUI;
-import com.sintraqos.portfolioproject.output.gui.options.OptionsGUI;
 import com.sintraqos.portfolioproject.statics.Enums;
-import com.sintraqos.portfolioproject.statics.GameSettings;
 import com.sintraqos.portfolioproject.statics.ResourcePaths;
 
 import javax.swing.*;
-import java.awt.event.ActionListener;
-import java.awt.event.WindowEvent;
 
 public class dialogueGUI extends GUIScreen{
 

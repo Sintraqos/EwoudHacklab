@@ -3,7 +3,8 @@ package com.sintraqos.portfolioproject.output.gui.mainmenu;
 import com.sintraqos.portfolioproject.output.audio.GameAudioManager;
 import com.sintraqos.portfolioproject.output.gui.GUIScreen;
 import com.sintraqos.portfolioproject.output.gui.GameGUIManager;
-import com.sintraqos.portfolioproject.output.gui.characterscreen.CharacterScreenGUI;
+import com.sintraqos.portfolioproject.output.gui.characterscreen.characterCreate_CreateCharacter.CharacterScreenGUI_CreateCharacter;
+import com.sintraqos.portfolioproject.output.gui.characterscreen.characterCreate_SelectGenderClass.CharacterScreenGUI_SelectGenderClass;
 import com.sintraqos.portfolioproject.output.gui.options.OptionsGUI;
 import com.sintraqos.portfolioproject.statics.Enums;
 import com.sintraqos.portfolioproject.statics.GameSettings;
@@ -12,7 +13,6 @@ import com.sintraqos.portfolioproject.statics.ResourcePaths;
 import java.awt.event.*;
 
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import javax.swing.JPanel;
 
 public class MainMenuGUI extends GUIScreen {    // GUI Components
@@ -38,7 +38,7 @@ public class MainMenuGUI extends GUIScreen {    // GUI Components
         // Create listeners
         // New Game
         ActionListener newGameListener = e -> {
-            new CharacterScreenGUI();
+            new CharacterScreenGUI_SelectGenderClass();
         };
         // Load Game
         ActionListener loadGameListener = e -> {

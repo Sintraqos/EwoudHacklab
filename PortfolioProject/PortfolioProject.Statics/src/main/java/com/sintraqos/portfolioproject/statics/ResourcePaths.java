@@ -32,12 +32,15 @@ public class ResourcePaths {
 
     // Image Files
     public static final String TITLE_SCREEN_LOGO = "SWKoToRII_Logo";
-    public static final String CURSOR_BASE_IMAGE = "UI_CursorBase";
-    public static final String BUTTON_BASE_IMAGE = "UI_ButtonBase";
-    public static final String BUTTON_CLICK_IMAGE = "UI_ButtonClick";
-    public static final String BUTTON_HOVER_IMAGE = "UI_ButtonHover";
-    public static final String LABEL_IMAGE = "UI_Label";
-    public static final String GUI_BACKGROUND = "UI_Background";
+    public static final String CURSOR_BASE_IMAGE = "CursorBase";
+    public static final String BUTTON_BASE_IMAGE = "ButtonBase";
+    public static final String BUTTON_CLICK_IMAGE = "ButtonClick";
+    public static final String BUTTON_HOVER_IMAGE = "ButtonHover";
+    public static final String LABEL_IMAGE = "Label";
+    public static final String GUI_BACKGROUND = "GUI_Background";
+    public static final String GUI_CLASS_ICON_CONSULAR = "ConsularIcon";
+    public static final String GUI_CLASS_ICON_GUARDIAN = "GuardianIcon";
+    public static final String GUI_CLASS_ICON_SENTINEL = "SentinelIcon";
 
     //region Portrait Frames
 
@@ -102,6 +105,9 @@ public class ResourcePaths {
     public static final String PORTRAIT_MALE_PATH = "play_Male_";
     public static final String PORTRAIT_FEMALE_PATH = "play_Fem_";
 
+    public static final String PORTRAIT_DEFAULT_FEMALE_PATH = "DefaultFemalePortrait";
+    public static final String PORTRAIT_DEFAULT_MALE_PATH = "DefaultMalePortrait";
+
     //endregion
 
     //endregion
@@ -111,10 +117,10 @@ public class ResourcePaths {
     //region Audio
 
     // paths
-    public static final String AUDIO_PATH = "/audio/";
-    public static final String SOUND_TRACK_PATH = "ost/";
-    public static final String SOUND_EFFECT_PATH = "sfx/";
-    public static final String GUI_SOUND_EFFECT_PATH = "gui/";
+    public static final String AUDIO_PATH = "audio";
+    public static final String SOUND_TRACK_PATH = "ost";
+    public static final String SOUND_EFFECT_PATH = "sfx";
+    public static final String GUI_SOUND_EFFECT_PATH = "gui";
 
     //region ---- GUI
 
@@ -197,6 +203,45 @@ public class ResourcePaths {
     public static final String KREIA_002 = "Kreia002";
 
     //endregion
+
+    //endregion
+
+    //region Get Paths
+
+    // Image
+    public static String getImagePath(String locationDirectory, String imageName) {
+        return IMAGE_PATH + PATH_SEPERATOR + locationDirectory + PATH_SEPERATOR + imageName + EXTENSION_IMAGE;
+    }
+
+    public static String getImagePath(String locationDirectory, String locationSubDirectory, String imageName) {
+        return IMAGE_PATH + PATH_SEPERATOR + locationDirectory + PATH_SEPERATOR + locationSubDirectory + PATH_SEPERATOR + imageName + EXTENSION_IMAGE;
+    }
+
+    public static String getPortraitImagePath(String locationDirectory) {
+        return PATH_SEPERATOR + IMAGE_PATH + PATH_SEPERATOR + PORTRAIT_PATH + PATH_SEPERATOR + locationDirectory + PATH_SEPERATOR;
+    }
+
+    // Audio
+    public static  String getAudioPath(String locationDirectory) {
+        return PATH_SEPERATOR + AUDIO_PATH + PATH_SEPERATOR + locationDirectory + PATH_SEPERATOR;
+    }
+
+    public static String getAudioPath(String locationDirectory, String locationSubDirectory) {
+        return PATH_SEPERATOR + AUDIO_PATH + PATH_SEPERATOR + locationDirectory + PATH_SEPERATOR + locationSubDirectory;
+    }
+
+    public static  String getAudioPath(String locationDirectory, String locationSubDirectory, String audioName) {
+        return PATH_SEPERATOR + AUDIO_PATH + PATH_SEPERATOR + locationDirectory + PATH_SEPERATOR + locationSubDirectory + PATH_SEPERATOR + audioName;
+    }
+
+    public static String getDialogueAudioPath(String dialogueTreeLocation, String dialogueID){
+      return  PATH_SEPERATOR + AUDIO_PATH + DIALOGUE_PATH + dialogueTreeLocation + PATH_SEPERATOR + dialogueID + EXTENSION_AUDIO;
+    }
+
+    // Font
+    public static String getFontPath(){
+        return PATH_SEPERATOR + FONT_PATH + PATH_SEPERATOR + FONT_FILE_NAME + EXTENSION_FONT;
+    }
 
     //endregion
 }

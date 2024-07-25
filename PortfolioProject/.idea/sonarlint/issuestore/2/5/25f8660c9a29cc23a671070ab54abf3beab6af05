@@ -1,6 +1,4 @@
 
-¼
-java:S1845"žRename method "setup" to prevent any misunderstanding/clash with method "Setup" defined in superclass "com.sintraqos.portfolioproject.dataobjects.items.Item".(…¤ÃÀ8×©÷û…2
 r
 java:S1450"\Remove the "itemArmorSlot" field and declare it as a local variable in the relevant methods.(àÈ†Ã
 z

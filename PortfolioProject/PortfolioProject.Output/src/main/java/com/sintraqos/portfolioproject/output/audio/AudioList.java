@@ -25,29 +25,13 @@ public class AudioList {
     }
 
     public void createAudioClips(String audioPath, String audioPrefix) {
+        Console.writeHeader("New audio prefix: " + audioPrefix);
 
         audioClips.put(audioPrefix, new ArrayList<>());
-        List<String> fileNames = new ArrayList<>();
+        List<String> fileNames = Functions.getFiles(audioPath, audioPrefix);
 
-        try (
-                InputStream in = getClass().getResourceAsStream(audioPath)) {
-            assert in != null;
-            try (BufferedReader br = new BufferedReader(new InputStreamReader(in))) {
-                String resource;
-
-                while ((resource = br.readLine()) != null) {
-                    if (resource.contains(audioPrefix))
-                        fileNames.add(resource);
-                }
-            }
-        } catch (IOException e) {
-            throw new Functions.ExceptionHandler("Error reading audio clips from " + audioPath, e);
-        }
-
-        Console.StringTitleOutput("New Audio Prefix: " + audioPrefix);
         for (String fileName : fileNames) {
-            // Check if the audio file starts with the needed prefix
-            audioClips.get(audioPrefix).add(new AudioClip(fileName, ResourcePaths.AUDIO_PATH + ResourcePaths.PATH_SEPERATOR + ResourcePaths.SOUND_TRACK_PATH + ResourcePaths.PATH_SEPERATOR + fileName));
+            audioClips.get(audioPrefix).add(new AudioClip(fileName, ResourcePaths.PATH_SEPERATOR + ResourcePaths.AUDIO_PATH + ResourcePaths.PATH_SEPERATOR + ResourcePaths.SOUND_TRACK_PATH + ResourcePaths.PATH_SEPERATOR + Functions.getFileNameWithoutExtension(fileName)));
         }
 
         // Dispose of the file list

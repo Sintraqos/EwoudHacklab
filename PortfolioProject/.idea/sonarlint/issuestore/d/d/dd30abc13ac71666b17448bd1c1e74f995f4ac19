@@ -5,5 +5,5 @@ N
 java:S1602(",Remove useless curly braces around statement(Ξϋ΅Σωÿÿÿÿ8ÿ¬οώ2
 N
 java:S16022",Remove useless curly braces around statement(Α…Αϋÿÿÿÿ8«‹Χϋ†2
-M
-java:S1128"0Remove this unused import 'java.util.ArrayList'.(χ‰ξƒ8έΉϊ‹2
+¶
+java:S1128"™Remove this unused import 'com.sintraqos.portfolioproject.output.gui.characterscreen.characterCreate_CreateCharacter.CharacterScreenGUI_CreateCharacter'.(Θ²­>8μν¦Φ2

@@ -1,7 +1,9 @@
 package com.sintraqos.portfolioproject.output.gui;
 
+import com.sintraqos.portfolioproject.output.Console;
 import com.sintraqos.portfolioproject.output.gui.guicomponents.GUI_JPanelBackground;
 import com.sintraqos.portfolioproject.output.gui.guicomponents.GUI_KeyboardListener;
+import com.sintraqos.portfolioproject.statics.Functions;
 import com.sintraqos.portfolioproject.statics.GameSettings;
 import com.sintraqos.portfolioproject.statics.StaticUtils;
 
@@ -138,17 +140,32 @@ public class GUIScreen {
     //region ---- Scaled
 
     public JLabel addLabel(int width, int height, String labelText, String imageName) {
-        return addLabel(width, height, labelText, imageName, SwingConstants.CENTER, SwingConstants.CENTER, CENTER_ALIGNMENT, CENTER_ALIGNMENT, SwingConstants.CENTER, SwingConstants.CENTER);
+        return addLabel(width, height, labelText, imageName, SwingConstants.CENTER, SwingConstants.CENTER, CENTER_ALIGNMENT, CENTER_ALIGNMENT, SwingConstants.CENTER, SwingConstants.CENTER, true);
+    }
+
+    public JLabel addLabel(int width, int height, String labelText, String imageName, boolean scaledIcon) {
+        return addLabel(width, height, labelText, imageName, SwingConstants.CENTER, SwingConstants.CENTER, CENTER_ALIGNMENT, CENTER_ALIGNMENT, SwingConstants.CENTER, SwingConstants.CENTER, scaledIcon);
     }
 
     public JLabel addLabel(int width, int height, String labelText, String imageName, int textAlignmentX, int textAlignmentY) {
-        return addLabel(width, height, labelText, imageName, textAlignmentX, textAlignmentY, CENTER_ALIGNMENT, CENTER_ALIGNMENT, SwingConstants.CENTER, SwingConstants.CENTER);
+        return addLabel(width, height, labelText, imageName, textAlignmentX, textAlignmentY, CENTER_ALIGNMENT, CENTER_ALIGNMENT, SwingConstants.CENTER, SwingConstants.CENTER, true);
     }
 
-    public JLabel addLabel(int width, int height, String labelText, String imageName, int horizontalAlignmentX, int verticalAlignmentY, float alignmentX, float alignmentY, int textAlignmentX, int textAlignmentY) {
+    public JLabel addLabel(int width, int height, String labelText, String imageName, int textAlignmentX, int textAlignmentY, boolean scaledIcon) {
+        return addLabel(width, height, labelText, imageName, textAlignmentX, textAlignmentY, CENTER_ALIGNMENT, CENTER_ALIGNMENT, SwingConstants.CENTER, SwingConstants.CENTER, scaledIcon);
+    }
+
+    public JLabel addLabel(int width, int height, String labelText, String imageName, int horizontalAlignmentX, int verticalAlignmentY, float alignmentX, float alignmentY, int textAlignmentX, int textAlignmentY, boolean scaledIcon) {
         // Create base label
         JLabel label = createBaseLabel(width, height, labelText);
-        getGameGUIManager().setImage(label, imageName, width, height);
+
+        Console.writeLine("Image Name: " + imageName + " - Width: " + width + " - Height: " + height);
+
+        if (scaledIcon) {
+            getGameGUIManager().setImage(label, imageName, width, height);
+        } else {
+            getGameGUIManager().setUnscaledImage(label, imageName, width, height);
+        }
 
         // Set alignment
         setAlignment(label, horizontalAlignmentX, verticalAlignmentY, alignmentX, alignmentY, textAlignmentX, textAlignmentY);
@@ -160,7 +177,7 @@ public class GUIScreen {
 
     JLabel createBaseLabel(int width, int height, String labelText) {
         // Create new button
-        JLabel label = new JLabel(labelText);
+        JLabel label = new JLabel(Functions.capitalize(labelText));
         Dimension size = new Dimension(width, height);
         label.setMaximumSize(size);
         label.setMinimumSize(size);
@@ -181,7 +198,7 @@ public class GUIScreen {
 
     public JButton addButton(int width, int height, String text, ActionListener actionListener) {
         // Create new button
-        JButton button = new JButton(text);
+        JButton button = new JButton(Functions.capitalize(text));
         Dimension size = new Dimension(width, height);
         button.setMaximumSize(size);
         button.setPreferredSize(size);
@@ -220,7 +237,7 @@ public class GUIScreen {
         textPane.setPreferredSize(size);
         textPane.setSize(size);
 
-        textPane.setText(textPaneText);
+        textPane.setText(Functions.capitalize(textPaneText));
 
         textPane.setEditable(false);
 
@@ -239,11 +256,19 @@ public class GUIScreen {
 
     //region Set Parent
 
+    // JLabel
     public JPanel setParent(JPanel parent, JPanel panel) {
         parent.add(panel);
         parent.revalidate();
 
         return panel;
+    }
+
+    public JLabel setParent(JLabel parent, JLabel label) {
+        parent.add(label);
+        parent.revalidate();
+
+        return label;
     }
 
     public JTextPane setParent(JPanel parent, JTextPane textPane) {
@@ -265,6 +290,20 @@ public class GUIScreen {
         parent.revalidate();
 
         return button;
+    }
+//
+//    public JLabel setParent(JButton parent, JLabel label){
+//        parent.add(label);
+//        parent.revalidate();
+//
+//        return label;
+//    }
+
+    public JLabel setParent(JButton parent, JLabel label){
+        parent.add(label, BorderLayout.CENTER);
+        parent.revalidate();
+
+        return label;
     }
 
     //endregion

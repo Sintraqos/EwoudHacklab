@@ -10,6 +10,7 @@ public class ItemEquipable extends Item{
     private ArrayList<Enums.itemUpgradeSlot> itemUpgradeSlots;
 
     public void setup(int itemID, String itemName, String itemDescription, Enums.itemArmorSlot itemArmorSlot, Enums.itemWeaponSlot itemWeaponSlot) {
+        // Set up the item base
     setup(itemID, itemName, itemDescription);
 
         this.itemArmorSlot = itemArmorSlot;

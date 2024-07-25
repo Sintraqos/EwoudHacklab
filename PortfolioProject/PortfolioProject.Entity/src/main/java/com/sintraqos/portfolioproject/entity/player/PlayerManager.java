@@ -19,11 +19,11 @@ public class PlayerManager {
     public PlayerMaster getCurrentPlayer() {return currentPlayer;}
 
     public PlayerManager(){
-        Console.StringTitleOutput("Initializing Player Manager");
+        Console.writeHeader("Initializing Player Manager");
         currentPlayer = new PlayerMaster();
 
-        Console.StringOutput("Finished setting up Player Manager");
-        Console.StringOutput();
+        Console.writeLine("Finished setting up Player Manager");
+        Console.writeLine();
     }
 
 }

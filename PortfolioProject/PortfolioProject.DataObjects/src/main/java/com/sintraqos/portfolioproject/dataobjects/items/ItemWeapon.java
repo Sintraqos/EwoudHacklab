@@ -17,7 +17,7 @@ public class ItemWeapon extends ItemEquipable {
             int itemWeaponMaxDamage,
             Enums.itemWeaponDamageType itemWeaponDamageType
     ) {
-        // Setup the item base
+        // Set up the item base
         setup(itemID, itemName, itemDescription, com.sintraqos.portfolioproject.statics.Enums.itemArmorSlot.ITEM_ARMOR_SLOT_NONE, itemWeaponSlot);
 
         this.itemWeaponMinDamage = itemWeaponMinDamage;
