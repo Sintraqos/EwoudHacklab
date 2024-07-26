@@ -1,6 +1,5 @@
 package com.sintraqos.portfolioproject.output.gui;
 
-import com.sintraqos.portfolioproject.output.Console;
 import com.sintraqos.portfolioproject.output.gui.guicomponents.GUI_JPanelBackground;
 import com.sintraqos.portfolioproject.output.gui.guicomponents.GUI_KeyboardListener;
 import com.sintraqos.portfolioproject.statics.Functions;
@@ -127,7 +126,7 @@ public class GUIScreen {
     public JLabel addUnscaledLabel(int width, int height, String labelText, String imageName) {
         // Create base label
         JLabel label = createBaseLabel(width, height, labelText);
-        getGameGUIManager().setUnscaledImage(label, imageName, width, height);
+        getGameGUIManager().setScaledImage(label, imageName, width, height);
 
         // Set alignment
         setAlignment(label, SwingConstants.CENTER, SwingConstants.CENTER, CENTER_ALIGNMENT, CENTER_ALIGNMENT, SwingConstants.CENTER, SwingConstants.CENTER);
@@ -159,12 +158,10 @@ public class GUIScreen {
         // Create base label
         JLabel label = createBaseLabel(width, height, labelText);
 
-        Console.writeLine("Image Name: " + imageName + " - Width: " + width + " - Height: " + height);
-
         if (scaledIcon) {
             getGameGUIManager().setImage(label, imageName, width, height);
         } else {
-            getGameGUIManager().setUnscaledImage(label, imageName, width, height);
+            getGameGUIManager().setScaledImage(label, imageName, width, height);
         }
 
         // Set alignment
@@ -196,19 +193,30 @@ public class GUIScreen {
 
     //region Add JButton
 
-    public JButton addButton(int width, int height, String text, ActionListener actionListener) {
+    public JButton addButton(int width, int height, String text, ActionListener actionListener){
+        JButton button = addButton(width,height,text,actionListener, "", -1);
+
+        return button;
+    }
+
+    public JButton addButton(int width, int height, String text, ActionListener actionListener,String overlayImageName, int padding) {
         // Create new button
         JButton button = new JButton(Functions.capitalize(text));
         Dimension size = new Dimension(width, height);
         button.setMaximumSize(size);
         button.setPreferredSize(size);
-        button.setSize(width, height);
+        button.setSize(size);
 
         // Set graphics
         button.setForeground(StaticUtils.GUI_FOREGROUND_COLOR);
         button.setBackground(new Color(0, 0, 0, 0));
         getGameGUIManager().setFont(button);
-        getGameGUIManager().setupButton(button, width, height);
+
+        if (padding < 0 && overlayImageName.isEmpty()) {
+            getGameGUIManager().setupButton(button, width, height);
+        } else {
+            getGameGUIManager().setupButton(button, overlayImageName, width, height, padding);
+        }
 
         // Set alignment
         setAlignment(button, SwingConstants.CENTER, SwingConstants.CENTER, CENTER_ALIGNMENT, CENTER_ALIGNMENT, SwingConstants.CENTER, SwingConstants.CENTER);
@@ -291,19 +299,12 @@ public class GUIScreen {
 
         return button;
     }
-//
-//    public JLabel setParent(JButton parent, JLabel label){
-//        parent.add(label);
-//        parent.revalidate();
-//
-//        return label;
-//    }
 
-    public JLabel setParent(JButton parent, JLabel label){
+    public JButton setParent(JButton parent, JLabel label){
         parent.add(label, BorderLayout.CENTER);
         parent.revalidate();
 
-        return label;
+        return parent;
     }
 
     //endregion

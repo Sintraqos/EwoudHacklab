@@ -7,7 +7,6 @@ import com.sintraqos.portfolioproject.statics.GameSettings;
 import com.sintraqos.portfolioproject.statics.ResourcePaths;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionListener;
 
 public class OptionsGUI extends GUIScreen {
@@ -68,7 +67,7 @@ public class OptionsGUI extends GUIScreen {
 
         // Background
         rootPanel = new GUI_JPanelBackground();
-        getGameGUIManager().setUnscaledImage((GUI_JPanelBackground) rootPanel, ResourcePaths.GUI_BACKGROUND, windowSizeX, windowSizeY);
+        getGameGUIManager().setScaledImage((GUI_JPanelBackground) rootPanel, ResourcePaths.GUI_BACKGROUND, windowSizeX, windowSizeY);
         setup(rootPanel);
 
         // Create panel that contains all gui elements

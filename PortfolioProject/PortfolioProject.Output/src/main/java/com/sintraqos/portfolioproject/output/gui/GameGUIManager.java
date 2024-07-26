@@ -58,10 +58,10 @@ public class GameGUIManager {
 
         // Portraits Setup
         Console.writeHeader("Setup portraits");
-
-        loadCompanionPortraits();
-
-        loadPlayerPortraits();
+//
+//        loadCompanionPortraits();
+//
+//        loadPlayerPortraits();
 
         Console.writeLine("Finished setting up portraits");
         Console.writeLine();
@@ -164,14 +164,42 @@ public class GameGUIManager {
     public void setupButton(JButton button, int buttonWidth, int buttonHeight) {
         setImage(button, ResourcePaths.BUTTON_BASE_IMAGE, buttonWidth, buttonHeight);
 
+        setButtonListeners(
+                button,
+                ResourcePaths.BUTTON_BASE_IMAGE,
+                ResourcePaths.BUTTON_HOVER_IMAGE,
+                ResourcePaths.BUTTON_CLICK_IMAGE,
+                "",
+                buttonWidth,
+                buttonHeight,
+                -1
+        );
+    }
+
+    public void setupButton(JButton button, String overlayImageName, int buttonWidth, int buttonHeight, int padding) {
+        setOverlappedImage(button, ResourcePaths.BUTTON_BASE_IMAGE , overlayImageName , buttonWidth , buttonHeight, padding);
+
+        setButtonListeners(
+                button,
+                ResourcePaths.BUTTON_BASE_IMAGE,
+                ResourcePaths.BUTTON_HOVER_IMAGE,
+                ResourcePaths.BUTTON_CLICK_IMAGE,
+                overlayImageName,
+                buttonWidth,
+                buttonHeight,
+                padding
+                );
+    }
+
+    void setButtonListeners(JButton button, String buttonBaseName, String buttonHoverName, String buttonClickName, String buttonOverlapName, int buttonWidth, int buttonHeight, int padding){
         // Setup events
 
         // Click event
         button.addActionListener(e -> {
             GameAudioManager.getInstance().playOneShotAudio(ResourcePaths.GUI_CLICK, Enums.audioType.AUDIO_TYPE_SFX);
             button.setForeground(StaticUtils.GUI_HOVER_TEXT_COLOR);
-            new Thread(new SetJButtonIcon(0, button, ResourcePaths.BUTTON_CLICK_IMAGE, buttonWidth, buttonHeight)).start();
-            new Thread(new SetJButtonIcon(75, button, ResourcePaths.BUTTON_HOVER_IMAGE, buttonWidth, buttonHeight)).start();
+            new Thread(new SetJButtonIcon(0, button, buttonClickName,buttonOverlapName, buttonWidth, buttonHeight,padding)).start();
+            new Thread(new SetJButtonIcon(75, button,buttonHoverName,buttonOverlapName, buttonWidth, buttonHeight,padding)).start();
         });
 
         // Mouse events
@@ -182,7 +210,7 @@ public class GameGUIManager {
             public void mouseEntered(MouseEvent e) {
                 button.setForeground(StaticUtils.GUI_HOVER_TEXT_COLOR);
 
-                new Thread(new SetJButtonIcon(0, button, ResourcePaths.BUTTON_HOVER_IMAGE, buttonWidth, buttonHeight)).start();
+                new Thread(new SetJButtonIcon(0, button, buttonHoverName,buttonOverlapName, buttonWidth, buttonHeight,padding)).start();
 
                 super.mouseEntered(e);
             }
@@ -192,7 +220,7 @@ public class GameGUIManager {
             public void mouseExited(MouseEvent e) {
                 button.setForeground(StaticUtils.GUI_FOREGROUND_COLOR);
 
-                new Thread(new SetJButtonIcon(0, button, ResourcePaths.BUTTON_BASE_IMAGE, buttonWidth, buttonHeight)).start();
+                new Thread(new SetJButtonIcon(0, button, buttonBaseName,buttonOverlapName, buttonWidth, buttonHeight,padding)).start();
 
                 super.mouseExited(e);
             }
@@ -203,9 +231,11 @@ public class GameGUIManager {
     static class SetJButtonIcon implements Runnable {
         int sleepTime = 0;
         JButton button;
-        String imageName;
+        String baseImageName;
+        String overlappedImageName;
         int buttonWidth;
         int buttonHeight;
+        int padding;
 
         @Override
         public void run() {
@@ -216,15 +246,21 @@ public class GameGUIManager {
                 throw new Functions.ExceptionHandler("Interrupted task", ex);
             }
 
-            GameGUIManager.getInstance().setImage(button, imageName, buttonWidth, buttonHeight);
+            if (padding < 0 && overlappedImageName.isEmpty()) {
+                GameGUIManager.getInstance().setImage(button, baseImageName, buttonWidth, buttonHeight);
+            } else {
+                GameGUIManager.getInstance().setOverlappedImage(button, baseImageName, overlappedImageName, buttonWidth, buttonHeight, padding);
+            }
         }
 
-        public SetJButtonIcon(int sleepTime, JButton button, String imageName, int buttonWidth, int buttonHeight) {
+        public SetJButtonIcon(int sleepTime, JButton button, String baseImageName,String overlappedImageName, int buttonWidth, int buttonHeight, int padding) {
             this.sleepTime = sleepTime;
             this.button = button;
-            this.imageName = imageName;
+            this.overlappedImageName = overlappedImageName;
+            this.baseImageName = baseImageName;
             this.buttonWidth = buttonWidth;
             this.buttonHeight = buttonHeight;
+            this.padding = padding;
         }
     }
 
@@ -275,27 +311,48 @@ public class GameGUIManager {
         label.setOpaque(true);
     }
 
-    public void setUnscaledImage(JLabel label, String imageName, int imageWidth, int imageHeight) {
-        label.setIcon(new ImageIcon(getUnscaledImage(imageName, imageWidth, imageHeight)));
+    public void setScaledImage(JLabel label, String imageName, int imageWidth, int imageHeight) {
+        label.setIcon(new ImageIcon(getScaledImage(imageName, imageWidth, imageHeight)));
         label.setOpaque(true);
     }
 
-    public void setUnscaledImage(GUI_JPanelBackground panelBackground, String imageName, int imageWidth, int imageHeight) {
-        panelBackground.setImage(new ImageIcon(getUnscaledImage(imageName, imageWidth, imageHeight)).getImage());
+    public void setScaledImage(GUI_JPanelBackground panelBackground, String imageName, int imageWidth, int imageHeight) {
+        panelBackground.setImage(new ImageIcon(getScaledImage(imageName, imageWidth, imageHeight)).getImage());
         panelBackground.setOpaque(true);
+    }
+
+    public void setOverlappedImage(JButton button, String baseImageName, String overlayImageName, int imageWidth, int imageHeight, int padding) {
+        button.setIcon(new ImageIcon(getImageOverlapped(baseImageName, overlayImageName, imageWidth, imageHeight, padding)));
+        button.setOpaque(true);
     }
 
     // Get Image
     Image getImage(String imageName, int imageWidth, int imageHeight) {
-        if (!scaledSprites.containsKey(imageName + imageWidth + imageHeight)) {
-            scaledSprites.put(imageName + imageWidth + imageHeight, Functions.sliceImage(baseSpites.get(imageName), imageWidth, imageHeight));
+        String imageID = imageName + imageWidth + imageHeight;
+
+        if (!scaledSprites.containsKey(imageID)) {
+            scaledSprites.put(imageID, Functions.sliceImage(baseSpites.get(imageName), imageWidth, imageHeight));
         }
 
-        return scaledSprites.get(imageName + imageWidth + imageHeight);
+        return scaledSprites.get(imageID);
     }
 
-    Image getUnscaledImage(String imageName, int imageWidth, int imageHeight) {
+    Image getScaledImage(String imageName, int imageWidth, int imageHeight) {
         return baseSpites.get(imageName).getScaledInstance(imageWidth, imageHeight, Image.SCALE_SMOOTH);
+    }
+
+    Image getImageOverlapped(String baseImageName, String overlayImageName, int imageWidth, int imageHeight, int padding) {
+        String imageID = getOverlappedImageName(baseImageName , overlayImageName , imageWidth , imageHeight);
+
+        if (!scaledSprites.containsKey(imageID)) {
+            scaledSprites.put(imageID, Functions.overlapImage(baseSpites.get(baseImageName), baseSpites.get(overlayImageName), imageWidth, imageHeight, padding));
+        }
+
+        return scaledSprites.get(imageID);
+    }
+
+    String getOverlappedImageName(String baseImageName, String overlayImageName, int imageWidth, int imageHeight){
+        return baseImageName + overlayImageName + imageWidth + imageHeight;
     }
 
     //endregion
@@ -328,6 +385,7 @@ public class GameGUIManager {
     public void setFontSize(JTextPane textPane, int fontSize) {
         textPane.setFont(new Font(textPane.getFont().getName(), textPane.getFont().getStyle(), (int) (fontSize * getGUIScale())));
     }
+
     //endregion
 
     //region Set Window Size

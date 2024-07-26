@@ -1,6 +1,5 @@
 package com.sintraqos.portfolioproject.output.gui.characterscreen.characterCreate_SelectGenderClass;
 
-import com.sintraqos.portfolioproject.output.Console;
 import com.sintraqos.portfolioproject.output.gui.characterscreen.CharacterScreenGUI_Base;
 import com.sintraqos.portfolioproject.output.gui.mainmenu.MainMenuGUI;
 import com.sintraqos.portfolioproject.statics.ResourcePaths;
@@ -12,12 +11,12 @@ import java.awt.event.ActionListener;
 public class CharacterScreenGUI_SelectGenderClass extends CharacterScreenGUI_Base {
     JPanel rootPanel;
     JPanel iconPanel;
-    JButton iconMaleBackground;
+    JButton iconMaleButton;
     JLabel iconMale;
-    JButton iconFemaleBackground;
+    JButton iconFemaleButton;
     JLabel iconFemale;
-    JPanel classPanel;
-    JPanel classInfoPanel;
+    JLabel classPanel;
+    JLabel classInfoPanel;
 
     JButton cancelButton;
 
@@ -39,24 +38,27 @@ public class CharacterScreenGUI_SelectGenderClass extends CharacterScreenGUI_Bas
             new MainMenuGUI();
         };
 
-        int iconPadding = 0;
+        int iconPadding = getGuiHeight() / 3;
+        int iconSize = getGuiHeight() * 3;
+        int objectPaddingX = 0;
+        int objectPaddingY = getGuiHeight() / 3;
 
         // Create the three frames which hold the icons, buttons and text
-        iconPanel = setParent(getObjectPanel(), addJPanel(getGuiPanelWidth(), getGuiHeight() * 2));
+        iconPanel = setParent(getObjectPanel(), addJPanel(getGuiPanelWidth(), iconSize + iconPadding + getGuiHeight()));
+        setLayout(iconPanel, new GridBagLayout());
 
         // Male
-        iconMaleBackground = setParent(iconPanel, addButton(getGuiHeight() * 2, getGuiHeight() * 2, "", selectMaleListener));
-        iconMale = setParent(iconMaleBackground, addLabel((getGuiHeight() * 2) - iconPadding, (getGuiHeight() * 2) - iconPadding, "", ResourcePaths.PORTRAIT_DEFAULT_MALE_PATH, false));
-        //iconMale.setMinimumSize(new Dimension((getGuiHeight() * 2) - iconPadding,(getGuiHeight() * 2) - iconPadding));
+        iconMaleButton = setParent(iconPanel, addButton(iconSize, iconSize, "", selectMaleListener,ResourcePaths.PORTRAIT_DEFAULT_MALE_PATH,iconPadding ));
+
+        // Center fill
+        setParent(iconPanel, addJPanel(getGuiPanelWidth() - (3 * (iconSize + iconPadding)), iconSize));
 
         // Female
-        iconFemaleBackground = setParent(iconPanel, addButton(getGuiHeight() * 2, getGuiHeight() * 2, "", selectFemaleListener));
-        iconFemale = setParent(iconFemaleBackground, addLabel((getGuiHeight() * 2) - iconPadding, (getGuiHeight() * 2) - iconPadding, "", ResourcePaths.PORTRAIT_DEFAULT_FEMALE_PATH, false));
+        iconFemaleButton = setParent(iconPanel, addButton(iconSize, iconSize, "", selectFemaleListener,ResourcePaths.PORTRAIT_DEFAULT_FEMALE_PATH,iconPadding ));
 
         // Class Panel
-        classPanel = setParent(getObjectPanel(), addPadding(addLabel(getGuiPanelWidth(), getGuiHeight() * 2, "class", ResourcePaths.LABEL_IMAGE), 0, getGuiHeight() / 2));
-        classInfoPanel = setParent(getObjectPanel(), addPadding(addLabel(getGuiPanelWidth(), getGuiHeight() * 3, "class info", ResourcePaths.LABEL_IMAGE), 0, getGuiHeight() / 2));
-
+        classPanel = setParent(getObjectPanel(), addLabel(getGuiPanelWidth(), getGuiHeight() * 2, "Class", ResourcePaths.LABEL_IMAGE));
+        classInfoPanel = setParent(getObjectPanel(), addLabel(getGuiPanelWidth(), getGuiHeight() * 3, "Class Info", ResourcePaths.LABEL_IMAGE));
 
         // Add buttons
         cancelButton = setParent(getObjectPanel(), addButton(getGuiWidth(), getGuiHeight(), "Cancel", cancelListener));

@@ -2,12 +2,10 @@ package com.sintraqos.portfolioproject.output.gui.characterscreen;
 
 import com.sintraqos.portfolioproject.output.gui.GUIScreen;
 import com.sintraqos.portfolioproject.output.gui.guicomponents.GUI_JPanelBackground;
-import com.sintraqos.portfolioproject.output.gui.mainmenu.MainMenuGUI;
 import com.sintraqos.portfolioproject.statics.GameSettings;
 import com.sintraqos.portfolioproject.statics.ResourcePaths;
 
 import javax.swing.*;
-import java.awt.event.ActionListener;
 
 public class CharacterScreenGUI_Base  extends GUIScreen {
     private JPanel rootPanel;
@@ -130,7 +128,7 @@ public class CharacterScreenGUI_Base  extends GUIScreen {
 
         // Background
         rootPanel = new GUI_JPanelBackground();
-        getGameGUIManager().setUnscaledImage((GUI_JPanelBackground) rootPanel, ResourcePaths.GUI_BACKGROUND, windowSizeX, windowSizeY);
+        getGameGUIManager().setScaledImage((GUI_JPanelBackground) rootPanel, ResourcePaths.GUI_BACKGROUND, windowSizeX, windowSizeY);
         setup(rootPanel);
 
         // Create panel that contains all gui elements

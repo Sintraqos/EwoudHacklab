@@ -7,10 +7,7 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -110,6 +107,23 @@ public class Functions {
         imgCreator.drawImage(bufferedImage, 0, 0, imageWidth, imageHeight, sourceFirstX, sourceFirstY, dstCornerX, dstCornerY, null);
 
         return returnImage;
+    }
+
+    //endregion
+
+    //region Overlay Image
+
+    public static BufferedImage overlapImage(Image baseImageName, Image overlayImage, int imageWidth, int imageHeight, int padding){
+        BufferedImage overlappedImage = new BufferedImage(imageWidth, imageHeight, BufferedImage.TYPE_INT_ARGB);
+        Graphics  graphics = overlappedImage.getGraphics();
+
+        graphics.drawImage(sliceImage(baseImageName, imageWidth, imageHeight), 0, 0, null);
+        graphics.drawImage(overlayImage.getScaledInstance(imageWidth - (padding * 2), imageHeight - (padding * 2), Image.SCALE_SMOOTH), padding, padding, null);
+
+        // And dispose of the graphics since we don't need it anymore
+        graphics.dispose();
+
+        return overlappedImage;
     }
 
     //endregion
