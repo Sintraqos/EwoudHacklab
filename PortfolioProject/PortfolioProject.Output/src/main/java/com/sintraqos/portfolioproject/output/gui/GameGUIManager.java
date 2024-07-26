@@ -14,6 +14,7 @@ import java.awt.event.*;
 import java.io.*;
 import java.util.*;
 import java.util.List;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.IntStream;
 
 public class GameGUIManager {
@@ -42,9 +43,9 @@ public class GameGUIManager {
     }
 
     // Image - Width
-    HashMap<String, Image> baseSpites = new HashMap<>();
-    HashMap<String, Image> scaledSprites = new HashMap<>();
-    HashMap<String, Image> portraitSprites = new HashMap<>();
+    ConcurrentHashMap<String, Image> baseSpites = new ConcurrentHashMap<>();
+    ConcurrentHashMap<String, Image> modifiedSprites = new ConcurrentHashMap<>();
+    ConcurrentHashMap<String, Image> portraitSprites = new ConcurrentHashMap<>();
 
     void setup() {
         Console.writeHeader("Initializing GUI Manager");
@@ -89,23 +90,23 @@ public class GameGUIManager {
     // Load Image
     void loadImages() {
         // Title Screen
-        baseSpites.put(ResourcePaths.TITLE_SCREEN_LOGO, Functions.loadImage(ResourcePaths.getImagePath(ResourcePaths.MAIN_MENU_PATH, ResourcePaths.TITLE_SCREEN_LOGO)));
+        baseSpites.put(ResourcePaths.TITLE_SCREEN_LOGO, Objects.requireNonNull(Functions.loadImage(ResourcePaths.getImagePath(ResourcePaths.MAIN_MENU_PATH, ResourcePaths.TITLE_SCREEN_LOGO))));
 
         // Class Icons
-        baseSpites.put(ResourcePaths.GUI_CLASS_ICON_CONSULAR, Functions.loadImage(ResourcePaths.getImagePath(ResourcePaths.UI_ELEMENT_PATH, ResourcePaths.GUI_CLASS_ICON_CONSULAR)));
-        baseSpites.put(ResourcePaths.GUI_CLASS_ICON_GUARDIAN, Functions.loadImage(ResourcePaths.getImagePath(ResourcePaths.UI_ELEMENT_PATH, ResourcePaths.GUI_CLASS_ICON_GUARDIAN)));
-        baseSpites.put(ResourcePaths.GUI_CLASS_ICON_SENTINEL, Functions.loadImage(ResourcePaths.getImagePath(ResourcePaths.UI_ELEMENT_PATH, ResourcePaths.GUI_CLASS_ICON_SENTINEL)));
+        baseSpites.put(ResourcePaths.GUI_CLASS_ICON_CONSULAR, Objects.requireNonNull(Functions.loadImage(ResourcePaths.getImagePath(ResourcePaths.UI_ELEMENT_PATH, ResourcePaths.GUI_CLASS_ICON_CONSULAR))));
+        baseSpites.put(ResourcePaths.GUI_CLASS_ICON_GUARDIAN, Objects.requireNonNull(Functions.loadImage(ResourcePaths.getImagePath(ResourcePaths.UI_ELEMENT_PATH, ResourcePaths.GUI_CLASS_ICON_GUARDIAN))));
+        baseSpites.put(ResourcePaths.GUI_CLASS_ICON_SENTINEL, Objects.requireNonNull(Functions.loadImage(ResourcePaths.getImagePath(ResourcePaths.UI_ELEMENT_PATH, ResourcePaths.GUI_CLASS_ICON_SENTINEL))));
 
         // Default Portraits
-        baseSpites.put(ResourcePaths.PORTRAIT_DEFAULT_MALE_PATH, Functions.loadImage(ResourcePaths.getImagePath(ResourcePaths.UI_ELEMENT_PATH, ResourcePaths.PORTRAIT_DEFAULT_MALE_PATH)));
-        baseSpites.put(ResourcePaths.PORTRAIT_DEFAULT_FEMALE_PATH, Functions.loadImage(ResourcePaths.getImagePath(ResourcePaths.UI_ELEMENT_PATH, ResourcePaths.PORTRAIT_DEFAULT_FEMALE_PATH)));
+        baseSpites.put(ResourcePaths.PORTRAIT_DEFAULT_MALE_PATH, Objects.requireNonNull(Functions.loadImage(ResourcePaths.getImagePath(ResourcePaths.UI_ELEMENT_PATH, ResourcePaths.PORTRAIT_DEFAULT_MALE_PATH))));
+        baseSpites.put(ResourcePaths.PORTRAIT_DEFAULT_FEMALE_PATH, Objects.requireNonNull(Functions.loadImage(ResourcePaths.getImagePath(ResourcePaths.UI_ELEMENT_PATH, ResourcePaths.PORTRAIT_DEFAULT_FEMALE_PATH))));
 
         // GUI Elements
-        baseSpites.put(ResourcePaths.GUI_BACKGROUND, Functions.loadImage(ResourcePaths.getImagePath(ResourcePaths.UI_ELEMENT_PATH, ResourcePaths.GUI_BACKGROUND)));
-        baseSpites.put(ResourcePaths.BUTTON_BASE_IMAGE, Functions.loadImage(ResourcePaths.getImagePath(ResourcePaths.UI_ELEMENT_PATH, ResourcePaths.BUTTON_BASE_IMAGE)));
-        baseSpites.put(ResourcePaths.BUTTON_CLICK_IMAGE, Functions.loadImage(ResourcePaths.getImagePath(ResourcePaths.UI_ELEMENT_PATH, ResourcePaths.BUTTON_CLICK_IMAGE)));
-        baseSpites.put(ResourcePaths.BUTTON_HOVER_IMAGE, Functions.loadImage(ResourcePaths.getImagePath(ResourcePaths.UI_ELEMENT_PATH, ResourcePaths.BUTTON_HOVER_IMAGE)));
-        baseSpites.put(ResourcePaths.LABEL_IMAGE, Functions.loadImage(ResourcePaths.getImagePath(ResourcePaths.UI_ELEMENT_PATH, ResourcePaths.LABEL_IMAGE)));
+        baseSpites.put(ResourcePaths.GUI_BACKGROUND, Objects.requireNonNull(Functions.loadImage(ResourcePaths.getImagePath(ResourcePaths.UI_ELEMENT_PATH, ResourcePaths.GUI_BACKGROUND))));
+        baseSpites.put(ResourcePaths.BUTTON_BASE_IMAGE, Objects.requireNonNull(Functions.loadImage(ResourcePaths.getImagePath(ResourcePaths.UI_ELEMENT_PATH, ResourcePaths.BUTTON_BASE_IMAGE))));
+        baseSpites.put(ResourcePaths.BUTTON_CLICK_IMAGE, Objects.requireNonNull(Functions.loadImage(ResourcePaths.getImagePath(ResourcePaths.UI_ELEMENT_PATH, ResourcePaths.BUTTON_CLICK_IMAGE))));
+        baseSpites.put(ResourcePaths.BUTTON_HOVER_IMAGE, Objects.requireNonNull(Functions.loadImage(ResourcePaths.getImagePath(ResourcePaths.UI_ELEMENT_PATH, ResourcePaths.BUTTON_HOVER_IMAGE))));
+        baseSpites.put(ResourcePaths.LABEL_IMAGE, Objects.requireNonNull(Functions.loadImage(ResourcePaths.getImagePath(ResourcePaths.UI_ELEMENT_PATH, ResourcePaths.LABEL_IMAGE))));
     }
 
     // Companion Portrait
@@ -144,7 +145,7 @@ public class GameGUIManager {
     }
 
     void addPortrait(String fileName, String locationDirectory) {
-        portraitSprites.put(fileName, Functions.loadImage(ResourcePaths.getImagePath(ResourcePaths.PORTRAIT_PATH, locationDirectory, fileName)));
+        portraitSprites.put(fileName, Objects.requireNonNull(Functions.loadImage(ResourcePaths.getImagePath(ResourcePaths.PORTRAIT_PATH, locationDirectory, fileName))));
         Console.writeLine("Added portrait: " + fileName);
     }
 
@@ -319,35 +320,21 @@ public class GameGUIManager {
     }
 
     public void setOverlappedImage(JButton button, String baseImageName, String overlayImageName, int imageWidth, int imageHeight, int padding) {
-        button.setIcon(new ImageIcon(getImageOverlapped(baseImageName, overlayImageName, imageWidth, imageHeight, padding)));
+        button.setIcon(new ImageIcon(getOverlappedImage(baseImageName, overlayImageName, imageWidth, imageHeight, padding)));
         button.setOpaque(true);
     }
 
     // Get Image
     Image getImage(String imageName, int imageWidth, int imageHeight) {
-        String imageID = imageName + imageWidth + imageHeight;
-
-        scaledSprites.computeIfAbsent(imageID, _ -> scaledSprites.put(imageID, Functions.sliceImage(baseSpites.get(imageName), imageWidth, imageHeight)));
-
-        return scaledSprites.get(imageID);
+        return modifiedSprites.computeIfAbsent(imageName + imageWidth + imageHeight, _ -> Functions.sliceImage(baseSpites.get(imageName), imageWidth, imageHeight));
     }
 
     Image getScaledImage(String imageName, int imageWidth, int imageHeight) {
         return baseSpites.get(imageName).getScaledInstance(imageWidth, imageHeight, Image.SCALE_SMOOTH);
     }
 
-    Image getImageOverlapped(String baseImageName, String overlayImageName, int imageWidth, int imageHeight, int padding) {
-        String imageID = getOverlappedImageName(baseImageName, overlayImageName, imageWidth, imageHeight);
-
-        if (!scaledSprites.containsKey(imageID)) {
-            scaledSprites.put(imageID, Functions.overlapImage(baseSpites.get(baseImageName), baseSpites.get(overlayImageName), imageWidth, imageHeight, padding));
-        }
-
-        return scaledSprites.get(imageID);
-    }
-
-    String getOverlappedImageName(String baseImageName, String overlayImageName, int imageWidth, int imageHeight) {
-        return baseImageName + overlayImageName + imageWidth + imageHeight;
+    Image getOverlappedImage(String baseImageName, String overlayImageName, int imageWidth, int imageHeight, int padding) {
+        return modifiedSprites.computeIfAbsent(baseImageName + overlayImageName + imageWidth + imageHeight, _ -> Functions.overlapImage(baseSpites.get(baseImageName), baseSpites.get(overlayImageName), imageWidth, imageHeight, padding));
     }
 
     //endregion
@@ -411,9 +398,9 @@ public class GameGUIManager {
     //region Dispose
 
     public void disposeFiles() {
-        baseSpites = new HashMap<>();
-        scaledSprites = new HashMap<>();
-        portraitSprites = new HashMap<>();
+        baseSpites = new ConcurrentHashMap<>();
+        modifiedSprites = new ConcurrentHashMap<>();
+        portraitSprites = new ConcurrentHashMap<>();
         font = null;
     }
 
