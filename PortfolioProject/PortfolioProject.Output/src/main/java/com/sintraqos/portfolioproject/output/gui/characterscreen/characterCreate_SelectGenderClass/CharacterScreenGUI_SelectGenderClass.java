@@ -1,7 +1,10 @@
 package com.sintraqos.portfolioproject.output.gui.characterscreen.characterCreate_SelectGenderClass;
 
+import com.sintraqos.portfolioproject.output.Console;
 import com.sintraqos.portfolioproject.output.gui.characterscreen.CharacterScreenGUI_Base;
+import com.sintraqos.portfolioproject.output.gui.characterscreen.characterCreate_CreateCharacter.CharacterScreenGUI_CreateCharacter;
 import com.sintraqos.portfolioproject.output.gui.mainmenu.MainMenuGUI;
+import com.sintraqos.portfolioproject.statics.Enums;
 import com.sintraqos.portfolioproject.statics.ResourcePaths;
 
 import javax.swing.*;
@@ -12,13 +15,19 @@ public class CharacterScreenGUI_SelectGenderClass extends CharacterScreenGUI_Bas
     JPanel rootPanel;
     JPanel iconPanel;
     JButton iconMaleButton;
-    JLabel iconMale;
     JButton iconFemaleButton;
-    JLabel iconFemale;
     JLabel classPanel;
+    JButton classConsularButton;
+    JButton classGuardianButton;
+    JButton classSentinelButton;
     JLabel classInfoPanel;
 
+    JPanel buttonpanel;
     JButton cancelButton;
+    JButton confirmButton;
+
+    boolean playerIsMale = false;
+    Enums.playerClass playerClass = Enums.playerClass.PLAYER_CLASS_GUARDIAN;
 
     // Setup
     public CharacterScreenGUI_SelectGenderClass() {
@@ -27,15 +36,31 @@ public class CharacterScreenGUI_SelectGenderClass extends CharacterScreenGUI_Bas
         // Create listeners
         // Select Male
         ActionListener selectMaleListener = e -> {
-            new MainMenuGUI();
+            playerIsMale = true;
         };
         // Select Female
         ActionListener selectFemaleListener = e -> {
-            new MainMenuGUI();
+            playerIsMale = false;
+        };
+        // Select Female
+        ActionListener selectConsularListener = e -> {
+            playerClass = Enums.playerClass.PLAYER_CLASS_CONSULAR;
+        };
+        // Select Female
+        ActionListener selectGuardianListener = e -> {
+            playerClass = Enums.playerClass.PLAYER_CLASS_GUARDIAN;
+        };
+        // Select Female
+        ActionListener selectSentinelListener = e -> {
+            playerClass = Enums.playerClass.PLAYER_CLASS_SENTINEL;
         };
         // Return to main menu
         ActionListener cancelListener = e -> {
             new MainMenuGUI();
+        };
+        // Return to main menu
+        ActionListener confirmListener = e -> {
+            new CharacterScreenGUI_CreateCharacter();
         };
 
         int iconPadding = getGuiHeight() / 3;
@@ -61,7 +86,10 @@ public class CharacterScreenGUI_SelectGenderClass extends CharacterScreenGUI_Bas
         classInfoPanel = setParent(getObjectPanel(), addLabel(getGuiPanelWidth(), getGuiHeight() * 3, "Class Info", ResourcePaths.LABEL_IMAGE));
 
         // Add buttons
-        cancelButton = setParent(getObjectPanel(), addButton(getGuiWidth(), getGuiHeight(), "Cancel", cancelListener));
+        buttonpanel = setParent(getObjectPanel(), addJPanel(getGuiPanelWidth(), getGuiHeight()));
+        setLayout(buttonpanel, new BoxLayout(buttonpanel, BoxLayout.X_AXIS));
+        cancelButton = setParent(buttonpanel, addButton(getGuiWidth(), getGuiHeight(), "Cancel", cancelListener));
+        confirmButton = setParent(buttonpanel, addButton(getGuiWidth(), getGuiHeight(), "Confirm", confirmListener));
 
         setWindowSize();
     }

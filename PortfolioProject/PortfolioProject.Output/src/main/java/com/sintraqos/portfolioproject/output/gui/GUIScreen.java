@@ -299,14 +299,7 @@ public class GUIScreen {
 
         return button;
     }
-
-    public JButton setParent(JButton parent, JLabel label){
-        parent.add(label, BorderLayout.CENTER);
-        parent.revalidate();
-
-        return parent;
-    }
-
+    
     //endregion
 
     //region Set Alignment

@@ -102,9 +102,12 @@ public class Functions {
     static BufferedImage sliceImage(BufferedImage bufferedImage, int imageWidth, int imageHeight, int sourceFirstX, int sourceFirstY, int dstCornerX, int dstCornerY) {
         // Create a new BufferedImage of the slice size
         BufferedImage returnImage = new BufferedImage(imageWidth, imageHeight, bufferedImage.getType());
-        Graphics2D imgCreator = returnImage.createGraphics();
+        Graphics2D graphics = returnImage.createGraphics();
         // Get the image part of the original image, then copy that part onto the created image
-        imgCreator.drawImage(bufferedImage, 0, 0, imageWidth, imageHeight, sourceFirstX, sourceFirstY, dstCornerX, dstCornerY, null);
+        graphics.drawImage(bufferedImage, 0, 0, imageWidth, imageHeight, sourceFirstX, sourceFirstY, dstCornerX, dstCornerY, null);
+
+        // And dispose of the graphics since we don't need it anymore
+        graphics.dispose();
 
         return returnImage;
     }
@@ -113,9 +116,9 @@ public class Functions {
 
     //region Overlay Image
 
-    public static BufferedImage overlapImage(Image baseImageName, Image overlayImage, int imageWidth, int imageHeight, int padding){
+    public static BufferedImage overlapImage(Image baseImageName, Image overlayImage, int imageWidth, int imageHeight, int padding) {
         BufferedImage overlappedImage = new BufferedImage(imageWidth, imageHeight, BufferedImage.TYPE_INT_ARGB);
-        Graphics  graphics = overlappedImage.getGraphics();
+        Graphics graphics = overlappedImage.getGraphics();
 
         graphics.drawImage(sliceImage(baseImageName, imageWidth, imageHeight), 0, 0, null);
         graphics.drawImage(overlayImage.getScaledInstance(imageWidth - (padding * 2), imageHeight - (padding * 2), Image.SCALE_SMOOTH), padding, padding, null);

@@ -58,10 +58,10 @@ public class GameGUIManager {
 
         // Portraits Setup
         Console.writeHeader("Setup portraits");
-//
-//        loadCompanionPortraits();
-//
-//        loadPlayerPortraits();
+
+        loadCompanionPortraits();
+
+        loadPlayerPortraits();
 
         Console.writeLine("Finished setting up portraits");
         Console.writeLine();

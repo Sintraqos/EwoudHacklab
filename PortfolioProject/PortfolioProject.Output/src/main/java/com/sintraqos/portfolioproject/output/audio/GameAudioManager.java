@@ -79,27 +79,27 @@ public class GameAudioManager {
         audioClips.put(ResourcePaths.OST_MAIN_MENU, new AudioClip(ResourcePaths.OST_MAIN_MENU, ResourcePaths.getAudioPath(ResourcePaths.SOUND_TRACK_PATH, ResourcePaths.OST_MAIN_MENU)));
 
         // Setup Audio Lists
-//        ambientAudio = new AudioList();
-//        // Planet
-//        ambientAudio.createAudioClips(ResourcePaths.getAudioPath(ResourcePaths.SOUND_TRACK_PATH), ResourcePaths.OST_AMBIENT_PREFIX_DANTOOINE);
-//        ambientAudio.createAudioClips(ResourcePaths.getAudioPath(ResourcePaths.SOUND_TRACK_PATH), ResourcePaths.OST_AMBIENT_PREFIX_DXUN);
-//        ambientAudio.createAudioClips(ResourcePaths.getAudioPath(ResourcePaths.SOUND_TRACK_PATH), ResourcePaths.OST_AMBIENT_PREFIX_KORRIBAN);
-//        ambientAudio.createAudioClips(ResourcePaths.getAudioPath(ResourcePaths.SOUND_TRACK_PATH), ResourcePaths.OST_AMBIENT_PREFIX_MALACHOR_V);
-//        ambientAudio.createAudioClips(ResourcePaths.getAudioPath(ResourcePaths.SOUND_TRACK_PATH), ResourcePaths.OST_AMBIENT_PREFIX_NAR_SHADDAA);
-//        ambientAudio.createAudioClips(ResourcePaths.getAudioPath(ResourcePaths.SOUND_TRACK_PATH), ResourcePaths.OST_AMBIENT_PREFIX_ONDERON);
-//        ambientAudio.createAudioClips(ResourcePaths.getAudioPath(ResourcePaths.SOUND_TRACK_PATH), ResourcePaths.OST_AMBIENT_PREFIX_TELOS);
-//
-//        // Ship
-//        ambientAudio.createAudioClips(ResourcePaths.getAudioPath(ResourcePaths.SOUND_TRACK_PATH), ResourcePaths.OST_AMBIENT_PREFIX_EBON_HAWK);
-//        ambientAudio.createAudioClips(ResourcePaths.getAudioPath(ResourcePaths.SOUND_TRACK_PATH), ResourcePaths.OST_AMBIENT_PREFIX_HARBINGER);
-//        ambientAudio.createAudioClips(ResourcePaths.getAudioPath(ResourcePaths.SOUND_TRACK_PATH), ResourcePaths.OST_AMBIENT_PREFIX_RAVAGER);
-//
-//        // Other
-//        ambientAudio.createAudioClips(ResourcePaths.getAudioPath(ResourcePaths.SOUND_TRACK_PATH), ResourcePaths.OST_AMBIENT_PREFIX_PERAGUS);
-//
-//        // Battle
-//        battleAudio = new AudioList();
-//        battleAudio.createAudioClips(ResourcePaths.getAudioPath(ResourcePaths.SOUND_TRACK_PATH), ResourcePaths.OST_BATTLE_PREFIX);
+        ambientAudio = new AudioList();
+        // Planet
+        ambientAudio.createAudioClips(ResourcePaths.getAudioPath(ResourcePaths.SOUND_TRACK_PATH), ResourcePaths.OST_AMBIENT_PREFIX_DANTOOINE);
+        ambientAudio.createAudioClips(ResourcePaths.getAudioPath(ResourcePaths.SOUND_TRACK_PATH), ResourcePaths.OST_AMBIENT_PREFIX_DXUN);
+        ambientAudio.createAudioClips(ResourcePaths.getAudioPath(ResourcePaths.SOUND_TRACK_PATH), ResourcePaths.OST_AMBIENT_PREFIX_KORRIBAN);
+        ambientAudio.createAudioClips(ResourcePaths.getAudioPath(ResourcePaths.SOUND_TRACK_PATH), ResourcePaths.OST_AMBIENT_PREFIX_MALACHOR_V);
+        ambientAudio.createAudioClips(ResourcePaths.getAudioPath(ResourcePaths.SOUND_TRACK_PATH), ResourcePaths.OST_AMBIENT_PREFIX_NAR_SHADDAA);
+        ambientAudio.createAudioClips(ResourcePaths.getAudioPath(ResourcePaths.SOUND_TRACK_PATH), ResourcePaths.OST_AMBIENT_PREFIX_ONDERON);
+        ambientAudio.createAudioClips(ResourcePaths.getAudioPath(ResourcePaths.SOUND_TRACK_PATH), ResourcePaths.OST_AMBIENT_PREFIX_TELOS);
+
+        // Ship
+        ambientAudio.createAudioClips(ResourcePaths.getAudioPath(ResourcePaths.SOUND_TRACK_PATH), ResourcePaths.OST_AMBIENT_PREFIX_EBON_HAWK);
+        ambientAudio.createAudioClips(ResourcePaths.getAudioPath(ResourcePaths.SOUND_TRACK_PATH), ResourcePaths.OST_AMBIENT_PREFIX_HARBINGER);
+        ambientAudio.createAudioClips(ResourcePaths.getAudioPath(ResourcePaths.SOUND_TRACK_PATH), ResourcePaths.OST_AMBIENT_PREFIX_RAVAGER);
+
+        // Other
+        ambientAudio.createAudioClips(ResourcePaths.getAudioPath(ResourcePaths.SOUND_TRACK_PATH), ResourcePaths.OST_AMBIENT_PREFIX_PERAGUS);
+
+        // Battle
+        battleAudio = new AudioList();
+        battleAudio.createAudioClips(ResourcePaths.getAudioPath(ResourcePaths.SOUND_TRACK_PATH), ResourcePaths.OST_BATTLE_PREFIX);
 
         // Dialogue
         Console.writeHeader("Setup dialogue");
