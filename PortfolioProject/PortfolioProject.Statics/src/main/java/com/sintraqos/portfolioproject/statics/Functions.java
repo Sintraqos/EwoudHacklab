@@ -185,6 +185,8 @@ public class Functions {
 
     //endregion
 
+    //endregion
+
     //region Exceptions
 
     public static class ExceptionHandler extends RuntimeException {

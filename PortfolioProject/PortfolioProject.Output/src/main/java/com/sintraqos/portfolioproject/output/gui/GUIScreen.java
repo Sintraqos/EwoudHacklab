@@ -264,7 +264,7 @@ public class GUIScreen {
 
     //region Set Parent
 
-    // JLabel
+    // JPanel
     public JPanel setParent(JPanel parent, JPanel panel) {
         parent.add(panel);
         parent.revalidate();
@@ -299,7 +299,14 @@ public class GUIScreen {
 
         return button;
     }
-    
+
+    public JTextPane setParent(JLabel parent, JTextPane textPane) {
+        parent.add(textPane);
+        parent.revalidate();
+
+        return textPane;
+    }
+
     //endregion
 
     //region Set Alignment

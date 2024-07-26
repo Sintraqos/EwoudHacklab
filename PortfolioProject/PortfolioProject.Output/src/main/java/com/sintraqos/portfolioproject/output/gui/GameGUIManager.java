@@ -14,6 +14,7 @@ import java.awt.event.*;
 import java.io.*;
 import java.util.*;
 import java.util.List;
+import java.util.stream.IntStream;
 
 public class GameGUIManager {
 
@@ -86,7 +87,7 @@ public class GameGUIManager {
     //region Load files
 
     // Load Image
-    void loadImages(){
+    void loadImages() {
         // Title Screen
         baseSpites.put(ResourcePaths.TITLE_SCREEN_LOGO, Functions.loadImage(ResourcePaths.getImagePath(ResourcePaths.MAIN_MENU_PATH, ResourcePaths.TITLE_SCREEN_LOGO)));
 
@@ -108,21 +109,23 @@ public class GameGUIManager {
     }
 
     // Companion Portrait
-    void loadCompanionPortraits(){
+    void loadCompanionPortraits() {
         Console.writeLine("Getting companion portraits");
 
-        for (Map.Entry<String, List<String>> entry : ResourcePaths.getPortraitCompanions().entrySet()) {
-            for (String portraitName : entry.getValue()) {
-                addPortrait(Functions.getFileNameWithoutExtension(portraitName), ResourcePaths.PORTRAIT_COMPANION_PATH);
-            }
-        }
+        HashMap<String, List<String>> companionPortraits = (HashMap<String, List<String>>) ResourcePaths.getPortraitCompanions();
+
+        // Since we need to process a lot of files run a parallel loop, so it won't take too much time to process each file
+        IntStream.range(0, companionPortraits.size()).parallel().forEach(i -> {
+            List<String> currentPortraits = new ArrayList<>(companionPortraits.values()).get(i);
+            IntStream.range(0, currentPortraits.size()).parallel().forEach(j -> addPortrait(Functions.getFileNameWithoutExtension(currentPortraits.get(j)), ResourcePaths.PORTRAIT_COMPANION_PATH));
+        });
 
         Console.writeLine("Finished getting companion portraits");
         Console.writeLine();
     }
 
     // Player Portrait
-    void loadPlayerPortraits(){
+    void loadPlayerPortraits() {
         Console.writeLine("Getting player portraits");
 
         loadPlayerPortraits(ResourcePaths.PORTRAIT_MALE_PATH);
@@ -135,18 +138,18 @@ public class GameGUIManager {
     void loadPlayerPortraits(String imagePrefix) {
         Console.writeHeader("New portrait prefix: " + imagePrefix);
 
-        for (String fileName : Functions.getFiles(ResourcePaths.getPortraitImagePath(ResourcePaths.PORTRAIT_PLAYER_PATH), imagePrefix)) {
-            addPortrait(Functions.getFileNameWithoutExtension(fileName), ResourcePaths.PORTRAIT_PLAYER_PATH);
-        }
+        List<String> playerPortraits = Functions.getFiles(ResourcePaths.getPortraitImagePath(ResourcePaths.PORTRAIT_PLAYER_PATH), imagePrefix);
+
+        IntStream.range(0, playerPortraits.size()).parallel().forEach(i -> addPortrait(Functions.getFileNameWithoutExtension(playerPortraits.get(i)), ResourcePaths.PORTRAIT_PLAYER_PATH));
     }
 
-    void addPortrait(String fileName, String locationDirectory){
+    void addPortrait(String fileName, String locationDirectory) {
         portraitSprites.put(fileName, Functions.loadImage(ResourcePaths.getImagePath(ResourcePaths.PORTRAIT_PATH, locationDirectory, fileName)));
         Console.writeLine("Added portrait: " + fileName);
     }
 
     // Font
-    void loadFont(){
+    void loadFont() {
 
         try {
             font = Font.createFont(Font.TRUETYPE_FONT, Objects.requireNonNull(getClass().getResourceAsStream(ResourcePaths.getFontPath())));
@@ -166,9 +169,6 @@ public class GameGUIManager {
 
         setButtonListeners(
                 button,
-                ResourcePaths.BUTTON_BASE_IMAGE,
-                ResourcePaths.BUTTON_HOVER_IMAGE,
-                ResourcePaths.BUTTON_CLICK_IMAGE,
                 "",
                 buttonWidth,
                 buttonHeight,
@@ -177,29 +177,26 @@ public class GameGUIManager {
     }
 
     public void setupButton(JButton button, String overlayImageName, int buttonWidth, int buttonHeight, int padding) {
-        setOverlappedImage(button, ResourcePaths.BUTTON_BASE_IMAGE , overlayImageName , buttonWidth , buttonHeight, padding);
+        setOverlappedImage(button, ResourcePaths.BUTTON_BASE_IMAGE, overlayImageName, buttonWidth, buttonHeight, padding);
 
         setButtonListeners(
                 button,
-                ResourcePaths.BUTTON_BASE_IMAGE,
-                ResourcePaths.BUTTON_HOVER_IMAGE,
-                ResourcePaths.BUTTON_CLICK_IMAGE,
                 overlayImageName,
                 buttonWidth,
                 buttonHeight,
                 padding
-                );
+        );
     }
 
-    void setButtonListeners(JButton button, String buttonBaseName, String buttonHoverName, String buttonClickName, String buttonOverlapName, int buttonWidth, int buttonHeight, int padding){
+    void setButtonListeners(JButton button, String buttonOverlapName, int buttonWidth, int buttonHeight, int padding) {
         // Setup events
 
         // Click event
-        button.addActionListener(e -> {
+        button.addActionListener(_ -> {
             GameAudioManager.getInstance().playOneShotAudio(ResourcePaths.GUI_CLICK, Enums.audioType.AUDIO_TYPE_SFX);
             button.setForeground(StaticUtils.GUI_HOVER_TEXT_COLOR);
-            new Thread(new SetJButtonIcon(0, button, buttonClickName,buttonOverlapName, buttonWidth, buttonHeight,padding)).start();
-            new Thread(new SetJButtonIcon(75, button,buttonHoverName,buttonOverlapName, buttonWidth, buttonHeight,padding)).start();
+            new Thread(new SetJButtonIcon(0, button, ResourcePaths.BUTTON_CLICK_IMAGE, buttonOverlapName, buttonWidth, buttonHeight, padding)).start();
+            new Thread(new SetJButtonIcon(75, button, ResourcePaths.BUTTON_HOVER_IMAGE, buttonOverlapName, buttonWidth, buttonHeight, padding)).start();
         });
 
         // Mouse events
@@ -210,7 +207,7 @@ public class GameGUIManager {
             public void mouseEntered(MouseEvent e) {
                 button.setForeground(StaticUtils.GUI_HOVER_TEXT_COLOR);
 
-                new Thread(new SetJButtonIcon(0, button, buttonHoverName,buttonOverlapName, buttonWidth, buttonHeight,padding)).start();
+                new Thread(new SetJButtonIcon(0, button, ResourcePaths.BUTTON_HOVER_IMAGE, buttonOverlapName, buttonWidth, buttonHeight, padding)).start();
 
                 super.mouseEntered(e);
             }
@@ -220,7 +217,7 @@ public class GameGUIManager {
             public void mouseExited(MouseEvent e) {
                 button.setForeground(StaticUtils.GUI_FOREGROUND_COLOR);
 
-                new Thread(new SetJButtonIcon(0, button, buttonBaseName,buttonOverlapName, buttonWidth, buttonHeight,padding)).start();
+                new Thread(new SetJButtonIcon(0, button, ResourcePaths.BUTTON_BASE_IMAGE, buttonOverlapName, buttonWidth, buttonHeight, padding)).start();
 
                 super.mouseExited(e);
             }
@@ -253,7 +250,7 @@ public class GameGUIManager {
             }
         }
 
-        public SetJButtonIcon(int sleepTime, JButton button, String baseImageName,String overlappedImageName, int buttonWidth, int buttonHeight, int padding) {
+        public SetJButtonIcon(int sleepTime, JButton button, String baseImageName, String overlappedImageName, int buttonWidth, int buttonHeight, int padding) {
             this.sleepTime = sleepTime;
             this.button = button;
             this.overlappedImageName = overlappedImageName;
@@ -330,9 +327,7 @@ public class GameGUIManager {
     Image getImage(String imageName, int imageWidth, int imageHeight) {
         String imageID = imageName + imageWidth + imageHeight;
 
-        if (!scaledSprites.containsKey(imageID)) {
-            scaledSprites.put(imageID, Functions.sliceImage(baseSpites.get(imageName), imageWidth, imageHeight));
-        }
+        scaledSprites.computeIfAbsent(imageID, _ -> scaledSprites.put(imageID, Functions.sliceImage(baseSpites.get(imageName), imageWidth, imageHeight)));
 
         return scaledSprites.get(imageID);
     }
@@ -342,7 +337,7 @@ public class GameGUIManager {
     }
 
     Image getImageOverlapped(String baseImageName, String overlayImageName, int imageWidth, int imageHeight, int padding) {
-        String imageID = getOverlappedImageName(baseImageName , overlayImageName , imageWidth , imageHeight);
+        String imageID = getOverlappedImageName(baseImageName, overlayImageName, imageWidth, imageHeight);
 
         if (!scaledSprites.containsKey(imageID)) {
             scaledSprites.put(imageID, Functions.overlapImage(baseSpites.get(baseImageName), baseSpites.get(overlayImageName), imageWidth, imageHeight, padding));
@@ -351,7 +346,7 @@ public class GameGUIManager {
         return scaledSprites.get(imageID);
     }
 
-    String getOverlappedImageName(String baseImageName, String overlayImageName, int imageWidth, int imageHeight){
+    String getOverlappedImageName(String baseImageName, String overlayImageName, int imageWidth, int imageHeight) {
         return baseImageName + overlayImageName + imageWidth + imageHeight;
     }
 
