@@ -26,6 +26,9 @@
       <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/yaml/snakeyaml/2.2/snakeyaml-2.2.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/junit/jupiter/junit-jupiter-engine/5.8.2/junit-jupiter-engine-5.8.2.jar" path-in-jar="/" />
       <element id="dir-copy" path="$PROJECT_DIR$/PortfolioProject.Output/src/main/resources" />
+      <element id="module-output" name="PortfolioProject.Dialogue" />
+      <element id="module-output" name="PortfolioProject.Connect" />
+      <element id="dir-copy" path="$PROJECT_DIR$/resources" />
     </root>
   </artifact>
 </component>

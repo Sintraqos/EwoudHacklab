@@ -1,9 +1,5 @@
 
-i	java:S101"MRename this class name to match the regular expression '^[A-Z][a-zA-Z0-9]*$'.(ÿ¤Ñƒ8¶Ú¼Ö2
+i	java:S101
+"MRename this class name to match the regular expression '^[A-Z][a-zA-Z0-9]*$'.(ÿ¤Ñƒ8¶Ú¼Ö2
 O
-java:S2387"2"rootPanel" is the name of a field in "GUIScreen".(ì˜ïÅ8¾Ú¼Ö2
-}
-java:S1128"[Remove this unused import 'com.sintraqos.portfolioproject.output.gui.mainmenu.MainMenuGUI'.(çÖÙĞıÿÿÿÿ8ÆÚ¼Ö2
-W
-java:S1128
-":Remove this unused import 'java.awt.event.ActionListener'.(Ìä¹8ÆÚ¼Ö2
+java:S2387"2"rootPanel" is the name of a field in "GUIScreen".(ì˜ïÅ8¾Ú¼Ö2

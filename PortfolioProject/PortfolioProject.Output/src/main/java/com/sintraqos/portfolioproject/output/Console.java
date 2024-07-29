@@ -2,8 +2,11 @@ package com.sintraqos.portfolioproject.output;
 
 import com.sintraqos.portfolioproject.statics.Functions;
 
+import java.io.*;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.concurrent.ConcurrentSkipListSet;
 
 public class Console {
 
@@ -13,19 +16,17 @@ public class Console {
 
     // Writers
 
-    public static void writeLine(String consoleText) {
-        System.out.println(writeTime() + Functions.capitalize(Functions.punctuate(consoleText)));
-    }
-
     public static void writeLine() {
         writeLine("##########################");
     }
 
-    public static void writeHeader(String consoleText) {
-        System.out.printf("« %s »%n", Functions.toTitleCase(consoleText));
+    public static void writeLine(String consoleText) {
+        Functions. writeLog(consoleText);
+        System.out.println(Functions.getTime() + Functions.capitalize(Functions.punctuate(consoleText)));
     }
 
-    static String writeTime() {
-        return String.format("[%s] - ", new SimpleDateFormat("HH:mm").format(new Date()));
+    public static void writeHeader(String consoleText) {
+       Functions.writeLog(consoleText);
+        System.out.printf("« %s »%n", Functions.toTitleCase(consoleText));
     }
 }

@@ -67,39 +67,39 @@ public class GameAudioManager {
 
         // Gui
         Console.writeHeader("Setup GUI");
-        audioClips.put(ResourcePaths.GUI_CLICK, new AudioClip(ResourcePaths.GUI_CLICK, ResourcePaths.getAudioPath(ResourcePaths.SOUND_EFFECT_PATH , ResourcePaths.GUI_SOUND_EFFECT_PATH , ResourcePaths.GUI_CLICK)));
-        audioClips.put(ResourcePaths.GUI_CLOSE, new AudioClip(ResourcePaths.GUI_CLOSE, ResourcePaths.getAudioPath(ResourcePaths.SOUND_EFFECT_PATH , ResourcePaths.GUI_SOUND_EFFECT_PATH , ResourcePaths.GUI_CLOSE)));
-        audioClips.put(ResourcePaths.GUI_PROMPT, new AudioClip(ResourcePaths.GUI_PROMPT, ResourcePaths.getAudioPath(ResourcePaths.SOUND_EFFECT_PATH , ResourcePaths.GUI_SOUND_EFFECT_PATH , ResourcePaths.GUI_PROMPT)));
-        audioClips.put(ResourcePaths.GUI_INVENTORY_ADD, new AudioClip(ResourcePaths.GUI_INVENTORY_ADD,ResourcePaths.getAudioPath(ResourcePaths.SOUND_EFFECT_PATH , ResourcePaths.GUI_SOUND_EFFECT_PATH , ResourcePaths.GUI_INVENTORY_ADD)));
-        audioClips.put(ResourcePaths.GUI_INVENTORY_REMOVE, new AudioClip(ResourcePaths.GUI_INVENTORY_REMOVE, ResourcePaths.getAudioPath(ResourcePaths.SOUND_EFFECT_PATH , ResourcePaths.GUI_SOUND_EFFECT_PATH , ResourcePaths.GUI_INVENTORY_REMOVE)));
-        audioClips.put(ResourcePaths.GUI_INVENTORY_SELECT, new AudioClip(ResourcePaths.GUI_INVENTORY_SELECT, ResourcePaths.getAudioPath(ResourcePaths.SOUND_EFFECT_PATH , ResourcePaths.GUI_SOUND_EFFECT_PATH , ResourcePaths.GUI_INVENTORY_SELECT)));
+        audioClips.put(ResourcePaths.GUI_CLICK, new AudioClip(ResourcePaths.GUI_CLICK, ResourcePaths.getAudioPath(ResourcePaths.SOUND_EFFECT_DIRECTORY, ResourcePaths.GUI_SOUND_EFFECT_DIRECTORY, ResourcePaths.GUI_CLICK)));
+        audioClips.put(ResourcePaths.GUI_CLOSE, new AudioClip(ResourcePaths.GUI_CLOSE, ResourcePaths.getAudioPath(ResourcePaths.SOUND_EFFECT_DIRECTORY, ResourcePaths.GUI_SOUND_EFFECT_DIRECTORY, ResourcePaths.GUI_CLOSE)));
+        audioClips.put(ResourcePaths.GUI_PROMPT, new AudioClip(ResourcePaths.GUI_PROMPT, ResourcePaths.getAudioPath(ResourcePaths.SOUND_EFFECT_DIRECTORY, ResourcePaths.GUI_SOUND_EFFECT_DIRECTORY, ResourcePaths.GUI_PROMPT)));
+        audioClips.put(ResourcePaths.GUI_INVENTORY_ADD, new AudioClip(ResourcePaths.GUI_INVENTORY_ADD,ResourcePaths.getAudioPath(ResourcePaths.SOUND_EFFECT_DIRECTORY, ResourcePaths.GUI_SOUND_EFFECT_DIRECTORY, ResourcePaths.GUI_INVENTORY_ADD)));
+        audioClips.put(ResourcePaths.GUI_INVENTORY_REMOVE, new AudioClip(ResourcePaths.GUI_INVENTORY_REMOVE, ResourcePaths.getAudioPath(ResourcePaths.SOUND_EFFECT_DIRECTORY, ResourcePaths.GUI_SOUND_EFFECT_DIRECTORY, ResourcePaths.GUI_INVENTORY_REMOVE)));
+        audioClips.put(ResourcePaths.GUI_INVENTORY_SELECT, new AudioClip(ResourcePaths.GUI_INVENTORY_SELECT, ResourcePaths.getAudioPath(ResourcePaths.SOUND_EFFECT_DIRECTORY, ResourcePaths.GUI_SOUND_EFFECT_DIRECTORY, ResourcePaths.GUI_INVENTORY_SELECT)));
 
         // Music
         Console.writeHeader("Setup music");
-        audioClips.put(ResourcePaths.OST_MAIN_MENU, new AudioClip(ResourcePaths.OST_MAIN_MENU, ResourcePaths.getAudioPath(ResourcePaths.SOUND_TRACK_PATH, ResourcePaths.OST_MAIN_MENU)));
+        audioClips.put(ResourcePaths.OST_MAIN_MENU, new AudioClip(ResourcePaths.OST_MAIN_MENU, ResourcePaths.getAudioPath(ResourcePaths.SOUND_TRACK_DIRECTORY, ResourcePaths.OST_MAIN_MENU)));
 
         // Setup Audio Lists
         ambientAudio = new AudioList();
         // Planet
-        ambientAudio.createAudioClips(ResourcePaths.getAudioPath(ResourcePaths.SOUND_TRACK_PATH), ResourcePaths.OST_AMBIENT_PREFIX_DANTOOINE);
-        ambientAudio.createAudioClips(ResourcePaths.getAudioPath(ResourcePaths.SOUND_TRACK_PATH), ResourcePaths.OST_AMBIENT_PREFIX_DXUN);
-        ambientAudio.createAudioClips(ResourcePaths.getAudioPath(ResourcePaths.SOUND_TRACK_PATH), ResourcePaths.OST_AMBIENT_PREFIX_KORRIBAN);
-        ambientAudio.createAudioClips(ResourcePaths.getAudioPath(ResourcePaths.SOUND_TRACK_PATH), ResourcePaths.OST_AMBIENT_PREFIX_MALACHOR_V);
-        ambientAudio.createAudioClips(ResourcePaths.getAudioPath(ResourcePaths.SOUND_TRACK_PATH), ResourcePaths.OST_AMBIENT_PREFIX_NAR_SHADDAA);
-        ambientAudio.createAudioClips(ResourcePaths.getAudioPath(ResourcePaths.SOUND_TRACK_PATH), ResourcePaths.OST_AMBIENT_PREFIX_ONDERON);
-        ambientAudio.createAudioClips(ResourcePaths.getAudioPath(ResourcePaths.SOUND_TRACK_PATH), ResourcePaths.OST_AMBIENT_PREFIX_TELOS);
+        ambientAudio.createAudioClips(ResourcePaths.getAudioPath(ResourcePaths.SOUND_TRACK_DIRECTORY), ResourcePaths.OST_AMBIENT_PREFIX_DANTOOINE);
+        ambientAudio.createAudioClips(ResourcePaths.getAudioPath(ResourcePaths.SOUND_TRACK_DIRECTORY), ResourcePaths.OST_AMBIENT_PREFIX_DXUN);
+        ambientAudio.createAudioClips(ResourcePaths.getAudioPath(ResourcePaths.SOUND_TRACK_DIRECTORY), ResourcePaths.OST_AMBIENT_PREFIX_KORRIBAN);
+        ambientAudio.createAudioClips(ResourcePaths.getAudioPath(ResourcePaths.SOUND_TRACK_DIRECTORY), ResourcePaths.OST_AMBIENT_PREFIX_MALACHOR_V);
+        ambientAudio.createAudioClips(ResourcePaths.getAudioPath(ResourcePaths.SOUND_TRACK_DIRECTORY), ResourcePaths.OST_AMBIENT_PREFIX_NAR_SHADDAA);
+        ambientAudio.createAudioClips(ResourcePaths.getAudioPath(ResourcePaths.SOUND_TRACK_DIRECTORY), ResourcePaths.OST_AMBIENT_PREFIX_ONDERON);
+        ambientAudio.createAudioClips(ResourcePaths.getAudioPath(ResourcePaths.SOUND_TRACK_DIRECTORY), ResourcePaths.OST_AMBIENT_PREFIX_TELOS);
 
         // Ship
-        ambientAudio.createAudioClips(ResourcePaths.getAudioPath(ResourcePaths.SOUND_TRACK_PATH), ResourcePaths.OST_AMBIENT_PREFIX_EBON_HAWK);
-        ambientAudio.createAudioClips(ResourcePaths.getAudioPath(ResourcePaths.SOUND_TRACK_PATH), ResourcePaths.OST_AMBIENT_PREFIX_HARBINGER);
-        ambientAudio.createAudioClips(ResourcePaths.getAudioPath(ResourcePaths.SOUND_TRACK_PATH), ResourcePaths.OST_AMBIENT_PREFIX_RAVAGER);
+        ambientAudio.createAudioClips(ResourcePaths.getAudioPath(ResourcePaths.SOUND_TRACK_DIRECTORY), ResourcePaths.OST_AMBIENT_PREFIX_EBON_HAWK);
+        ambientAudio.createAudioClips(ResourcePaths.getAudioPath(ResourcePaths.SOUND_TRACK_DIRECTORY), ResourcePaths.OST_AMBIENT_PREFIX_HARBINGER);
+        ambientAudio.createAudioClips(ResourcePaths.getAudioPath(ResourcePaths.SOUND_TRACK_DIRECTORY), ResourcePaths.OST_AMBIENT_PREFIX_RAVAGER);
 
         // Other
-        ambientAudio.createAudioClips(ResourcePaths.getAudioPath(ResourcePaths.SOUND_TRACK_PATH), ResourcePaths.OST_AMBIENT_PREFIX_PERAGUS);
+        ambientAudio.createAudioClips(ResourcePaths.getAudioPath(ResourcePaths.SOUND_TRACK_DIRECTORY), ResourcePaths.OST_AMBIENT_PREFIX_PERAGUS);
 
         // Battle
         battleAudio = new AudioList();
-        battleAudio.createAudioClips(ResourcePaths.getAudioPath(ResourcePaths.SOUND_TRACK_PATH), ResourcePaths.OST_BATTLE_PREFIX);
+        battleAudio.createAudioClips(ResourcePaths.getAudioPath(ResourcePaths.SOUND_TRACK_DIRECTORY), ResourcePaths.OST_BATTLE_PREFIX);
 
         // Dialogue
         Console.writeHeader("Setup dialogue");

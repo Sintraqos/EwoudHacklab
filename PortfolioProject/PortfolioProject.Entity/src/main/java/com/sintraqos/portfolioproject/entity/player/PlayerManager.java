@@ -1,6 +1,7 @@
 package com.sintraqos.portfolioproject.entity.player;
 
 import com.sintraqos.portfolioproject.output.Console;
+import com.sintraqos.portfolioproject.output.gui.GameGUIManager;
 import com.sintraqos.portfolioproject.statics.Enums;
 
 public class PlayerManager {
@@ -10,6 +11,8 @@ public class PlayerManager {
     public static PlayerManager getInstance() {
         if (instance == null) {
             instance = new PlayerManager();
+
+            instance.setup();
         }
 
         return instance;
@@ -19,7 +22,7 @@ public class PlayerManager {
 
     public PlayerMaster getCurrentPlayer() {return currentPlayer;}
 
-    public PlayerManager(){
+    void setup(){
         Console.writeHeader("Initializing Player Manager");
         currentPlayer = new PlayerMaster();
 

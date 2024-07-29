@@ -1,7 +1,7 @@
 {
   "dialogueTreeID": "Kreia002",
-  "dialogueTreeLocation": "per/002kreia",
-  "dialogueTree": [
+  "dialogueTreeLocation": "perKreia002",
+  "dialogueObjects": [
     {
       "dialogueID": "Per_Morgue_Kreia_GREETINGS_001",
       "dialogueOwner": "Kreia",
@@ -384,16 +384,11 @@
       "dialogueAlignment": "ALIGNMENT_NEUTRAL",
       "dialogueID": "Per_Morgue_Player_024",
       "dialogueOwner": "%PLAYERNAME%",
-      "dialogueText": "[Awareness (4)] You seem nervous, worried. Is something wrong?",
+      "dialogueText": "[Awareness] You seem nervous, worried. Is something wrong?",
       "dialogueEmotion": "DIALOGUE_EMOTION_NEUTRAL",
       "dialogueBranches": [
         "Per_Morgue_Kreia_011"
-      ],
-      "dialogueConditions": {
-        "skillCondition": {
-          "ENTITY_SKILLS_AWARENESS": 4
-        }
-      }
+      ]
     },
     {
       "dialogueAlignment": "ALIGNMENT_NEUTRAL",
@@ -553,10 +548,7 @@
       "dialogueEmotion": "DIALOGUE_EMOTION_NEUTRAL",
       "dialogueBranches": [
         "Per_Morgue_Telepathy_Kreia_001"
-      ],
-      "dialogueConditions": {
-        "skillCondition": {}
-      }
+      ]
     },
     {
       "dialogueAlignment": "ALIGNMENT_NEUTRAL",

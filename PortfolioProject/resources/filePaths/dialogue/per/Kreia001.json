@@ -1,0 +1,15 @@
+{
+  "dialogueTreeID": "Kreia001",
+  "dialogueTreeLocation": "perKreia001",
+  "dialogueObjects": [
+    {
+      "dialogueID": "Per_Intro_Kreia_001",
+      "dialogueOwner": "",
+      "dialogueText": ":: Awaken ::",
+      "dialogueEmotion": "DIALOGUE_EMOTION_NEUTRAL",
+      "dialogueBranches": [
+        "EXIT"
+      ]
+    }
+  ]
+}

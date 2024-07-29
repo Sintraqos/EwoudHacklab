@@ -12,7 +12,7 @@ public class DialogueObject implements Serializable {
     String dialogueOwner;   // Whoever speaks the given dialogue
     String dialogueText;    // The text of the dialogue option
     Enums.dialogueEmotion dialogueEmotion = Enums.dialogueEmotion.DIALOGUE_EMOTION_NEUTRAL; // Change sprite of the speaking person to whichever emotion is needed for the dialogue
-    ArrayList<String> dialogueBranches;
+    List<String> dialogueBranches = new ArrayList<>();
     transient DialogueConditions dialogueConditions;
 
     DialogueObject(){}
@@ -21,7 +21,7 @@ public class DialogueObject implements Serializable {
         this.dialogueID = dialogueID;
         this.dialogueOwner = dialogueOwner;
         this.dialogueText = dialogueText;
-        this.dialogueBranches= (ArrayList<String>) dialogueBranches;
+        this.dialogueBranches= dialogueBranches;
     }
 
     @Override

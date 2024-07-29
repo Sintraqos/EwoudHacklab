@@ -1,5 +1,8 @@
 package com.sintraqos.portfolioproject.statics;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import javax.imageio.ImageIO;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
@@ -8,9 +11,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
-import java.util.ArrayList;
+import java.text.SimpleDateFormat;
+import java.util.*;
 import java.util.List;
-import java.util.Objects;
+import java.util.stream.IntStream;
 
 public class Functions {
 
@@ -153,52 +157,11 @@ public class Functions {
         }
     }
 
-    public static Image loadImage(String imagePath) {
+    public static Image getImage(String imagePath) {
         try {
             return ImageIO.read(Objects.requireNonNull(Functions.class.getClassLoader().getResource(imagePath)));
         } catch (IOException exception) {
             return null;
-        }
-    }
-
-    public static List<String> getFiles(String filePath, String filePrefix) {
-        List<String> fileNames = new ArrayList<>();
-
-        try (
-                InputStream in = Functions.class.getResourceAsStream(filePath)) {
-            assert in != null;
-            try (BufferedReader br = new BufferedReader(new InputStreamReader(in))) {
-                String resource;
-
-                while ((resource = br.readLine()) != null) {
-                    if (resource.contains(filePrefix)) {
-                        fileNames.add(resource);
-                    }
-                }
-            }
-        } catch (IOException e) {
-            throw new ExceptionHandler("Error reading files with prefix: " + filePrefix, e);
-        }
-
-        return fileNames;
-    }
-
-    //endregion
-
-    //endregion
-
-    //region Exceptions
-
-    public static class ExceptionHandler extends RuntimeException {
-
-        // Message with cause
-        public ExceptionHandler(String message, Throwable cause) {
-            System.out.println(capitalize(punctuate(message + ": " + cause.getMessage())));
-        }
-
-        // Message only
-        public ExceptionHandler(String message) {
-            System.out.println(capitalize(punctuate(message)));
         }
     }
 
@@ -231,6 +194,56 @@ public class Functions {
         }
 
         return stringBuilder.toString().trim(); // Add the trim to the end to remove leading and trailing spaces
+    }
+
+    //endregion
+
+    //region Log
+
+    static boolean firstLog = true;
+
+    public static void writeLog(String consoleText) {
+        String filePath = "Log.txt";
+        if (firstLog) {
+            firstLog = false;
+            try {
+                PrintWriter pw = new PrintWriter(filePath);
+                pw.close();
+            } catch (IOException ex) {
+                throw new Functions.ExceptionHandler("IOException", ex);
+            }
+        }
+
+        try {
+            FileWriter fw = new FileWriter(filePath, true); //the true will append the new data
+            fw.write(getTime() + Functions.capitalize(Functions.punctuate(consoleText)) + System.lineSeparator());//appends the string to the file
+            fw.close();
+        } catch (IOException ex) {
+            throw new Functions.ExceptionHandler("IOException", ex);
+        }
+    }
+
+    public static String getTime() {
+        return String.format("[%s] - ", new SimpleDateFormat("HH:mm").format(new Date()));
+    }
+
+    //endregion
+
+//region Classes
+
+    // Exception
+    public static class ExceptionHandler extends RuntimeException {
+
+        // Message with cause
+        public ExceptionHandler(String message, Throwable cause) {
+            System.out.println(capitalize(punctuate(message + ": " + cause.getMessage())));
+        }
+
+        // Message only
+        public ExceptionHandler(String message) {
+            System.out.println(capitalize(punctuate(message)));
+        }
+
     }
 
     //endregion

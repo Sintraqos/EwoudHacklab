@@ -1,6 +1,8 @@
 package com.sintraqos.portfolioproject.output.gui;
 
 import com.sintraqos.portfolioproject.output.Console;
+import com.sintraqos.portfolioproject.output.OutputManager;
+import com.sintraqos.portfolioproject.output.audio.AudioClip;
 import com.sintraqos.portfolioproject.statics.Functions;
 import com.sintraqos.portfolioproject.output.audio.GameAudioManager;
 import com.sintraqos.portfolioproject.output.gui.guicomponents.GUI_JPanelBackground;
@@ -28,7 +30,6 @@ public class GameGUIManager {
         if (instance == null) {
             instance = new GameGUIManager();
 
-            // Setup
             instance.setup();
         }
 
@@ -90,23 +91,23 @@ public class GameGUIManager {
     // Load Image
     void loadImages() {
         // Title Screen
-        baseSpites.put(ResourcePaths.TITLE_SCREEN_LOGO, Objects.requireNonNull(Functions.loadImage(ResourcePaths.getImagePath(ResourcePaths.MAIN_MENU_PATH, ResourcePaths.TITLE_SCREEN_LOGO))));
+        baseSpites.put(ResourcePaths.TITLE_SCREEN_LOGO, Objects.requireNonNull(Functions.getImage(ResourcePaths.getImagePath(ResourcePaths.MAIN_MENU_DIRECTORY, ResourcePaths.TITLE_SCREEN_LOGO))));
 
         // Class Icons
-        baseSpites.put(ResourcePaths.GUI_CLASS_ICON_CONSULAR, Objects.requireNonNull(Functions.loadImage(ResourcePaths.getImagePath(ResourcePaths.UI_ELEMENT_PATH, ResourcePaths.GUI_CLASS_ICON_CONSULAR))));
-        baseSpites.put(ResourcePaths.GUI_CLASS_ICON_GUARDIAN, Objects.requireNonNull(Functions.loadImage(ResourcePaths.getImagePath(ResourcePaths.UI_ELEMENT_PATH, ResourcePaths.GUI_CLASS_ICON_GUARDIAN))));
-        baseSpites.put(ResourcePaths.GUI_CLASS_ICON_SENTINEL, Objects.requireNonNull(Functions.loadImage(ResourcePaths.getImagePath(ResourcePaths.UI_ELEMENT_PATH, ResourcePaths.GUI_CLASS_ICON_SENTINEL))));
+        baseSpites.put(ResourcePaths.GUI_CLASS_ICON_CONSULAR, Objects.requireNonNull(Functions.getImage(ResourcePaths.getImagePath(ResourcePaths.UI_ELEMENT_DIRECTORY, ResourcePaths.GUI_CLASS_ICON_CONSULAR))));
+        baseSpites.put(ResourcePaths.GUI_CLASS_ICON_GUARDIAN, Objects.requireNonNull(Functions.getImage(ResourcePaths.getImagePath(ResourcePaths.UI_ELEMENT_DIRECTORY, ResourcePaths.GUI_CLASS_ICON_GUARDIAN))));
+        baseSpites.put(ResourcePaths.GUI_CLASS_ICON_SENTINEL, Objects.requireNonNull(Functions.getImage(ResourcePaths.getImagePath(ResourcePaths.UI_ELEMENT_DIRECTORY, ResourcePaths.GUI_CLASS_ICON_SENTINEL))));
 
         // Default Portraits
-        baseSpites.put(ResourcePaths.PORTRAIT_DEFAULT_MALE_PATH, Objects.requireNonNull(Functions.loadImage(ResourcePaths.getImagePath(ResourcePaths.UI_ELEMENT_PATH, ResourcePaths.PORTRAIT_DEFAULT_MALE_PATH))));
-        baseSpites.put(ResourcePaths.PORTRAIT_DEFAULT_FEMALE_PATH, Objects.requireNonNull(Functions.loadImage(ResourcePaths.getImagePath(ResourcePaths.UI_ELEMENT_PATH, ResourcePaths.PORTRAIT_DEFAULT_FEMALE_PATH))));
+        baseSpites.put(ResourcePaths.PORTRAIT_DEFAULT_MALE, Objects.requireNonNull(Functions.getImage(ResourcePaths.getImagePath(ResourcePaths.UI_ELEMENT_DIRECTORY, ResourcePaths.PORTRAIT_DEFAULT_MALE))));
+        baseSpites.put(ResourcePaths.PORTRAIT_DEFAULT_FEMALE, Objects.requireNonNull(Functions.getImage(ResourcePaths.getImagePath(ResourcePaths.UI_ELEMENT_DIRECTORY, ResourcePaths.PORTRAIT_DEFAULT_FEMALE))));
 
         // GUI Elements
-        baseSpites.put(ResourcePaths.GUI_BACKGROUND, Objects.requireNonNull(Functions.loadImage(ResourcePaths.getImagePath(ResourcePaths.UI_ELEMENT_PATH, ResourcePaths.GUI_BACKGROUND))));
-        baseSpites.put(ResourcePaths.BUTTON_BASE_IMAGE, Objects.requireNonNull(Functions.loadImage(ResourcePaths.getImagePath(ResourcePaths.UI_ELEMENT_PATH, ResourcePaths.BUTTON_BASE_IMAGE))));
-        baseSpites.put(ResourcePaths.BUTTON_CLICK_IMAGE, Objects.requireNonNull(Functions.loadImage(ResourcePaths.getImagePath(ResourcePaths.UI_ELEMENT_PATH, ResourcePaths.BUTTON_CLICK_IMAGE))));
-        baseSpites.put(ResourcePaths.BUTTON_HOVER_IMAGE, Objects.requireNonNull(Functions.loadImage(ResourcePaths.getImagePath(ResourcePaths.UI_ELEMENT_PATH, ResourcePaths.BUTTON_HOVER_IMAGE))));
-        baseSpites.put(ResourcePaths.LABEL_IMAGE, Objects.requireNonNull(Functions.loadImage(ResourcePaths.getImagePath(ResourcePaths.UI_ELEMENT_PATH, ResourcePaths.LABEL_IMAGE))));
+        baseSpites.put(ResourcePaths.GUI_BACKGROUND, Objects.requireNonNull(Functions.getImage(ResourcePaths.getImagePath(ResourcePaths.UI_ELEMENT_DIRECTORY, ResourcePaths.GUI_BACKGROUND))));
+        baseSpites.put(ResourcePaths.BUTTON_BASE, Objects.requireNonNull(Functions.getImage(ResourcePaths.getImagePath(ResourcePaths.UI_ELEMENT_DIRECTORY, ResourcePaths.BUTTON_BASE))));
+        baseSpites.put(ResourcePaths.BUTTON_CLICK, Objects.requireNonNull(Functions.getImage(ResourcePaths.getImagePath(ResourcePaths.UI_ELEMENT_DIRECTORY, ResourcePaths.BUTTON_CLICK))));
+        baseSpites.put(ResourcePaths.BUTTON_HOVER, Objects.requireNonNull(Functions.getImage(ResourcePaths.getImagePath(ResourcePaths.UI_ELEMENT_DIRECTORY, ResourcePaths.BUTTON_HOVER))));
+        baseSpites.put(ResourcePaths.LABEL_IMAGE, Objects.requireNonNull(Functions.getImage(ResourcePaths.getImagePath(ResourcePaths.UI_ELEMENT_DIRECTORY, ResourcePaths.LABEL_IMAGE))));
     }
 
     // Companion Portrait
@@ -118,7 +119,7 @@ public class GameGUIManager {
         // Since we need to process a lot of files run a parallel loop, so it won't take too much time to process each file
         IntStream.range(0, companionPortraits.size()).parallel().forEach(i -> {
             List<String> currentPortraits = new ArrayList<>(companionPortraits.values()).get(i);
-            IntStream.range(0, currentPortraits.size()).parallel().forEach(j -> addPortrait(Functions.getFileNameWithoutExtension(currentPortraits.get(j)), ResourcePaths.PORTRAIT_COMPANION_PATH));
+            IntStream.range(0, currentPortraits.size()).parallel().forEach(j -> addPortrait(Functions.getFileNameWithoutExtension(currentPortraits.get(j)), ResourcePaths.PORTRAIT_COMPANION_DIRECTORY));
         });
 
         Console.writeLine("Finished getting companion portraits");
@@ -129,8 +130,8 @@ public class GameGUIManager {
     void loadPlayerPortraits() {
         Console.writeLine("Getting player portraits");
 
-        loadPlayerPortraits(ResourcePaths.PORTRAIT_MALE_PATH);
-        loadPlayerPortraits(ResourcePaths.PORTRAIT_FEMALE_PATH);
+        loadPlayerPortraits(ResourcePaths.PORTRAIT_MALE_PREFIX);
+        loadPlayerPortraits(ResourcePaths.PORTRAIT_FEMALE_PREFIX);
 
         Console.writeLine("Finished getting player portraits");
         Console.writeLine();
@@ -139,13 +140,13 @@ public class GameGUIManager {
     void loadPlayerPortraits(String imagePrefix) {
         Console.writeHeader("New portrait prefix: " + imagePrefix);
 
-        List<String> playerPortraits = Functions.getFiles(ResourcePaths.getPortraitImagePath(ResourcePaths.PORTRAIT_PLAYER_PATH), imagePrefix);
+        ResourcePaths.FilePaths fileNames = OutputManager.getInstance().getPortraitPathsFile().getFilePaths(imagePrefix);
 
-        IntStream.range(0, playerPortraits.size()).parallel().forEach(i -> addPortrait(Functions.getFileNameWithoutExtension(playerPortraits.get(i)), ResourcePaths.PORTRAIT_PLAYER_PATH));
+        IntStream.range(0, fileNames.resourcePaths().size()).parallel().forEach(i -> addPortrait(Functions.getFileNameWithoutExtension(fileNames.resourcePaths().get(i)), ResourcePaths.PORTRAIT_PLAYER_DIRECTORY));
     }
 
     void addPortrait(String fileName, String locationDirectory) {
-        portraitSprites.put(fileName, Objects.requireNonNull(Functions.loadImage(ResourcePaths.getImagePath(ResourcePaths.PORTRAIT_PATH, locationDirectory, fileName))));
+        portraitSprites.put(fileName, Objects.requireNonNull(Functions.getImage(ResourcePaths.getImagePath(ResourcePaths.PORTRAIT_DIRECTORY, locationDirectory, fileName))));
         Console.writeLine("Added portrait: " + fileName);
     }
 
@@ -153,7 +154,7 @@ public class GameGUIManager {
     void loadFont() {
 
         try {
-            font = Font.createFont(Font.TRUETYPE_FONT, Objects.requireNonNull(getClass().getResourceAsStream(ResourcePaths.getFontPath())));
+            font = Font.createFont(Font.TRUETYPE_FONT, Objects.requireNonNull(getClass().getResourceAsStream(ResourcePaths.getFontDirectory())));
 
             GraphicsEnvironment.getLocalGraphicsEnvironment().registerFont(font);   // Register the font so it can be used
         } catch (FontFormatException | IOException ex) {
@@ -166,7 +167,7 @@ public class GameGUIManager {
     //region Set Button
 
     public void setupButton(JButton button, int buttonWidth, int buttonHeight) {
-        setImage(button, ResourcePaths.BUTTON_BASE_IMAGE, buttonWidth, buttonHeight);
+        setImage(button, ResourcePaths.BUTTON_BASE, buttonWidth, buttonHeight);
 
         setButtonListeners(
                 button,
@@ -178,7 +179,7 @@ public class GameGUIManager {
     }
 
     public void setupButton(JButton button, String overlayImageName, int buttonWidth, int buttonHeight, int padding) {
-        setOverlappedImage(button, ResourcePaths.BUTTON_BASE_IMAGE, overlayImageName, buttonWidth, buttonHeight, padding);
+        setOverlappedImage(button, ResourcePaths.BUTTON_BASE, overlayImageName, buttonWidth, buttonHeight, padding);
 
         setButtonListeners(
                 button,
@@ -196,8 +197,8 @@ public class GameGUIManager {
         button.addActionListener(_ -> {
             GameAudioManager.getInstance().playOneShotAudio(ResourcePaths.GUI_CLICK, Enums.audioType.AUDIO_TYPE_SFX);
             button.setForeground(StaticUtils.GUI_HOVER_TEXT_COLOR);
-            new Thread(new SetJButtonIcon(0, button, ResourcePaths.BUTTON_CLICK_IMAGE, buttonOverlapName, buttonWidth, buttonHeight, padding)).start();
-            new Thread(new SetJButtonIcon(75, button, ResourcePaths.BUTTON_HOVER_IMAGE, buttonOverlapName, buttonWidth, buttonHeight, padding)).start();
+            new Thread(new SetJButtonIcon(0, button, ResourcePaths.BUTTON_CLICK, buttonOverlapName, buttonWidth, buttonHeight, padding)).start();
+            new Thread(new SetJButtonIcon(75, button, ResourcePaths.BUTTON_HOVER, buttonOverlapName, buttonWidth, buttonHeight, padding)).start();
         });
 
         // Mouse events
@@ -208,7 +209,7 @@ public class GameGUIManager {
             public void mouseEntered(MouseEvent e) {
                 button.setForeground(StaticUtils.GUI_HOVER_TEXT_COLOR);
 
-                new Thread(new SetJButtonIcon(0, button, ResourcePaths.BUTTON_HOVER_IMAGE, buttonOverlapName, buttonWidth, buttonHeight, padding)).start();
+                new Thread(new SetJButtonIcon(0, button, ResourcePaths.BUTTON_HOVER, buttonOverlapName, buttonWidth, buttonHeight, padding)).start();
 
                 super.mouseEntered(e);
             }
@@ -218,7 +219,7 @@ public class GameGUIManager {
             public void mouseExited(MouseEvent e) {
                 button.setForeground(StaticUtils.GUI_FOREGROUND_COLOR);
 
-                new Thread(new SetJButtonIcon(0, button, ResourcePaths.BUTTON_BASE_IMAGE, buttonOverlapName, buttonWidth, buttonHeight, padding)).start();
+                new Thread(new SetJButtonIcon(0, button, ResourcePaths.BUTTON_BASE, buttonOverlapName, buttonWidth, buttonHeight, padding)).start();
 
                 super.mouseExited(e);
             }

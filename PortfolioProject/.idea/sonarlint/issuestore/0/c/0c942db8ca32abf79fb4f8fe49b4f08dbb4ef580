@@ -1,16 +1,5 @@
 
-i	java:S101"MRename this class name to match the regular expression '^[A-Z][a-zA-Z0-9]*$'.(ç²„–8 ÔÂŞ2
-{	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(»Í™ÿøÿÿÿÿ8 ÔÂŞ2
+i	java:S101"MRename this class name to match the regular expression '^[A-Z][a-zA-Z0-9]*$'.(ç²„–8©Ş£ş2
+{	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(»Í™ÿøÿÿÿÿ8ªŞ£ş2
 O
-java:S2387"2"rootPanel" is the name of a field in "GUIScreen".(”±È¶8¨ÔÂŞ2
-N
-java:S1602",Remove useless curly braces around statement(µ÷èíüÿÿÿÿ8©ÔÂŞ2
-I
-java:S1602"",Remove useless curly braces around statement(¢°Ö’8ªÔÂŞ2
-I
-java:S1602&",Remove useless curly braces around statement(ÛÈŒ8ªÔÂŞ2
-X	java:S1252"<This block of commented-out lines of code should be removed.(¶¨Ê˜8óöÉŞ2
-l
-java:S1128"JRemove this unused import 'com.sintraqos.portfolioproject.output.Console'.(éåÕôøÿÿÿÿ8­ÔÂŞ2
-B
-java:S1128	"%Remove this unused import 'java.awt'.(ï´µ©8õöÉŞ2
+java:S2387"2"rootPanel" is the name of a field in "GUIScreen".(”±È¶8¹Ş£ş2

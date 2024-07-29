@@ -1,5 +1,6 @@
 package com.sintraqos.portfolioproject.statics;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -10,32 +11,32 @@ public class ResourcePaths {
         throw new IllegalStateException("Utility class");
     }
 
+    public static final String PATH_SEPARATOR = "/";
+
     // Extensions
     public static final String EXTENSION_FONT = ".ttf";
     public static final String EXTENSION_IMAGE = ".png";
     public static final String EXTENSION_AUDIO = ".wav";
-    public static final String EXTENSION_DIALOGUE = ".json";
+    public static final String EXTENSION_DATAFILE = ".json";
 
     // Font
-    public static final String FONT_PATH = "fonts";
+    public static final String FONT_DIRECTORY = "fonts";
     public static final String FONT_FILE_NAME = "Old_Republic";
 
     //region Image
 
-    // Paths
-    public static final String PATH_SEPERATOR = "/";
-    public static final String IMAGE_PATH = "images";
-    public static final String MAIN_MENU_PATH = "mainMenu";
-    public static final String CHARACTER_SCREEN_PATH = "characterScreen";
-    public static final String ITEM_IMAGE_PATH = "itemIcon";
-    public static final String UI_ELEMENT_PATH = "uiElements";
+    // Directories
+    public static final String IMAGE_DIRECTORY = "images";
+    public static final String MAIN_MENU_DIRECTORY = "mainMenu";
+    public static final String ITEM_IMAGE_DIRECTORY = "itemIcon";
+    public static final String UI_ELEMENT_DIRECTORY = "uiElements";
 
     // Image Files
     public static final String TITLE_SCREEN_LOGO = "SWKoToRII_Logo";
-    public static final String CURSOR_BASE_IMAGE = "CursorBase";
-    public static final String BUTTON_BASE_IMAGE = "ButtonBase";
-    public static final String BUTTON_CLICK_IMAGE = "ButtonClick";
-    public static final String BUTTON_HOVER_IMAGE = "ButtonHover";
+    public static final String CURSOR_BASE = "CursorBase";
+    public static final String BUTTON_BASE = "ButtonBase";
+    public static final String BUTTON_CLICK = "ButtonClick";
+    public static final String BUTTON_HOVER = "ButtonHover";
     public static final String LABEL_IMAGE = "Label";
     public static final String GUI_BACKGROUND = "GUI_Background";
     public static final String GUI_CLASS_ICON_CONSULAR = "ConsularIcon";
@@ -44,52 +45,52 @@ public class ResourcePaths {
 
     //region Portrait Frames
 
-    public static final String PORTRAIT_PATH = "portrait";
+    public static final String PORTRAIT_DIRECTORY = "portrait";
 
     //region ---- Companion
 
-    public static final String PORTRAIT_COMPANION_PATH = "companion";
+    public static final String PORTRAIT_COMPANION_DIRECTORY = "companion";
 
-    public static final String PORTRAIT_3CFD_PATH = "comp_3CFD";               // 3CFD
-    public static final String PORTRAIT_ATRIS_PATH = "comp_Atris";             // Atris
-    public static final String PORTRAIT_ATTON_PATH = "comp_Atton";             // Atton
-    public static final String PORTRAIT_B4D4_PATH = "comp_B4D4";              // B4D4
-    public static final String PORTRAIT_BAO_DUR_PATH = "comp_BaoDur";         // Bao Dur
-    public static final String PORTRAIT_DISCIPLE_PATH = "comp_Disciple";     // Disciple
-    public static final String PORTRAIT_G0T0_PATH = "comp_G0T0";              // G0T0
-    public static final String PORTRAIT_HAND_MAIDEN_PATH = "comp_HandM";      // Hand Maiden
-    public static final String PORTRAIT_HANHARR_PATH = "comp_Hanharr";       // Hanharr
-    public static final String PORTRAIT_HK47_PATH = "comp_HK47";              // HK47
-    public static final String PORTRAIT_HK50_PATH = "comp_HK50";              // HK50
-    public static final String PORTRAIT_HK51_PATH = "comp_HK51";             // HK51
-    public static final String PORTRAIT_KREIA_PATH = "comp_Kreia";          // Kreia
-    public static final String PORTRAIT_MANDALORE_PATH = "comp_Mandalore";  // Mandalore
-    public static final String PORTRAIT_MIRA_PATH = "comp_Mira";             // Mira
-    public static final String PORTRAIT_REMOTE_PATH = "comp_Remote";          // Remote
-    public static final String PORTRAIT_T3M4_PATH = "comp_T3M4";             // T3M4
-    public static final String PORTRAIT_VISAS_MARR_PATH = "comp_Visas";      // Visas Marr
+    public static final String PORTRAIT_3CFD = "comp_3CFD";               // 3CFD
+    public static final String PORTRAIT_ATRIS = "comp_Atris";             // Atris
+    public static final String PORTRAIT_ATTON = "comp_Atton";             // Atton
+    public static final String PORTRAIT_B4D4 = "comp_B4D4";               // B4D4
+    public static final String PORTRAIT_BAO_DUR = "comp_BaoDur";          // Bao Dur
+    public static final String PORTRAIT_DISCIPLE = "comp_Disciple";       // Disciple
+    public static final String PORTRAIT_G0T0 = "comp_G0T0";               // G0T0
+    public static final String PORTRAIT_HAND_MAIDEN = "comp_HandM";       // Hand Maiden
+    public static final String PORTRAIT_HANHARR = "comp_Hanharr";         // Hanharr
+    public static final String PORTRAIT_HK47 = "comp_HK47";               // HK47
+    public static final String PORTRAIT_HK50 = "comp_HK50";               // HK50
+    public static final String PORTRAIT_HK51 = "comp_HK51";               // HK51
+    public static final String PORTRAIT_KREIA = "comp_Kreia";             // Kreia
+    public static final String PORTRAIT_MANDALORE = "comp_Mandalore";     // Mandalore
+    public static final String PORTRAIT_MIRA = "comp_Mira";               // Mira
+    public static final String PORTRAIT_REMOTE = "comp_Remote";           // Remote
+    public static final String PORTRAIT_T3M4 = "comp_T3M4";               // T3M4
+    public static final String PORTRAIT_VISAS_MARR = "comp_Visas";        // Visas Marr
 
     protected static final HashMap<String, List<String>> PORTRAIT_COMPANIONS = new HashMap<>();
 
     static {
-        PORTRAIT_COMPANIONS.put(PORTRAIT_3CFD_PATH, List.of(PORTRAIT_3CFD_PATH, PORTRAIT_3CFD_PATH, PORTRAIT_3CFD_PATH));
-        PORTRAIT_COMPANIONS.put(PORTRAIT_ATRIS_PATH, List.of(PORTRAIT_ATRIS_PATH, PORTRAIT_ATRIS_PATH, PORTRAIT_ATRIS_PATH));
-        PORTRAIT_COMPANIONS.put(PORTRAIT_ATTON_PATH, List.of(PORTRAIT_ATTON_PATH + "_1", PORTRAIT_ATTON_PATH + "_2", PORTRAIT_ATTON_PATH + "_3"));
-        PORTRAIT_COMPANIONS.put(PORTRAIT_B4D4_PATH, List.of(PORTRAIT_B4D4_PATH, PORTRAIT_B4D4_PATH, PORTRAIT_B4D4_PATH));
-        PORTRAIT_COMPANIONS.put(PORTRAIT_BAO_DUR_PATH, List.of(PORTRAIT_BAO_DUR_PATH + "_1", PORTRAIT_BAO_DUR_PATH + "_2", PORTRAIT_BAO_DUR_PATH + "_3"));
-        PORTRAIT_COMPANIONS.put(PORTRAIT_DISCIPLE_PATH, List.of(PORTRAIT_DISCIPLE_PATH + "_1", PORTRAIT_DISCIPLE_PATH + "_2", PORTRAIT_DISCIPLE_PATH + "_3"));
-        PORTRAIT_COMPANIONS.put(PORTRAIT_G0T0_PATH, List.of(PORTRAIT_G0T0_PATH, PORTRAIT_G0T0_PATH, PORTRAIT_G0T0_PATH));
-        PORTRAIT_COMPANIONS.put(PORTRAIT_HAND_MAIDEN_PATH, List.of(PORTRAIT_HAND_MAIDEN_PATH + "_1", PORTRAIT_HAND_MAIDEN_PATH + "_2", PORTRAIT_HAND_MAIDEN_PATH + "_3"));
-        PORTRAIT_COMPANIONS.put(PORTRAIT_HANHARR_PATH, List.of(PORTRAIT_HANHARR_PATH, PORTRAIT_HANHARR_PATH, PORTRAIT_HANHARR_PATH));
-        PORTRAIT_COMPANIONS.put(PORTRAIT_HK47_PATH, List.of(PORTRAIT_HK47_PATH, PORTRAIT_HK47_PATH, PORTRAIT_HK47_PATH));
-        PORTRAIT_COMPANIONS.put(PORTRAIT_HK50_PATH, List.of(PORTRAIT_HK50_PATH, PORTRAIT_HK50_PATH, PORTRAIT_HK50_PATH));
-        PORTRAIT_COMPANIONS.put(PORTRAIT_HK51_PATH, List.of(PORTRAIT_HK51_PATH, PORTRAIT_HK51_PATH, PORTRAIT_HK51_PATH));
-        PORTRAIT_COMPANIONS.put(PORTRAIT_KREIA_PATH, List.of(PORTRAIT_KREIA_PATH, PORTRAIT_KREIA_PATH, PORTRAIT_KREIA_PATH));
-        PORTRAIT_COMPANIONS.put(PORTRAIT_MANDALORE_PATH, List.of(PORTRAIT_MANDALORE_PATH, PORTRAIT_MANDALORE_PATH, PORTRAIT_MANDALORE_PATH));
-        PORTRAIT_COMPANIONS.put(PORTRAIT_MIRA_PATH, List.of(PORTRAIT_MIRA_PATH + "_1", PORTRAIT_MIRA_PATH + "_2", PORTRAIT_MIRA_PATH + "_3"));
-        PORTRAIT_COMPANIONS.put(PORTRAIT_REMOTE_PATH, List.of(PORTRAIT_REMOTE_PATH, PORTRAIT_REMOTE_PATH, PORTRAIT_REMOTE_PATH));
-        PORTRAIT_COMPANIONS.put(PORTRAIT_T3M4_PATH, List.of(PORTRAIT_T3M4_PATH, PORTRAIT_T3M4_PATH, PORTRAIT_T3M4_PATH));
-        PORTRAIT_COMPANIONS.put(PORTRAIT_VISAS_MARR_PATH, List.of(PORTRAIT_VISAS_MARR_PATH + "_1", PORTRAIT_VISAS_MARR_PATH + "_2", PORTRAIT_VISAS_MARR_PATH + "_3"));
+        PORTRAIT_COMPANIONS.put(PORTRAIT_3CFD, List.of(PORTRAIT_3CFD, PORTRAIT_3CFD, PORTRAIT_3CFD));
+        PORTRAIT_COMPANIONS.put(PORTRAIT_ATRIS, List.of(PORTRAIT_ATRIS, PORTRAIT_ATRIS, PORTRAIT_ATRIS));
+        PORTRAIT_COMPANIONS.put(PORTRAIT_ATTON, List.of(PORTRAIT_ATTON + "_1", PORTRAIT_ATTON + "_2", PORTRAIT_ATTON + "_3"));
+        PORTRAIT_COMPANIONS.put(PORTRAIT_B4D4, List.of(PORTRAIT_B4D4, PORTRAIT_B4D4, PORTRAIT_B4D4));
+        PORTRAIT_COMPANIONS.put(PORTRAIT_BAO_DUR, List.of(PORTRAIT_BAO_DUR + "_1", PORTRAIT_BAO_DUR + "_2", PORTRAIT_BAO_DUR + "_3"));
+        PORTRAIT_COMPANIONS.put(PORTRAIT_DISCIPLE, List.of(PORTRAIT_DISCIPLE + "_1", PORTRAIT_DISCIPLE + "_2", PORTRAIT_DISCIPLE + "_3"));
+        PORTRAIT_COMPANIONS.put(PORTRAIT_G0T0, List.of(PORTRAIT_G0T0, PORTRAIT_G0T0, PORTRAIT_G0T0));
+        PORTRAIT_COMPANIONS.put(PORTRAIT_HAND_MAIDEN, List.of(PORTRAIT_HAND_MAIDEN + "_1", PORTRAIT_HAND_MAIDEN + "_2", PORTRAIT_HAND_MAIDEN + "_3"));
+        PORTRAIT_COMPANIONS.put(PORTRAIT_HANHARR, List.of(PORTRAIT_HANHARR, PORTRAIT_HANHARR, PORTRAIT_HANHARR));
+        PORTRAIT_COMPANIONS.put(PORTRAIT_HK47, List.of(PORTRAIT_HK47, PORTRAIT_HK47, PORTRAIT_HK47));
+        PORTRAIT_COMPANIONS.put(PORTRAIT_HK50, List.of(PORTRAIT_HK50, PORTRAIT_HK50, PORTRAIT_HK50));
+        PORTRAIT_COMPANIONS.put(PORTRAIT_HK51, List.of(PORTRAIT_HK51, PORTRAIT_HK51, PORTRAIT_HK51));
+        PORTRAIT_COMPANIONS.put(PORTRAIT_KREIA, List.of(PORTRAIT_KREIA, PORTRAIT_KREIA, PORTRAIT_KREIA));
+        PORTRAIT_COMPANIONS.put(PORTRAIT_MANDALORE, List.of(PORTRAIT_MANDALORE, PORTRAIT_MANDALORE, PORTRAIT_MANDALORE));
+        PORTRAIT_COMPANIONS.put(PORTRAIT_MIRA, List.of(PORTRAIT_MIRA + "_1", PORTRAIT_MIRA + "_2", PORTRAIT_MIRA + "_3"));
+        PORTRAIT_COMPANIONS.put(PORTRAIT_REMOTE, List.of(PORTRAIT_REMOTE, PORTRAIT_REMOTE, PORTRAIT_REMOTE));
+        PORTRAIT_COMPANIONS.put(PORTRAIT_T3M4, List.of(PORTRAIT_T3M4, PORTRAIT_T3M4, PORTRAIT_T3M4));
+        PORTRAIT_COMPANIONS.put(PORTRAIT_VISAS_MARR, List.of(PORTRAIT_VISAS_MARR + "_1", PORTRAIT_VISAS_MARR + "_2", PORTRAIT_VISAS_MARR + "_3"));
     }
 
     public static Map<String, List<String>> getPortraitCompanions() {
@@ -100,13 +101,13 @@ public class ResourcePaths {
 
     //region ---- Player
 
-    public static final String PORTRAIT_PLAYER_PATH = "player";
+    public static final String PORTRAIT_PLAYER_DIRECTORY = "player";
 
-    public static final String PORTRAIT_MALE_PATH = "play_Male_";
-    public static final String PORTRAIT_FEMALE_PATH = "play_Fem_";
+    public static final String PORTRAIT_MALE_PREFIX = "play_Male_";
+    public static final String PORTRAIT_FEMALE_PREFIX = "play_Fem_";
 
-    public static final String PORTRAIT_DEFAULT_FEMALE_PATH = "DefaultFemalePortrait";
-    public static final String PORTRAIT_DEFAULT_MALE_PATH = "DefaultMalePortrait";
+    public static final String PORTRAIT_DEFAULT_FEMALE = "DefaultFemalePortrait";
+    public static final String PORTRAIT_DEFAULT_MALE = "DefaultMalePortrait";
 
     //endregion
 
@@ -117,10 +118,12 @@ public class ResourcePaths {
     //region Audio
 
     // paths
-    public static final String AUDIO_PATH = "audio";
-    public static final String SOUND_TRACK_PATH = "ost";
-    public static final String SOUND_EFFECT_PATH = "sfx";
-    public static final String GUI_SOUND_EFFECT_PATH = "gui";
+    public static final String RESOURCE_DIRECTORY = "resources";
+    public static final String AUDIO_DIRECTORY = "audio";
+    public static final String SOUND_TRACK_DIRECTORY = "ost";
+    public static final String SOUND_EFFECT_DIRECTORY = "sfx";
+    public static final String GUI_SOUND_EFFECT_DIRECTORY = "gui";
+    public static final String FILEPATH_DIRECTORY = "filePaths";
 
     //region ---- GUI
 
@@ -194,11 +197,11 @@ public class ResourcePaths {
 
     //region Dialogue
 
-    public static final String DIALOGUE_PATH = "dialogue";
+    public static final String DIALOGUE_DIRECTORY = "dialogue";
 
     //region ---- Peragus
 
-    public static final String DIALOGUE_PERAGUS_PATH = "per";
+    public static final String DIALOGUE_PERAGUS_DIRECTORY = "per";
     public static final String KREIA_001 = "Kreia001";
     public static final String KREIA_002 = "Kreia002";
 
@@ -210,38 +213,72 @@ public class ResourcePaths {
 
     // Image
     public static String getImagePath(String locationDirectory, String imageName) {
-        return IMAGE_PATH + PATH_SEPERATOR + locationDirectory + PATH_SEPERATOR + imageName + EXTENSION_IMAGE;
+        return IMAGE_DIRECTORY + PATH_SEPARATOR + locationDirectory + PATH_SEPARATOR + imageName + EXTENSION_IMAGE;
     }
 
     public static String getImagePath(String locationDirectory, String locationSubDirectory, String imageName) {
-        return IMAGE_PATH + PATH_SEPERATOR + locationDirectory + PATH_SEPERATOR + locationSubDirectory + PATH_SEPERATOR + imageName + EXTENSION_IMAGE;
+        return IMAGE_DIRECTORY + PATH_SEPARATOR + locationDirectory + PATH_SEPARATOR + locationSubDirectory + PATH_SEPARATOR + imageName + EXTENSION_IMAGE;
     }
 
     public static String getPortraitImagePath(String locationDirectory) {
-        return PATH_SEPERATOR + IMAGE_PATH + PATH_SEPERATOR + PORTRAIT_PATH + PATH_SEPERATOR + locationDirectory + PATH_SEPERATOR;
+        return PATH_SEPARATOR + IMAGE_DIRECTORY + PATH_SEPARATOR + PORTRAIT_DIRECTORY + PATH_SEPARATOR + locationDirectory + PATH_SEPARATOR;
     }
 
     // Audio
-    public static  String getAudioPath(String locationDirectory) {
-        return PATH_SEPERATOR + AUDIO_PATH + PATH_SEPERATOR + locationDirectory + PATH_SEPERATOR;
+    public static String getAudioPath(String locationDirectory) {
+        return PATH_SEPARATOR + AUDIO_DIRECTORY + PATH_SEPARATOR + locationDirectory + PATH_SEPARATOR;
     }
 
     public static String getAudioPath(String locationDirectory, String locationSubDirectory) {
-        return PATH_SEPERATOR + AUDIO_PATH + PATH_SEPERATOR + locationDirectory + PATH_SEPERATOR + locationSubDirectory;
+        return PATH_SEPARATOR + AUDIO_DIRECTORY + PATH_SEPARATOR + locationDirectory + PATH_SEPARATOR + locationSubDirectory;
     }
 
-    public static  String getAudioPath(String locationDirectory, String locationSubDirectory, String audioName) {
-        return PATH_SEPERATOR + AUDIO_PATH + PATH_SEPERATOR + locationDirectory + PATH_SEPERATOR + locationSubDirectory + PATH_SEPERATOR + audioName;
+    public static String getAudioPath(String locationDirectory, String locationSubDirectory, String audioName) {
+        return PATH_SEPARATOR + AUDIO_DIRECTORY + PATH_SEPARATOR + locationDirectory + PATH_SEPARATOR + locationSubDirectory + PATH_SEPARATOR + audioName;
     }
 
-    public static String getDialogueAudioPath(String dialogueTreeLocation, String dialogueID){
-      return  PATH_SEPERATOR + AUDIO_PATH + DIALOGUE_PATH + dialogueTreeLocation + PATH_SEPERATOR + dialogueID + EXTENSION_AUDIO;
+    public static String getDialogueAudioPath(String dialogueTreeLocation, String dialogueID) {
+        return PATH_SEPARATOR + AUDIO_DIRECTORY + DIALOGUE_DIRECTORY + dialogueTreeLocation + PATH_SEPARATOR + dialogueID + EXTENSION_AUDIO;
     }
 
     // Font
-    public static String getFontPath(){
-        return PATH_SEPERATOR + FONT_PATH + PATH_SEPERATOR + FONT_FILE_NAME + EXTENSION_FONT;
+    public static String getFontDirectory() {
+        return PATH_SEPARATOR + FONT_DIRECTORY + PATH_SEPARATOR + FONT_FILE_NAME + EXTENSION_FONT;
     }
 
     //endregion
+
+
+    // File Path
+
+    public static String getResourceDirectoryPath(String directoryPath) {
+        return RESOURCE_DIRECTORY + PATH_SEPARATOR + FILEPATH_DIRECTORY + PATH_SEPARATOR + directoryPath;
+    }
+
+    public static String getResourceFilePath(String fileType) {
+        return getResourceDirectoryPath(fileType) + EXTENSION_DATAFILE;
+    }
+
+    public static String getDirectoryPath(String directoryPath) {
+        return PATH_SEPARATOR + FILEPATH_DIRECTORY + PATH_SEPARATOR + directoryPath;
+    }
+
+    public static String getFilePath(String fileType) {
+        return getDirectoryPath(fileType) + EXTENSION_DATAFILE;
+    }
+
+    public record FilePaths(List<String> resourcePaths) implements Serializable {
+    }
+
+    public static class ResourcePathsFile implements Serializable {
+        HashMap<String, FilePaths> paths = new HashMap<>();
+
+        public ResourcePathsFile(Map<String, FilePaths> paths) {
+            this.paths.putAll(paths);
+        }
+
+        public FilePaths getFilePaths(String path) {
+            return paths.get(path);
+        }
+    }
 }

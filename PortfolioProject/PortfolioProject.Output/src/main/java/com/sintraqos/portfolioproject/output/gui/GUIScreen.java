@@ -9,6 +9,7 @@ import com.sintraqos.portfolioproject.statics.StaticUtils;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.lang.reflect.InvocationTargetException;
 
 import static java.awt.Component.CENTER_ALIGNMENT;
 
@@ -42,15 +43,16 @@ public class GUIScreen {
     //region Set window size
 
     public void setWindowSize() {
+
         // Apply settings
-        gameGUIManager.getFrame().setContentPane(rootPanel);                                                             // Set the window object
+        gameGUIManager.getFrame().setContentPane(rootPanel);    // Set the window object
         gameGUIManager.getFrame().add(Box.createVerticalGlue());
-        gameGUIManager.getFrame().setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);                               // Make sure everything is properly set in the layout
-        gameGUIManager.getFrame().setSize(GameSettings.getInstance().getWindowSize().width, GameSettings.getInstance().getWindowSize().height);    // Set the window size
+        gameGUIManager.getFrame().setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);  // Make sure everything is properly set in the layout
+        gameGUIManager.getFrame().setSize(GameSettings.getInstance().getWindowSize().width, GameSettings.getInstance().getWindowSize().height); // Set the window size
         gameGUIManager.getFrame().setForeground(StaticUtils.GUI_FOREGROUND_COLOR);
         gameGUIManager.getFrame().setBackground(StaticUtils.GUI_BACKGROUND_COLOR);
         gameGUIManager.getFrame().setResizable(false);
-        gameGUIManager.getFrame().setLocationRelativeTo(null);                                                           // Center the window object
+        gameGUIManager.getFrame().setLocationRelativeTo(null);  // Center the window object
         gameGUIManager.getFrame().setVisible(true);
     }
 
@@ -194,9 +196,7 @@ public class GUIScreen {
     //region Add JButton
 
     public JButton addButton(int width, int height, String text, ActionListener actionListener){
-        JButton button = addButton(width,height,text,actionListener, "", -1);
-
-        return button;
+        return addButton(width,height,text,actionListener, "", -1);
     }
 
     public JButton addButton(int width, int height, String text, ActionListener actionListener,String overlayImageName, int padding) {

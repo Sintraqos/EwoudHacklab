@@ -1,25 +1,111 @@
-package com.sintraqos.portfolioproject.dialogue;
+package com.sintraqos.portfolioproject.createfiles;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.sintraqos.portfolioproject.dialogue.DialogueConditions;
+import com.sintraqos.portfolioproject.dialogue.DialogueObject;
+import com.sintraqos.portfolioproject.dialogue.DialogueOption;
+import com.sintraqos.portfolioproject.dialogue.DialogueTree;
+import com.sintraqos.portfolioproject.output.Console;
 import com.sintraqos.portfolioproject.statics.Enums;
 import com.sintraqos.portfolioproject.statics.Functions;
 import com.sintraqos.portfolioproject.statics.ResourcePaths;
 import com.sintraqos.portfolioproject.statics.StaticUtils;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.Writer;
+import java.io.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
-public class CreateDialogueFiles {
+public class CreateFileManager {
+    // Get instance
+    static CreateFileManager instance;
 
-    CreateDialogueFiles() {
+    public static CreateFileManager getInstance() {
+        if (instance == null) {
+            instance = new CreateFileManager();
+
+            instance.createFiles();
+        }
+
+        return instance;
+    }
+
+    public void createFiles() {
+
+        Console.writeHeader("Creating files");
+
+        //region File Paths
+
+        HashMap<String, ResourcePaths.FilePaths> paths;
+
+        createDirectory(ResourcePaths.RESOURCE_DIRECTORY + ResourcePaths.PATH_SEPARATOR + ResourcePaths.FILEPATH_DIRECTORY);
+
+        //region Audio Paths
+
+        Console.writeLine("Create audio path files");
+
+        // Reset paths
+        paths = new HashMap<>();
+
+        // Planet
+        paths.put(ResourcePaths.OST_AMBIENT_PREFIX_DANTOOINE, new ResourcePaths.FilePaths(createFilePaths(ResourcePaths.getAudioPath(ResourcePaths.SOUND_TRACK_DIRECTORY), ResourcePaths.OST_AMBIENT_PREFIX_DANTOOINE)));
+        paths.put(ResourcePaths.OST_AMBIENT_PREFIX_DXUN, new ResourcePaths.FilePaths(createFilePaths(ResourcePaths.getAudioPath(ResourcePaths.SOUND_TRACK_DIRECTORY), ResourcePaths.OST_AMBIENT_PREFIX_DXUN)));
+        paths.put(ResourcePaths.OST_AMBIENT_PREFIX_KORRIBAN, new ResourcePaths.FilePaths(createFilePaths(ResourcePaths.getAudioPath(ResourcePaths.SOUND_TRACK_DIRECTORY), ResourcePaths.OST_AMBIENT_PREFIX_KORRIBAN)));
+        paths.put(ResourcePaths.OST_AMBIENT_PREFIX_MALACHOR_V, new ResourcePaths.FilePaths(createFilePaths(ResourcePaths.getAudioPath(ResourcePaths.SOUND_TRACK_DIRECTORY), ResourcePaths.OST_AMBIENT_PREFIX_MALACHOR_V)));
+        paths.put(ResourcePaths.OST_AMBIENT_PREFIX_NAR_SHADDAA, new ResourcePaths.FilePaths(createFilePaths(ResourcePaths.getAudioPath(ResourcePaths.SOUND_TRACK_DIRECTORY), ResourcePaths.OST_AMBIENT_PREFIX_NAR_SHADDAA)));
+        paths.put(ResourcePaths.OST_AMBIENT_PREFIX_ONDERON, new ResourcePaths.FilePaths(createFilePaths(ResourcePaths.getAudioPath(ResourcePaths.SOUND_TRACK_DIRECTORY), ResourcePaths.OST_AMBIENT_PREFIX_ONDERON)));
+        paths.put(ResourcePaths.OST_AMBIENT_PREFIX_TELOS, new ResourcePaths.FilePaths(createFilePaths(ResourcePaths.getAudioPath(ResourcePaths.SOUND_TRACK_DIRECTORY), ResourcePaths.OST_AMBIENT_PREFIX_TELOS)));
+
+        // Ship
+        paths.put(ResourcePaths.OST_AMBIENT_PREFIX_EBON_HAWK, new ResourcePaths.FilePaths(createFilePaths(ResourcePaths.getAudioPath(ResourcePaths.SOUND_TRACK_DIRECTORY), ResourcePaths.OST_AMBIENT_PREFIX_EBON_HAWK)));
+        paths.put(ResourcePaths.OST_AMBIENT_PREFIX_HARBINGER, new ResourcePaths.FilePaths(createFilePaths(ResourcePaths.getAudioPath(ResourcePaths.SOUND_TRACK_DIRECTORY), ResourcePaths.OST_AMBIENT_PREFIX_HARBINGER)));
+        paths.put(ResourcePaths.OST_AMBIENT_PREFIX_RAVAGER, new ResourcePaths.FilePaths(createFilePaths(ResourcePaths.getAudioPath(ResourcePaths.SOUND_TRACK_DIRECTORY), ResourcePaths.OST_AMBIENT_PREFIX_RAVAGER)));
+
+        // Other
+        paths.put(ResourcePaths.OST_AMBIENT_PREFIX_PERAGUS, new ResourcePaths.FilePaths(createFilePaths(ResourcePaths.getAudioPath(ResourcePaths.SOUND_TRACK_DIRECTORY), ResourcePaths.OST_AMBIENT_PREFIX_PERAGUS)));
+
+        // Battle
+        paths.put(ResourcePaths.OST_BATTLE_PREFIX, new ResourcePaths.FilePaths(createFilePaths(ResourcePaths.getAudioPath(ResourcePaths.SOUND_TRACK_DIRECTORY), ResourcePaths.OST_BATTLE_PREFIX)));
+
+        // Create file
+        createFilePathFile(ResourcePaths.AUDIO_DIRECTORY, new ResourcePaths.ResourcePathsFile(paths));
+
+        Console.writeLine("Finished creating audio path files");
+
+        //endregion
+
+        //region Image Paths
+
+        Console.writeLine("Create image path files");
+
+        // Reset paths
+        paths = new HashMap<>();
+
+        // Portraits
+        paths.put(ResourcePaths.PORTRAIT_MALE_PREFIX, new ResourcePaths.FilePaths(createFilePaths(ResourcePaths.getPortraitImagePath(ResourcePaths.PORTRAIT_PLAYER_DIRECTORY), ResourcePaths.PORTRAIT_MALE_PREFIX)));
+        paths.put(ResourcePaths.PORTRAIT_FEMALE_PREFIX, new ResourcePaths.FilePaths(createFilePaths(ResourcePaths.getPortraitImagePath(ResourcePaths.PORTRAIT_PLAYER_DIRECTORY), ResourcePaths.PORTRAIT_FEMALE_PREFIX)));
+
+        // Create file
+        createFilePathFile(ResourcePaths.PORTRAIT_PLAYER_DIRECTORY, new ResourcePaths.ResourcePathsFile(paths));
+
+        // Cleanup
+        paths.clear();
+
+        Console.writeLine("Finished creating image path files");
+
+        //endregion
+
+        //endregion
+
+        //region Dialogue Tree
 
         DialogueTree dialogueTree;
         ArrayList<DialogueObject> dialogueOptions;
+
+        createDirectory(ResourcePaths.getResourceDirectoryPath(ResourcePaths.DIALOGUE_DIRECTORY));
+
+        Console.writeLine("Create dialogue files");
 
         //region Awaken 001
 
@@ -33,10 +119,10 @@ public class CreateDialogueFiles {
                 )));
 
         // Create the dialogue tree
-        dialogueTree = new DialogueTree(ResourcePaths.KREIA_001, ResourcePaths.DIALOGUE_PERAGUS_PATH + ResourcePaths.KREIA_001, dialogueOptions);
+        dialogueTree = new DialogueTree(ResourcePaths.KREIA_001, ResourcePaths.DIALOGUE_PERAGUS_DIRECTORY + ResourcePaths.KREIA_001, dialogueOptions);
 
         // And create the new dialogue file
-        createFile(ResourcePaths.KREIA_001, dialogueTree, ResourcePaths.DIALOGUE_PERAGUS_PATH);
+        createDialogueFile(ResourcePaths.KREIA_001, dialogueTree, ResourcePaths.DIALOGUE_PERAGUS_DIRECTORY);
 
         //endregion
 
@@ -363,32 +449,72 @@ public class CreateDialogueFiles {
         //endregion
 
         // Create the dialogue tree
-        dialogueTree = new DialogueTree(ResourcePaths.KREIA_002, ResourcePaths.DIALOGUE_PERAGUS_PATH + ResourcePaths.KREIA_002, dialogueOptions);
+        dialogueTree = new DialogueTree(ResourcePaths.KREIA_002, ResourcePaths.DIALOGUE_PERAGUS_DIRECTORY + ResourcePaths.KREIA_002, dialogueOptions);
 
         // And create the new dialogue file
-        createFile(ResourcePaths.KREIA_002, dialogueTree, ResourcePaths.DIALOGUE_PERAGUS_PATH);
+        createDialogueFile(ResourcePaths.KREIA_002, dialogueTree, ResourcePaths.DIALOGUE_PERAGUS_DIRECTORY);
 
         //endregion
 
         // Cleanup
-        dialogueTree = null;
         dialogueOptions.clear();
+
+        Console.writeLine("Finished creating dialogue files");
+
+        //endregion
+
+        Console.writeLine("Finished creating files");
     }
 
-    void createFile(String fileName, DialogueTree newDialogueTree, String locationPath) {
-        Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        String directoryPath = System.getProperty("user.dir") + ResourcePaths.DIALOGUE_PATH + locationPath;
+    void createDirectory(String directoryPath) {
+        if (!new File(directoryPath).mkdirs() && !new File(directoryPath).exists()) {
+            throw new Functions.ExceptionHandler("Failed to create new directory: " + directoryPath);
+        }
+    }
 
-        if (!new File(directoryPath).mkdirs()) {
-            throw new Functions.ExceptionHandler("Failed to create dialogue directory");
+    void createFilePathFile(String fileType, ResourcePaths.ResourcePathsFile paths) {
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+
+        try (Writer writer = new FileWriter(ResourcePaths.getResourceFilePath(fileType))) {
+            gson.toJson(paths, writer);
+        } catch (IOException ex) {
+            throw new Functions.ExceptionHandler("Failed to create new path file", ex);
+        }
+    }
+
+    void createDialogueFile(String fileName, DialogueTree newDialogueTree, String locationPath) {
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        String directoryPath = ResourcePaths.getResourceDirectoryPath(ResourcePaths.DIALOGUE_DIRECTORY) + ResourcePaths.PATH_SEPARATOR + locationPath;
+
+        if (!new File(directoryPath).mkdirs() && !new File(directoryPath).exists()) {
+            throw new Functions.ExceptionHandler("Failed to create new directory: " + directoryPath);
         }
 
-        String filePath = String.format("%s/%s%s", directoryPath, fileName, ResourcePaths.EXTENSION_DIALOGUE);
-
-        try (Writer writer = new FileWriter(filePath)) {
+        try (Writer writer = new FileWriter(directoryPath + ResourcePaths.PATH_SEPARATOR + fileName + ResourcePaths.EXTENSION_DATAFILE)) {
             gson.toJson(newDialogueTree, writer);
         } catch (IOException ex) {
             throw new Functions.ExceptionHandler("Failed to create new dialogue file", ex);
         }
+    }
+
+    public static List<String> createFilePaths(String filePath, String filePrefix) {
+        List<String> fileNames = new ArrayList<>();
+        try (InputStream in = Functions.class.getResourceAsStream(filePath)) {
+            assert in != null;
+            try (BufferedReader br = new BufferedReader(new InputStreamReader(in))) {
+                String resource;
+
+                while ((resource = br.readLine()) != null) {
+                    // Check if the current file contains the needed prefix
+                    if (resource.contains(filePrefix)) {
+                        fileNames.add(resource);
+                    }
+                }
+            }
+        } catch (IOException e) {
+            throw new Functions.ExceptionHandler("Error reading files with prefix: " + filePrefix, e);
+        }
+
+        return fileNames;
     }
 }

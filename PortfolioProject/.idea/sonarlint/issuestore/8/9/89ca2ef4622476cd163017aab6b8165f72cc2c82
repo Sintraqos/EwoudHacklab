@@ -1,4 +1,10 @@
 
 
-java:S1319"mThe return type of this method should be an interface such as "Map" rather than the implementation "HashMap".(Ù¡õ©øÿÿÿÿ8ª™Ó¥2
-]	java:S125A"<This block of commented-out lines of code should be removed.(Ûù€öüÿÿÿÿ8Ç™Ó¥2
+java:S1319"mThe return type of this method should be an interface such as "Map" rather than the implementation "HashMap".(æÁ»üÿÿÿÿ8ÄßŸˆ2
+]	java:S125D"<This block of commented-out lines of code should be removed.(Ûù€öüÿÿÿÿ8ÔßŸˆ2
+t
+java:S1128"RRemove this unused import 'com.sintraqos.portfolioproject.output.audio.AudioClip'.(¹ò¼™øÿÿÿÿ8©Ì¬ˆ2
+H
+java:S1128"+Remove this unused import 'java.io.Reader'.(µû¨é8©Ì¬ˆ2
+M
+java:S1128"0Remove this unused import 'java.util.ArrayList'.(÷‰îƒ8©Ì¬ˆ2

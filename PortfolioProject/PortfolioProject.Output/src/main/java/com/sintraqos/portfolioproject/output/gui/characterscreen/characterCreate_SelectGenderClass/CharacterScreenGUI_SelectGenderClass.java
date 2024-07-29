@@ -76,13 +76,13 @@ public class CharacterScreenGUI_SelectGenderClass extends CharacterScreenGUI_Bas
         setLayout(iconPanel, new GridBagLayout());
 
         // Male
-        iconMaleButton = setParent(iconPanel, addButton(iconSize, iconSize, "", selectMaleListener, ResourcePaths.PORTRAIT_DEFAULT_MALE_PATH, iconPadding));
+        iconMaleButton = setParent(iconPanel, addButton(iconSize, iconSize, "", selectMaleListener, ResourcePaths.PORTRAIT_DEFAULT_MALE, iconPadding));
 
         // Center fill
         setParent(iconPanel, addJPanel(3 * iconSize, iconSize));
 
         // Female
-        iconFemaleButton = setParent(iconPanel, addButton(iconSize, iconSize, "", selectFemaleListener, ResourcePaths.PORTRAIT_DEFAULT_FEMALE_PATH, iconPadding));
+        iconFemaleButton = setParent(iconPanel, addButton(iconSize, iconSize, "", selectFemaleListener, ResourcePaths.PORTRAIT_DEFAULT_FEMALE, iconPadding));
 
         // Class panel
         setParent(getObjectPanel(), addJPanel(getGuiPanelWidth(), objectPaddingY)); // Create padding object

@@ -1,35 +1,37 @@
 
 q
-java:S1192h"UDefine a constant instead of duplicating this literal "Per_Morgue_Kreia_008" 3 times.(ÄŞ´8îê¹±2
+java:S1192v"UDefine a constant instead of duplicating this literal "Per_Morgue_Kreia_008" 3 times.(ÄŞ´8‡‘œŠ2
 w
-java:S1192a"UDefine a constant instead of duplicating this literal "Per_Morgue_Kreia_007" 4 times.(úæ‘Íşÿÿÿÿ8îê¹±2
+java:S1192o"UDefine a constant instead of duplicating this literal "Per_Morgue_Kreia_007" 4 times.(úæ‘Íşÿÿÿÿ8ˆ‘œŠ2
 w
-java:S1192o"UDefine a constant instead of duplicating this literal "Per_Morgue_Kreia_009" 5 times.(Ù„ˆËûÿÿÿÿ8îê¹±2
+java:S1192}"UDefine a constant instead of duplicating this literal "Per_Morgue_Kreia_009" 5 times.(Ù„ˆËûÿÿÿÿ8ˆ‘œŠ2
 w
-java:S1192M"UDefine a constant instead of duplicating this literal "Per_Morgue_Kreia_004" 6 times.(…İÏıÿÿÿÿ8îê¹±2
+java:S1192["UDefine a constant instead of duplicating this literal "Per_Morgue_Kreia_004" 6 times.(…İÏıÿÿÿÿ8ˆ‘œŠ2
 r
-java:S1192D"UDefine a constant instead of duplicating this literal "Per_Morgue_Kreia_003" 3 times.(”ßã8îê¹±2
+java:S1192R"UDefine a constant instead of duplicating this literal "Per_Morgue_Kreia_003" 3 times.(”ßã8ˆ‘œŠ2
 r
-java:S1192>"UDefine a constant instead of duplicating this literal "Per_Morgue_Kreia_002" 7 times.(ãõ¹ç8îê¹±2
-r
-java:S1192v"UDefine a constant instead of duplicating this literal "Per_Morgue_Kreia_010" 4 times.(ş€Î™8îê¹±2
-x
-java:S1192…"UDefine a constant instead of duplicating this literal "Per_Morgue_Kreia_012" 4 times.(ğæƒçşÿÿÿÿ8îê¹±2
-x
-java:S1192V"VDefine a constant instead of duplicating this literal "Per_Morgue_Player_012" 3 times.(ã˜ü¬ùÿÿÿÿ8ïê¹±2
-x
-java:S1192X"VDefine a constant instead of duplicating this literal "Per_Morgue_Player_014" 3 times.(ÖÀÂ‹ÿÿÿÿÿ8ïê¹±2
+java:S1192L"UDefine a constant instead of duplicating this literal "Per_Morgue_Kreia_002" 7 times.(ãõ¹ç8ˆ‘œŠ2
 s
-java:S1192W"VDefine a constant instead of duplicating this literal "Per_Morgue_Player_013" 3 times.(Ğì„Í8ïê¹±2
-s
-java:S1192e"VDefine a constant instead of duplicating this literal "Per_Morgue_Player_016" 3 times.(Á¥ê8ïê¹±2
+java:S1192„"UDefine a constant instead of duplicating this literal "Per_Morgue_Kreia_010" 4 times.(ş€Î™8ˆ‘œŠ2
 x
-java:S1192d"VDefine a constant instead of duplicating this literal "Per_Morgue_Player_015" 3 times.(ö´ôÅıÿÿÿÿ8ïê¹±2
+java:S1192“"UDefine a constant instead of duplicating this literal "Per_Morgue_Kreia_012" 4 times.(ğæƒçşÿÿÿÿ8ˆ‘œŠ2
 x
-java:S1192f"VDefine a constant instead of duplicating this literal "Per_Morgue_Player_017" 3 times.(ì¹„Áøÿÿÿÿ8ïê¹±2
+java:S1192d"VDefine a constant instead of duplicating this literal "Per_Morgue_Player_012" 3 times.(ã˜ü¬ùÿÿÿÿ8ˆ‘œŠ2
+x
+java:S1192f"VDefine a constant instead of duplicating this literal "Per_Morgue_Player_014" 3 times.(ÖÀÂ‹ÿÿÿÿÿ8‰‘œŠ2
 s
-java:S1192z"VDefine a constant instead of duplicating this literal "Per_Morgue_Player_025" 3 times.(ò’ê„8ïê¹±2
+java:S1192e"VDefine a constant instead of duplicating this literal "Per_Morgue_Player_013" 3 times.(Ğì„Í8‰‘œŠ2
 s
-java:S1192|"VDefine a constant instead of duplicating this literal "Per_Morgue_Player_027" 3 times.(àÓÉ’8ïê¹±2
-s
-java:S1192{"VDefine a constant instead of duplicating this literal "Per_Morgue_Player_026" 3 times.(™ŠÂ¢8ïê¹±2
+java:S1192s"VDefine a constant instead of duplicating this literal "Per_Morgue_Player_016" 3 times.(Á¥ê8‰‘œŠ2
+x
+java:S1192r"VDefine a constant instead of duplicating this literal "Per_Morgue_Player_015" 3 times.(ö´ôÅıÿÿÿÿ8‰‘œŠ2
+x
+java:S1192t"VDefine a constant instead of duplicating this literal "Per_Morgue_Player_017" 3 times.(ì¹„Áøÿÿÿÿ8‰‘œŠ2
+t
+java:S1192ˆ"VDefine a constant instead of duplicating this literal "Per_Morgue_Player_025" 3 times.(ò’ê„8‰‘œŠ2
+t
+java:S1192Š"VDefine a constant instead of duplicating this literal "Per_Morgue_Player_027" 3 times.(àÓÉ’8‰‘œŠ2
+t
+java:S1192‰"VDefine a constant instead of duplicating this literal "Per_Morgue_Player_026" 3 times.(™ŠÂ¢8‰‘œŠ2
+c
+java:S1854„"@Remove this useless assignment to local variable "dialogueTree".(¨”¹úÿÿÿÿ8£‘œŠ2
