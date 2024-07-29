@@ -25,19 +25,19 @@ public class AudioList {
         random = new Random();
     }
 
-    public void createAudioClips(String audioPath, String audioPrefix) {
+    public void createAudioClips(String audioPrefix) {
         Console.writeHeader("New audio prefix: " + audioPrefix);
 
         // Create new audioList
         audioClips.put(audioPrefix, new ArrayList<>());
 
-        ResourcePaths.FilePaths fileNames = OutputManager.getInstance().getAudioPathsFile().getFilePaths(audioPrefix);
+        List<String> fileNames = OutputManager.getInstance().getAudioPathsFile().getFilePaths(audioPrefix);
 
-        IntStream.range(0, fileNames.resourcePaths().size()).parallel().forEach(i ->
+        IntStream.range(0, fileNames.size()).parallel().forEach(i ->
                 audioClips.get(audioPrefix).add(
                         new AudioClip(
-                                fileNames.resourcePaths().get(i),
-                                ResourcePaths.getAudioPath(ResourcePaths.SOUND_TRACK_DIRECTORY, Functions.getFileNameWithoutExtension(fileNames.resourcePaths().get(i)))
+                                fileNames.get(i),
+                                ResourcePaths.getSoundtrackAudioFile(Functions.getFileNameWithoutExtension(fileNames.get(i)))
                         )));
     }
 

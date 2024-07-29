@@ -2,7 +2,6 @@ package com.sintraqos.portfolioproject.output.gui;
 
 import com.sintraqos.portfolioproject.output.Console;
 import com.sintraqos.portfolioproject.output.OutputManager;
-import com.sintraqos.portfolioproject.output.audio.AudioClip;
 import com.sintraqos.portfolioproject.statics.Functions;
 import com.sintraqos.portfolioproject.output.audio.GameAudioManager;
 import com.sintraqos.portfolioproject.output.gui.guicomponents.GUI_JPanelBackground;
@@ -43,7 +42,6 @@ public class GameGUIManager {
         return frame;
     }
 
-    // Image - Width
     ConcurrentHashMap<String, Image> baseSpites = new ConcurrentHashMap<>();
     ConcurrentHashMap<String, Image> modifiedSprites = new ConcurrentHashMap<>();
     ConcurrentHashMap<String, Image> portraitSprites = new ConcurrentHashMap<>();
@@ -94,20 +92,20 @@ public class GameGUIManager {
         baseSpites.put(ResourcePaths.TITLE_SCREEN_LOGO, Objects.requireNonNull(Functions.getImage(ResourcePaths.getImagePath(ResourcePaths.MAIN_MENU_DIRECTORY, ResourcePaths.TITLE_SCREEN_LOGO))));
 
         // Class Icons
-        baseSpites.put(ResourcePaths.GUI_CLASS_ICON_CONSULAR, Objects.requireNonNull(Functions.getImage(ResourcePaths.getImagePath(ResourcePaths.UI_ELEMENT_DIRECTORY, ResourcePaths.GUI_CLASS_ICON_CONSULAR))));
-        baseSpites.put(ResourcePaths.GUI_CLASS_ICON_GUARDIAN, Objects.requireNonNull(Functions.getImage(ResourcePaths.getImagePath(ResourcePaths.UI_ELEMENT_DIRECTORY, ResourcePaths.GUI_CLASS_ICON_GUARDIAN))));
-        baseSpites.put(ResourcePaths.GUI_CLASS_ICON_SENTINEL, Objects.requireNonNull(Functions.getImage(ResourcePaths.getImagePath(ResourcePaths.UI_ELEMENT_DIRECTORY, ResourcePaths.GUI_CLASS_ICON_SENTINEL))));
+        baseSpites.put(ResourcePaths.GUI_CLASS_ICON_CONSULAR, Objects.requireNonNull(Functions.getImage(ResourcePaths.getUIImagePath(ResourcePaths.GUI_CLASS_ICON_CONSULAR))));
+        baseSpites.put(ResourcePaths.GUI_CLASS_ICON_GUARDIAN, Objects.requireNonNull(Functions.getImage(ResourcePaths.getUIImagePath(ResourcePaths.GUI_CLASS_ICON_GUARDIAN))));
+        baseSpites.put(ResourcePaths.GUI_CLASS_ICON_SENTINEL, Objects.requireNonNull(Functions.getImage(ResourcePaths.getUIImagePath(ResourcePaths.GUI_CLASS_ICON_SENTINEL))));
 
         // Default Portraits
-        baseSpites.put(ResourcePaths.PORTRAIT_DEFAULT_MALE, Objects.requireNonNull(Functions.getImage(ResourcePaths.getImagePath(ResourcePaths.UI_ELEMENT_DIRECTORY, ResourcePaths.PORTRAIT_DEFAULT_MALE))));
-        baseSpites.put(ResourcePaths.PORTRAIT_DEFAULT_FEMALE, Objects.requireNonNull(Functions.getImage(ResourcePaths.getImagePath(ResourcePaths.UI_ELEMENT_DIRECTORY, ResourcePaths.PORTRAIT_DEFAULT_FEMALE))));
+        baseSpites.put(ResourcePaths.PORTRAIT_DEFAULT_MALE, Objects.requireNonNull(Functions.getImage(ResourcePaths.getUIImagePath(ResourcePaths.PORTRAIT_DEFAULT_MALE))));
+        baseSpites.put(ResourcePaths.PORTRAIT_DEFAULT_FEMALE, Objects.requireNonNull(Functions.getImage(ResourcePaths.getUIImagePath(ResourcePaths.PORTRAIT_DEFAULT_FEMALE))));
 
         // GUI Elements
-        baseSpites.put(ResourcePaths.GUI_BACKGROUND, Objects.requireNonNull(Functions.getImage(ResourcePaths.getImagePath(ResourcePaths.UI_ELEMENT_DIRECTORY, ResourcePaths.GUI_BACKGROUND))));
-        baseSpites.put(ResourcePaths.BUTTON_BASE, Objects.requireNonNull(Functions.getImage(ResourcePaths.getImagePath(ResourcePaths.UI_ELEMENT_DIRECTORY, ResourcePaths.BUTTON_BASE))));
-        baseSpites.put(ResourcePaths.BUTTON_CLICK, Objects.requireNonNull(Functions.getImage(ResourcePaths.getImagePath(ResourcePaths.UI_ELEMENT_DIRECTORY, ResourcePaths.BUTTON_CLICK))));
-        baseSpites.put(ResourcePaths.BUTTON_HOVER, Objects.requireNonNull(Functions.getImage(ResourcePaths.getImagePath(ResourcePaths.UI_ELEMENT_DIRECTORY, ResourcePaths.BUTTON_HOVER))));
-        baseSpites.put(ResourcePaths.LABEL_IMAGE, Objects.requireNonNull(Functions.getImage(ResourcePaths.getImagePath(ResourcePaths.UI_ELEMENT_DIRECTORY, ResourcePaths.LABEL_IMAGE))));
+        baseSpites.put(ResourcePaths.GUI_BACKGROUND, Objects.requireNonNull(Functions.getImage(ResourcePaths.getUIImagePath(ResourcePaths.GUI_BACKGROUND))));
+        baseSpites.put(ResourcePaths.BUTTON_BASE, Objects.requireNonNull(Functions.getImage(ResourcePaths.getUIImagePath(ResourcePaths.BUTTON_BASE))));
+        baseSpites.put(ResourcePaths.BUTTON_CLICK, Objects.requireNonNull(Functions.getImage(ResourcePaths.getUIImagePath(ResourcePaths.BUTTON_CLICK))));
+        baseSpites.put(ResourcePaths.BUTTON_HOVER, Objects.requireNonNull(Functions.getImage(ResourcePaths.getUIImagePath(ResourcePaths.BUTTON_HOVER))));
+        baseSpites.put(ResourcePaths.LABEL_IMAGE, Objects.requireNonNull(Functions.getImage(ResourcePaths.getUIImagePath(ResourcePaths.LABEL_IMAGE))));
     }
 
     // Companion Portrait
@@ -140,9 +138,9 @@ public class GameGUIManager {
     void loadPlayerPortraits(String imagePrefix) {
         Console.writeHeader("New portrait prefix: " + imagePrefix);
 
-        ResourcePaths.FilePaths fileNames = OutputManager.getInstance().getPortraitPathsFile().getFilePaths(imagePrefix);
+        List<String> fileNames = OutputManager.getInstance().getPortraitPathsFile().getFilePaths(imagePrefix);
 
-        IntStream.range(0, fileNames.resourcePaths().size()).parallel().forEach(i -> addPortrait(Functions.getFileNameWithoutExtension(fileNames.resourcePaths().get(i)), ResourcePaths.PORTRAIT_PLAYER_DIRECTORY));
+        IntStream.range(0, fileNames.size()).parallel().forEach(i -> addPortrait(Functions.getFileNameWithoutExtension(fileNames.get(i)), ResourcePaths.PORTRAIT_PLAYER_DIRECTORY));
     }
 
     void addPortrait(String fileName, String locationDirectory) {
@@ -152,9 +150,8 @@ public class GameGUIManager {
 
     // Font
     void loadFont() {
-
         try {
-            font = Font.createFont(Font.TRUETYPE_FONT, Objects.requireNonNull(getClass().getResourceAsStream(ResourcePaths.getFontDirectory())));
+            font = Font.createFont(Font.TRUETYPE_FONT, Objects.requireNonNull(getClass().getResourceAsStream(ResourcePaths.getFontPath())));
 
             GraphicsEnvironment.getLocalGraphicsEnvironment().registerFont(font);   // Register the font so it can be used
         } catch (FontFormatException | IOException ex) {
@@ -295,6 +292,7 @@ public class GameGUIManager {
     //endregion
 
     //region Set Image
+
     public void setImage(GUI_JPanelBackground panel, String imageName, int imageWidth, int imageHeight) {
         panel.setImage(getImage(imageName, imageWidth, imageHeight));
         panel.setOpaque(true);

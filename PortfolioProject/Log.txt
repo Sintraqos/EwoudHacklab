@@ -1,312 +1,311 @@
-[21:32] - Creating files.
-[21:32] - Create audio path files.
-[21:32] - Finished creating audio path files.
-[21:32] - Create image path files.
-[21:32] - Finished creating image path files.
-[21:32] - Create dialogue files.
-[21:32] - Finished creating dialogue files.
-[21:32] - Finished creating files.
-[21:32] - Initializing Game Manager.
-[21:32] - Successfully read from settings file.
-[21:32] - Initializing Item Manager.
-[21:32] - Finished setting up Item Manager.
-[21:32] - ##########################
-[21:32] - Initializing Player Manager.
-[21:32] - Finished setting up Player Manager.
-[21:32] - ##########################
-[21:32] - Initializing Dialogue Manager.
-[21:32] - Finished setting up Dialogue Manager.
-[21:32] - ##########################
-[21:32] - /filePaths/audio.json.
-[21:32] - /filePaths/player.json.
-[21:32] - Initializing Audio Manager.
-[21:32] - Setup GUI.
-[21:32] - Created new AudioClip: GUI_click.
-[21:32] - Created new AudioClip: GUI_close.
-[21:32] - Created new AudioClip: GUI_prompt.
-[21:32] - Created new AudioClip: GUI_invadd.
-[21:32] - Created new AudioClip: GUI_invdrop.
-[21:32] - Created new AudioClip: GUI_invselect.
-[21:32] - Setup music.
-[21:32] - Created new AudioClip: OST_mus_sion.
-[21:32] - New audio prefix: OST_amb_dan.
-[21:32] - Created new AudioClip: OST_amb_dan004.
-[21:32] - Created new AudioClip: OST_amb_dan002.
-[21:32] - Created new AudioClip: OST_amb_dan003.
-[21:32] - Created new AudioClip: OST_amb_dan006.
-[21:32] - Created new AudioClip: OST_amb_dan001.
-[21:32] - Created new AudioClip: OST_amb_dan005.
-[21:32] - New audio prefix: OST_amb_dxn.
-[21:32] - Created new AudioClip: OST_amb_dxn002.
-[21:32] - Created new AudioClip: OST_amb_dxn005.
-[21:32] - Created new AudioClip: OST_amb_dxn001.
-[21:32] - Created new AudioClip: OST_amb_dxn003.
-[21:32] - Created new AudioClip: OST_amb_dxn006.
-[21:32] - Created new AudioClip: OST_amb_dxn004.
-[21:32] - New audio prefix: OST_amb_kor.
-[21:32] - Created new AudioClip: OST_amb_kor003.
-[21:32] - Created new AudioClip: OST_amb_kor004.
-[21:32] - Created new AudioClip: OST_amb_kor001.
-[21:32] - Created new AudioClip: OST_amb_kor002.
-[21:32] - New audio prefix: OST_amb_mal.
-[21:32] - Created new AudioClip: OST_amb_mal005.
-[21:32] - Created new AudioClip: OST_amb_mal004.
-[21:32] - Created new AudioClip: OST_amb_mal003.
-[21:32] - Created new AudioClip: OST_amb_mal007.
-[21:32] - Created new AudioClip: OST_amb_mal001.
-[21:32] - Created new AudioClip: OST_amb_mal002.
-[21:32] - Created new AudioClip: OST_amb_mal006.
-[21:32] - New audio prefix: OST_amb_nar.
-[21:32] - Created new AudioClip: OST_amb_nar007.
-[21:32] - Created new AudioClip: OST_amb_nar001.
-[21:32] - Created new AudioClip: OST_amb_nar004.
-[21:32] - Created new AudioClip: OST_amb_nar002.
-[21:32] - Created new AudioClip: OST_amb_nar006.
-[21:32] - Created new AudioClip: OST_amb_nar003.
-[21:32] - Created new AudioClip: OST_amb_nar005.
-[21:32] - New audio prefix: OST_amb_ond.
-[21:32] - Created new AudioClip: OST_amb_ond008.
-[21:32] - Created new AudioClip: OST_amb_ond001.
-[21:32] - Created new AudioClip: OST_amb_ond004.
-[21:32] - Created new AudioClip: OST_amb_ond003.
-[21:32] - Created new AudioClip: OST_amb_ond002.
-[21:32] - Created new AudioClip: OST_amb_ond007.
-[21:32] - Created new AudioClip: OST_amb_ond006.
-[21:32] - Created new AudioClip: OST_amb_ond005.
-[21:32] - Created new AudioClip: OST_amb_ond009.
-[21:32] - New audio prefix: OST_amb_tel.
-[21:32] - Created new AudioClip: OST_amb_tel006.
-[21:32] - Created new AudioClip: OST_amb_tel001.
-[21:32] - Created new AudioClip: OST_amb_tel010.
-[21:32] - Created new AudioClip: OST_amb_tel002.
-[21:32] - Created new AudioClip: OST_amb_tel003.
-[21:32] - Created new AudioClip: OST_amb_tel011.
-[21:32] - Created new AudioClip: OST_amb_tel008.
-[21:32] - Created new AudioClip: OST_amb_tel015.
-[21:32] - Created new AudioClip: OST_amb_tel005.
-[21:32] - Created new AudioClip: OST_amb_tel009.
-[21:32] - Created new AudioClip: OST_amb_tel012.
-[21:32] - Created new AudioClip: OST_amb_tel007.
-[21:32] - Created new AudioClip: OST_amb_tel004.
-[21:32] - Created new AudioClip: OST_amb_tel013.
-[21:32] - Created new AudioClip: OST_amb_tel014.
-[21:32] - Created new AudioClip: OST_amb_tel016.
-[21:32] - New audio prefix: OST_amb_ebo.
-[21:32] - Created new AudioClip: OST_amb_ebo001.
-[21:32] - Created new AudioClip: OST_amb_ebo002.
-[21:32] - Created new AudioClip: OST_amb_ebo004.
-[21:32] - Created new AudioClip: OST_amb_ebo003.
-[21:32] - New audio prefix: OST_amb_har.
-[21:32] - Created new AudioClip: OST_amb_har003.
-[21:32] - Created new AudioClip: OST_amb_har002.
-[21:32] - Created new AudioClip: OST_amb_har001.
-[21:32] - New audio prefix: OST_amb_nih.
-[21:32] - Created new AudioClip: OST_amb_nih003.
-[21:32] - Created new AudioClip: OST_amb_nih001.
-[21:32] - Created new AudioClip: OST_amb_nih002.
-[21:32] - New audio prefix: OST_amb_per.
-[21:32] - Created new AudioClip: OST_amb_per005.
-[21:32] - Created new AudioClip: OST_amb_per007.
-[21:32] - Created new AudioClip: OST_amb_per004.
-[21:32] - Created new AudioClip: OST_amb_per002.
-[21:32] - Created new AudioClip: OST_amb_per003.
-[21:32] - Created new AudioClip: OST_amb_per006.
-[21:32] - Created new AudioClip: OST_amb_per001.
-[21:32] - New audio prefix: OST_bat.
-[21:32] - Created new AudioClip: OST_bat_009.
-[21:32] - Created new AudioClip: OST_bat_010.
-[21:32] - Created new AudioClip: OST_bat_007.
-[21:32] - Created new AudioClip: OST_bat_001.
-[21:32] - Created new AudioClip: OST_bat_012.
-[21:32] - Created new AudioClip: OST_bat_013.
-[21:32] - Created new AudioClip: OST_bat_006.
-[21:32] - Created new AudioClip: OST_bat_008.
-[21:32] - Created new AudioClip: OST_bat_005.
-[21:32] - Created new AudioClip: OST_bat_000.
-[21:32] - Created new AudioClip: OST_bat_002.
-[21:32] - Created new AudioClip: OST_bat_011.
-[21:32] - Created new AudioClip: OST_bat_004.
-[21:32] - Created new AudioClip: OST_bat_final.
-[21:32] - Created new AudioClip: OST_bat_003.
-[21:32] - Setup dialogue.
-[21:32] - Finished audio setup.
-[21:32] - Finished setting up Audio Manager.
-[21:32] - ##########################
-[21:32] - Initializing GUI Manager.
-[21:32] - Setup images.
-[21:32] - Finished setting up images.
-[21:32] - ##########################
-[21:32] - Setup portraits.
-[21:32] - Getting companion portraits.
-[21:32] - Added portrait: comp_HandM_2.
-[21:32] - Added portrait: comp_Mandalore.
-[21:32] - Added portrait: comp_HK50.
-[21:32] - Added portrait: comp_Hanharr.
-[21:32] - Added portrait: comp_Visas_2.
-[21:32] - Added portrait: comp_Mira_2.
-[21:32] - Added portrait: comp_Kreia.
-[21:32] - Added portrait: comp_BaoDur_2.
-[21:32] - Added portrait: comp_Mandalore.
-[21:32] - Added portrait: comp_HandM_3.
-[21:32] - Added portrait: comp_HK50.
-[21:32] - Added portrait: comp_Visas_3.
-[21:32] - Added portrait: comp_Hanharr.
-[21:32] - Added portrait: comp_Mira_3.
-[21:32] - Added portrait: comp_Mandalore.
-[21:32] - Added portrait: comp_BaoDur_3.
-[21:32] - Added portrait: comp_Kreia.
-[21:32] - Added portrait: comp_HandM_1.
-[21:32] - Added portrait: comp_HK50.
-[21:32] - Added portrait: comp_Visas_1.
-[21:32] - Added portrait: comp_Hanharr.
-[21:32] - Added portrait: comp_Mira_1.
-[21:32] - Added portrait: comp_Atton_2.
-[21:32] - Added portrait: comp_HK51.
-[21:32] - Added portrait: comp_BaoDur_1.
-[21:32] - Added portrait: comp_T3M4.
-[21:32] - Added portrait: comp_Disciple_2.
-[21:32] - Added portrait: comp_Atris.
-[21:32] - Added portrait: comp_T3M4.
-[21:32] - Added portrait: comp_Kreia.
-[21:32] - Added portrait: comp_HK51.
-[21:32] - Added portrait: comp_T3M4.
-[21:32] - Added portrait: comp_B4D4.
-[21:32] - Added portrait: comp_Disciple_3.
-[21:32] - Added portrait: comp_Atton_3.
-[21:32] - Added portrait: comp_HK51.
-[21:32] - Added portrait: comp_Atris.
-[21:32] - Added portrait: comp_HK47.
-[21:32] - Added portrait: comp_Remote.
-[21:32] - Added portrait: comp_B4D4.
-[21:32] - Added portrait: comp_B4D4.
-[21:32] - Added portrait: comp_Atris.
-[21:32] - Added portrait: comp_Disciple_1.
-[21:32] - Added portrait: comp_Atton_1.
-[21:32] - Added portrait: comp_HK47.
-[21:32] - Added portrait: comp_Remote.
-[21:32] - Added portrait: comp_G0T0.
-[21:32] - Added portrait: comp_Remote.
-[21:32] - Added portrait: comp_G0T0.
-[21:32] - Added portrait: comp_3CFD.
-[21:32] - Added portrait: comp_G0T0.
-[21:32] - Added portrait: comp_HK47.
-[21:32] - Added portrait: comp_3CFD.
-[21:32] - Added portrait: comp_3CFD.
-[21:32] - Finished getting companion portraits.
-[21:32] - ##########################
-[21:32] - Getting player portraits.
-[21:32] - New portrait prefix: play_Male_
-[21:32] - Added portrait: play_Male_03_2.
-[21:32] - Added portrait: play_Male_08_2.
-[21:32] - Added portrait: play_Male_16_1.
-[21:32] - Added portrait: play_Male_11_3.
-[21:32] - Added portrait: play_Male_06_1.
-[21:32] - Added portrait: play_Male_14_3.
-[21:32] - Added portrait: play_Male_07_2.
-[21:32] - Added portrait: play_Male_14_1.
-[21:32] - Added portrait: play_Male_08_1.
-[21:32] - Added portrait: play_Male_03_3.
-[21:32] - Added portrait: play_Male_16_2.
-[21:32] - Added portrait: play_Male_12_1.
-[21:32] - Added portrait: play_Male_06_3.
-[21:32] - Added portrait: play_Male_15_2.
-[21:32] - Added portrait: play_Male_14_2.
-[21:32] - Added portrait: play_Male_07_3.
-[21:32] - Added portrait: play_Male_03_1.
-[21:32] - Added portrait: play_Male_09_1.
-[21:32] - Added portrait: play_Male_15_3.
-[21:32] - Added portrait: play_Male_11_2.
-[21:32] - Added portrait: play_Male_07_1.
-[21:32] - Added portrait: play_Male_15_1.
-[21:32] - Added portrait: play_Male_13_3.
-[21:32] - Added portrait: play_Male_06_2.
-[21:32] - Added portrait: play_Male_04_2.
-[21:32] - Added portrait: play_Male_08_3.
-[21:32] - Added portrait: play_Male_17_2.
-[21:32] - Added portrait: play_Male_13_1.
-[21:32] - Added portrait: play_Male_02_1.
-[21:32] - Added portrait: play_Male_17_1.
-[21:32] - Added portrait: play_Male_05_2.
-[21:32] - Added portrait: play_Male_16_3.
-[21:32] - Added portrait: play_Male_04_3.
-[21:32] - Added portrait: play_Male_05_1.
-[21:32] - Added portrait: play_Male_17_3.
-[21:32] - Added portrait: play_Male_13_2.
-[21:32] - Added portrait: play_Male_04_1.
-[21:32] - Added portrait: play_Male_01_1.
-[21:32] - Added portrait: play_Male_01_2.
-[21:32] - Added portrait: play_Male_02_3.
-[21:32] - Added portrait: play_Male_05_3.
-[21:32] - Added portrait: play_Male_10_2.
-[21:32] - Added portrait: play_Male_02_2.
-[21:32] - Added portrait: play_Male_12_3.
-[21:32] - Added portrait: play_Male_01_3.
-[21:32] - Added portrait: play_Male_12_2.
-[21:32] - Added portrait: play_Male_11_1.
-[21:32] - Added portrait: play_Male_09_3.
-[21:32] - Added portrait: play_Male_09_2.
-[21:32] - Added portrait: play_Male_10_1.
-[21:32] - Added portrait: play_Male_10_3.
-[21:32] - New portrait prefix: play_Fem_
-[21:32] - Added portrait: play_Fem_08_2.
-[21:32] - Added portrait: play_Fem_06_1.
-[21:32] - Added portrait: play_Fem_11_3.
-[21:32] - Added portrait: play_Fem_16_1.
-[21:32] - Added portrait: play_Fem_07_2.
-[21:32] - Added portrait: play_Fem_03_2.
-[21:32] - Added portrait: play_Fem_08_1.
-[21:32] - Added portrait: play_Fem_02_1.
-[21:32] - Added portrait: play_Fem_12_1.
-[21:32] - Added portrait: play_Fem_06_3.
-[21:32] - Added portrait: play_Fem_16_2.
-[21:32] - Added portrait: play_Fem_09_1.
-[21:32] - Added portrait: play_Fem_07_3.
-[21:32] - Added portrait: play_Fem_11_2.
-[21:32] - Added portrait: play_Fem_03_3.
-[21:32] - Added portrait: play_Fem_04_2.
-[21:32] - Added portrait: play_Fem_06_2.
-[21:32] - Added portrait: play_Fem_15_3.
-[21:32] - Added portrait: play_Fem_13_1.
-[21:32] - Added portrait: play_Fem_02_3.
-[21:32] - Added portrait: play_Fem_07_1.
-[21:32] - Added portrait: play_Fem_03_1.
-[21:32] - Added portrait: play_Fem_04_3.
-[21:32] - Added portrait: play_Fem_08_3.
-[21:32] - Added portrait: play_Fem_05_2.
-[21:32] - Added portrait: play_Fem_17_2.
-[21:32] - Added portrait: play_Fem_05_3.
-[21:32] - Added portrait: play_Fem_13_2.
-[21:32] - Added portrait: play_Fem_02_2.
-[21:32] - Added portrait: play_Fem_04_1.
-[21:32] - Added portrait: play_Fem_05_1.
-[21:32] - Added portrait: play_Fem_12_3.
-[21:32] - Added portrait: play_Fem_10_2.
-[21:32] - Added portrait: play_Fem_17_3.
-[21:32] - Added portrait: play_Fem_17_1.
-[21:32] - Added portrait: play_Fem_16_3.
-[21:32] - Added portrait: play_Fem_12_2.
-[21:32] - Added portrait: play_Fem_14_1.
-[21:32] - Added portrait: play_Fem_01_2.
-[21:32] - Added portrait: play_Fem_14_3.
-[21:32] - Added portrait: play_Fem_11_1.
-[21:32] - Added portrait: play_Fem_09_2.
-[21:32] - Added portrait: play_Fem_15_2.
-[21:32] - Added portrait: play_Fem_13_3.
-[21:32] - Added portrait: play_Fem_09_3.
-[21:32] - Added portrait: play_Fem_14_2.
-[21:32] - Added portrait: play_Fem_15_1.
-[21:32] - Added portrait: play_Fem_01_3.
-[21:32] - Added portrait: play_Fem_10_3.
-[21:32] - Added portrait: play_Fem_10_1.
-[21:32] - Added portrait: play_Fem_01_1.
-[21:32] - Finished getting player portraits.
-[21:32] - ##########################
-[21:32] - Finished setting up portraits.
-[21:32] - ##########################
-[21:32] - Setup font.
-[21:32] - Finished setting up font.
-[21:32] - ##########################
-[21:32] - Finished setting up GUI Manager.
-[21:32] - ##########################
-[21:32] - Finished setting up Game Manager.
-[21:32] - ##########################
+[23:14] - Creating files.
+[23:14] - Create audio path files.
+[23:14] - Finished creating audio path files.
+[23:14] - Create image path files.
+[23:14] - Finished creating image path files.
+[23:14] - Create dialogue files.
+[23:14] - Finished creating dialogue files.
+[23:14] - Finished creating files.
+[23:14] - ##########################
+[23:14] - Initializing Game Manager.
+[23:14] - Successfully read from settings file.
+[23:14] - Initializing Item Manager.
+[23:14] - Finished setting up Item Manager.
+[23:14] - ##########################
+[23:14] - Initializing Player Manager.
+[23:14] - Finished setting up Player Manager.
+[23:14] - ##########################
+[23:14] - Initializing Dialogue Manager.
+[23:14] - Finished setting up Dialogue Manager.
+[23:14] - ##########################
+[23:14] - Initializing Audio Manager.
+[23:14] - Setup GUI.
+[23:14] - Created new AudioClip: GUI_click.
+[23:14] - Created new AudioClip: GUI_close.
+[23:14] - Created new AudioClip: GUI_prompt.
+[23:14] - Created new AudioClip: GUI_invadd.
+[23:14] - Created new AudioClip: GUI_invdrop.
+[23:14] - Created new AudioClip: GUI_invselect.
+[23:14] - Setup music.
+[23:14] - Created new AudioClip: OST_mus_sion.
+[23:14] - New audio prefix: OST_amb_dan.
+[23:14] - Created new AudioClip: OST_amb_dan004.
+[23:14] - Created new AudioClip: OST_amb_dan002.
+[23:14] - Created new AudioClip: OST_amb_dan006.
+[23:14] - Created new AudioClip: OST_amb_dan003.
+[23:14] - Created new AudioClip: OST_amb_dan001.
+[23:14] - Created new AudioClip: OST_amb_dan005.
+[23:14] - New audio prefix: OST_amb_dxn.
+[23:14] - Created new AudioClip: OST_amb_dxn004.
+[23:14] - Created new AudioClip: OST_amb_dxn005.
+[23:14] - Created new AudioClip: OST_amb_dxn006.
+[23:14] - Created new AudioClip: OST_amb_dxn003.
+[23:14] - Created new AudioClip: OST_amb_dxn002.
+[23:14] - Created new AudioClip: OST_amb_dxn001.
+[23:14] - New audio prefix: OST_amb_kor.
+[23:14] - Created new AudioClip: OST_amb_kor004.
+[23:14] - Created new AudioClip: OST_amb_kor001.
+[23:14] - Created new AudioClip: OST_amb_kor003.
+[23:14] - Created new AudioClip: OST_amb_kor002.
+[23:14] - New audio prefix: OST_amb_mal.
+[23:14] - Created new AudioClip: OST_amb_mal005.
+[23:14] - Created new AudioClip: OST_amb_mal003.
+[23:14] - Created new AudioClip: OST_amb_mal007.
+[23:14] - Created new AudioClip: OST_amb_mal001.
+[23:14] - Created new AudioClip: OST_amb_mal004.
+[23:14] - Created new AudioClip: OST_amb_mal002.
+[23:14] - Created new AudioClip: OST_amb_mal006.
+[23:14] - New audio prefix: OST_amb_nar.
+[23:14] - Created new AudioClip: OST_amb_nar003.
+[23:14] - Created new AudioClip: OST_amb_nar006.
+[23:14] - Created new AudioClip: OST_amb_nar001.
+[23:14] - Created new AudioClip: OST_amb_nar007.
+[23:14] - Created new AudioClip: OST_amb_nar005.
+[23:14] - Created new AudioClip: OST_amb_nar002.
+[23:14] - Created new AudioClip: OST_amb_nar004.
+[23:14] - New audio prefix: OST_amb_ond.
+[23:14] - Created new AudioClip: OST_amb_ond008.
+[23:14] - Created new AudioClip: OST_amb_ond002.
+[23:14] - Created new AudioClip: OST_amb_ond006.
+[23:14] - Created new AudioClip: OST_amb_ond003.
+[23:14] - Created new AudioClip: OST_amb_ond009.
+[23:14] - Created new AudioClip: OST_amb_ond005.
+[23:14] - Created new AudioClip: OST_amb_ond007.
+[23:14] - Created new AudioClip: OST_amb_ond001.
+[23:14] - Created new AudioClip: OST_amb_ond004.
+[23:14] - New audio prefix: OST_amb_tel.
+[23:14] - Created new AudioClip: OST_amb_tel015.
+[23:14] - Created new AudioClip: OST_amb_tel012.
+[23:14] - Created new AudioClip: OST_amb_tel002.
+[23:14] - Created new AudioClip: OST_amb_tel003.
+[23:14] - Created new AudioClip: OST_amb_tel006.
+[23:14] - Created new AudioClip: OST_amb_tel009.
+[23:14] - Created new AudioClip: OST_amb_tel016.
+[23:14] - Created new AudioClip: OST_amb_tel011.
+[23:14] - Created new AudioClip: OST_amb_tel010.
+[23:14] - Created new AudioClip: OST_amb_tel014.
+[23:14] - Created new AudioClip: OST_amb_tel001.
+[23:14] - Created new AudioClip: OST_amb_tel005.
+[23:14] - Created new AudioClip: OST_amb_tel004.
+[23:14] - Created new AudioClip: OST_amb_tel008.
+[23:14] - Created new AudioClip: OST_amb_tel013.
+[23:14] - Created new AudioClip: OST_amb_tel007.
+[23:14] - New audio prefix: OST_amb_ebo.
+[23:14] - Created new AudioClip: OST_amb_ebo001.
+[23:14] - Created new AudioClip: OST_amb_ebo002.
+[23:14] - Created new AudioClip: OST_amb_ebo004.
+[23:14] - Created new AudioClip: OST_amb_ebo003.
+[23:14] - New audio prefix: OST_amb_har.
+[23:14] - Created new AudioClip: OST_amb_har001.
+[23:14] - Created new AudioClip: OST_amb_har002.
+[23:14] - Created new AudioClip: OST_amb_har003.
+[23:14] - New audio prefix: OST_amb_nih.
+[23:14] - Created new AudioClip: OST_amb_nih002.
+[23:14] - Created new AudioClip: OST_amb_nih001.
+[23:14] - Created new AudioClip: OST_amb_nih003.
+[23:14] - New audio prefix: OST_amb_per.
+[23:14] - Created new AudioClip: OST_amb_per007.
+[23:14] - Created new AudioClip: OST_amb_per004.
+[23:14] - Created new AudioClip: OST_amb_per003.
+[23:14] - Created new AudioClip: OST_amb_per005.
+[23:14] - Created new AudioClip: OST_amb_per006.
+[23:14] - Created new AudioClip: OST_amb_per002.
+[23:14] - Created new AudioClip: OST_amb_per001.
+[23:14] - New audio prefix: OST_bat.
+[23:14] - Created new AudioClip: OST_bat_010.
+[23:14] - Created new AudioClip: OST_bat_final.
+[23:14] - Created new AudioClip: OST_bat_009.
+[23:14] - Created new AudioClip: OST_bat_011.
+[23:14] - Created new AudioClip: OST_bat_012.
+[23:14] - Created new AudioClip: OST_bat_007.
+[23:14] - Created new AudioClip: OST_bat_008.
+[23:14] - Created new AudioClip: OST_bat_002.
+[23:14] - Created new AudioClip: OST_bat_000.
+[23:14] - Created new AudioClip: OST_bat_013.
+[23:14] - Created new AudioClip: OST_bat_005.
+[23:14] - Created new AudioClip: OST_bat_001.
+[23:14] - Created new AudioClip: OST_bat_004.
+[23:14] - Created new AudioClip: OST_bat_006.
+[23:14] - Created new AudioClip: OST_bat_003.
+[23:14] - Setup dialogue.
+[23:14] - Finished audio setup.
+[23:14] - Finished setting up Audio Manager.
+[23:14] - ##########################
+[23:14] - Initializing GUI Manager.
+[23:14] - Setup images.
+[23:14] - Finished setting up images.
+[23:14] - ##########################
+[23:14] - Setup portraits.
+[23:14] - Getting companion portraits.
+[23:14] - Added portrait: comp_Visas_2.
+[23:14] - Added portrait: comp_Mandalore.
+[23:14] - Added portrait: comp_Mira_2.
+[23:14] - Added portrait: comp_HK51.
+[23:14] - Added portrait: comp_HK50.
+[23:14] - Added portrait: comp_Hanharr.
+[23:14] - Added portrait: comp_Kreia.
+[23:14] - Added portrait: comp_BaoDur_2.
+[23:14] - Added portrait: comp_Visas_3.
+[23:14] - Added portrait: comp_Mira_3.
+[23:14] - Added portrait: comp_Mandalore.
+[23:14] - Added portrait: comp_HK51.
+[23:14] - Added portrait: comp_BaoDur_3.
+[23:14] - Added portrait: comp_Hanharr.
+[23:14] - Added portrait: comp_HK50.
+[23:14] - Added portrait: comp_Visas_1.
+[23:14] - Added portrait: comp_Mira_1.
+[23:14] - Added portrait: comp_Kreia.
+[23:14] - Added portrait: comp_HK51.
+[23:14] - Added portrait: comp_Mandalore.
+[23:14] - Added portrait: comp_HK50.
+[23:14] - Added portrait: comp_Hanharr.
+[23:14] - Added portrait: comp_BaoDur_1.
+[23:14] - Added portrait: comp_Disciple_2.
+[23:14] - Added portrait: comp_Atris.
+[23:14] - Added portrait: comp_Remote.
+[23:14] - Added portrait: comp_Kreia.
+[23:14] - Added portrait: comp_B4D4.
+[23:14] - Added portrait: comp_Disciple_1.
+[23:14] - Added portrait: comp_T3M4.
+[23:14] - Added portrait: comp_HK47.
+[23:14] - Added portrait: comp_Atris.
+[23:14] - Added portrait: comp_Remote.
+[23:14] - Added portrait: comp_3CFD.
+[23:14] - Added portrait: comp_Disciple_3.
+[23:14] - Added portrait: comp_B4D4.
+[23:14] - Added portrait: comp_HandM_2.
+[23:14] - Added portrait: comp_T3M4.
+[23:14] - Added portrait: comp_HK47.
+[23:14] - Added portrait: comp_Remote.
+[23:14] - Added portrait: comp_3CFD.
+[23:14] - Added portrait: comp_Atris.
+[23:14] - Added portrait: comp_HandM_3.
+[23:14] - Added portrait: comp_B4D4.
+[23:14] - Added portrait: comp_3CFD.
+[23:14] - Added portrait: comp_G0T0.
+[23:14] - Added portrait: comp_HK47.
+[23:14] - Added portrait: comp_T3M4.
+[23:14] - Added portrait: comp_Atton_3.
+[23:14] - Added portrait: comp_HandM_1.
+[23:14] - Added portrait: comp_G0T0.
+[23:14] - Added portrait: comp_Atton_2.
+[23:14] - Added portrait: comp_Atton_1.
+[23:14] - Added portrait: comp_G0T0.
+[23:14] - Finished getting companion portraits.
+[23:14] - ##########################
+[23:14] - Getting player portraits.
+[23:14] - New portrait prefix: play_Male_
+[23:14] - Added portrait: play_Male_03_2.
+[23:14] - Added portrait: play_Male_06_1.
+[23:14] - Added portrait: play_Male_14_3.
+[23:14] - Added portrait: play_Male_11_3.
+[23:14] - Added portrait: play_Male_10_2.
+[23:14] - Added portrait: play_Male_16_1.
+[23:14] - Added portrait: play_Male_09_3.
+[23:14] - Added portrait: play_Male_17_2.
+[23:14] - Added portrait: play_Male_03_3.
+[23:14] - Added portrait: play_Male_06_3.
+[23:14] - Added portrait: play_Male_15_2.
+[23:14] - Added portrait: play_Male_11_1.
+[23:14] - Added portrait: play_Male_12_1.
+[23:14] - Added portrait: play_Male_10_1.
+[23:14] - Added portrait: play_Male_03_1.
+[23:14] - Added portrait: play_Male_17_3.
+[23:14] - Added portrait: play_Male_11_2.
+[23:14] - Added portrait: play_Male_10_3.
+[23:14] - Added portrait: play_Male_16_2.
+[23:14] - Added portrait: play_Male_04_2.
+[23:14] - Added portrait: play_Male_06_2.
+[23:14] - Added portrait: play_Male_09_2.
+[23:14] - Added portrait: play_Male_17_1.
+[23:14] - Added portrait: play_Male_15_1.
+[23:14] - Added portrait: play_Male_13_1.
+[23:14] - Added portrait: play_Male_12_3.
+[23:14] - Added portrait: play_Male_04_3.
+[23:14] - Added portrait: play_Male_15_3.
+[23:14] - Added portrait: play_Male_12_2.
+[23:14] - Added portrait: play_Male_05_2.
+[23:14] - Added portrait: play_Male_14_1.
+[23:14] - Added portrait: play_Male_13_2.
+[23:14] - Added portrait: play_Male_04_1.
+[23:14] - Added portrait: play_Male_13_3.
+[23:14] - Added portrait: play_Male_16_3.
+[23:14] - Added portrait: play_Male_02_1.
+[23:14] - Added portrait: play_Male_01_2.
+[23:14] - Added portrait: play_Male_08_2.
+[23:14] - Added portrait: play_Male_14_2.
+[23:14] - Added portrait: play_Male_01_1.
+[23:14] - Added portrait: play_Male_05_3.
+[23:14] - Added portrait: play_Male_02_3.
+[23:14] - Added portrait: play_Male_02_2.
+[23:14] - Added portrait: play_Male_05_1.
+[23:14] - Added portrait: play_Male_08_1.
+[23:14] - Added portrait: play_Male_01_3.
+[23:14] - Added portrait: play_Male_07_1.
+[23:14] - Added portrait: play_Male_09_1.
+[23:14] - Added portrait: play_Male_07_2.
+[23:14] - Added portrait: play_Male_08_3.
+[23:14] - Added portrait: play_Male_07_3.
+[23:14] - New portrait prefix: play_Fem_
+[23:14] - Added portrait: play_Fem_16_1.
+[23:14] - Added portrait: play_Fem_13_1.
+[23:14] - Added portrait: play_Fem_14_3.
+[23:14] - Added portrait: play_Fem_12_3.
+[23:14] - Added portrait: play_Fem_09_3.
+[23:14] - Added portrait: play_Fem_11_3.
+[23:14] - Added portrait: play_Fem_10_2.
+[23:14] - Added portrait: play_Fem_06_1.
+[23:14] - Added portrait: play_Fem_16_2.
+[23:14] - Added portrait: play_Fem_11_1.
+[23:14] - Added portrait: play_Fem_10_1.
+[23:14] - Added portrait: play_Fem_12_1.
+[23:14] - Added portrait: play_Fem_13_2.
+[23:14] - Added portrait: play_Fem_15_2.
+[23:14] - Added portrait: play_Fem_12_2.
+[23:14] - Added portrait: play_Fem_06_3.
+[23:14] - Added portrait: play_Fem_09_2.
+[23:14] - Added portrait: play_Fem_15_3.
+[23:14] - Added portrait: play_Fem_11_2.
+[23:14] - Added portrait: play_Fem_10_3.
+[23:14] - Added portrait: play_Fem_14_1.
+[23:14] - Added portrait: play_Fem_13_3.
+[23:14] - Added portrait: play_Fem_17_2.
+[23:14] - Added portrait: play_Fem_17_1.
+[23:14] - Added portrait: play_Fem_15_1.
+[23:14] - Added portrait: play_Fem_14_2.
+[23:14] - Added portrait: play_Fem_16_3.
+[23:14] - Added portrait: play_Fem_03_2.
+[23:14] - Added portrait: play_Fem_06_2.
+[23:14] - Added portrait: play_Fem_17_3.
+[23:14] - Added portrait: play_Fem_02_1.
+[23:14] - Added portrait: play_Fem_04_2.
+[23:14] - Added portrait: play_Fem_01_1.
+[23:14] - Added portrait: play_Fem_01_2.
+[23:14] - Added portrait: play_Fem_05_2.
+[23:14] - Added portrait: play_Fem_02_3.
+[23:14] - Added portrait: play_Fem_03_3.
+[23:14] - Added portrait: play_Fem_03_1.
+[23:14] - Added portrait: play_Fem_01_3.
+[23:14] - Added portrait: play_Fem_05_1.
+[23:14] - Added portrait: play_Fem_04_3.
+[23:14] - Added portrait: play_Fem_08_2.
+[23:14] - Added portrait: play_Fem_05_3.
+[23:14] - Added portrait: play_Fem_02_2.
+[23:14] - Added portrait: play_Fem_07_2.
+[23:14] - Added portrait: play_Fem_07_1.
+[23:14] - Added portrait: play_Fem_09_1.
+[23:14] - Added portrait: play_Fem_08_1.
+[23:14] - Added portrait: play_Fem_04_1.
+[23:14] - Added portrait: play_Fem_07_3.
+[23:14] - Added portrait: play_Fem_08_3.
+[23:14] - Finished getting player portraits.
+[23:14] - ##########################
+[23:14] - Finished setting up portraits.
+[23:14] - ##########################
+[23:14] - Setup font.
+[23:14] - Finished setting up font.
+[23:14] - ##########################
+[23:14] - Finished setting up GUI Manager.
+[23:14] - ##########################
+[23:14] - Finished setting up Game Manager.
+[23:14] - ##########################

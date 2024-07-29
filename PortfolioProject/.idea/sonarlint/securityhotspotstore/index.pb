@@ -113,3 +113,7 @@ hPortfolioProject.Dialogue/src/main/java/com/sintraqos/portfolioproject/dialogue
 «PortfolioProject.Output/src/main/java/com/sintraqos/portfolioproject/output/gui/characterscreen/characterCreate_SelectGenderClass/CharacterScreenGUI_SelectGenderClass.form,a\d\adf7ab92124e8cabbf00401c22ced36ae3419ac8
 Ò
 ¡PortfolioProject.Output/src/main/java/com/sintraqos/portfolioproject/output/gui/characterscreen/characterCreate_SelectSkills/CharacterScreenGUI_SelectSkills.java,c\d\cd5f4239299dcab65cc260e6bee27a416ee0de00
+T
+$PortfolioProject.CreateFiles/pom.xml,9\1\91780d053bf9c87fa21b193b13502157231a0a30
+œ
+lPortfolioProject.CreateFiles/src/main/java/com/sintraqos/portfolioproject/createfiles/CreateFileManager.java,0\a\0acdda76b629947da53f2d66d6eda9625e4fcaad

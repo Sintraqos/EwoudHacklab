@@ -1,11 +1,3 @@
 
-e
-java:S20954"HUse try-with-resources or close this "FileWriter" in a "finally" clause.( Õœ8ÚÇ×‡2
-G	java:S106"+Replace this use of System.out by a logger.(Ğ«©8ŞÇ×‡2
+G	java:S106"+Replace this use of System.out by a logger.(Ö¶¥£8ŞÇ×‡2
 F	java:S106"+Replace this use of System.out by a logger.(Á‘£I8ßÇ×‡2
-L	java:S106/"+Replace this use of System.err by a logger.(ıñ›üÿÿÿÿ8âÇ×‡2
-L	java:S1068"+Replace this use of System.err by a logger.(ıñ›üÿÿÿÿ8ãÇ×‡2
-M
-java:S1128"0Remove this unused import 'java.util.ArrayList'.(÷‰îƒ8ãÇ×‡2
-d
-java:S1128	"GRemove this unused import 'java.util.concurrent.ConcurrentSkipListSet'.(Ä‹Úå8ãÇ×‡2

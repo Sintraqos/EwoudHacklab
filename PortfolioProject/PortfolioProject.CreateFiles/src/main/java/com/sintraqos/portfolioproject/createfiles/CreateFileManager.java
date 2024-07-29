@@ -14,7 +14,6 @@ import com.sintraqos.portfolioproject.statics.StaticUtils;
 
 import java.io.*;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 public class CreateFileManager {
@@ -25,51 +24,51 @@ public class CreateFileManager {
         if (instance == null) {
             instance = new CreateFileManager();
 
-            instance.createFiles();
+            instance.setup();
         }
 
         return instance;
     }
 
-    public void createFiles() {
+    public void setup() {
 
         Console.writeHeader("Creating files");
 
         //region File Paths
 
-        HashMap<String, ResourcePaths.FilePaths> paths;
+        ResourcePaths.ResourcePathsFile paths = new ResourcePaths.ResourcePathsFile();
 
-        createDirectory(ResourcePaths.RESOURCE_DIRECTORY + ResourcePaths.PATH_SEPARATOR + ResourcePaths.FILEPATH_DIRECTORY);
+        createDirectory(ResourcePaths.getResourceFilepathDirectory());
 
         //region Audio Paths
 
         Console.writeLine("Create audio path files");
 
         // Reset paths
-        paths = new HashMap<>();
+        paths.clear();
 
         // Planet
-        paths.put(ResourcePaths.OST_AMBIENT_PREFIX_DANTOOINE, new ResourcePaths.FilePaths(createFilePaths(ResourcePaths.getAudioPath(ResourcePaths.SOUND_TRACK_DIRECTORY), ResourcePaths.OST_AMBIENT_PREFIX_DANTOOINE)));
-        paths.put(ResourcePaths.OST_AMBIENT_PREFIX_DXUN, new ResourcePaths.FilePaths(createFilePaths(ResourcePaths.getAudioPath(ResourcePaths.SOUND_TRACK_DIRECTORY), ResourcePaths.OST_AMBIENT_PREFIX_DXUN)));
-        paths.put(ResourcePaths.OST_AMBIENT_PREFIX_KORRIBAN, new ResourcePaths.FilePaths(createFilePaths(ResourcePaths.getAudioPath(ResourcePaths.SOUND_TRACK_DIRECTORY), ResourcePaths.OST_AMBIENT_PREFIX_KORRIBAN)));
-        paths.put(ResourcePaths.OST_AMBIENT_PREFIX_MALACHOR_V, new ResourcePaths.FilePaths(createFilePaths(ResourcePaths.getAudioPath(ResourcePaths.SOUND_TRACK_DIRECTORY), ResourcePaths.OST_AMBIENT_PREFIX_MALACHOR_V)));
-        paths.put(ResourcePaths.OST_AMBIENT_PREFIX_NAR_SHADDAA, new ResourcePaths.FilePaths(createFilePaths(ResourcePaths.getAudioPath(ResourcePaths.SOUND_TRACK_DIRECTORY), ResourcePaths.OST_AMBIENT_PREFIX_NAR_SHADDAA)));
-        paths.put(ResourcePaths.OST_AMBIENT_PREFIX_ONDERON, new ResourcePaths.FilePaths(createFilePaths(ResourcePaths.getAudioPath(ResourcePaths.SOUND_TRACK_DIRECTORY), ResourcePaths.OST_AMBIENT_PREFIX_ONDERON)));
-        paths.put(ResourcePaths.OST_AMBIENT_PREFIX_TELOS, new ResourcePaths.FilePaths(createFilePaths(ResourcePaths.getAudioPath(ResourcePaths.SOUND_TRACK_DIRECTORY), ResourcePaths.OST_AMBIENT_PREFIX_TELOS)));
+        paths.put(ResourcePaths.OST_AMBIENT_PREFIX_DANTOOINE, createFilePaths(ResourcePaths.getSoundtrackAudioPath(), ResourcePaths.OST_AMBIENT_PREFIX_DANTOOINE));
+        paths.put(ResourcePaths.OST_AMBIENT_PREFIX_DXUN, createFilePaths(ResourcePaths.getSoundtrackAudioPath(), ResourcePaths.OST_AMBIENT_PREFIX_DXUN));
+        paths.put(ResourcePaths.OST_AMBIENT_PREFIX_KORRIBAN, createFilePaths(ResourcePaths.getSoundtrackAudioPath(), ResourcePaths.OST_AMBIENT_PREFIX_KORRIBAN));
+        paths.put(ResourcePaths.OST_AMBIENT_PREFIX_MALACHOR_V, createFilePaths(ResourcePaths.getSoundtrackAudioPath(), ResourcePaths.OST_AMBIENT_PREFIX_MALACHOR_V));
+        paths.put(ResourcePaths.OST_AMBIENT_PREFIX_NAR_SHADDAA, createFilePaths(ResourcePaths.getSoundtrackAudioPath(), ResourcePaths.OST_AMBIENT_PREFIX_NAR_SHADDAA));
+        paths.put(ResourcePaths.OST_AMBIENT_PREFIX_ONDERON, createFilePaths(ResourcePaths.getSoundtrackAudioPath(), ResourcePaths.OST_AMBIENT_PREFIX_ONDERON));
+        paths.put(ResourcePaths.OST_AMBIENT_PREFIX_TELOS, createFilePaths(ResourcePaths.getSoundtrackAudioPath(), ResourcePaths.OST_AMBIENT_PREFIX_TELOS));
 
         // Ship
-        paths.put(ResourcePaths.OST_AMBIENT_PREFIX_EBON_HAWK, new ResourcePaths.FilePaths(createFilePaths(ResourcePaths.getAudioPath(ResourcePaths.SOUND_TRACK_DIRECTORY), ResourcePaths.OST_AMBIENT_PREFIX_EBON_HAWK)));
-        paths.put(ResourcePaths.OST_AMBIENT_PREFIX_HARBINGER, new ResourcePaths.FilePaths(createFilePaths(ResourcePaths.getAudioPath(ResourcePaths.SOUND_TRACK_DIRECTORY), ResourcePaths.OST_AMBIENT_PREFIX_HARBINGER)));
-        paths.put(ResourcePaths.OST_AMBIENT_PREFIX_RAVAGER, new ResourcePaths.FilePaths(createFilePaths(ResourcePaths.getAudioPath(ResourcePaths.SOUND_TRACK_DIRECTORY), ResourcePaths.OST_AMBIENT_PREFIX_RAVAGER)));
+        paths.put(ResourcePaths.OST_AMBIENT_PREFIX_EBON_HAWK, createFilePaths(ResourcePaths.getSoundtrackAudioPath(), ResourcePaths.OST_AMBIENT_PREFIX_EBON_HAWK));
+        paths.put(ResourcePaths.OST_AMBIENT_PREFIX_HARBINGER, createFilePaths(ResourcePaths.getSoundtrackAudioPath(), ResourcePaths.OST_AMBIENT_PREFIX_HARBINGER));
+        paths.put(ResourcePaths.OST_AMBIENT_PREFIX_RAVAGER, createFilePaths(ResourcePaths.getSoundtrackAudioPath(), ResourcePaths.OST_AMBIENT_PREFIX_RAVAGER));
 
         // Other
-        paths.put(ResourcePaths.OST_AMBIENT_PREFIX_PERAGUS, new ResourcePaths.FilePaths(createFilePaths(ResourcePaths.getAudioPath(ResourcePaths.SOUND_TRACK_DIRECTORY), ResourcePaths.OST_AMBIENT_PREFIX_PERAGUS)));
+        paths.put(ResourcePaths.OST_AMBIENT_PREFIX_PERAGUS, createFilePaths(ResourcePaths.getSoundtrackAudioPath(), ResourcePaths.OST_AMBIENT_PREFIX_PERAGUS));
 
         // Battle
-        paths.put(ResourcePaths.OST_BATTLE_PREFIX, new ResourcePaths.FilePaths(createFilePaths(ResourcePaths.getAudioPath(ResourcePaths.SOUND_TRACK_DIRECTORY), ResourcePaths.OST_BATTLE_PREFIX)));
+        paths.put(ResourcePaths.OST_BATTLE_PREFIX, createFilePaths(ResourcePaths.getSoundtrackAudioPath(), ResourcePaths.OST_BATTLE_PREFIX));
 
         // Create file
-        createFilePathFile(ResourcePaths.AUDIO_DIRECTORY, new ResourcePaths.ResourcePathsFile(paths));
+        createFilePathFile(ResourcePaths.AUDIO_DIRECTORY, paths);
 
         Console.writeLine("Finished creating audio path files");
 
@@ -80,14 +79,14 @@ public class CreateFileManager {
         Console.writeLine("Create image path files");
 
         // Reset paths
-        paths = new HashMap<>();
+        paths.clear();
 
         // Portraits
-        paths.put(ResourcePaths.PORTRAIT_MALE_PREFIX, new ResourcePaths.FilePaths(createFilePaths(ResourcePaths.getPortraitImagePath(ResourcePaths.PORTRAIT_PLAYER_DIRECTORY), ResourcePaths.PORTRAIT_MALE_PREFIX)));
-        paths.put(ResourcePaths.PORTRAIT_FEMALE_PREFIX, new ResourcePaths.FilePaths(createFilePaths(ResourcePaths.getPortraitImagePath(ResourcePaths.PORTRAIT_PLAYER_DIRECTORY), ResourcePaths.PORTRAIT_FEMALE_PREFIX)));
+        paths.put(ResourcePaths.PORTRAIT_MALE_PREFIX, createFilePaths(ResourcePaths.getPortraitImagePath(ResourcePaths.PORTRAIT_PLAYER_DIRECTORY), ResourcePaths.PORTRAIT_MALE_PREFIX));
+        paths.put(ResourcePaths.PORTRAIT_FEMALE_PREFIX, createFilePaths(ResourcePaths.getPortraitImagePath(ResourcePaths.PORTRAIT_PLAYER_DIRECTORY), ResourcePaths.PORTRAIT_FEMALE_PREFIX));
 
         // Create file
-        createFilePathFile(ResourcePaths.PORTRAIT_PLAYER_DIRECTORY, new ResourcePaths.ResourcePathsFile(paths));
+        createFilePathFile(ResourcePaths.PORTRAIT_PLAYER_DIRECTORY, paths);
 
         // Cleanup
         paths.clear();
@@ -103,7 +102,7 @@ public class CreateFileManager {
         DialogueTree dialogueTree;
         ArrayList<DialogueObject> dialogueOptions;
 
-        createDirectory(ResourcePaths.getResourceDirectoryPath(ResourcePaths.DIALOGUE_DIRECTORY));
+        createDirectory(ResourcePaths.RESOURCE_DIRECTORY + ResourcePaths.PATH_SEPARATOR + ResourcePaths.FILEPATH_DIRECTORY + ResourcePaths.PATH_SEPARATOR + ResourcePaths.DIALOGUE_DIRECTORY);
 
         Console.writeLine("Create dialogue files");
 
@@ -464,6 +463,7 @@ public class CreateFileManager {
         //endregion
 
         Console.writeLine("Finished creating files");
+        Console.writeLine();
     }
 
     void createDirectory(String directoryPath) {
@@ -472,10 +472,10 @@ public class CreateFileManager {
         }
     }
 
-    void createFilePathFile(String fileType, ResourcePaths.ResourcePathsFile paths) {
+    void createFilePathFile(String fileName, ResourcePaths.ResourcePathsFile paths) {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
-        try (Writer writer = new FileWriter(ResourcePaths.getResourceFilePath(fileType))) {
+        try (Writer writer = new FileWriter(ResourcePaths.getDataPath(ResourcePaths.getResourceFilepathDirectory(), fileName))) {
             gson.toJson(paths, writer);
         } catch (IOException ex) {
             throw new Functions.ExceptionHandler("Failed to create new path file", ex);
@@ -484,13 +484,13 @@ public class CreateFileManager {
 
     void createDialogueFile(String fileName, DialogueTree newDialogueTree, String locationPath) {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        String directoryPath = ResourcePaths.getResourceDirectoryPath(ResourcePaths.DIALOGUE_DIRECTORY) + ResourcePaths.PATH_SEPARATOR + locationPath;
+        String directoryPath = ResourcePaths.getResourceFilepathDialogueDirectory() + locationPath;
 
         if (!new File(directoryPath).mkdirs() && !new File(directoryPath).exists()) {
             throw new Functions.ExceptionHandler("Failed to create new directory: " + directoryPath);
         }
 
-        try (Writer writer = new FileWriter(directoryPath + ResourcePaths.PATH_SEPARATOR + fileName + ResourcePaths.EXTENSION_DATAFILE)) {
+        try (Writer writer = new FileWriter(ResourcePaths.getDataPath(ResourcePaths.getResourceFilepathDialogueDirectory(), fileName))) {
             gson.toJson(newDialogueTree, writer);
         } catch (IOException ex) {
             throw new Functions.ExceptionHandler("Failed to create new dialogue file", ex);

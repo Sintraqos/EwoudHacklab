@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class ResourcePaths {
 
@@ -211,7 +212,13 @@ public class ResourcePaths {
 
     //region Get Paths
 
-    // Image
+    // Data
+    public static String getDataPath(String directoryPath, String fileName) {
+        return directoryPath + PATH_SEPARATOR + fileName + EXTENSION_DATAFILE;
+    }
+
+    //region Image
+
     public static String getImagePath(String locationDirectory, String imageName) {
         return IMAGE_DIRECTORY + PATH_SEPARATOR + locationDirectory + PATH_SEPARATOR + imageName + EXTENSION_IMAGE;
     }
@@ -224,61 +231,102 @@ public class ResourcePaths {
         return PATH_SEPARATOR + IMAGE_DIRECTORY + PATH_SEPARATOR + PORTRAIT_DIRECTORY + PATH_SEPARATOR + locationDirectory + PATH_SEPARATOR;
     }
 
-    // Audio
-    public static String getAudioPath(String locationDirectory) {
-        return PATH_SEPARATOR + AUDIO_DIRECTORY + PATH_SEPARATOR + locationDirectory + PATH_SEPARATOR;
-    }
-
-    public static String getAudioPath(String locationDirectory, String locationSubDirectory) {
-        return PATH_SEPARATOR + AUDIO_DIRECTORY + PATH_SEPARATOR + locationDirectory + PATH_SEPARATOR + locationSubDirectory;
-    }
-
-    public static String getAudioPath(String locationDirectory, String locationSubDirectory, String audioName) {
-        return PATH_SEPARATOR + AUDIO_DIRECTORY + PATH_SEPARATOR + locationDirectory + PATH_SEPARATOR + locationSubDirectory + PATH_SEPARATOR + audioName;
-    }
-
-    public static String getDialogueAudioPath(String dialogueTreeLocation, String dialogueID) {
-        return PATH_SEPARATOR + AUDIO_DIRECTORY + DIALOGUE_DIRECTORY + dialogueTreeLocation + PATH_SEPARATOR + dialogueID + EXTENSION_AUDIO;
-    }
-
-    // Font
-    public static String getFontDirectory() {
-        return PATH_SEPARATOR + FONT_DIRECTORY + PATH_SEPARATOR + FONT_FILE_NAME + EXTENSION_FONT;
+    public static String getUIImagePath(String imageName){
+        return IMAGE_DIRECTORY + PATH_SEPARATOR + UI_ELEMENT_DIRECTORY + PATH_SEPARATOR + imageName + EXTENSION_IMAGE;
     }
 
     //endregion
 
+    //region Audio Path
+
+    // General
+    static String getAudioDirectoryPath(String locationDirectory) {
+        return PATH_SEPARATOR + AUDIO_DIRECTORY + PATH_SEPARATOR + locationDirectory + PATH_SEPARATOR;
+    }
+
+    static String getAudioDirectoryPath(String locationDirectory, String locationSubDirectory) {
+        return getAudioDirectoryPath(locationDirectory) + locationSubDirectory + PATH_SEPARATOR ;
+    }
+
+    public static String getAudioFile(String locationDirectory, String locationSubDirectory, String fileName) {
+        return getAudioDirectoryPath(locationDirectory, locationSubDirectory) + fileName;
+    }
+
+    // Soundtrack
+    public static String getSoundtrackAudioPath(){
+        return getAudioDirectoryPath(SOUND_TRACK_DIRECTORY);
+    }
+
+    public static String getSoundtrackAudioFile(String fileName) {
+        return getSoundtrackAudioPath() + fileName + EXTENSION_AUDIO;
+    }
+
+    // SFX
+    public static String getSoundEffectAudioPath(){
+        return getAudioDirectoryPath(SOUND_EFFECT_DIRECTORY);
+    }
+
+    public static String getSoundEffectAudioFile(String fileName) {
+        return getSoundEffectAudioPath() + fileName + EXTENSION_AUDIO;
+    }
+
+    // GUI
+    public static String getGUISoundEffectAudioPath(){
+        return getSoundEffectAudioPath() + GUI_SOUND_EFFECT_DIRECTORY + PATH_SEPARATOR;
+    }
+
+    public static String getGUISoundEffectAudioFile(String fileName){
+        return getGUISoundEffectAudioPath() + fileName + EXTENSION_AUDIO;
+    }
+
+    // Dialogue
+    public static String getDialogueAudioFile(String locationDirectory, String fileName) {
+        return getAudioDirectoryPath(locationDirectory) + fileName + EXTENSION_AUDIO;
+    }
+
+    //endregion
+
+    // Font
+    public static String getFontPath() {
+        return PATH_SEPARATOR + FONT_DIRECTORY + PATH_SEPARATOR + FONT_FILE_NAME + EXTENSION_FONT;
+    }
 
     // File Path
-
-    public static String getResourceDirectoryPath(String directoryPath) {
-        return RESOURCE_DIRECTORY + PATH_SEPARATOR + FILEPATH_DIRECTORY + PATH_SEPARATOR + directoryPath;
+    public static String getResourceFilepathDirectory(){
+        return RESOURCE_DIRECTORY + PATH_SEPARATOR + FILEPATH_DIRECTORY;
     }
 
-    public static String getResourceFilePath(String fileType) {
-        return getResourceDirectoryPath(fileType) + EXTENSION_DATAFILE;
+    public static String getResourceFilepathDialogueDirectory(){
+        return getResourceFilepathDirectory() + ResourcePaths.PATH_SEPARATOR + ResourcePaths.DIALOGUE_DIRECTORY + ResourcePaths.PATH_SEPARATOR;
     }
 
-    public static String getDirectoryPath(String directoryPath) {
-        return PATH_SEPARATOR + FILEPATH_DIRECTORY + PATH_SEPARATOR + directoryPath;
-    }
+    //endregion
 
-    public static String getFilePath(String fileType) {
-        return getDirectoryPath(fileType) + EXTENSION_DATAFILE;
-    }
-
-    public record FilePaths(List<String> resourcePaths) implements Serializable {
-    }
+    //region Classes
 
     public static class ResourcePathsFile implements Serializable {
-        HashMap<String, FilePaths> paths = new HashMap<>();
+        ConcurrentHashMap<String, List<String>> paths = new ConcurrentHashMap<>();
 
-        public ResourcePathsFile(Map<String, FilePaths> paths) {
+        public List<String> getFilePaths(String path) {
+            return paths.get(path);
+        }
+
+        public ResourcePathsFile() {
+            paths = new ConcurrentHashMap<>();
+        }
+
+        public ResourcePathsFile(Map<String, List<String>> paths) {
             this.paths.putAll(paths);
         }
 
-        public FilePaths getFilePaths(String path) {
-            return paths.get(path);
+        public void put(String index, List<String> pathList) {
+            paths.put(index, pathList);
+        }
+
+        public void clear() {
+            paths.clear();
         }
     }
+
+    //endregion
 }

@@ -41,14 +41,10 @@ public class OutputManager {
     }
 
     ResourcePaths.ResourcePathsFile readPathsFile(String pathType) {
-
-        String dataPath = ResourcePaths.getFilePath(pathType);
-        Console.writeLine(dataPath);
-
-        try (Reader reader = new InputStreamReader(Objects.requireNonNull(this.getClass().getResourceAsStream(dataPath)))) {
+        try (Reader reader = new InputStreamReader(Objects.requireNonNull(this.getClass().getResourceAsStream(ResourcePaths.PATH_SEPARATOR + ResourcePaths.getDataPath(ResourcePaths.FILEPATH_DIRECTORY, pathType))))) {
             return new Gson().fromJson(reader, ResourcePaths.ResourcePathsFile.class);
         } catch (IOException ex) {
-            throw new Functions.ExceptionHandler("Error reading " + dataPath, ex);
+            throw new Functions.ExceptionHandler("Error reading paths file", ex);
         }
     }
 }

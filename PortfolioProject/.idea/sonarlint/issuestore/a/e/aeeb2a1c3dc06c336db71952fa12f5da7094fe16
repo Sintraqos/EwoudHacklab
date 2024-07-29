@@ -1,3 +1,11 @@
 
-M	java:S106Â"+Replace this use of System.out by a logger.(˜ïÉÆûÿÿÿÿ8¹€ş‡2
-H	java:S106Ç"+Replace this use of System.out by a logger.(˜¾8º€ş‡2
+M	java:S106ï"+Replace this use of System.out by a logger.(˜ïÉÆûÿÿÿÿ8…©ê2
+H	java:S106ô"+Replace this use of System.out by a logger.(˜¾8±ºë2
+N
+java:S1128"1Remove this unused import 'com.google.gson.Gson'.(–§8ç…´û2
+Z
+java:S1128"8Remove this unused import 'com.google.gson.GsonBuilder'.(”«à¬ÿÿÿÿÿ8ç…´û2
+M
+java:S1128"+Remove this unused import 'java.util.List'.(Õë±Äøÿÿÿÿ8Öä÷ı2
+Y
+java:S1128"7Remove this unused import 'java.util.stream.IntStream'.(ÙÉ½Ÿùÿÿÿÿ8ç…´û2

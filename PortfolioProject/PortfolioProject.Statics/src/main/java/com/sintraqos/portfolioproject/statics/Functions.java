@@ -151,7 +151,7 @@ public class Functions {
 
     public static AudioInputStream getAudioInputStream(String audioClipPath) {
         try {
-            return AudioSystem.getAudioInputStream(Objects.requireNonNull(Functions.class.getResource(audioClipPath + ResourcePaths.EXTENSION_AUDIO)));
+            return AudioSystem.getAudioInputStream(Objects.requireNonNull(Functions.class.getResource(audioClipPath)));
         } catch (UnsupportedAudioFileException | IOException ex) {
             throw new ExceptionHandler("AudioClip could not be created", ex);
         }
