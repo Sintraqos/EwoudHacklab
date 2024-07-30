@@ -296,8 +296,16 @@ public class ResourcePaths {
         return RESOURCE_DIRECTORY + PATH_SEPARATOR + FILEPATH_DIRECTORY;
     }
 
+    public static String getDialogueFile(String fileName){
+     return    ResourcePaths.PATH_SEPARATOR+ResourcePaths.DIALOGUE_DIRECTORY + ResourcePaths.PATH_SEPARATOR+fileName;
+    }
+
     public static String getResourceFilepathDialogueDirectory(){
-        return getResourceFilepathDirectory() + ResourcePaths.PATH_SEPARATOR + ResourcePaths.DIALOGUE_DIRECTORY + ResourcePaths.PATH_SEPARATOR;
+        return RESOURCE_DIRECTORY + PATH_SEPARATOR + DIALOGUE_DIRECTORY + PATH_SEPARATOR;
+    }
+
+    public static String getResourceFilepathDialogueDirectory(String locationDirectory, String fileName){
+        return getResourceFilepathDialogueDirectory() + locationDirectory + PATH_SEPARATOR + fileName + EXTENSION_DATAFILE;
     }
 
     //endregion

@@ -6,11 +6,16 @@
       <list>
         <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/PortfolioProject.Console/pom.xml" />
+        <option value="$PROJECT_DIR$/PortfolioProject.CreateFiles/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">
       <set>
         <option value="$PROJECT_DIR$/PortfolioProject.ConsoleOLD/pom.xml" />
+        <option value="$PROJECT_DIR$/PortfolioProject.CreateFiles/pom.xml" />
+        <option value="$PROJECT_DIR$/PortfolioProject.DataObjects/pom.xml" />
+        <option value="$PROJECT_DIR$/PortfolioProject.Dialogue/pom.xml" />
+        <option value="$PROJECT_DIR$/PortfolioProject.Entity/pom.xml" />
       </set>
     </option>
   </component>

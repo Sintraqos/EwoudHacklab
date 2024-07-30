@@ -3,8 +3,7 @@ package com.sintraqos.portfolioproject.output.gui.options;
 import com.sintraqos.portfolioproject.output.gui.GUIScreen;
 import com.sintraqos.portfolioproject.output.gui.guicomponents.GUI_JPanelBackground;
 import com.sintraqos.portfolioproject.output.gui.mainmenu.MainMenuGUI;
-import com.sintraqos.portfolioproject.statics.GameSettings;
-import com.sintraqos.portfolioproject.statics.ResourcePaths;
+import com.sintraqos.portfolioproject.statics.*;
 
 import javax.swing.*;
 import java.awt.event.ActionListener;

@@ -5,6 +5,26 @@
       "OST_amb_nih002.wav",
       "OST_amb_nih003.wav"
     ],
+    "OST_amb_kor": [
+      "OST_amb_kor001.wav",
+      "OST_amb_kor002.wav",
+      "OST_amb_kor003.wav",
+      "OST_amb_kor004.wav"
+    ],
+    "OST_amb_dan": [
+      "OST_amb_dan001.wav",
+      "OST_amb_dan002.wav",
+      "OST_amb_dan003.wav",
+      "OST_amb_dan004.wav",
+      "OST_amb_dan005.wav",
+      "OST_amb_dan006.wav"
+    ],
+    "OST_amb_ebo": [
+      "OST_amb_ebo001.wav",
+      "OST_amb_ebo002.wav",
+      "OST_amb_ebo003.wav",
+      "OST_amb_ebo004.wav"
+    ],
     "OST_amb_per": [
       "OST_amb_per001.wav",
       "OST_amb_per002.wav",
@@ -22,12 +42,6 @@
       "OST_amb_nar005.wav",
       "OST_amb_nar006.wav",
       "OST_amb_nar007.wav"
-    ],
-    "OST_amb_kor": [
-      "OST_amb_kor001.wav",
-      "OST_amb_kor002.wav",
-      "OST_amb_kor003.wav",
-      "OST_amb_kor004.wav"
     ],
     "OST_amb_har": [
       "OST_amb_har001.wav",
@@ -80,14 +94,6 @@
       "OST_amb_ond008.wav",
       "OST_amb_ond009.wav"
     ],
-    "OST_amb_dan": [
-      "OST_amb_dan001.wav",
-      "OST_amb_dan002.wav",
-      "OST_amb_dan003.wav",
-      "OST_amb_dan004.wav",
-      "OST_amb_dan005.wav",
-      "OST_amb_dan006.wav"
-    ],
     "OST_bat": [
       "OST_bat_000.wav",
       "OST_bat_001.wav",
@@ -104,12 +110,6 @@
       "OST_bat_012.wav",
       "OST_bat_013.wav",
       "OST_bat_final.wav"
-    ],
-    "OST_amb_ebo": [
-      "OST_amb_ebo001.wav",
-      "OST_amb_ebo002.wav",
-      "OST_amb_ebo003.wav",
-      "OST_amb_ebo004.wav"
     ]
   }
 }

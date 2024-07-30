@@ -3,9 +3,7 @@ package com.sintraqos.portfolioproject.output.gui.characterscreen.characterCreat
 import com.sintraqos.portfolioproject.output.gui.characterscreen.CharacterScreenGUI_Base;
 import com.sintraqos.portfolioproject.output.gui.characterscreen.characterCreate_CreateCharacter.CharacterScreenGUI_CreateCharacter;
 import com.sintraqos.portfolioproject.output.gui.mainmenu.MainMenuGUI;
-import com.sintraqos.portfolioproject.statics.Enums;
-import com.sintraqos.portfolioproject.statics.Functions;
-import com.sintraqos.portfolioproject.statics.ResourcePaths;
+import com.sintraqos.portfolioproject.statics.*;
 
 import javax.swing.*;
 import java.awt.*;

@@ -3,12 +3,9 @@ package com.sintraqos.portfolioproject.output.gui.mainmenu;
 import com.sintraqos.portfolioproject.output.audio.GameAudioManager;
 import com.sintraqos.portfolioproject.output.gui.GUIScreen;
 import com.sintraqos.portfolioproject.output.gui.GameGUIManager;
-import com.sintraqos.portfolioproject.output.gui.characterscreen.characterCreate_CreateCharacter.CharacterScreenGUI_CreateCharacter;
 import com.sintraqos.portfolioproject.output.gui.characterscreen.characterCreate_SelectGenderClass.CharacterScreenGUI_SelectGenderClass;
 import com.sintraqos.portfolioproject.output.gui.options.OptionsGUI;
-import com.sintraqos.portfolioproject.statics.Enums;
-import com.sintraqos.portfolioproject.statics.GameSettings;
-import com.sintraqos.portfolioproject.statics.ResourcePaths;
+import com.sintraqos.portfolioproject.statics.*;
 
 import java.awt.event.*;
 

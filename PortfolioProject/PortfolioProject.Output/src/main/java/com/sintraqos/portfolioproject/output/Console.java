@@ -2,12 +2,6 @@ package com.sintraqos.portfolioproject.output;
 
 import com.sintraqos.portfolioproject.statics.Functions;
 
-import java.io.*;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.concurrent.ConcurrentSkipListSet;
-
 public class Console {
 
     private Console() {
@@ -21,7 +15,7 @@ public class Console {
     }
 
     public static void writeLine(String consoleText) {
-        Functions. writeLog(consoleText);
+        Functions.writeLog(consoleText);
         System.out.println(Functions.getTime() + Functions.capitalize(Functions.punctuate(consoleText)));
     }
 

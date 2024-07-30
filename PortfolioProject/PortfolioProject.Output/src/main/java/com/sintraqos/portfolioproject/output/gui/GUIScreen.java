@@ -9,7 +9,6 @@ import com.sintraqos.portfolioproject.statics.StaticUtils;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
-import java.lang.reflect.InvocationTargetException;
 
 import static java.awt.Component.CENTER_ALIGNMENT;
 

@@ -14,10 +14,7 @@
         <module>PortfolioProject.Output</module>
         <module>PortfolioProject.Connect</module>
         <module>PortfolioProject.Core</module>
-        <module>PortfolioProject.DataObjects</module>
-        <module>PortfolioProject.Entity</module>
         <module>PortfolioProject.Statics</module>
-        <module>PortfolioProject.Dialogue</module>
     </modules>
 
     <properties>

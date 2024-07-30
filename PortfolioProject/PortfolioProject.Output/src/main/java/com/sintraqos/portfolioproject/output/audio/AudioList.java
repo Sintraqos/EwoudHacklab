@@ -26,8 +26,6 @@ public class AudioList {
     }
 
     public void createAudioClips(String audioPrefix) {
-        Console.writeHeader("New audio prefix: " + audioPrefix);
-
         // Create new audioList
         audioClips.put(audioPrefix, new ArrayList<>());
 

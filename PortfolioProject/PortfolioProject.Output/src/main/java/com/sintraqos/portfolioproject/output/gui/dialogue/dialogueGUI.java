@@ -2,8 +2,7 @@ package com.sintraqos.portfolioproject.output.gui.dialogue;
 
 import com.sintraqos.portfolioproject.output.audio.GameAudioManager;
 import com.sintraqos.portfolioproject.output.gui.GUIScreen;
-import com.sintraqos.portfolioproject.statics.Enums;
-import com.sintraqos.portfolioproject.statics.ResourcePaths;
+import com.sintraqos.portfolioproject.statics.*;
 
 import javax.swing.*;
 
