@@ -72,6 +72,10 @@ public class Functions {
     static boolean firstLog = true;
 
     public static void writeLog(String consoleText) {
+
+        // Check if the program should write out logs
+        if(!GameSettings.getInstance().getLogActive()){return;}
+
         String filePath = "Log.txt";
         if (firstLog) {
             firstLog = false;
@@ -85,15 +89,11 @@ public class Functions {
 
         try {
             FileWriter fw = new FileWriter(filePath, true); //the true will append the new data
-            fw.write(getTime() + Functions.capitalize(Functions.punctuate(consoleText)) + System.lineSeparator());//appends the string to the file
+            fw.write(consoleText + System.lineSeparator());//appends the string to the file
             fw.close();
         } catch (IOException ex) {
             throw new Functions.ExceptionHandler("IOException", ex);
         }
-    }
-
-    public static String getTime() {
-        return String.format("[%s] - ", new SimpleDateFormat("HH:mm").format(new Date()));
     }
 
     //endregion
@@ -105,12 +105,12 @@ public class Functions {
 
         // Message with cause
         public ExceptionHandler(String message, Throwable cause) {
-            System.out.println(capitalize(punctuate(message + ": " + cause.getMessage())));
+            Console.writeLine(capitalize(punctuate(message + ": " + cause.getMessage())));
         }
 
         // Message only
         public ExceptionHandler(String message) {
-            System.out.println(capitalize(punctuate(message)));
+            Console.writeLine(capitalize(punctuate(message)));
         }
 
     }

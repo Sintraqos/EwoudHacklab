@@ -1,7 +1,6 @@
 package com.sintraqos.portfolioproject.output.gui;
 
 import com.sintraqos.portfolioproject.output.gui.guicomponents.GUI_JPanelBackground;
-import com.sintraqos.portfolioproject.output.gui.guicomponents.GUI_KeyboardListener;
 import com.sintraqos.portfolioproject.statics.Functions;
 import com.sintraqos.portfolioproject.statics.GameSettings;
 import com.sintraqos.portfolioproject.statics.StaticUtils;
@@ -47,20 +46,13 @@ public class GUIScreen {
         gameGUIManager.getFrame().setContentPane(rootPanel);    // Set the window object
         gameGUIManager.getFrame().add(Box.createVerticalGlue());
         gameGUIManager.getFrame().setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);  // Make sure everything is properly set in the layout
+        gameGUIManager.getFrame().addKeyListener(gameGUIManager.getFrame());
         gameGUIManager.getFrame().setSize(GameSettings.getInstance().getWindowSize().width, GameSettings.getInstance().getWindowSize().height); // Set the window size
         gameGUIManager.getFrame().setForeground(StaticUtils.GUI_FOREGROUND_COLOR);
         gameGUIManager.getFrame().setBackground(StaticUtils.GUI_BACKGROUND_COLOR);
         gameGUIManager.getFrame().setResizable(false);
         gameGUIManager.getFrame().setLocationRelativeTo(null);  // Center the window object
         gameGUIManager.getFrame().setVisible(true);
-    }
-
-    //endregion
-
-    //region Add Keyboard Listener
-
-    public void addKeyboardListener() {
-        gameGUIManager.getFrame().addKeyListener(new GUI_KeyboardListener(GameSettings.getInstance().getWindowName()));
     }
 
     //endregion

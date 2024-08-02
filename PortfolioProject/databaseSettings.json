@@ -1,0 +1,8 @@
+{
+  "dbAddress": "localhost",
+  "dbPort": 3306,
+  "dbName": "mydatabase",
+  "dbUser": "user",
+  "dbPassword": "password",
+  "dbRootPassword": "password"
+}

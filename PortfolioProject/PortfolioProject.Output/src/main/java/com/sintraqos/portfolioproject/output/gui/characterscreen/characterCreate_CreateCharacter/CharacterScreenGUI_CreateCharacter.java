@@ -2,6 +2,7 @@ package com.sintraqos.portfolioproject.output.gui.characterscreen.characterCreat
 
 import com.sintraqos.portfolioproject.output.gui.characterscreen.CharacterScreenGUI_Base;
 import com.sintraqos.portfolioproject.output.gui.mainmenu.MainMenuGUI;
+import com.sintraqos.portfolioproject.statics.Console;
 
 import javax.swing.*;
 import java.awt.event.ActionListener;
@@ -64,5 +65,6 @@ public class CharacterScreenGUI_CreateCharacter extends CharacterScreenGUI_Base 
         backButton = setParent(getObjectPanel(), addButton(getGuiWidth(), getGuiHeight(), "Back", backListener));
 
         setWindowSize();
+        Console.writeLine("Loaded in Character Screen: Create Character");
     }
 }

@@ -1,9 +1,6 @@
 package com.sintraqos.portfolioproject.output.audio;
 
-import com.sintraqos.portfolioproject.statics.Enums;
-import com.sintraqos.portfolioproject.statics.Functions;
-import com.sintraqos.portfolioproject.statics.GameSettings;
-import com.sintraqos.portfolioproject.statics.ResourcePaths;
+import com.sintraqos.portfolioproject.statics.*;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -42,17 +39,22 @@ public class GameAudioManager {
     AudioList battleAudio;
 
     void setup() {
+        Console.writeHeader("Setup Audio Manager");
+
         // Set volume
-        GameSettings settings = GameSettings.getInstance();
-        masterVolume = settings.getMasterVolume();
-        musicVolume = settings.getMusicVolume();
-        sfxVolume = settings.getSfxVolume();
-        dialogueVolume = settings.getDialogueVolume();
+        masterVolume = GameSettings.getInstance().getMasterVolume();
+        musicVolume = GameSettings.getInstance().getMusicVolume();
+        sfxVolume = GameSettings.getInstance().getSfxVolume();
+        dialogueVolume = GameSettings.getInstance().getDialogueVolume();
 
         //Load in all the audio files as AudioClips, so they're ready to be played at anytime
         loadAudioFiles();
+
         // Set the volumes to their proper calculated values
-        setVolume(Enums.audioType.AUDIO_TYPE_MASTER, GameSettings.getInstance().getMasterVolume());
+        //setVolume(Enums.audioType.AUDIO_TYPE_MASTER, GameSettings.getInstance().getMasterVolume());
+
+        Console.writeLine("Finished Setup Audio Manager");
+        Console.writeLine();
     }
 
     void loadAudioFiles() {
@@ -60,17 +62,23 @@ public class GameAudioManager {
         dialogueAudio = new HashMap<>();
 
         // Gui
+        Console.writeLine("Loading GUI audio files");
         audioClips.put(ResourcePaths.GUI_CLICK, new AudioClip(ResourcePaths.GUI_CLICK, ResourcePaths.getGUISoundEffectAudioFile(ResourcePaths.GUI_CLICK)));
         audioClips.put(ResourcePaths.GUI_CLOSE, new AudioClip(ResourcePaths.GUI_CLOSE, ResourcePaths.getGUISoundEffectAudioFile(ResourcePaths.GUI_CLOSE)));
         audioClips.put(ResourcePaths.GUI_PROMPT, new AudioClip(ResourcePaths.GUI_PROMPT, ResourcePaths.getGUISoundEffectAudioFile(ResourcePaths.GUI_PROMPT)));
         audioClips.put(ResourcePaths.GUI_INVENTORY_ADD, new AudioClip(ResourcePaths.GUI_INVENTORY_ADD, ResourcePaths.getGUISoundEffectAudioFile(ResourcePaths.GUI_INVENTORY_ADD)));
         audioClips.put(ResourcePaths.GUI_INVENTORY_REMOVE, new AudioClip(ResourcePaths.GUI_INVENTORY_REMOVE, ResourcePaths.getGUISoundEffectAudioFile(ResourcePaths.GUI_INVENTORY_REMOVE)));
         audioClips.put(ResourcePaths.GUI_INVENTORY_SELECT, new AudioClip(ResourcePaths.GUI_INVENTORY_SELECT, ResourcePaths.getGUISoundEffectAudioFile(ResourcePaths.GUI_INVENTORY_SELECT)));
+        Console.writeLine();
 
         // Music
+        Console.writeLine("Loading music audio files");
         audioClips.put(ResourcePaths.OST_MAIN_MENU, new AudioClip(ResourcePaths.OST_MAIN_MENU, ResourcePaths.getSoundtrackAudioFile(ResourcePaths.OST_MAIN_MENU)));
+        audioClips.put(ResourcePaths.OST_CHARACTER_CREATE, new AudioClip(ResourcePaths.OST_CHARACTER_CREATE, ResourcePaths.getSoundtrackAudioFile(ResourcePaths.OST_CHARACTER_CREATE)));
+        Console.writeLine();
 
         // Setup Audio Lists
+        Console.writeLine("Loading audio lists");
         ambientAudio = new AudioList();
         // Planet
         ambientAudio.createAudioClips(ResourcePaths.OST_AMBIENT_PREFIX_DANTOOINE);
@@ -128,16 +136,10 @@ public class GameAudioManager {
                 dialogueVolume = volume * masterVolume;
                 break;
         }
-        // Check if the audioclip is currently active, if true, set the volume for the given audioClip
-        if (musicClip != null) {
-            setVolume(musicClip, musicVolume);
-        }
-        if (sfxClip != null) {
-            setVolume(sfxClip, sfxVolume);
-        }
-        if (dialogueClip != null) {
-            setVolume(dialogueClip, dialogueVolume);
-        }
+
+        setVolume(musicClip, musicVolume);
+        setVolume(sfxClip, sfxVolume);
+        setVolume(dialogueClip, dialogueVolume);
     }
 
     public float getVolume(Enums.audioType audioType) {
@@ -164,27 +166,37 @@ public class GameAudioManager {
 
     public void playAudio(String audioName, Enums.audioType audioType, int loopCount) {
         try {
-            Clip clip;
+            Clip clip = AudioSystem.getClip();
             float audioVolume = 0;
             switch (audioType) {
                 case AUDIO_TYPE_MUSIC:
                     audioVolume = musicVolume;
-                    clip = musicClip;
+                    if (musicClip == null) {
+                        musicClip = clip;
+                    }
                     break;
+
                 case AUDIO_TYPE_SFX:
                     audioVolume = sfxVolume;
-                    clip = sfxClip;
+                    if (sfxClip == null) {
+                        sfxClip = clip;
+                    }
                     break;
+
                 case AUDIO_TYPE_DIALOGUE:
                     audioVolume = dialogueVolume;
-                    clip = dialogueClip;
+                    if (dialogueClip == null) {
+                        dialogueClip = clip;
+                    }
                     break;
             }
-            clip = AudioSystem.getClip();
+
             clip.open(audioClips.get(audioName).audioInputStream);
             setVolume(clip, audioVolume);
             clip.start();
             clip.loop(loopCount);
+
+            Console.writeLine("Currently playing: " + audioName);
         } catch (IOException | LineUnavailableException ex) {
             throw new Functions.ExceptionHandler("Failed play audio clip", ex);
         }
@@ -206,13 +218,15 @@ public class GameAudioManager {
         }
 
         new Thread(new OneShotAudioTask(audioClips.get(audioName).audioInputStream, audioVolume)).start();
+
+        Console.writeLine("Currently playing one-shot: " + audioName);
     }
 
     public void setVolume(Clip clip, float volume) {
         volume = Math.max(0, Math.min(1, volume));
 
-        FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
-        gainControl.setValue(20f * (float) Math.log10(volume));
+        FloatControl volumeControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
+        volumeControl.setValue(20f * (float) Math.log10(volume));
     }
 
     static class OneShotAudioTask implements Runnable {
@@ -221,10 +235,8 @@ public class GameAudioManager {
 
         @Override
         public void run() {
-            Clip clip;
-
             try {
-                clip = AudioSystem.getClip();
+                Clip  clip = AudioSystem.getClip();
                 clip.open(audioInputStream);
                 GameAudioManager.getInstance().setVolume(clip, audioVolume);
                 clip.start();

@@ -3,9 +3,9 @@ package com.sintraqos.portfolioproject.output.gui;
 import com.sintraqos.portfolioproject.output.OutputManager;
 import com.sintraqos.portfolioproject.output.audio.GameAudioManager;
 import com.sintraqos.portfolioproject.output.gui.guicomponents.GUI_JPanelBackground;
-import com.sintraqos.portfolioproject.output.gui.guicomponents.GUI_KeyboardListener;
-import com.sintraqos.portfolioproject.output.gui.mainmenu.MainMenuGUI;
+import com.sintraqos.portfolioproject.output.gui.guicomponents.GUI_JFrameKeyboardListener;
 import com.sintraqos.portfolioproject.statics.*;
+import com.sintraqos.portfolioproject.statics.Console;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -19,8 +19,6 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.IntStream;
 
 public class GameGUIManager {
-
-    GUIScreen activeScreen;
 
     // Get instance
     static GameGUIManager instance;
@@ -36,9 +34,9 @@ public class GameGUIManager {
     }
 
     Font font;
-    JFrame frame;
+    GUI_JFrameKeyboardListener frame;
 
-    public JFrame getFrame() {
+    public GUI_JFrameKeyboardListener getFrame() {
         return frame;
     }
 
@@ -47,6 +45,8 @@ public class GameGUIManager {
     ConcurrentHashMap<String, Image> portraitSprites = new ConcurrentHashMap<>();
 
     void setup() {
+        Console.writeHeader("Setup GUI Manager");
+
         // Images Setup
         loadImages();
 
@@ -59,26 +59,32 @@ public class GameGUIManager {
         loadFont();
 
         // Load the needed GUI
-        frame = new GUI_KeyboardListener(GameSettings.getInstance().getWindowName());
+        frame = new GUI_JFrameKeyboardListener(GameSettings.getInstance().getWindowName());
 
-        activeScreen = new MainMenuGUI();
+        Console.writeLine("Finished Setup GUI Manager");
+        Console.writeLine();
     }
 
     //region Load files
 
     // Load Image
     void loadImages() {
+        Console.writeHeader("Loading Images");
+
         // Title Screen
         baseSpites.put(ResourcePaths.TITLE_SCREEN_LOGO, Objects.requireNonNull(getImage(ResourcePaths.getImagePath(ResourcePaths.MAIN_MENU_DIRECTORY, ResourcePaths.TITLE_SCREEN_LOGO))));
+        Console.writeLine("Loaded Title Screen Image");
 
         // Class Icons
         baseSpites.put(ResourcePaths.GUI_CLASS_ICON_CONSULAR, Objects.requireNonNull(getImage(ResourcePaths.getUIImagePath(ResourcePaths.GUI_CLASS_ICON_CONSULAR))));
         baseSpites.put(ResourcePaths.GUI_CLASS_ICON_GUARDIAN, Objects.requireNonNull(getImage(ResourcePaths.getUIImagePath(ResourcePaths.GUI_CLASS_ICON_GUARDIAN))));
         baseSpites.put(ResourcePaths.GUI_CLASS_ICON_SENTINEL, Objects.requireNonNull(getImage(ResourcePaths.getUIImagePath(ResourcePaths.GUI_CLASS_ICON_SENTINEL))));
+        Console.writeLine("Loaded Class Icon Images");
 
         // Default Portraits
         baseSpites.put(ResourcePaths.PORTRAIT_DEFAULT_MALE, Objects.requireNonNull(getImage(ResourcePaths.getUIImagePath(ResourcePaths.PORTRAIT_DEFAULT_MALE))));
         baseSpites.put(ResourcePaths.PORTRAIT_DEFAULT_FEMALE, Objects.requireNonNull(getImage(ResourcePaths.getUIImagePath(ResourcePaths.PORTRAIT_DEFAULT_FEMALE))));
+        Console.writeLine("Loaded Default Portrait Images");
 
         // GUI Elements
         baseSpites.put(ResourcePaths.GUI_BACKGROUND, Objects.requireNonNull(getImage(ResourcePaths.getUIImagePath(ResourcePaths.GUI_BACKGROUND))));
@@ -86,10 +92,16 @@ public class GameGUIManager {
         baseSpites.put(ResourcePaths.BUTTON_CLICK, Objects.requireNonNull(getImage(ResourcePaths.getUIImagePath(ResourcePaths.BUTTON_CLICK))));
         baseSpites.put(ResourcePaths.BUTTON_HOVER, Objects.requireNonNull(getImage(ResourcePaths.getUIImagePath(ResourcePaths.BUTTON_HOVER))));
         baseSpites.put(ResourcePaths.LABEL_IMAGE, Objects.requireNonNull(getImage(ResourcePaths.getUIImagePath(ResourcePaths.LABEL_IMAGE))));
+        Console.writeLine("Loaded GUI Element Images");
+
+        Console.writeLine("Finished Loading Images");
+        Console.writeLine();
     }
 
     // Companion Portrait
     void loadCompanionPortraits() {
+        Console.writeHeader("Loading Companion Portraits");
+
         HashMap<String, List<String>> companionPortraits = (HashMap<String, List<String>>) ResourcePaths.getPortraitCompanions();
 
         // Since we need to process a lot of files run a parallel loop, so it won't take too much time to process each file
@@ -97,26 +109,40 @@ public class GameGUIManager {
             List<String> currentPortraits = new ArrayList<>(companionPortraits.values()).get(i);
             IntStream.range(0, currentPortraits.size()).parallel().forEach(j -> addPortrait(Functions.getFileNameWithoutExtension(currentPortraits.get(j)), ResourcePaths.PORTRAIT_COMPANION_DIRECTORY));
         });
+
+        Console.writeLine("Finished Loading Companion Portraits");
+        Console.writeLine();
     }
 
     // Player Portrait
     void loadPlayerPortraits() {
+        Console.writeHeader("Loading Player Portraits");
+
         loadPlayerPortraits(ResourcePaths.PORTRAIT_MALE_PREFIX);
         loadPlayerPortraits(ResourcePaths.PORTRAIT_FEMALE_PREFIX);
+
+        Console.writeLine("Finished Loading Player Portraits");
+        Console.writeLine();
     }
 
     void loadPlayerPortraits(String imagePrefix) {
+        Console.writeLine("New portrait prefix: " + imagePrefix);
         List<String> fileNames = OutputManager.getInstance().getPortraitPathsFile().getFilePaths(imagePrefix);
 
         IntStream.range(0, fileNames.size()).parallel().forEach(i -> addPortrait(Functions.getFileNameWithoutExtension(fileNames.get(i)), ResourcePaths.PORTRAIT_PLAYER_DIRECTORY));
+
+        Console.writeLine();
     }
 
     void addPortrait(String fileName, String locationDirectory) {
+        Console.writeLine("Adding portrait: " + fileName);
         portraitSprites.put(fileName, Objects.requireNonNull(getImage(ResourcePaths.getImagePath(ResourcePaths.PORTRAIT_DIRECTORY, locationDirectory, fileName))));
     }
 
     // Font
     void loadFont() {
+        Console.writeHeader("Loading Font File");
+
         try {
             font = Font.createFont(Font.TRUETYPE_FONT, Objects.requireNonNull(getClass().getResourceAsStream(ResourcePaths.getFontPath())));
 
@@ -124,6 +150,9 @@ public class GameGUIManager {
         } catch (FontFormatException | IOException ex) {
             throw new Functions.ExceptionHandler("Failed to get Font file", ex);
         }
+
+        Console.writeLine("Finished Loading Font File");
+        Console.writeLine();
     }
 
     //endregion

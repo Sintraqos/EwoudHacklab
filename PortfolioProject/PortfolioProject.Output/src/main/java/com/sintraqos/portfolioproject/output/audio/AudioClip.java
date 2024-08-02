@@ -1,6 +1,6 @@
 package com.sintraqos.portfolioproject.output.audio;
 
-import com.sintraqos.portfolioproject.output.Console;
+import com.sintraqos.portfolioproject.statics.Console;
 import com.sintraqos.portfolioproject.statics.Functions;
 
 import javax.sound.sampled.*;
@@ -22,7 +22,8 @@ public class AudioClip {
 
     public AudioClip(String audioClipName, String audioClipPath) {
         try {
-            audioInputStream =  AudioSystem.getAudioInputStream(Objects.requireNonNull(Functions.class.getResource(audioClipPath)));
+            audioInputStream = AudioSystem.getAudioInputStream(Objects.requireNonNull(Functions.class.getResource(audioClipPath)));
+            Console.writeLine("Created audio clip: " + Functions.getFileNameWithoutExtension(audioClipName));
         } catch (UnsupportedAudioFileException | IOException ex) {
             throw new Functions.ExceptionHandler("AudioClip could not be created", ex);
         }

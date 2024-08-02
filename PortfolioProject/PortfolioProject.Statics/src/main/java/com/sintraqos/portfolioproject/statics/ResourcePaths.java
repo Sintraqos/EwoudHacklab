@@ -24,13 +24,13 @@ public class ResourcePaths {
     public static final String FONT_DIRECTORY = "fonts";
     public static final String FONT_FILE_NAME = "Old_Republic";
 
-    //region Image
-
     // Directories
     public static final String IMAGE_DIRECTORY = "images";
     public static final String MAIN_MENU_DIRECTORY = "mainMenu";
     public static final String ITEM_IMAGE_DIRECTORY = "itemIcon";
     public static final String UI_ELEMENT_DIRECTORY = "uiElements";
+
+    //region Image
 
     // Image Files
     public static final String TITLE_SCREEN_LOGO = "SWKoToRII_Logo";

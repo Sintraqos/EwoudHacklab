@@ -60,6 +60,9 @@ public class GameSettings implements java.io.Serializable {
     // Input
     private Map<String, String> keyBindings = new LinkedHashMap<>();
 
+    // Output
+    private boolean logActive = false;
+
     //region Public variables
 
     // Window
@@ -120,6 +123,11 @@ public class GameSettings implements java.io.Serializable {
         return keyBindings;
     }
 
+    // Output
+    public boolean getLogActive() {
+        return logActive;
+    }
+
     //endregion
 
     // Set game settings
@@ -148,6 +156,9 @@ public class GameSettings implements java.io.Serializable {
 
         // Input
         keyBindings = gameSettings.keyBindings;
+
+        // Output
+        logActive = gameSettings.logActive;
     }
 
     public void setWindowSize(Dimension windowSize) {

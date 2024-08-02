@@ -1,7 +1,7 @@
 package com.sintraqos.portfolioproject.output.audio;
 
-import com.sintraqos.portfolioproject.output.Console;
 import com.sintraqos.portfolioproject.output.OutputManager;
+import com.sintraqos.portfolioproject.statics.Console;
 import com.sintraqos.portfolioproject.statics.Functions;
 import com.sintraqos.portfolioproject.statics.ResourcePaths;
 
@@ -26,6 +26,7 @@ public class AudioList {
     }
 
     public void createAudioClips(String audioPrefix) {
+        Console.writeLine("New Audio List Prefix: " + audioPrefix);
         // Create new audioList
         audioClips.put(audioPrefix, new ArrayList<>());
 
@@ -37,6 +38,8 @@ public class AudioList {
                                 fileNames.get(i),
                                 ResourcePaths.getSoundtrackAudioFile(Functions.getFileNameWithoutExtension(fileNames.get(i)))
                         )));
+
+        Console.writeLine();
     }
 
     public AudioClip getRandomAudioClip(String audioPrefix) {

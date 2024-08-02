@@ -1,5 +1,7 @@
 package com.sintraqos.portfolioproject.output.gui.characterscreen.characterCreate_SelectGenderClass;
 
+import com.sintraqos.portfolioproject.output.audio.GameAudioManager;
+import com.sintraqos.portfolioproject.output.gui.GameGUIManager;
 import com.sintraqos.portfolioproject.output.gui.characterscreen.CharacterScreenGUI_Base;
 import com.sintraqos.portfolioproject.output.gui.characterscreen.characterCreate_CreateCharacter.CharacterScreenGUI_CreateCharacter;
 import com.sintraqos.portfolioproject.output.gui.mainmenu.MainMenuGUI;
@@ -108,6 +110,10 @@ public class CharacterScreenGUI_SelectGenderClass extends CharacterScreenGUI_Bas
 
         // Set window size
         setWindowSize();
+
+        // Play audio
+        GameAudioManager.getInstance().playAudio(ResourcePaths.OST_CHARACTER_CREATE, Enums.audioType.AUDIO_TYPE_MUSIC);
+        Console.writeLine("Loaded in Character Screen: Select Gender and Class panel");
     }
 
     void setClassInfoPanel() {

@@ -78,6 +78,12 @@ public class CreateOutputFiles {
 
         //endregion
 
+        //region Dialogue Audio Files
+
+        //TODO: Read out the dialogue files, get all the needed DialogueID's and find the needed audioFiles from there
+
+        //endregion
+
         //endregion
     }
 

@@ -23,5 +23,6 @@
     "Inventory": "I",
     "Character Screen": "C",
     "Escape Menu": "Escape"
-  }
+  },
+  "logActive": true
 }
