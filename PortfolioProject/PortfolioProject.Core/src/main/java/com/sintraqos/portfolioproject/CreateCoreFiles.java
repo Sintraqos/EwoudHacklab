@@ -15,7 +15,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class CreateCoreFiles {
 
-    static ConcurrentHashMap<String,List<String>> filepaths=new ConcurrentHashMap<>();
+    static ConcurrentHashMap<String,List<String>> filePaths =new ConcurrentHashMap<>();
 
     public static void main(String[] args) {
         //region File Paths
@@ -383,7 +383,7 @@ public class CreateCoreFiles {
 
         //endregion
 
-        createFilePathFile(ResourcePaths.DIALOGUE_DIRECTORY, new ResourcePaths.ResourcePathsFile(filepaths));
+        createFilePathFile(ResourcePaths.DIALOGUE_DIRECTORY, new ResourcePaths.ResourcePathsFile(filePaths));
     }
 
    static void createDirectory(String directoryPath) {
@@ -414,8 +414,8 @@ public class CreateCoreFiles {
             gson.toJson(newDialogueTree, writer);
 
             // Check if filePaths contains key, otherwise create new one
-            filepaths.computeIfAbsent(locationPath, _ -> new ArrayList<>());
-            filepaths.get(locationPath).add(ResourcePaths.getDataPath(locationPath,fileName));
+            filePaths.computeIfAbsent(locationPath, _ -> new ArrayList<>());
+            filePaths.get(locationPath).add(ResourcePaths.getDataPath(locationPath,fileName));
 
         } catch (IOException ex) {
             throw new Functions.ExceptionHandler("Failed to create new dialogue file", ex);

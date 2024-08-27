@@ -1,19 +1,15 @@
 package com.sintraqos.portfolioproject.connect;
 
+import com.sintraqos.portfolioproject.statics.DataObjects.ItemObject;
+
+import java.util.ArrayList;
+
 public class ConnectHandler {
 
-    // Get instance
-    static ConnectHandler instance;
-
-    public static ConnectHandler getInstance() {
-        if (instance == null) {
-            instance = new ConnectHandler();
-            if(!instance.isConnected){
-                instance.initializeConnection();
-            }
+    public ConnectHandler() {
+        if (!isConnected) {
+            initializeConnection();
         }
-
-        return instance;
     }
 
     boolean isConnected;
@@ -28,4 +24,7 @@ public class ConnectHandler {
         // Call from other scripts
     }
 
+    // Items
+    public void createItemObject(ItemObject itemObject){}
+    public ArrayList<ItemObject> getItemObjects(){return new ArrayList<>();}
 }

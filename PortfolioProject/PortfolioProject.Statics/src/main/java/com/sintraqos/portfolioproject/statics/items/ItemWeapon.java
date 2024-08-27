@@ -1,4 +1,4 @@
-package com.sintraqos.portfolioproject.dataobjects.items;
+package com.sintraqos.portfolioproject.statics.items;
 
 import com.sintraqos.portfolioproject.statics.Enums;
 
@@ -8,7 +8,11 @@ public class ItemWeapon extends ItemEquipable {
     private int itemWeaponMaxDamage = 6;
     private Enums.itemWeaponDamageType itemWeaponDamageType;
 
-    public void setup(
+    public int getItemWeaponMinDamage(){return itemWeaponMinDamage;}
+    public int getItemWeaponMaxDamage(){return itemWeaponMaxDamage;}
+    public Enums.itemWeaponDamageType getItemWeaponDamageType(){return itemWeaponDamageType;}
+
+    public ItemWeapon(
             int itemID,
             String itemName,
             String itemDescription,

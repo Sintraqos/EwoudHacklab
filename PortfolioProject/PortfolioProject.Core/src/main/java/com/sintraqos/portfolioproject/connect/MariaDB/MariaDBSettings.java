@@ -1,6 +1,6 @@
 package com.sintraqos.portfolioproject.connect.MariaDB;
 
-public class MariaDBSettings {
+public class MariaDBSettings implements java.io.Serializable  {
     private String dbAddress = "localhost";
     private int dbPort = 3306;
     private String dbName = "mydatabase";

@@ -1,4 +1,4 @@
-package com.sintraqos.portfolioproject.dataobjects.items;
+package com.sintraqos.portfolioproject.statics.items;
 
 import com.sintraqos.portfolioproject.statics.Enums;
 
@@ -9,6 +9,16 @@ public class ItemEquipable extends Item{
     private Enums.itemWeaponSlot itemWeaponSlot = Enums.itemWeaponSlot.ITEM_WEAPON_SLOT_NONE;
 
     private ArrayList<Enums.itemUpgradeSlot> itemUpgradeSlots;
+
+    public ArrayList<Enums.itemUpgradeSlot> getItemUpgradeSlots() {
+        return itemUpgradeSlots;
+    }
+    public Enums.itemArmorSlot getItemArmorSlot() {
+        return itemArmorSlot;
+    }
+    public Enums.itemWeaponSlot getItemWeaponSlot() {
+        return itemWeaponSlot;
+    }
 
     public void setup(int itemID, String itemName, String itemDescription, Enums.itemArmorSlot itemArmorSlot, Enums.itemWeaponSlot itemWeaponSlot) {
         // Set up the item base

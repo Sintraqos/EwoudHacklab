@@ -11,6 +11,7 @@
     </option>
     <option name="ignoredFiles">
       <set>
+        <option value="$PROJECT_DIR$/PortfolioProject.Connect/pom.xml" />
         <option value="$PROJECT_DIR$/PortfolioProject.ConsoleOLD/pom.xml" />
         <option value="$PROJECT_DIR$/PortfolioProject.CreateFiles/pom.xml" />
         <option value="$PROJECT_DIR$/PortfolioProject.DataObjects/pom.xml" />

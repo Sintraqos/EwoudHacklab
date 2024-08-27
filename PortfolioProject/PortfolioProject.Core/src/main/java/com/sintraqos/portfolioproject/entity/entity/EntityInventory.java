@@ -1,6 +1,6 @@
 package com.sintraqos.portfolioproject.entity.entity;
 
-import com.sintraqos.portfolioproject.dataobjects.items.InventoryItem;
+import com.sintraqos.portfolioproject.statics.items.InventoryItem;
 import java.util.ArrayList;
 import java.util.List;
 

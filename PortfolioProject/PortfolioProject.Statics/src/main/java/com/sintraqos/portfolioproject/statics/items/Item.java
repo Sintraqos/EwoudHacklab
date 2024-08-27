@@ -1,4 +1,4 @@
-package com.sintraqos.portfolioproject.dataobjects.items;
+package com.sintraqos.portfolioproject.statics.items;
 
 public class Item {
     private int itemID = -1;

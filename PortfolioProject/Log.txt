@@ -1,352 +1,132 @@
 « Setup Audio Manager »
-[11:59] - Loading GUI audio files.
-[11:59] - Created audio clip: GUI_click.
-[11:59] - Created audio clip: GUI_close.
-[11:59] - Created audio clip: GUI_prompt.
-[11:59] - Created audio clip: GUI_invadd.
-[11:59] - Created audio clip: GUI_invdrop.
-[11:59] - Created audio clip: GUI_invselect.
-[11:59] - ####################################################
-[11:59] - Loading music audio files.
-[11:59] - Created audio clip: OST_mus_sion.
-[11:59] - Created audio clip: OST_mus_main.
-[11:59] - ####################################################
-[11:59] - Loading audio lists.
-[11:59] - New Audio List Prefix: OST_amb_dan.
-[11:59] - Created audio clip: OST_amb_dan002.
-[11:59] - Created audio clip: OST_amb_dan004.
-[11:59] - Created audio clip: OST_amb_dan006.
-[11:59] - Created audio clip: OST_amb_dan005.
-[11:59] - Created audio clip: OST_amb_dan003.
-[11:59] - Created audio clip: OST_amb_dan001.
-[11:59] - ####################################################
-[11:59] - New Audio List Prefix: OST_amb_dxn.
-[11:59] - Created audio clip: OST_amb_dxn004.
-[11:59] - Created audio clip: OST_amb_dxn002.
-[11:59] - Created audio clip: OST_amb_dxn001.
-[11:59] - Created audio clip: OST_amb_dxn006.
-[11:59] - Created audio clip: OST_amb_dxn005.
-[11:59] - Created audio clip: OST_amb_dxn003.
-[11:59] - ####################################################
-[11:59] - New Audio List Prefix: OST_amb_kor.
-[11:59] - Created audio clip: OST_amb_kor001.
-[11:59] - Created audio clip: OST_amb_kor004.
-[11:59] - Created audio clip: OST_amb_kor002.
-[11:59] - Created audio clip: OST_amb_kor003.
-[11:59] - ####################################################
-[11:59] - New Audio List Prefix: OST_amb_mal.
-[11:59] - Created audio clip: OST_amb_mal007.
-[11:59] - Created audio clip: OST_amb_mal001.
-[11:59] - Created audio clip: OST_amb_mal002.
-[11:59] - Created audio clip: OST_amb_mal006.
-[11:59] - Created audio clip: OST_amb_mal003.
-[11:59] - Created audio clip: OST_amb_mal004.
-[11:59] - Created audio clip: OST_amb_mal005.
-[11:59] - ####################################################
-[11:59] - New Audio List Prefix: OST_amb_nar.
-[11:59] - Created audio clip: OST_amb_nar001.
-[11:59] - Created audio clip: OST_amb_nar002.
-[11:59] - Created audio clip: OST_amb_nar007.
-[11:59] - Created audio clip: OST_amb_nar005.
-[11:59] - Created audio clip: OST_amb_nar006.
-[11:59] - Created audio clip: OST_amb_nar004.
-[11:59] - Created audio clip: OST_amb_nar003.
-[11:59] - ####################################################
-[11:59] - New Audio List Prefix: OST_amb_ond.
-[11:59] - Created audio clip: OST_amb_ond006.
-[11:59] - Created audio clip: OST_amb_ond003.
-[11:59] - Created audio clip: OST_amb_ond005.
-[11:59] - Created audio clip: OST_amb_ond008.
-[11:59] - Created audio clip: OST_amb_ond007.
-[11:59] - Created audio clip: OST_amb_ond009.
-[11:59] - Created audio clip: OST_amb_ond004.
-[11:59] - Created audio clip: OST_amb_ond001.
-[11:59] - Created audio clip: OST_amb_ond002.
-[11:59] - ####################################################
-[11:59] - New Audio List Prefix: OST_amb_tel.
-[11:59] - Created audio clip: OST_amb_tel006.
-[11:59] - Created audio clip: OST_amb_tel015.
-[11:59] - Created audio clip: OST_amb_tel014.
-[11:59] - Created audio clip: OST_amb_tel013.
-[11:59] - Created audio clip: OST_amb_tel016.
-[11:59] - Created audio clip: OST_amb_tel011.
-[11:59] - Created audio clip: OST_amb_tel012.
-[11:59] - Created audio clip: OST_amb_tel010.
-[11:59] - Created audio clip: OST_amb_tel003.
-[11:59] - Created audio clip: OST_amb_tel009.
-[11:59] - Created audio clip: OST_amb_tel001.
-[11:59] - Created audio clip: OST_amb_tel004.
-[11:59] - Created audio clip: OST_amb_tel008.
-[11:59] - Created audio clip: OST_amb_tel007.
-[11:59] - Created audio clip: OST_amb_tel002.
-[11:59] - Created audio clip: OST_amb_tel005.
-[11:59] - ####################################################
-[11:59] - New Audio List Prefix: OST_amb_ebo.
-[11:59] - Created audio clip: OST_amb_ebo002.
-[11:59] - Created audio clip: OST_amb_ebo003.
-[11:59] - Created audio clip: OST_amb_ebo001.
-[11:59] - Created audio clip: OST_amb_ebo004.
-[11:59] - ####################################################
-[11:59] - New Audio List Prefix: OST_amb_har.
-[11:59] - Created audio clip: OST_amb_har001.
-[11:59] - Created audio clip: OST_amb_har003.
-[11:59] - Created audio clip: OST_amb_har002.
-[11:59] - ####################################################
-[11:59] - New Audio List Prefix: OST_amb_nih.
-[11:59] - Created audio clip: OST_amb_nih003.
-[11:59] - Created audio clip: OST_amb_nih002.
-[11:59] - Created audio clip: OST_amb_nih001.
-[11:59] - ####################################################
-[11:59] - New Audio List Prefix: OST_amb_per.
-[11:59] - Created audio clip: OST_amb_per002.
-[11:59] - Created audio clip: OST_amb_per001.
-[11:59] - Created audio clip: OST_amb_per003.
-[11:59] - Created audio clip: OST_amb_per006.
-[11:59] - Created audio clip: OST_amb_per007.
-[11:59] - Created audio clip: OST_amb_per004.
-[11:59] - Created audio clip: OST_amb_per005.
-[11:59] - ####################################################
-[11:59] - New Audio List Prefix: OST_bat.
-[11:59] - Created audio clip: OST_bat_004.
-[11:59] - Created audio clip: OST_bat_001.
-[11:59] - Created audio clip: OST_bat_003.
-[11:59] - Created audio clip: OST_bat_006.
-[11:59] - Created audio clip: OST_bat_009.
-[11:59] - Created audio clip: OST_bat_002.
-[11:59] - Created audio clip: OST_bat_010.
-[11:59] - Created audio clip: OST_bat_000.
-[11:59] - Created audio clip: OST_bat_005.
-[11:59] - Created audio clip: OST_bat_013.
-[11:59] - Created audio clip: OST_bat_008.
-[11:59] - Created audio clip: OST_bat_007.
-[11:59] - Created audio clip: OST_bat_012.
-[11:59] - Created audio clip: OST_bat_011.
-[11:59] - Created audio clip: OST_bat_final.
-[11:59] - ####################################################
-[11:59] - Finished Setup Audio Manager.
-[11:59] - ####################################################
+[09:45] - Loading GUI audio files.
+[09:45] - Created audio clip: GUI_click.
+[09:45] - Created audio clip: GUI_close.
+[09:45] - Created audio clip: GUI_prompt.
+[09:45] - Created audio clip: GUI_invadd.
+[09:45] - Created audio clip: GUI_invdrop.
+[09:45] - Created audio clip: GUI_invselect.
+[09:45] - ####################################################
+[09:45] - Loading music audio files.
+[09:45] - Created audio clip: OST_mus_sion.
+[09:45] - Created audio clip: OST_mus_main.
+[09:45] - ####################################################
+[09:45] - Loading audio lists.
+[09:45] - New Audio List Prefix: OST_amb_dan.
+[09:45] - Created audio clip: OST_amb_dan004.
+[09:45] - Created audio clip: OST_amb_dan002.
+[09:45] - Created audio clip: OST_amb_dan005.
+[09:45] - Created audio clip: OST_amb_dan003.
+[09:45] - Created audio clip: OST_amb_dan006.
+[09:45] - Created audio clip: OST_amb_dan001.
+[09:45] - ####################################################
+[09:45] - New Audio List Prefix: OST_amb_dxn.
+[09:45] - Created audio clip: OST_amb_dxn004.
+[09:45] - Created audio clip: OST_amb_dxn005.
+[09:45] - Created audio clip: OST_amb_dxn002.
+[09:45] - Created audio clip: OST_amb_dxn001.
+[09:45] - Created audio clip: OST_amb_dxn006.
+[09:45] - Created audio clip: OST_amb_dxn003.
+[09:45] - ####################################################
+[09:45] - New Audio List Prefix: OST_amb_kor.
+[09:45] - Created audio clip: OST_amb_kor001.
+[09:45] - Created audio clip: OST_amb_kor003.
+[09:45] - Created audio clip: OST_amb_kor004.
+[09:45] - Created audio clip: OST_amb_kor002.
+[09:45] - ####################################################
+[09:45] - New Audio List Prefix: OST_amb_mal.
+[09:45] - Created audio clip: OST_amb_mal005.
+[09:45] - Created audio clip: OST_amb_mal007.
+[09:45] - Created audio clip: OST_amb_mal001.
+[09:45] - Created audio clip: OST_amb_mal002.
+[09:45] - Created audio clip: OST_amb_mal006.
+[09:45] - Created audio clip: OST_amb_mal004.
+[09:45] - Created audio clip: OST_amb_mal003.
+[09:45] - ####################################################
+[09:45] - New Audio List Prefix: OST_amb_nar.
+[09:45] - Created audio clip: OST_amb_nar002.
+[09:45] - Created audio clip: OST_amb_nar003.
+[09:45] - Created audio clip: OST_amb_nar001.
+[09:45] - Created audio clip: OST_amb_nar007.
+[09:45] - Created audio clip: OST_amb_nar005.
+[09:45] - Created audio clip: OST_amb_nar004.
+[09:45] - Created audio clip: OST_amb_nar006.
+[09:45] - ####################################################
+[09:45] - New Audio List Prefix: OST_amb_ond.
+[09:45] - Created audio clip: OST_amb_ond003.
+[09:45] - Created audio clip: OST_amb_ond008.
+[09:45] - Created audio clip: OST_amb_ond006.
+[09:45] - Created audio clip: OST_amb_ond004.
+[09:45] - Created audio clip: OST_amb_ond007.
+[09:45] - Created audio clip: OST_amb_ond005.
+[09:45] - Created audio clip: OST_amb_ond009.
+[09:45] - Created audio clip: OST_amb_ond002.
+[09:45] - Created audio clip: OST_amb_ond001.
+[09:45] - ####################################################
+[09:45] - New Audio List Prefix: OST_amb_tel.
+[09:45] - Created audio clip: OST_amb_tel006.
+[09:45] - Created audio clip: OST_amb_tel008.
+[09:45] - Created audio clip: OST_amb_tel003.
+[09:45] - Created audio clip: OST_amb_tel007.
+[09:45] - Created audio clip: OST_amb_tel004.
+[09:45] - Created audio clip: OST_amb_tel002.
+[09:45] - Created audio clip: OST_amb_tel001.
+[09:45] - Created audio clip: OST_amb_tel010.
+[09:45] - Created audio clip: OST_amb_tel011.
+[09:45] - Created audio clip: OST_amb_tel015.
+[09:45] - Created audio clip: OST_amb_tel005.
+[09:45] - Created audio clip: OST_amb_tel009.
+[09:45] - Created audio clip: OST_amb_tel012.
+[09:45] - Created audio clip: OST_amb_tel014.
+[09:45] - Created audio clip: OST_amb_tel016.
+[09:45] - Created audio clip: OST_amb_tel013.
+[09:45] - ####################################################
+[09:45] - New Audio List Prefix: OST_amb_ebo.
+[09:45] - Created audio clip: OST_amb_ebo004.
+[09:45] - Created audio clip: OST_amb_ebo002.
+[09:45] - Created audio clip: OST_amb_ebo001.
+[09:45] - Created audio clip: OST_amb_ebo003.
+[09:45] - ####################################################
+[09:45] - New Audio List Prefix: OST_amb_har.
+[09:45] - Created audio clip: OST_amb_har001.
+[09:45] - Created audio clip: OST_amb_har002.
+[09:45] - Created audio clip: OST_amb_har003.
+[09:45] - ####################################################
+[09:45] - New Audio List Prefix: OST_amb_nih.
+[09:45] - Created audio clip: OST_amb_nih003.
+[09:45] - Created audio clip: OST_amb_nih002.
+[09:45] - Created audio clip: OST_amb_nih001.
+[09:45] - ####################################################
+[09:45] - New Audio List Prefix: OST_amb_per.
+[09:45] - Created audio clip: OST_amb_per003.
+[09:45] - Created audio clip: OST_amb_per001.
+[09:45] - Created audio clip: OST_amb_per002.
+[09:45] - Created audio clip: OST_amb_per005.
+[09:45] - Created audio clip: OST_amb_per007.
+[09:45] - Created audio clip: OST_amb_per004.
+[09:45] - Created audio clip: OST_amb_per006.
+[09:45] - ####################################################
+[09:45] - New Audio List Prefix: OST_bat.
+[09:45] - Created audio clip: OST_bat_004.
+[09:45] - Created audio clip: OST_bat_000.
+[09:45] - Created audio clip: OST_bat_003.
+[09:45] - Created audio clip: OST_bat_001.
+[09:45] - Created audio clip: OST_bat_002.
+[09:45] - Created audio clip: OST_bat_006.
+[09:45] - Created audio clip: OST_bat_005.
+[09:45] - Created audio clip: OST_bat_009.
+[09:45] - Created audio clip: OST_bat_012.
+[09:45] - Created audio clip: OST_bat_008.
+[09:45] - Created audio clip: OST_bat_010.
+[09:45] - Created audio clip: OST_bat_011.
+[09:45] - Created audio clip: OST_bat_final.
+[09:45] - Created audio clip: OST_bat_007.
+[09:45] - Created audio clip: OST_bat_013.
+[09:45] - ####################################################
+[09:45] - Finished Setup Audio Manager.
+[09:45] - ####################################################
 « Setup Gui Manager »
 « Loading Images »
-[11:59] - Loaded Title Screen Image.
-[11:59] - Loaded Class Icon Images.
-[11:59] - Loaded Default Portrait Images.
-[11:59] - Loaded GUI Element Images.
-[11:59] - Finished Loading Images.
-[11:59] - ####################################################
-« Loading Companion Portraits »
-[11:59] - Adding portrait: comp_Kreia.
-[11:59] - Adding portrait: comp_BaoDur_2.
-[11:59] - Adding portrait: comp_Visas_2.
-[11:59] - Adding portrait: comp_HK50.
-[11:59] - Adding portrait: comp_Visas_3.
-[11:59] - Adding portrait: comp_BaoDur_3.
-[11:59] - Adding portrait: comp_HK50.
-[11:59] - Adding portrait: comp_Kreia.
-[11:59] - Adding portrait: comp_Visas_1.
-[11:59] - Adding portrait: comp_BaoDur_1.
-[11:59] - Adding portrait: comp_HK50.
-[11:59] - Adding portrait: comp_Kreia.
-[11:59] - Adding portrait: comp_HK51.
-[11:59] - Adding portrait: comp_B4D4.
-[11:59] - Adding portrait: comp_Mandalore.
-[11:59] - Adding portrait: comp_HK51.
-[11:59] - Adding portrait: comp_Disciple_2.
-[11:59] - Adding portrait: comp_B4D4.
-[11:59] - Adding portrait: comp_Mandalore.
-[11:59] - Adding portrait: comp_HK51.
-[11:59] - Adding portrait: comp_B4D4.
-[11:59] - Adding portrait: comp_Disciple_3.
-[11:59] - Adding portrait: comp_Mandalore.
-[11:59] - Adding portrait: comp_Mira_2.
-[11:59] - Adding portrait: comp_HK47.
-[11:59] - Adding portrait: comp_Disciple_1.
-[11:59] - Adding portrait: comp_HandM_2.
-[11:59] - Adding portrait: comp_HandM_3.
-[11:59] - Adding portrait: comp_Remote.
-[11:59] - Adding portrait: comp_Mira_3.
-[11:59] - Adding portrait: comp_HK47.
-[11:59] - Adding portrait: comp_Remote.
-[11:59] - Adding portrait: comp_HandM_1.
-[11:59] - Adding portrait: comp_Mira_1.
-[11:59] - Adding portrait: comp_HK47.
-[11:59] - Adding portrait: comp_Remote.
-[11:59] - Adding portrait: comp_Atris.
-[11:59] - Adding portrait: comp_Atton_2.
-[11:59] - Adding portrait: comp_G0T0.
-[11:59] - Adding portrait: comp_Hanharr.
-[11:59] - Adding portrait: comp_Atris.
-[11:59] - Adding portrait: comp_Atton_3.
-[11:59] - Adding portrait: comp_G0T0.
-[11:59] - Adding portrait: comp_Atris.
-[11:59] - Adding portrait: comp_Hanharr.
-[11:59] - Adding portrait: comp_G0T0.
-[11:59] - Adding portrait: comp_Atton_1.
-[11:59] - Adding portrait: comp_3CFD.
-[11:59] - Adding portrait: comp_T3M4.
-[11:59] - Adding portrait: comp_Hanharr.
-[12:00] - Adding portrait: comp_3CFD.
-[12:00] - Adding portrait: comp_T3M4.
-[12:00] - Adding portrait: comp_T3M4.
-[12:00] - Adding portrait: comp_3CFD.
-[12:00] - Finished Loading Companion Portraits.
-[12:00] - ####################################################
-« Loading Player Portraits »
-[12:00] - New portrait prefix: play_Male_
-[12:00] - Adding portrait: play_Male_15_3.
-[12:00] - Adding portrait: play_Male_11_2.
-[12:00] - Adding portrait: play_Male_14_3.
-[12:00] - Adding portrait: play_Male_06_1.
-[12:00] - Adding portrait: play_Male_11_3.
-[12:00] - Adding portrait: play_Male_16_1.
-[12:00] - Adding portrait: play_Male_15_1.
-[12:00] - Adding portrait: play_Male_06_2.
-[12:00] - Adding portrait: play_Male_12_1.
-[12:00] - Adding portrait: play_Male_16_2.
-[12:00] - Adding portrait: play_Male_15_2.
-[12:00] - Adding portrait: play_Male_06_3.
-[12:00] - Adding portrait: play_Male_12_2.
-[12:00] - Adding portrait: play_Male_13_3.
-[12:00] - Adding portrait: play_Male_16_3.
-[12:00] - Adding portrait: play_Male_05_1.
-[12:00] - Adding portrait: play_Male_12_3.
-[12:00] - Adding portrait: play_Male_17_1.
-[12:00] - Adding portrait: play_Male_14_1.
-[12:00] - Adding portrait: play_Male_05_2.
-[12:00] - Adding portrait: play_Male_13_1.
-[12:00] - Adding portrait: play_Male_17_2.
-[12:00] - Adding portrait: play_Male_14_2.
-[12:00] - Adding portrait: play_Male_05_3.
-[12:00] - Adding portrait: play_Male_17_3.
-[12:00] - Adding portrait: play_Male_13_2.
-[12:00] - Adding portrait: play_Male_10_2.
-[12:00] - Adding portrait: play_Male_08_1.
-[12:00] - Adding portrait: play_Male_03_1.
-[12:00] - Adding portrait: play_Male_02_1.
-[12:00] - Adding portrait: play_Male_10_3.
-[12:00] - Adding portrait: play_Male_08_2.
-[12:00] - Adding portrait: play_Male_03_2.
-[12:00] - Adding portrait: play_Male_02_2.
-[12:00] - Adding portrait: play_Male_08_3.
-[12:00] - Adding portrait: play_Male_11_1.
-[12:00] - Adding portrait: play_Male_03_3.
-[12:00] - Adding portrait: play_Male_02_3.
-[12:00] - Adding portrait: play_Male_09_1.
-[12:00] - Adding portrait: play_Male_04_1.
-[12:00] - Adding portrait: play_Male_01_1.
-[12:00] - Adding portrait: play_Male_09_2.
-[12:00] - Adding portrait: play_Male_04_2.
-[12:00] - Adding portrait: play_Male_07_1.
-[12:00] - Adding portrait: play_Male_01_2.
-[12:00] - Adding portrait: play_Male_09_3.
-[12:00] - Adding portrait: play_Male_07_2.
-[12:00] - Adding portrait: play_Male_01_3.
-[12:00] - Adding portrait: play_Male_04_3.
-[12:00] - Adding portrait: play_Male_10_1.
-[12:00] - Adding portrait: play_Male_07_3.
-[12:00] - ####################################################
-[12:00] - New portrait prefix: play_Fem_
-[12:00] - Adding portrait: play_Fem_11_2.
-[12:00] - Adding portrait: play_Fem_15_3.
-[12:00] - Adding portrait: play_Fem_06_1.
-[12:00] - Adding portrait: play_Fem_10_2.
-[12:00] - Adding portrait: play_Fem_06_2.
-[12:00] - Adding portrait: play_Fem_10_3.
-[12:00] - Adding portrait: play_Fem_16_1.
-[12:00] - Adding portrait: play_Fem_11_3.
-[12:00] - Adding portrait: play_Fem_06_3.
-[12:00] - Adding portrait: play_Fem_11_1.
-[12:00] - Adding portrait: play_Fem_16_2.
-[12:00] - Adding portrait: play_Fem_12_1.
-[12:00] - Adding portrait: play_Fem_05_1.
-[12:00] - Adding portrait: play_Fem_09_2.
-[12:00] - Adding portrait: play_Fem_16_3.
-[12:00] - Adding portrait: play_Fem_12_2.
-[12:00] - Adding portrait: play_Fem_05_2.
-[12:00] - Adding portrait: play_Fem_09_3.
-[12:00] - Adding portrait: play_Fem_17_1.
-[12:00] - Adding portrait: play_Fem_12_3.
-[12:00] - Adding portrait: play_Fem_05_3.
-[12:00] - Adding portrait: play_Fem_10_1.
-[12:00] - Adding portrait: play_Fem_17_2.
-[12:00] - Adding portrait: play_Fem_13_1.
-[12:00] - Adding portrait: play_Fem_14_3.
-[12:00] - Adding portrait: play_Fem_08_1.
-[12:00] - Adding portrait: play_Fem_17_3.
-[12:00] - Adding portrait: play_Fem_13_2.
-[12:00] - Adding portrait: play_Fem_15_1.
-[12:00] - Adding portrait: play_Fem_08_2.
-[12:00] - Adding portrait: play_Fem_13_3.
-[12:00] - Adding portrait: play_Fem_03_1.
-[12:00] - Adding portrait: play_Fem_15_2.
-[12:00] - Adding portrait: play_Fem_08_3.
-[12:00] - Adding portrait: play_Fem_14_1.
-[12:00] - Adding portrait: play_Fem_03_2.
-[12:00] - Adding portrait: play_Fem_02_1.
-[12:00] - Adding portrait: play_Fem_09_1.
-[12:00] - Adding portrait: play_Fem_14_2.
-[12:00] - Adding portrait: play_Fem_03_3.
-[12:00] - Adding portrait: play_Fem_02_2.
-[12:00] - Adding portrait: play_Fem_07_1.
-[12:00] - Adding portrait: play_Fem_01_1.
-[12:00] - Adding portrait: play_Fem_04_1.
-[12:00] - Adding portrait: play_Fem_02_3.
-[12:00] - Adding portrait: play_Fem_07_2.
-[12:00] - Adding portrait: play_Fem_01_2.
-[12:00] - Adding portrait: play_Fem_04_2.
-[12:00] - Adding portrait: play_Fem_07_3.
-[12:00] - Adding portrait: play_Fem_01_3.
-[12:00] - Adding portrait: play_Fem_04_3.
-[12:00] - ####################################################
-[12:00] - Finished Loading Player Portraits.
-[12:00] - ####################################################
-« Loading Font File »
-[12:00] - Finished Loading Font File.
-[12:00] - ####################################################
-[12:00] - Finished Setup GUI Manager.
-[12:00] - ####################################################
-[12:00] - Finished Setup Output Manager.
-[12:00] - ####################################################
-[12:00] - Currently playing: OST_mus_sion.
-[12:00] - Loaded in main menu panel.
-[12:00] - Key Pressed: D.
-[12:00] - Key Pressed: D.
-[12:00] - Key Pressed: D.
-[12:00] - Key Pressed: W.
-[12:00] - Key Pressed: W.
-[12:00] - Key Pressed: W.
-[12:00] - Key Released: D.
-[12:00] - Key Released: D.
-[12:00] - Key Released: D.
-[12:00] - Key Pressed: A.
-[12:00] - Key Pressed: A.
-[12:00] - Key Pressed: A.
-[12:00] - Key Released: W.
-[12:00] - Key Released: W.
-[12:00] - Key Released: W.
-[12:00] - Key Pressed: D.
-[12:00] - Key Pressed: D.
-[12:00] - Key Pressed: D.
-[12:00] - Key Released: A.
-[12:00] - Key Released: A.
-[12:00] - Key Released: A.
-[12:00] - Key Pressed: A.
-[12:00] - Key Pressed: A.
-[12:00] - Key Pressed: A.
-[12:00] - Key Pressed: W.
-[12:00] - Key Pressed: W.
-[12:00] - Key Pressed: W.
-[12:00] - Key Released: A.
-[12:00] - Key Released: A.
-[12:00] - Key Released: A.
-[12:00] - Key Released: D.
-[12:00] - Key Released: D.
-[12:00] - Key Released: D.
-[12:00] - Key Released: W.
-[12:00] - Key Released: W.
-[12:00] - Key Released: W.
-[12:00] - Currently playing: OST_mus_main.
-[12:00] - Loaded in Character Screen: Select Gender and Class panel.
-[12:00] - Currently playing one-shot: GUI_click.
-[12:00] - Currently playing: OST_mus_sion.
-[12:00] - Loaded in main menu panel.
-[12:00] - Currently playing one-shot: GUI_click.
+[09:45] - Loaded Title Screen Image.
+[09:45] - Loaded Class Icon Images.
+[09:45] - Loaded Default Portrait Images.

@@ -1,8 +1,8 @@
 package com.sintraqos.portfolioproject.entity.player;
 
-import com.sintraqos.portfolioproject.dataobjects.items.InventoryItem;
+import com.sintraqos.portfolioproject.statics.items.InventoryItem;
 import com.sintraqos.portfolioproject.entity.entity.EntityInventory;
-import com.sintraqos.portfolioproject.dataobjects.items.Item;
+import com.sintraqos.portfolioproject.statics.items.Item;
 
 public class PlayerInventory extends EntityInventory {
 

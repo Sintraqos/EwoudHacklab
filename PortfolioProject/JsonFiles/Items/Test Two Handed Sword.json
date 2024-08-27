@@ -1,0 +1,13 @@
+{
+  "itemID": 7,
+  "itemName": "Test Two Handed Sword",
+  "itemDescription": "Just a test",
+  "itemArmorSlot": "ITEM_ARMOR_SLOT_NONE",
+  "itemWeaponSlot": "ITEM_WEAPON_SLOT_TWO_HAND",
+  "itemUpgradeSlots": [],
+  "itemArmorValue": 0,
+  "itemArmorType": "ITEM_ARMOR_TYPE_NONE",
+  "itemWeaponMinDamage": 1,
+  "itemWeaponMaxDamage": 6,
+  "itemWeaponDamageType": "ITEM_WEAPON_DAMAGE_TYPE_SLASHING"
+}

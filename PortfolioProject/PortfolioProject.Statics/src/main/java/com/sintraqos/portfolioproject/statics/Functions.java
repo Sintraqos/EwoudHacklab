@@ -116,4 +116,17 @@ public class Functions {
     }
 
     //endregion
+
+    //region Get Alignment
+
+   static int alignmentMaxValue = 100;
+
+    public static Enums.alignment getCurrentAlignment(int currentAlignment)
+    {
+        int clampedValue = Math.clamp(currentAlignment, -alignmentMaxValue, alignmentMaxValue);
+
+        return Enums.alignment.values()[clampedValue / alignmentMaxValue * Enums.alignment.values().length];
+    }
+
+    //endregion
 }

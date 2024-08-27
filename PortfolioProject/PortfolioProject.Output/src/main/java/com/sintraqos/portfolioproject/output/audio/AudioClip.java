@@ -20,6 +20,7 @@ public class AudioClip {
         return audioClipPath;
     }
 
+
     public AudioClip(String audioClipName, String audioClipPath) {
         try {
             audioInputStream = AudioSystem.getAudioInputStream(Objects.requireNonNull(Functions.class.getResource(audioClipPath)));

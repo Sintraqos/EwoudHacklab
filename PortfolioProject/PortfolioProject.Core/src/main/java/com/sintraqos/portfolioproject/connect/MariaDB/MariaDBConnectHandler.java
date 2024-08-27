@@ -7,10 +7,6 @@ import com.sintraqos.portfolioproject.statics.Console;
 import com.sintraqos.portfolioproject.statics.Functions;
 
 import java.io.*;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
 
 public class MariaDBConnectHandler extends ConnectHandler {
 

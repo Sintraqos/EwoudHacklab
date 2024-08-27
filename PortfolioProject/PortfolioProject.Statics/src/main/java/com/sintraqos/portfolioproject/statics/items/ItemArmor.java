@@ -1,4 +1,4 @@
-package com.sintraqos.portfolioproject.dataobjects.items;
+package com.sintraqos.portfolioproject.statics.items;
 
 import com.sintraqos.portfolioproject.statics.Enums;
 
@@ -9,8 +9,11 @@ public class ItemArmor extends ItemEquipable {
     public int getItemArmorValue() {
         return itemArmorValue;
     }
+    public Enums.itemArmorType getItemArmorType() {
+        return itemArmorType;
+    }
 
-    public void setup(
+    public ItemArmor(
             int itemID,
             String itemName,
             String itemDescription,

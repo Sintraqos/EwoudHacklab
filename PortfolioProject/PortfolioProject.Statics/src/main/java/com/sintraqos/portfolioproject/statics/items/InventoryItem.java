@@ -1,4 +1,4 @@
-package com.sintraqos.portfolioproject.dataobjects.items;
+package com.sintraqos.portfolioproject.statics.items;
 
 public class InventoryItem {
     public Item item;
