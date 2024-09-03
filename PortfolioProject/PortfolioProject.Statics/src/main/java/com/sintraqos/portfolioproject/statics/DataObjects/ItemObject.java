@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 public class ItemObject implements java.io.Serializable {
     int itemID;
+    Enums.itemType itemType;
     String itemName;
     String itemDescription;
 
@@ -25,6 +26,7 @@ public class ItemObject implements java.io.Serializable {
     //region Getters
 
     public int getItemID() {return itemID;}
+    public Enums.itemType getItemType() {return itemType;}
     public String getItemName() {return itemName;}
     public String getItemDescription() {return itemDescription;}
     public Enums.itemArmorSlot getItemArmorSlot() {return itemArmorSlot;}
@@ -43,30 +45,33 @@ public class ItemObject implements java.io.Serializable {
     // Armor
    public ItemObject createArmorItemObject(
             int itemID,
+            Enums.itemType itemType,
             String itemName,
             String itemDescription,
             Enums.itemArmorSlot itemArmorSlot,
             ArrayList<Enums.itemUpgradeSlot> itemUpgradeSlots,
             int itemArmorValue,
             Enums.itemArmorType itemArmorType) {
-       return   new ItemObject(
-                itemID,
-                itemName,
-                itemDescription,
-                itemArmorSlot,
-                Enums.itemWeaponSlot.ITEM_WEAPON_SLOT_NONE,
-                itemUpgradeSlots,
-                itemArmorValue,
-                itemArmorType,
-                0,
-                0,
-                Enums.itemWeaponDamageType.ITEM_WEAPON_DAMAGE_TYPE_NONE
-        );
-    }
+       return new ItemObject(
+               itemID,
+               itemType,
+               itemName,
+               itemDescription,
+               itemArmorSlot,
+               Enums.itemWeaponSlot.ITEM_WEAPON_SLOT_NONE,
+               itemUpgradeSlots,
+               itemArmorValue,
+               itemArmorType,
+               0,
+               0,
+               Enums.itemWeaponDamageType.ITEM_WEAPON_DAMAGE_TYPE_NONE
+       );
+   }
 
     // Weapon
     public ItemObject createWeaponItemObject(
             int itemID,
+            Enums.itemType itemType,
             String itemName,
             String itemDescription,
             Enums.itemWeaponSlot itemWeaponSlot,
@@ -77,6 +82,7 @@ public class ItemObject implements java.io.Serializable {
     ) {
       return  new ItemObject(
                 itemID,
+                itemType,
                 itemName,
                 itemDescription,
                 Enums.itemArmorSlot.ITEM_ARMOR_SLOT_NONE,
@@ -92,6 +98,7 @@ public class ItemObject implements java.io.Serializable {
 
     ItemObject(
             int itemID,
+            Enums.itemType itemType,
             String itemName,
             String itemDescription,
             Enums.itemArmorSlot itemArmorSlot,
@@ -104,6 +111,7 @@ public class ItemObject implements java.io.Serializable {
             Enums.itemWeaponDamageType itemWeaponDamageType
     ) {
         this.itemID = itemID;
+        this.itemType = itemType;
         this.itemName = itemName;
         this.itemDescription = itemDescription;
         this.itemArmorSlot = itemArmorSlot;

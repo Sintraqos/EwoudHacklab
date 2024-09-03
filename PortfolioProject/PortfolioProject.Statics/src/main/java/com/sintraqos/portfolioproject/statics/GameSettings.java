@@ -1,10 +1,16 @@
 package com.sintraqos.portfolioproject.statics;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.sintraqos.portfolioproject.statics.DataObjects.ItemObject;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
+import java.io.*;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class GameSettings implements java.io.Serializable {
 
@@ -61,7 +67,7 @@ public class GameSettings implements java.io.Serializable {
     private Map<String, String> keyBindings = new LinkedHashMap<>();
 
     // Output
-    private boolean logActive = false;
+    private boolean logActive = true;
 
     //region Public variables
 
@@ -133,32 +139,32 @@ public class GameSettings implements java.io.Serializable {
     // Set game settings
     public void setGameSettings(GameSettings gameSettings) {
         // Window
-        windowName = gameSettings.windowName;
-        windowSize = gameSettings.windowSize;
+        instance.windowName = gameSettings.windowName;
+        instance.windowSize = gameSettings.windowSize;
 
         // Font
-        defaultFontSize = gameSettings.defaultFontSize;
+        instance.defaultFontSize = gameSettings.defaultFontSize;
 
         // Images
-        defaultIconSize = gameSettings.defaultIconSize;
-        defaultButtonSizeX = gameSettings.defaultButtonSizeX;
-        defaultButtonSizeY = gameSettings.defaultButtonSizeY;
+        instance.defaultIconSize = gameSettings.defaultIconSize;
+        instance.defaultButtonSizeX = gameSettings.defaultButtonSizeX;
+        instance.defaultButtonSizeY = gameSettings.defaultButtonSizeY;
 
         // Audio
-        masterVolume = gameSettings.masterVolume;
-        musicVolume = gameSettings.musicVolume;
-        sfxVolume = gameSettings.sfxVolume;
-        dialogueVolume = gameSettings.dialogueVolume;
+        instance.masterVolume = gameSettings.masterVolume;
+        instance.musicVolume = gameSettings.musicVolume;
+        instance.sfxVolume = gameSettings.sfxVolume;
+        instance.dialogueVolume = gameSettings.dialogueVolume;
 
         // Tick speed
-        gameTickSpeed = gameSettings.gameTickSpeed;
-        guiTickSpeed = gameSettings.guiTickSpeed;
+        instance.gameTickSpeed = gameSettings.gameTickSpeed;
+        instance.guiTickSpeed = gameSettings.guiTickSpeed;
 
         // Input
-        keyBindings = gameSettings.keyBindings;
+        instance.keyBindings = gameSettings.keyBindings;
 
         // Output
-        logActive = gameSettings.logActive;
+        instance.logActive = gameSettings.logActive;
     }
 
     public void setWindowSize(Dimension windowSize) {

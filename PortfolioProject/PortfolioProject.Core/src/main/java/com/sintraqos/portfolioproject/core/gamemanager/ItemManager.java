@@ -15,7 +15,7 @@ public class ItemManager {
     public static ItemManager getInstance() {
         if (instance == null) {
             instance = new ItemManager();
-            instance.createItemList();
+            instance.setup();
         }
 
         return instance;
@@ -87,46 +87,76 @@ public class ItemManager {
 
     //region Create Items
 
-    public void createItemList() {
-        Console.writeHeader("Setup Item Armor List");
+    public void setup() {
+        Console.writeHeader("Setup Item Manager");
+        // Get the item list from the database
+        convertItemObjects(GameManager.getInstance().getConnectHandler().getItemObjects());
+
+        // If the list doesn't have any values create new item list for that
+        boolean newItemList  =!itemList.isEmpty();
+
+        Console.writeLine("Create new item armor list");
         createArmorItemList();
 
-        Console.writeHeader("Setup Item Weapon List");
+        Console.writeLine("Create new item weapon list");
         createWeaponItemList();
 
-        for (ItemArmor item : itemArmorList) {
-            GameManager.getInstance().connectHandler.createItemObject(new ItemObject().createArmorItemObject(
-                    item.getItemID(),
-                    item.getItemName(),
-                    item.getItemDescription(),
-                    item.getItemArmorSlot(),
-                    item.getItemUpgradeSlots(),
-                    item.getItemArmorValue(),
-                    item.getItemArmorType()
-            ));
+        if (newItemList) {
+
+            for (ItemArmor item : itemArmorList) {
+                GameManager.getInstance().connectHandler.createItemObject(new ItemObject().createArmorItemObject(
+                        item.getItemID(),
+                        item.getItemType(),
+                        item.getItemName(),
+                        item.getItemDescription(),
+                        item.getItemArmorSlot(),
+                        item.getItemUpgradeSlots(),
+                        item.getItemArmorValue(),
+                        item.getItemArmorType()
+                ));
+            }
+            for (ItemWeapon item : itemWeaponList) {
+                GameManager.getInstance().connectHandler.createItemObject(new ItemObject().createWeaponItemObject(
+                        item.getItemID(),
+                        item.getItemType(),
+                        item.getItemName(),
+                        item.getItemDescription(),
+                        item.getItemWeaponSlot(),
+                        item.getItemUpgradeSlots(),
+                        item.getItemWeaponMinDamage(),
+                        item.getItemWeaponMaxDamage(),
+                        item.getItemWeaponDamageType()
+                ));
+            }
         }
-        for (ItemWeapon item : itemWeaponList) {
-            GameManager.getInstance().connectHandler.createItemObject(new ItemObject().createWeaponItemObject(
-                    item.getItemID(),
-                    item.getItemName(),
-                    item.getItemDescription(),
-                    item.getItemWeaponSlot(),
-                    item.getItemUpgradeSlots(),
-                    item.getItemWeaponMinDamage(),
-                    item.getItemWeaponMaxDamage(),
-                    item.getItemWeaponDamageType()
-            ));
+    }
+
+    void convertItemObjects(ArrayList<ItemObject> itemObjects) {
+        for (ItemObject itemObject : itemObjects) {
+            switch (itemObject.getItemType()) {
+                case ITEM_TYPE_ARMOR ->
+                        itemArmorList.add(createItemArmor(itemObject.getItemName(), itemObject.getItemDescription(), itemObject.getItemArmorSlot(), itemObject.getItemArmorValue(), itemObject.getItemArmorType()));
+
+                case ITEM_TYPE_WEAPON ->
+                        itemWeaponList.add(createItemWeapon(itemObject.getItemName(), itemObject.getItemDescription(), itemObject.getItemWeaponSlot(), itemObject.getItemWeaponMinDamage(), itemObject.getItemWeaponMaxDamage(), itemObject.getItemWeaponDamageType()));
+            }
         }
     }
 
     // region Armor
 
     public void createArmorItemList() {
-        itemArmorList.add(createItemArmor("Test Armor Piece", "Just a test", Enums.itemArmorSlot.ITEM_ARMOR_SLOT_ARMOR, 0, Enums.itemArmorType.ITEM_ARMOR_TYPE_LIGHT));
-        itemArmorList.add(createItemArmor("Test Belt", "Just a test", Enums.itemArmorSlot.ITEM_ARMOR_SLOT_BELT, 0, Enums.itemArmorType.ITEM_ARMOR_TYPE_LIGHT));
-        itemArmorList.add(createItemArmor("Test Gloves", "Just a test", Enums.itemArmorSlot.ITEM_ARMOR_SLOT_HAND, 0, Enums.itemArmorType.ITEM_ARMOR_TYPE_LIGHT));
-        itemArmorList.add(createItemArmor("Test Head Gear", "Just a test", Enums.itemArmorSlot.ITEM_ARMOR_SLOT_HEAD, 0, Enums.itemArmorType.ITEM_ARMOR_TYPE_LIGHT));
-        itemArmorList.add(createItemArmor("Test Implant", "Just a test", Enums.itemArmorSlot.ITEM_ARMOR_SLOT_IMPLANT, 0, Enums.itemArmorType.ITEM_ARMOR_TYPE_LIGHT));
+        addArmorItem(createItemArmor("Test Armor Piece", "Just a test", Enums.itemArmorSlot.ITEM_ARMOR_SLOT_ARMOR, 0, Enums.itemArmorType.ITEM_ARMOR_TYPE_LIGHT));
+        addArmorItem(createItemArmor("Test Belt", "Just a test", Enums.itemArmorSlot.ITEM_ARMOR_SLOT_BELT, 0, Enums.itemArmorType.ITEM_ARMOR_TYPE_LIGHT));
+        addArmorItem(createItemArmor("Test Gloves", "Just a test", Enums.itemArmorSlot.ITEM_ARMOR_SLOT_HAND, 0, Enums.itemArmorType.ITEM_ARMOR_TYPE_LIGHT));
+        addArmorItem(createItemArmor("Test Head Gear", "Just a test", Enums.itemArmorSlot.ITEM_ARMOR_SLOT_HEAD, 0, Enums.itemArmorType.ITEM_ARMOR_TYPE_LIGHT));
+        addArmorItem(createItemArmor("Test Implant", "Just a test", Enums.itemArmorSlot.ITEM_ARMOR_SLOT_IMPLANT, 0, Enums.itemArmorType.ITEM_ARMOR_TYPE_LIGHT));
+    }
+
+    void addArmorItem(ItemArmor itemArmor) {
+        if (itemArmor != null) {
+            itemArmorList.add(itemArmor);
+        }
     }
 
     ItemArmor createItemArmor(
@@ -136,7 +166,9 @@ public class ItemManager {
             int itemArmorValue,
             Enums.itemArmorType itemArmorType
     ) {
-        Console.writeLine("Added new item: " + itemName);
+        if (!isNewItem(itemName)) {
+            return null;
+        }
 
         ItemArmor itemArmor = new ItemArmor(
                 getValidItemID(),
@@ -146,6 +178,8 @@ public class ItemManager {
                 itemArmorValue,
                 itemArmorType
         );
+
+        Console.writeLine("Created new item: " + itemName);
 
         itemList.add(itemArmor);
         itemEquipableList.add(itemArmor);
@@ -159,11 +193,17 @@ public class ItemManager {
     //region Weapon
 
     public void createWeaponItemList() {
-        itemWeaponList.add(createItemWeapon("Test Main Hand Sword", "Just a test", Enums.itemWeaponSlot.ITEM_WEAPON_SLOT_MAIN_HAND, 1, 6, Enums.itemWeaponDamageType.ITEM_WEAPON_DAMAGE_TYPE_SLASHING));
-        itemWeaponList.add(createItemWeapon("Test Off Hand Sword", "Just a test", Enums.itemWeaponSlot.ITEM_WEAPON_SLOT_OFF_HAND, 1, 6, Enums.itemWeaponDamageType.ITEM_WEAPON_DAMAGE_TYPE_SLASHING));
-        itemWeaponList.add(createItemWeapon("Test Two Handed Sword", "Just a test", Enums.itemWeaponSlot.ITEM_WEAPON_SLOT_TWO_HAND, 1, 6, Enums.itemWeaponDamageType.ITEM_WEAPON_DAMAGE_TYPE_SLASHING));
+        addWeaponItem(createItemWeapon("Test Main Hand Sword", "Just a test", Enums.itemWeaponSlot.ITEM_WEAPON_SLOT_MAIN_HAND, 1, 6, Enums.itemWeaponDamageType.ITEM_WEAPON_DAMAGE_TYPE_SLASHING));
+        addWeaponItem(createItemWeapon("Test Off Hand Sword", "Just a test", Enums.itemWeaponSlot.ITEM_WEAPON_SLOT_OFF_HAND, 1, 6, Enums.itemWeaponDamageType.ITEM_WEAPON_DAMAGE_TYPE_SLASHING));
+        addWeaponItem(createItemWeapon("Test Two Handed Sword", "Just a test", Enums.itemWeaponSlot.ITEM_WEAPON_SLOT_TWO_HAND, 1, 6, Enums.itemWeaponDamageType.ITEM_WEAPON_DAMAGE_TYPE_SLASHING));
 
         itemEquipableList.addAll(itemWeaponList);
+    }
+
+    void addWeaponItem(ItemWeapon itemWeapon) {
+        if (itemWeapon != null) {
+            itemWeaponList.add(itemWeapon);
+        }
     }
 
     ItemWeapon createItemWeapon(
@@ -174,7 +214,10 @@ public class ItemManager {
             int itemWeaponMaxDamage,
             Enums.itemWeaponDamageType itemWeaponDamageType
     ) {
-        Console.writeLine("Added new item: " + itemName);
+        if (!isNewItem(itemName)) {
+            return null;
+        }
+
         ItemWeapon itemWeapon = new ItemWeapon(
                 getValidItemID(),
                 itemName,
@@ -185,6 +228,8 @@ public class ItemManager {
                 itemWeaponDamageType
         );
 
+        Console.writeLine("Created new item: " + itemName);
+
         itemList.add(itemWeapon);
         itemEquipableList.add(itemWeapon);
         itemWeaponList.add(itemWeapon);
@@ -193,6 +238,14 @@ public class ItemManager {
     }
 
     //endregion
+
+    boolean isNewItem(String itemName) {
+        if (itemList.stream().filter(item -> item.getItemName().equalsIgnoreCase(itemName)).findFirst().isPresent()) {
+            return false;
+        }
+
+        return true;
+    }
 
     int getValidItemID() {
         for (int i = 0; i < Integer.MAX_VALUE; i++) {

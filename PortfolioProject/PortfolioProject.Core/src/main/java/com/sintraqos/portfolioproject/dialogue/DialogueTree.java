@@ -10,6 +10,8 @@ public class DialogueTree implements Serializable {
     String dialogueTreeLocation;
     ArrayList<DialogueObject> dialogueObjects;
 
+    public ArrayList<DialogueObject> getDialogueObjects(){return dialogueObjects;}
+
     public DialogueTree(String dialogueTreeID, String dialogueTreeLocation, List<DialogueObject> dialogueTree) {
         this.dialogueTreeID = dialogueTreeID;
         this.dialogueTreeLocation = dialogueTreeLocation;

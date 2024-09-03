@@ -4,6 +4,18 @@ public class Enums {
 
     //region Items
 
+    public enum itemType{
+        ITEM_TYPE_ARMOR,
+        ITEM_TYPE_CONSUMABLE,
+        ITEM_TYPE_MISCELLANEOUS,
+        ITEM_TYPE_WEAPON,
+        ITEM_TYPE_UPGRADE,
+    }
+
+    public String getItemTypeName(itemType itemUpgradeSlot) {
+        return itemUpgradeSlot.name().replace("ITEM_TYPE_", "").toLowerCase();
+    }
+
     // Upgrade Slot
     public enum itemUpgradeSlot{
         // Ranged
@@ -170,5 +182,76 @@ public class Enums {
 
     public String getEntitySkillName(entitySkills entitySkills)    {
         return entitySkills.name().replace("ENTITY_SKILLS_", "").toLowerCase();
+    }
+
+    public enum currentLocation{
+        CURRENT_LOCATION_NONE,
+        // Planet
+        CURRENT_LOCATION_DANTOOINE,
+        CURRENT_LOCATION_DXUN,
+        CURRENT_LOCATION_KORRIBAN,
+        CURRENT_LOCATION_MALACHOR_V,
+        CURRENT_LOCATION_NAR_SHADDAA,
+        CURRENT_LOCATION_ONDERON,
+        CURRENT_LOCATION_TELOS,
+
+        // Ship
+        CURRENT_LOCATION_EBON_HAWK,
+        CURRENT_LOCATION_HARBINGER,
+        CURRENT_LOCATION_RAVAGER,
+
+        // Other
+        CURRENT_LOCATION_PERAGUS,
+        CURRENT_LOCATION_BATTLE,
+    }
+
+    public static String getCurrentLocationName(String currentLocationString) {
+
+        currentLocation currentLocation;
+
+        switch (currentLocationString) {
+            // Planet
+            case ResourcePaths.OST_AMBIENT_PREFIX_DANTOOINE ->
+                    currentLocation = Enums.currentLocation.CURRENT_LOCATION_DANTOOINE;
+            case ResourcePaths.OST_AMBIENT_PREFIX_DXUN ->
+                    currentLocation = Enums.currentLocation.CURRENT_LOCATION_DXUN;
+            case ResourcePaths.OST_AMBIENT_PREFIX_KORRIBAN ->
+                    currentLocation = Enums.currentLocation.CURRENT_LOCATION_KORRIBAN;
+            case ResourcePaths.OST_AMBIENT_PREFIX_MALACHOR_V ->
+                    currentLocation = Enums.currentLocation.CURRENT_LOCATION_MALACHOR_V;
+            case ResourcePaths.OST_AMBIENT_PREFIX_NAR_SHADDAA ->
+                    currentLocation = Enums.currentLocation.CURRENT_LOCATION_NAR_SHADDAA;
+            case ResourcePaths.OST_AMBIENT_PREFIX_ONDERON ->
+                    currentLocation = Enums.currentLocation.CURRENT_LOCATION_ONDERON;
+            case ResourcePaths.OST_AMBIENT_PREFIX_TELOS ->
+                    currentLocation = Enums.currentLocation.CURRENT_LOCATION_TELOS;
+
+            // Ship
+            case ResourcePaths.OST_AMBIENT_PREFIX_EBON_HAWK ->
+                    currentLocation = Enums.currentLocation.CURRENT_LOCATION_EBON_HAWK;
+            case ResourcePaths.OST_AMBIENT_PREFIX_HARBINGER ->
+                    currentLocation = Enums.currentLocation.CURRENT_LOCATION_HARBINGER;
+            case ResourcePaths.OST_AMBIENT_PREFIX_RAVAGER ->
+                    currentLocation = Enums.currentLocation.CURRENT_LOCATION_RAVAGER;
+
+            // Other
+            case ResourcePaths.OST_AMBIENT_PREFIX_PERAGUS, ResourcePaths.DIALOGUE_PERAGUS_DIRECTORY ->
+                    currentLocation = Enums.currentLocation.CURRENT_LOCATION_PERAGUS;
+            case ResourcePaths.OST_BATTLE_PREFIX ->
+                    currentLocation = Enums.currentLocation.CURRENT_LOCATION_BATTLE;
+
+            default -> currentLocation = Enums.currentLocation.CURRENT_LOCATION_NONE;
+        }
+
+        return getCurrentLocationName(currentLocation);
+    }
+
+    public static String getCurrentLocationName(currentLocation currentLocation) {
+        String returnString = "";
+        for(String currentLocationName : currentLocation.name().replace("CURRENT_LOCATION_", "").toLowerCase().split("_")) {
+            returnString += Functions.capitalize(currentLocationName);
+        }
+
+        return returnString;
     }
 }

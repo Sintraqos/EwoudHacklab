@@ -17,10 +17,15 @@ public class CreateCoreFiles {
 
     static ConcurrentHashMap<String,List<String>> filePaths =new ConcurrentHashMap<>();
 
-    public static void main(String[] args) {
+    public CreateCoreFiles() {
         //region File Paths
 
         ResourcePaths.ResourcePathsFile paths = new ResourcePaths.ResourcePathsFile();
+
+        paths.createPathFile(
+                Enums.getCurrentLocationName(ResourcePaths.DIALOGUE_PERAGUS_DIRECTORY),
+                ResourcePaths.DIALOGUE_DIRECTORY,
+                ResourcePaths.DIALOGUE_PERAGUS_DIRECTORY);
 
         //endregion
 
@@ -378,35 +383,19 @@ public class CreateCoreFiles {
 
         //endregion
 
-        // Cleanup
-        dialogueOptions.clear();
+//        for(DialogueObject object : dialogueTree.getDialogueObjects()){
+//            paths.put(ResourcePaths.KREIA_002, object.getDialogueBranches());
+//        }
 
         //endregion
 
-        createFilePathFile(ResourcePaths.DIALOGUE_DIRECTORY, new ResourcePaths.ResourcePathsFile(filePaths));
     }
 
-   static void createDirectory(String directoryPath) {
-        if (!new File(directoryPath).mkdirs() && !new File(directoryPath).exists()) {
-            throw new Functions.ExceptionHandler("Failed to create new directory: " + directoryPath);
-        }
-    }
-
-    static void createFilePathFile(String fileName, ResourcePaths.ResourcePathsFile paths) {
-        Gson gson = new GsonBuilder().setPrettyPrinting().create();
-
-        try (Writer writer = new FileWriter(ResourcePaths.getDataPath(ResourcePaths.getResourceFilepathDirectory(), fileName))) {
-            gson.toJson(paths, writer);
-        } catch (IOException ex) {
-            throw new Functions.ExceptionHandler("Failed to create new path file", ex);
-        }
-    }
-
-    static void createDialogueFile(String fileName, DialogueTree newDialogueTree, String locationPath) {
+    void createDialogueFile(String fileName, DialogueTree newDialogueTree, String locationPath) {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         String directoryPath = ResourcePaths.getResourceFilepathDialogueDirectory() + locationPath;
 
-        createDirectory(directoryPath);
+        Functions.createDirectory(directoryPath);
 
         String dialogueFilePath = ResourcePaths.getResourceFilepathDialogueDirectory(locationPath, fileName);
 

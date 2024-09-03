@@ -1,6 +1,10 @@
 package com.sintraqos.portfolioproject.statics;
 
-import java.io.Serializable;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
+import java.io.*;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -124,7 +128,7 @@ public class ResourcePaths {
     public static final String SOUND_TRACK_DIRECTORY = "ost";
     public static final String SOUND_EFFECT_DIRECTORY = "sfx";
     public static final String GUI_SOUND_EFFECT_DIRECTORY = "gui";
-    public static final String FILEPATH_DIRECTORY = "filePaths";
+    public static final String FILEPATH_DIRECTORY = "resourcePaths";
 
     //region ---- GUI
 
@@ -231,7 +235,7 @@ public class ResourcePaths {
         return PATH_SEPARATOR + IMAGE_DIRECTORY + PATH_SEPARATOR + PORTRAIT_DIRECTORY + PATH_SEPARATOR + locationDirectory + PATH_SEPARATOR;
     }
 
-    public static String getUIImagePath(String imageName){
+    public static String getUIImagePath(String imageName) {
         return IMAGE_DIRECTORY + PATH_SEPARATOR + UI_ELEMENT_DIRECTORY + PATH_SEPARATOR + imageName + EXTENSION_IMAGE;
     }
 
@@ -245,7 +249,7 @@ public class ResourcePaths {
     }
 
     static String getAudioDirectoryPath(String locationDirectory, String locationSubDirectory) {
-        return getAudioDirectoryPath(locationDirectory) + locationSubDirectory + PATH_SEPARATOR ;
+        return getAudioDirectoryPath(locationDirectory) + locationSubDirectory + PATH_SEPARATOR;
     }
 
     public static String getAudioFile(String locationDirectory, String locationSubDirectory, String fileName) {
@@ -253,7 +257,7 @@ public class ResourcePaths {
     }
 
     // Soundtrack
-    public static String getSoundtrackAudioPath(){
+    public static String getSoundtrackAudioPath() {
         return getAudioDirectoryPath(SOUND_TRACK_DIRECTORY);
     }
 
@@ -262,7 +266,7 @@ public class ResourcePaths {
     }
 
     // SFX
-    public static String getSoundEffectAudioPath(){
+    public static String getSoundEffectAudioPath() {
         return getAudioDirectoryPath(SOUND_EFFECT_DIRECTORY);
     }
 
@@ -271,11 +275,11 @@ public class ResourcePaths {
     }
 
     // GUI
-    public static String getGUISoundEffectAudioPath(){
+    public static String getGUISoundEffectAudioPath() {
         return getSoundEffectAudioPath() + GUI_SOUND_EFFECT_DIRECTORY + PATH_SEPARATOR;
     }
 
-    public static String getGUISoundEffectAudioFile(String fileName){
+    public static String getGUISoundEffectAudioFile(String fileName) {
         return getGUISoundEffectAudioPath() + fileName + EXTENSION_AUDIO;
     }
 
@@ -292,19 +296,19 @@ public class ResourcePaths {
     }
 
     // File Path
-    public static String getResourceFilepathDirectory(){
+    public static String getResourceFilepathDirectory() {
         return RESOURCE_DIRECTORY + PATH_SEPARATOR + FILEPATH_DIRECTORY;
     }
 
-    public static String getDialogueFile(String fileName){
-     return    ResourcePaths.PATH_SEPARATOR+ResourcePaths.DIALOGUE_DIRECTORY + ResourcePaths.PATH_SEPARATOR+fileName;
+    public static String getDialogueFile(String fileName) {
+        return ResourcePaths.PATH_SEPARATOR + ResourcePaths.DIALOGUE_DIRECTORY + ResourcePaths.PATH_SEPARATOR + fileName;
     }
 
-    public static String getResourceFilepathDialogueDirectory(){
+    public static String getResourceFilepathDialogueDirectory() {
         return RESOURCE_DIRECTORY + PATH_SEPARATOR + DIALOGUE_DIRECTORY + PATH_SEPARATOR;
     }
 
-    public static String getResourceFilepathDialogueDirectory(String locationDirectory, String fileName){
+    public static String getResourceFilepathDialogueDirectory(String locationDirectory, String fileName) {
         return getResourceFilepathDialogueDirectory() + locationDirectory + PATH_SEPARATOR + fileName + EXTENSION_DATAFILE;
     }
 
@@ -313,7 +317,7 @@ public class ResourcePaths {
     //region Classes
 
     public static class ResourcePathsFile implements Serializable {
-        ConcurrentHashMap<String, List<String>> paths = new ConcurrentHashMap<>();
+        ConcurrentHashMap<String, List<String>> paths;
 
         public List<String> getFilePaths(String path) {
             return paths.get(path);
@@ -323,16 +327,64 @@ public class ResourcePaths {
             paths = new ConcurrentHashMap<>();
         }
 
-        public ResourcePathsFile(Map<String, List<String>> paths) {
-            this.paths.putAll(paths);
-        }
-
         public void put(String index, List<String> pathList) {
             paths.put(index, pathList);
         }
 
-        public void clear() {
-            paths.clear();
+        public void createPathFile(String fileName, String filePath, String filePrefix) {
+
+            Console.writeLine(fileName + " - " + filePath + " - " + filePrefix);
+
+
+            ResourcePaths.ResourcePathsFile paths = new ResourcePaths.ResourcePathsFile();
+            paths.put(filePrefix, createFilePaths(filePath, filePrefix));
+            createPathFile(fileName, paths);
+        }
+
+//        public void updatePathFile(String fileName, String filePath, String filePrefix){
+//
+//            Console.writeLine(fileName + " - " + filePath + " - " + filePrefix);
+//            paths.put(filePrefix, createFilePaths(filePath, filePrefix));
+//            createPathFile(fileName, paths);
+//        }
+        
+        public void createPathFile(String fileName, ResourcePaths.ResourcePathsFile paths) {
+
+            //TODO: Check if there already is a file, then loop over the current path file
+            // if the pathfile contains the current line skip it, otherwise add it to the file
+
+
+            Gson gson = new GsonBuilder().setPrettyPrinting().create();
+
+            try (Writer writer = new FileWriter(ResourcePaths.getDataPath(ResourcePaths.getResourceFilepathDirectory(), fileName))) {
+
+                Console.writeLine("Create new path file at: " + ResourcePaths.getDataPath(ResourcePaths.getResourceFilepathDirectory(), fileName));
+
+                gson.toJson(paths, writer);
+            } catch (IOException ex) {
+                throw new Functions.ExceptionHandler("Failed to create new path file", ex);
+            }
+        }
+
+        public static List<String> createFilePaths(String filePath, String filePrefix) {
+            List<String> fileNames = new ArrayList<>();
+            try (InputStream in = Functions.class.getResourceAsStream(filePath)) {
+                assert in != null;
+                try (BufferedReader br = new BufferedReader(new InputStreamReader(in))) {
+                    String resource;
+
+                    while ((resource = br.readLine()) != null) {
+                        // Check if the current file contains the needed prefix
+                        if (resource.contains(filePrefix)) {
+                            fileNames.add(resource);
+                        }
+                    }
+                }
+            } catch (IOException e) {
+                throw new Functions.ExceptionHandler("Error reading files with prefix: " + filePrefix, e);
+            }
+
+            return fileNames;
         }
     }
 

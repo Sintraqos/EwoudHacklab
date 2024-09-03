@@ -36,6 +36,20 @@ public class Functions {
 
     //endregion
 
+    //region Directory
+
+    public static void createDirectory(String directoryPath) {
+        // Use the File().mkdirs() to create a new directory and check if it failed, then check if the directory doesn't exists for whatever reason,
+        // Throw exception when that happens, otherwise log the success
+        if (!new File(directoryPath).mkdirs() && !new File(directoryPath).exists()) {
+            throw new Functions.ExceptionHandler("Failed to create new directory: " + directoryPath);
+        }
+
+        Console.writeLine("Created directory at: " + directoryPath);
+    }
+
+    //endregion
+
     //region String format
 
     public static String capitalize(String string) {
@@ -74,7 +88,9 @@ public class Functions {
     public static void writeLog(String consoleText) {
 
         // Check if the program should write out logs
-        if(!GameSettings.getInstance().getLogActive()){return;}
+        if (!GameSettings.getInstance().getLogActive()) {
+            return;
+        }
 
         String filePath = "Log.txt";
         if (firstLog) {
@@ -119,10 +135,9 @@ public class Functions {
 
     //region Get Alignment
 
-   static int alignmentMaxValue = 100;
+    static int alignmentMaxValue = 100;
 
-    public static Enums.alignment getCurrentAlignment(int currentAlignment)
-    {
+    public static Enums.alignment getCurrentAlignment(int currentAlignment) {
         int clampedValue = Math.clamp(currentAlignment, -alignmentMaxValue, alignmentMaxValue);
 
         return Enums.alignment.values()[clampedValue / alignmentMaxValue * Enums.alignment.values().length];

@@ -9,6 +9,12 @@ public class Console {
         throw new IllegalStateException("Utility class");
     }
 
+//    static int currentLog = 0;
+//    static String getCurrentLog(){
+//        currentLog++;
+//        return currentLog + " - ";
+//    }
+
     // Writers
     public static void writeLine() {
         writeLine("####################################################");
@@ -17,6 +23,7 @@ public class Console {
     public static void writeLine(String consoleText) {
         Functions.writeLog(getTime() + Functions.capitalize(Functions.punctuate(consoleText)));
         System.out.println(getTime() + Functions.capitalize(Functions.punctuate(consoleText)));
+
     }
 
     public static void writeHeader(String consoleText) {

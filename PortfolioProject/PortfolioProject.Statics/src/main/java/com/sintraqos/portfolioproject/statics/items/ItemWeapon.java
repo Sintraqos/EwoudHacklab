@@ -22,7 +22,7 @@ public class ItemWeapon extends ItemEquipable {
             Enums.itemWeaponDamageType itemWeaponDamageType
     ) {
         // Set up the item base
-        setup(itemID, itemName, itemDescription, Enums.itemArmorSlot.ITEM_ARMOR_SLOT_NONE, itemWeaponSlot);
+        setup(itemID,Enums.itemType.ITEM_TYPE_WEAPON, itemName, itemDescription, Enums.itemArmorSlot.ITEM_ARMOR_SLOT_NONE, itemWeaponSlot);
 
         this.itemWeaponMinDamage = itemWeaponMinDamage;
         this.itemWeaponMaxDamage = itemWeaponMaxDamage;

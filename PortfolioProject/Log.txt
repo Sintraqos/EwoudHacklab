@@ -1,132 +1,56 @@
-« Setup Audio Manager »
-[09:45] - Loading GUI audio files.
-[09:45] - Created audio clip: GUI_click.
-[09:45] - Created audio clip: GUI_close.
-[09:45] - Created audio clip: GUI_prompt.
-[09:45] - Created audio clip: GUI_invadd.
-[09:45] - Created audio clip: GUI_invdrop.
-[09:45] - Created audio clip: GUI_invselect.
-[09:45] - ####################################################
-[09:45] - Loading music audio files.
-[09:45] - Created audio clip: OST_mus_sion.
-[09:45] - Created audio clip: OST_mus_main.
-[09:45] - ####################################################
-[09:45] - Loading audio lists.
-[09:45] - New Audio List Prefix: OST_amb_dan.
-[09:45] - Created audio clip: OST_amb_dan004.
-[09:45] - Created audio clip: OST_amb_dan002.
-[09:45] - Created audio clip: OST_amb_dan005.
-[09:45] - Created audio clip: OST_amb_dan003.
-[09:45] - Created audio clip: OST_amb_dan006.
-[09:45] - Created audio clip: OST_amb_dan001.
-[09:45] - ####################################################
-[09:45] - New Audio List Prefix: OST_amb_dxn.
-[09:45] - Created audio clip: OST_amb_dxn004.
-[09:45] - Created audio clip: OST_amb_dxn005.
-[09:45] - Created audio clip: OST_amb_dxn002.
-[09:45] - Created audio clip: OST_amb_dxn001.
-[09:45] - Created audio clip: OST_amb_dxn006.
-[09:45] - Created audio clip: OST_amb_dxn003.
-[09:45] - ####################################################
-[09:45] - New Audio List Prefix: OST_amb_kor.
-[09:45] - Created audio clip: OST_amb_kor001.
-[09:45] - Created audio clip: OST_amb_kor003.
-[09:45] - Created audio clip: OST_amb_kor004.
-[09:45] - Created audio clip: OST_amb_kor002.
-[09:45] - ####################################################
-[09:45] - New Audio List Prefix: OST_amb_mal.
-[09:45] - Created audio clip: OST_amb_mal005.
-[09:45] - Created audio clip: OST_amb_mal007.
-[09:45] - Created audio clip: OST_amb_mal001.
-[09:45] - Created audio clip: OST_amb_mal002.
-[09:45] - Created audio clip: OST_amb_mal006.
-[09:45] - Created audio clip: OST_amb_mal004.
-[09:45] - Created audio clip: OST_amb_mal003.
-[09:45] - ####################################################
-[09:45] - New Audio List Prefix: OST_amb_nar.
-[09:45] - Created audio clip: OST_amb_nar002.
-[09:45] - Created audio clip: OST_amb_nar003.
-[09:45] - Created audio clip: OST_amb_nar001.
-[09:45] - Created audio clip: OST_amb_nar007.
-[09:45] - Created audio clip: OST_amb_nar005.
-[09:45] - Created audio clip: OST_amb_nar004.
-[09:45] - Created audio clip: OST_amb_nar006.
-[09:45] - ####################################################
-[09:45] - New Audio List Prefix: OST_amb_ond.
-[09:45] - Created audio clip: OST_amb_ond003.
-[09:45] - Created audio clip: OST_amb_ond008.
-[09:45] - Created audio clip: OST_amb_ond006.
-[09:45] - Created audio clip: OST_amb_ond004.
-[09:45] - Created audio clip: OST_amb_ond007.
-[09:45] - Created audio clip: OST_amb_ond005.
-[09:45] - Created audio clip: OST_amb_ond009.
-[09:45] - Created audio clip: OST_amb_ond002.
-[09:45] - Created audio clip: OST_amb_ond001.
-[09:45] - ####################################################
-[09:45] - New Audio List Prefix: OST_amb_tel.
-[09:45] - Created audio clip: OST_amb_tel006.
-[09:45] - Created audio clip: OST_amb_tel008.
-[09:45] - Created audio clip: OST_amb_tel003.
-[09:45] - Created audio clip: OST_amb_tel007.
-[09:45] - Created audio clip: OST_amb_tel004.
-[09:45] - Created audio clip: OST_amb_tel002.
-[09:45] - Created audio clip: OST_amb_tel001.
-[09:45] - Created audio clip: OST_amb_tel010.
-[09:45] - Created audio clip: OST_amb_tel011.
-[09:45] - Created audio clip: OST_amb_tel015.
-[09:45] - Created audio clip: OST_amb_tel005.
-[09:45] - Created audio clip: OST_amb_tel009.
-[09:45] - Created audio clip: OST_amb_tel012.
-[09:45] - Created audio clip: OST_amb_tel014.
-[09:45] - Created audio clip: OST_amb_tel016.
-[09:45] - Created audio clip: OST_amb_tel013.
-[09:45] - ####################################################
-[09:45] - New Audio List Prefix: OST_amb_ebo.
-[09:45] - Created audio clip: OST_amb_ebo004.
-[09:45] - Created audio clip: OST_amb_ebo002.
-[09:45] - Created audio clip: OST_amb_ebo001.
-[09:45] - Created audio clip: OST_amb_ebo003.
-[09:45] - ####################################################
-[09:45] - New Audio List Prefix: OST_amb_har.
-[09:45] - Created audio clip: OST_amb_har001.
-[09:45] - Created audio clip: OST_amb_har002.
-[09:45] - Created audio clip: OST_amb_har003.
-[09:45] - ####################################################
-[09:45] - New Audio List Prefix: OST_amb_nih.
-[09:45] - Created audio clip: OST_amb_nih003.
-[09:45] - Created audio clip: OST_amb_nih002.
-[09:45] - Created audio clip: OST_amb_nih001.
-[09:45] - ####################################################
-[09:45] - New Audio List Prefix: OST_amb_per.
-[09:45] - Created audio clip: OST_amb_per003.
-[09:45] - Created audio clip: OST_amb_per001.
-[09:45] - Created audio clip: OST_amb_per002.
-[09:45] - Created audio clip: OST_amb_per005.
-[09:45] - Created audio clip: OST_amb_per007.
-[09:45] - Created audio clip: OST_amb_per004.
-[09:45] - Created audio clip: OST_amb_per006.
-[09:45] - ####################################################
-[09:45] - New Audio List Prefix: OST_bat.
-[09:45] - Created audio clip: OST_bat_004.
-[09:45] - Created audio clip: OST_bat_000.
-[09:45] - Created audio clip: OST_bat_003.
-[09:45] - Created audio clip: OST_bat_001.
-[09:45] - Created audio clip: OST_bat_002.
-[09:45] - Created audio clip: OST_bat_006.
-[09:45] - Created audio clip: OST_bat_005.
-[09:45] - Created audio clip: OST_bat_009.
-[09:45] - Created audio clip: OST_bat_012.
-[09:45] - Created audio clip: OST_bat_008.
-[09:45] - Created audio clip: OST_bat_010.
-[09:45] - Created audio clip: OST_bat_011.
-[09:45] - Created audio clip: OST_bat_final.
-[09:45] - Created audio clip: OST_bat_007.
-[09:45] - Created audio clip: OST_bat_013.
-[09:45] - ####################################################
-[09:45] - Finished Setup Audio Manager.
-[09:45] - ####################################################
-« Setup Gui Manager »
-« Loading Images »
-[09:45] - Loaded Title Screen Image.
-[09:45] - Loaded Class Icon Images.
-[09:45] - Loaded Default Portrait Images.
+« Setup Game Manager »
+« Setup Json Files Connection »
+[11:54] - Created directory at: C:\Users\Sintraqos\Desktop\Github\EwoudHacklab\PortfolioProject/JsonFiles.
+[11:54] - Created directory at: C:\Users\Sintraqos\Desktop\Github\EwoudHacklab\PortfolioProject/JsonFiles/Account/
+[11:54] - Created directory at: C:\Users\Sintraqos\Desktop\Github\EwoudHacklab\PortfolioProject/JsonFiles/Save.
+[11:54] - Created directory at: C:\Users\Sintraqos\Desktop\Github\EwoudHacklab\PortfolioProject/JsonFiles/Items/
+[11:54] - Created directory at: C:\Users\Sintraqos\Desktop\Github\EwoudHacklab\PortfolioProject/JsonFiles/Companions.
+[11:54] - Finished connection handler setup.
+« Setup Item Manager »
+[11:54] - Create new item armor list.
+[11:54] - Created new item: Test Armor Piece.
+[11:54] - Created new item: Test Belt.
+[11:54] - Created new item: Test Gloves.
+[11:54] - Created new item: Test Head Gear.
+[11:54] - Created new item: Test Implant.
+[11:54] - Create new item weapon list.
+[11:54] - Created new item: Test Main Hand Sword.
+[11:54] - Created new item: Test Off Hand Sword.
+[11:54] - Created new item: Test Two Handed Sword.
+« Setup Player Manager »
+[11:54] - Finished Setup Player Manager.
+[11:54] - ####################################################
+[11:54] - Finished Setup Game Manager.
+[11:54] - ####################################################
+[11:54] - Created directory at: resources/resourcePaths.
+[11:54] - Dantooine - /audio/ost/ - OST_amb_dan.
+[11:54] - Create new path file at: resources/resourcePaths/Dantooine.json.
+[11:54] - Dxun - /audio/ost/ - OST_amb_dxn.
+[11:54] - Create new path file at: resources/resourcePaths/Dxun.json.
+[11:54] - Korriban - /audio/ost/ - OST_amb_kor.
+[11:54] - Create new path file at: resources/resourcePaths/Korriban.json.
+[11:54] - Malachorv - /audio/ost/ - OST_amb_mal.
+[11:54] - Create new path file at: resources/resourcePaths/Malachorv.json.
+[11:54] - NarShaddaa - /audio/ost/ - OST_amb_nar.
+[11:54] - Create new path file at: resources/resourcePaths/NarShaddaa.json.
+[11:54] - Onderon - /audio/ost/ - OST_amb_ond.
+[11:54] - Create new path file at: resources/resourcePaths/Onderon.json.
+[11:54] - Telos - /audio/ost/ - OST_amb_tel.
+[11:54] - Create new path file at: resources/resourcePaths/Telos.json.
+[11:54] - EbonHawk - /audio/ost/ - OST_amb_ebo.
+[11:54] - Create new path file at: resources/resourcePaths/EbonHawk.json.
+[11:54] - Harbinger - /audio/ost/ - OST_amb_har.
+[11:54] - Create new path file at: resources/resourcePaths/Harbinger.json.
+[11:54] - Ravager - /audio/ost/ - OST_amb_nih.
+[11:54] - Create new path file at: resources/resourcePaths/Ravager.json.
+[11:54] - Ravager - /audio/ost/ - OST_amb_nih.
+[11:54] - Create new path file at: resources/resourcePaths/Ravager.json.
+[11:54] - Peragus - /audio/ost/ - OST_amb_per.
+[11:54] - Create new path file at: resources/resourcePaths/Peragus.json.
+[11:54] - Battle - /audio/ost/ - OST_bat.
+[11:54] - Create new path file at: resources/resourcePaths/Battle.json.
+[11:54] - Player - /images/portrait/player/ - play_Male_
+[11:54] - Create new path file at: resources/resourcePaths/player.json.
+[11:54] - Player - /images/portrait/player/ - play_Fem_
+[11:54] - Create new path file at: resources/resourcePaths/player.json.
+« Setup Output Manager »

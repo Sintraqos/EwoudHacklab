@@ -20,9 +20,9 @@ public class ItemEquipable extends Item{
         return itemWeaponSlot;
     }
 
-    public void setup(int itemID, String itemName, String itemDescription, Enums.itemArmorSlot itemArmorSlot, Enums.itemWeaponSlot itemWeaponSlot) {
+    public void setup(int itemID,Enums.itemType itemType, String itemName, String itemDescription, Enums.itemArmorSlot itemArmorSlot, Enums.itemWeaponSlot itemWeaponSlot) {
         // Set up the item base
-    setup(itemID, itemName, itemDescription);
+        setup(itemID,itemType, itemName, itemDescription);
 
         this.itemArmorSlot = itemArmorSlot;
         this.itemWeaponSlot = itemWeaponSlot;

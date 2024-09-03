@@ -32,10 +32,11 @@ public class OutputManager {
     public ResourcePaths.ResourcePathsFile getPortraitPathsFile() {return portraitPathsFile;}
 
     void setup() {
-        Console.writeHeader("Setup Output Manager");
+        CreateOutputFiles.getInstance();
 
-        // Read out the settings file
-        handleSettings();
+
+
+        Console.writeHeader("Setup Output Manager");
 
         // Then read the path files
         audioPathsFile = Functions.readPathsFile(ResourcePaths.AUDIO_DIRECTORY);
@@ -50,28 +51,5 @@ public class OutputManager {
 
         // Load in the main menu screen
         new MainMenuGUI();
-    }
-
-    void handleSettings() {
-        Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        String filePath = "GameSettings.json";
-
-        // Check if there is already a settings file present
-        if (new File(filePath).exists()) {
-            try (Reader reader = new FileReader(filePath)) {
-                GameSettings.getInstance().setGameSettings(gson.fromJson(reader, GameSettings.class));
-
-            } catch (IOException ex) {
-                throw new Functions.ExceptionHandler("Failed to read from settings file", ex);
-            }
-        }
-        // Create a new settings file
-        else {
-            try (Writer writer = new FileWriter(filePath)) {
-                gson.toJson(GameSettings.getInstance(), writer);
-            } catch (IOException ex) {
-                throw new Functions.ExceptionHandler("Failed to create new settings file", ex);
-            }
-        }
     }
 }
