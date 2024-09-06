@@ -129,6 +129,9 @@ public class ItemManager {
                 ));
             }
         }
+
+        Console.writeLine("Finished Setup Item Manager");
+        Console.writeLine();
     }
 
     void convertItemObjects(ArrayList<ItemObject> itemObjects) {

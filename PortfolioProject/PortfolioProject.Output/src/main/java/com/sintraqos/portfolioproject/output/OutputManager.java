@@ -1,15 +1,10 @@
 package com.sintraqos.portfolioproject.output;
 
-import com.google.gson.*;
 import com.sintraqos.portfolioproject.output.audio.GameAudioManager;
 import com.sintraqos.portfolioproject.output.gui.GameGUIManager;
 import com.sintraqos.portfolioproject.output.gui.mainmenu.MainMenuGUI;
 import com.sintraqos.portfolioproject.statics.Console;
-import com.sintraqos.portfolioproject.statics.Functions;
-import com.sintraqos.portfolioproject.statics.GameSettings;
 import com.sintraqos.portfolioproject.statics.ResourcePaths;
-
-import java.io.*;
 
 public class OutputManager {
     // Get instance
@@ -34,13 +29,11 @@ public class OutputManager {
     void setup() {
         CreateOutputFiles.getInstance();
 
-
-
         Console.writeHeader("Setup Output Manager");
 
         // Then read the path files
-        audioPathsFile = Functions.readPathsFile(ResourcePaths.AUDIO_DIRECTORY);
-        portraitPathsFile = Functions.readPathsFile(ResourcePaths.PORTRAIT_PLAYER_DIRECTORY);
+        audioPathsFile = ResourcePaths.readPathsFile(ResourcePaths.SOUND_TRACK_DIRECTORY);
+        portraitPathsFile = ResourcePaths.readPathsFile(ResourcePaths.PORTRAIT_PLAYER_DIRECTORY);
 
         // Then set up the manager objects
         GameAudioManager.getInstance();

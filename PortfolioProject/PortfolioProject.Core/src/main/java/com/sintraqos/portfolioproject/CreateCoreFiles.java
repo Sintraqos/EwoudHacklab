@@ -22,10 +22,10 @@ public class CreateCoreFiles {
 
         ResourcePaths.ResourcePathsFile paths = new ResourcePaths.ResourcePathsFile();
 
-        paths.createPathFile(
-                Enums.getCurrentLocationName(ResourcePaths.DIALOGUE_PERAGUS_DIRECTORY),
-                ResourcePaths.DIALOGUE_DIRECTORY,
-                ResourcePaths.DIALOGUE_PERAGUS_DIRECTORY);
+//        paths.createPathFile(
+//                Enums.getCurrentLocationName(ResourcePaths.DIALOGUE_PERAGUS_DIRECTORY),
+//                ResourcePaths.DIALOGUE_DIRECTORY,
+//                ResourcePaths.DIALOGUE_PERAGUS_DIRECTORY);
 
         //endregion
 

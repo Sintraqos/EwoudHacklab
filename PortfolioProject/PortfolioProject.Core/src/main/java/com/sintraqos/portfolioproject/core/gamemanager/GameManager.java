@@ -2,6 +2,7 @@ package com.sintraqos.portfolioproject.core.gamemanager;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.sintraqos.portfolioproject.CreateCoreFiles;
 import com.sintraqos.portfolioproject.connect.ConnectHandler;
 import com.sintraqos.portfolioproject.connect.JSONFiles.JSONFileConnectHandler;
 import com.sintraqos.portfolioproject.dialogue.DialogueManager;
@@ -31,6 +32,9 @@ public class GameManager {
     public ConnectHandler getConnectHandler(){return connectHandler;}
 
     void setup(){
+
+        new CreateCoreFiles();
+
         // Before anything else read out the settings file
         handleSettings();
 

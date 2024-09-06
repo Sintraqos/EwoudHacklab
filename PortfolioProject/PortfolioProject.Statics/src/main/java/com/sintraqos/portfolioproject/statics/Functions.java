@@ -1,10 +1,6 @@
 package com.sintraqos.portfolioproject.statics;
 
-import com.google.gson.Gson;
-
 import java.io.*;
-import java.text.SimpleDateFormat;
-import java.util.*;
 
 public class Functions {
 
@@ -24,22 +20,10 @@ public class Functions {
 
     //endregion
 
-    //region Get Files
-
-    public static ResourcePaths.ResourcePathsFile readPathsFile(String pathType) {
-        try (Reader reader = new InputStreamReader(Objects.requireNonNull(Functions.class.getResourceAsStream(ResourcePaths.PATH_SEPARATOR + ResourcePaths.getDataPath(ResourcePaths.FILEPATH_DIRECTORY, pathType))))) {
-            return new Gson().fromJson(reader, ResourcePaths.ResourcePathsFile.class);
-        } catch (IOException ex) {
-            throw new ExceptionHandler("Error reading paths file", ex);
-        }
-    }
-
-    //endregion
-
     //region Directory
 
     public static void createDirectory(String directoryPath) {
-        // Use the File().mkdirs() to create a new directory and check if it failed, then check if the directory doesn't exists for whatever reason,
+        // Use the File().mkdirs() to create a new directory and check if it failed, then check if the directory doesn't exist for whatever reason,
         // Throw exception when that happens, otherwise log the success
         if (!new File(directoryPath).mkdirs() && !new File(directoryPath).exists()) {
             throw new Functions.ExceptionHandler("Failed to create new directory: " + directoryPath);

@@ -25,6 +25,7 @@ public class ConnectHandler {
         // Base start connection to IE: database
         isConnected = true;
         Console.writeLine("Finished connection handler setup");
+        Console.writeLine();
     }
 
     public void connect() {

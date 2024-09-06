@@ -35,7 +35,27 @@ public class CharacterScreenGUI_SelectGenderClass extends CharacterScreenGUI_Bas
 
     // Setup
     public CharacterScreenGUI_SelectGenderClass() {
-        createBase(rootPanel, "Character Generation", false);
+        new Thread(this::setup).start();
+    }
+
+    void setup(){
+        // Setup load screen
+        createBase(rootPanel);
+
+        // Load the needed GUI elements from the GUI Manager
+        GameGUIManager.getInstance().loadPlayerPortraits();
+
+        try {
+            while (!GameGUIManager.getInstance().hasLoadedPortraits()){
+                Thread.sleep(100);
+            }
+        }
+        catch (InterruptedException ex){
+            throw new Functions.ExceptionHandler("Thread Interrupted",ex);
+        }
+
+        // Create the base
+        setupScreen("Character Generation", false);
 
         // Set all text to titleCase
         classConsularInfo = Functions.toTitleCase(classConsularInfo);

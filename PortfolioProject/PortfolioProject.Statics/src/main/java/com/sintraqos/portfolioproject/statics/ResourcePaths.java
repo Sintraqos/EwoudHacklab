@@ -4,10 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class ResourcePaths {
@@ -44,6 +41,7 @@ public class ResourcePaths {
     public static final String BUTTON_HOVER = "ButtonHover";
     public static final String LABEL_IMAGE = "Label";
     public static final String GUI_BACKGROUND = "GUI_Background";
+    public static final String GUI_LOADSCREEN = "GUI_Background";
     public static final String GUI_CLASS_ICON_CONSULAR = "ConsularIcon";
     public static final String GUI_CLASS_ICON_GUARDIAN = "GuardianIcon";
     public static final String GUI_CLASS_ICON_SENTINEL = "SentinelIcon";
@@ -319,6 +317,9 @@ public class ResourcePaths {
     public static class ResourcePathsFile implements Serializable {
         ConcurrentHashMap<String, List<String>> paths;
 
+        public ConcurrentHashMap<String, List<String>> getFilePaths() {
+            return paths;
+        }
         public List<String> getFilePaths(String path) {
             return paths.get(path);
         }
@@ -331,44 +332,47 @@ public class ResourcePaths {
             paths.put(index, pathList);
         }
 
-        public void createPathFile(String fileName, String filePath, String filePrefix) {
-
-            Console.writeLine(fileName + " - " + filePath + " - " + filePrefix);
-
-
-            ResourcePaths.ResourcePathsFile paths = new ResourcePaths.ResourcePathsFile();
-            paths.put(filePrefix, createFilePaths(filePath, filePrefix));
-            createPathFile(fileName, paths);
+        public void put(ConcurrentHashMap<String, List<String>> paths){
+            this.paths.putAll(paths);
         }
 
-//        public void updatePathFile(String fileName, String filePath, String filePrefix){
-//
-//            Console.writeLine(fileName + " - " + filePath + " - " + filePrefix);
-//            paths.put(filePrefix, createFilePaths(filePath, filePrefix));
-//            createPathFile(fileName, paths);
-//        }
-        
-        public void createPathFile(String fileName, ResourcePaths.ResourcePathsFile paths) {
+        public void createPathFile(String location, String fileType, String filePrefix) {
+            ResourcePaths.ResourcePathsFile paths = new ResourcePaths.ResourcePathsFile();
+            paths.put(location, createFilePaths(fileType, filePrefix));
+            createPathFile(fileType, paths);
+        }
 
-            //TODO: Check if there already is a file, then loop over the current path file
-            // if the pathfile contains the current line skip it, otherwise add it to the file
-
+        public void createPathFile(String fileType, ResourcePaths.ResourcePathsFile paths) {
 
             Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
-            try (Writer writer = new FileWriter(ResourcePaths.getDataPath(ResourcePaths.getResourceFilepathDirectory(), fileName))) {
+            if(new File(ResourcePaths.getDataPath(ResourcePaths.getResourceFilepathDirectory() , fileType)).exists()) {
+                try (Reader reader = new FileReader(ResourcePaths.getDataPath(ResourcePaths.getResourceFilepathDirectory(), fileType))) {
+                    ResourcePaths.ResourcePathsFile currentPaths = gson.fromJson(reader, ResourcePaths.ResourcePathsFile.class);
 
-                Console.writeLine("Create new path file at: " + ResourcePaths.getDataPath(ResourcePaths.getResourceFilepathDirectory(), fileName));
+                    if (!currentPaths.getFilePaths().isEmpty()) {
+                        paths.put(currentPaths.getFilePaths());
+                    }
+                } catch (IOException ex) {
+                    throw new Functions.ExceptionHandler("Failed to read from current file", ex);
+                }
+            }
 
+            try (Writer writer = new FileWriter(ResourcePaths.getDataPath(ResourcePaths.getResourceFilepathDirectory(), fileType))) {
                 gson.toJson(paths, writer);
             } catch (IOException ex) {
                 throw new Functions.ExceptionHandler("Failed to create new path file", ex);
             }
         }
 
-        public static List<String> createFilePaths(String filePath, String filePrefix) {
+        public static List<String> createFilePaths(String fileType, String filePrefix) {
+            switch (fileType) {
+                case ResourcePaths.SOUND_TRACK_DIRECTORY -> fileType = ResourcePaths.getSoundtrackAudioPath();
+                case ResourcePaths.PORTRAIT_PLAYER_DIRECTORY -> fileType = ResourcePaths.getPortraitImagePath(ResourcePaths.PORTRAIT_PLAYER_DIRECTORY);
+            }
+
             List<String> fileNames = new ArrayList<>();
-            try (InputStream in = Functions.class.getResourceAsStream(filePath)) {
+            try (InputStream in = Functions.class.getResourceAsStream(fileType)) {
                 assert in != null;
                 try (BufferedReader br = new BufferedReader(new InputStreamReader(in))) {
                     String resource;
@@ -385,6 +389,18 @@ public class ResourcePaths {
             }
 
             return fileNames;
+        }
+
+        @Override
+        public String toString(){
+            return "Resource Paths Length: " + paths.size();
+        }
+    }
+    public static ResourcePathsFile readPathsFile(String pathType) {
+        try (Reader reader = new InputStreamReader(Objects.requireNonNull(Functions.class.getResourceAsStream(PATH_SEPARATOR + getDataPath(FILEPATH_DIRECTORY, pathType))))) {
+            return new Gson().fromJson(reader, ResourcePathsFile.class);
+        } catch (IOException ex) {
+            throw new Functions.ExceptionHandler("Error reading paths file", ex);
         }
     }
 

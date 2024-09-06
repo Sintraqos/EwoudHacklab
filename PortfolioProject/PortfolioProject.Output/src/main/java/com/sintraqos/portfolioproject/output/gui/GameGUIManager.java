@@ -50,10 +50,10 @@ public class GameGUIManager {
         // Images Setup
         loadImages();
 
-        // Portraits Setup
+//        // Portraits Setup
         loadCompanionPortraits();
-
-        loadPlayerPortraits();
+//
+//        loadPlayerPortraits();
 
         // Create new font
         loadFont();
@@ -115,7 +115,13 @@ public class GameGUIManager {
     }
 
     // Player Portrait
-    void loadPlayerPortraits() {
+
+    boolean loadedPortraits;
+    public boolean hasLoadedPortraits(){return loadedPortraits;}
+
+    public void loadPlayerPortraits() {
+        loadedPortraits = false;
+
         Console.writeHeader("Loading Player Portraits");
 
         loadPlayerPortraits(ResourcePaths.PORTRAIT_MALE_PREFIX);
@@ -123,9 +129,11 @@ public class GameGUIManager {
 
         Console.writeLine("Finished Loading Player Portraits");
         Console.writeLine();
+
+        loadedPortraits = true;
     }
 
-    void loadPlayerPortraits(String imagePrefix) {
+   void loadPlayerPortraits(String imagePrefix) {
         Console.writeLine("New portrait prefix: " + imagePrefix);
         List<String> fileNames = OutputManager.getInstance().getPortraitPathsFile().getFilePaths(imagePrefix);
 
@@ -137,6 +145,10 @@ public class GameGUIManager {
     void addPortrait(String fileName, String locationDirectory) {
         Console.writeLine("Adding portrait: " + fileName);
         portraitSprites.put(fileName, Objects.requireNonNull(getImage(ResourcePaths.getImagePath(ResourcePaths.PORTRAIT_DIRECTORY, locationDirectory, fileName))));
+    }
+
+    public void disposePlayerPortraits() {
+        portraitSprites.clear();
     }
 
     // Font
@@ -188,7 +200,7 @@ public class GameGUIManager {
 
         // Click event
         button.addActionListener(_ -> {
-            GameAudioManager.getInstance().playOneShotAudio(ResourcePaths.GUI_CLICK,Enums.audioType.AUDIO_TYPE_SFX);
+            GameAudioManager.getInstance().playOneShotAudio(ResourcePaths.GUI_CLICK, Enums.audioType.AUDIO_TYPE_SFX);
             button.setForeground(StaticUtils.GUI_HOVER_TEXT_COLOR);
             new Thread(new SetJButtonIcon(0, button, ResourcePaths.BUTTON_CLICK, buttonOverlapName, buttonWidth, buttonHeight, padding)).start();
             new Thread(new SetJButtonIcon(75, button, ResourcePaths.BUTTON_HOVER, buttonOverlapName, buttonWidth, buttonHeight, padding)).start();

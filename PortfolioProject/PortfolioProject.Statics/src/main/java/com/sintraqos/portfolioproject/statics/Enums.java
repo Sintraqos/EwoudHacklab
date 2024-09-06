@@ -202,7 +202,7 @@ public class Enums {
 
         // Other
         CURRENT_LOCATION_PERAGUS,
-        CURRENT_LOCATION_BATTLE,
+        CURRENT_LOCATION_BATTLE
     }
 
     public static String getCurrentLocationName(String currentLocationString) {
@@ -213,8 +213,7 @@ public class Enums {
             // Planet
             case ResourcePaths.OST_AMBIENT_PREFIX_DANTOOINE ->
                     currentLocation = Enums.currentLocation.CURRENT_LOCATION_DANTOOINE;
-            case ResourcePaths.OST_AMBIENT_PREFIX_DXUN ->
-                    currentLocation = Enums.currentLocation.CURRENT_LOCATION_DXUN;
+            case ResourcePaths.OST_AMBIENT_PREFIX_DXUN -> currentLocation = Enums.currentLocation.CURRENT_LOCATION_DXUN;
             case ResourcePaths.OST_AMBIENT_PREFIX_KORRIBAN ->
                     currentLocation = Enums.currentLocation.CURRENT_LOCATION_KORRIBAN;
             case ResourcePaths.OST_AMBIENT_PREFIX_MALACHOR_V ->
@@ -237,8 +236,7 @@ public class Enums {
             // Other
             case ResourcePaths.OST_AMBIENT_PREFIX_PERAGUS, ResourcePaths.DIALOGUE_PERAGUS_DIRECTORY ->
                     currentLocation = Enums.currentLocation.CURRENT_LOCATION_PERAGUS;
-            case ResourcePaths.OST_BATTLE_PREFIX ->
-                    currentLocation = Enums.currentLocation.CURRENT_LOCATION_BATTLE;
+            case ResourcePaths.OST_BATTLE_PREFIX -> currentLocation = Enums.currentLocation.CURRENT_LOCATION_BATTLE;
 
             default -> currentLocation = Enums.currentLocation.CURRENT_LOCATION_NONE;
         }

@@ -57,6 +57,8 @@ public class GameAudioManager {
         Console.writeLine();
     }
 
+    //region Load Audio
+
     void loadAudioFiles() {
         audioClips = new HashMap<>();
         dialogueAudio = new HashMap<>();
@@ -76,31 +78,59 @@ public class GameAudioManager {
         audioClips.put(ResourcePaths.OST_MAIN_MENU, new AudioClip(ResourcePaths.OST_MAIN_MENU, ResourcePaths.getSoundtrackAudioFile(ResourcePaths.OST_MAIN_MENU)));
         audioClips.put(ResourcePaths.OST_CHARACTER_CREATE, new AudioClip(ResourcePaths.OST_CHARACTER_CREATE, ResourcePaths.getSoundtrackAudioFile(ResourcePaths.OST_CHARACTER_CREATE)));
         Console.writeLine();
+    }
+
+    boolean loadedAudioFiles;
+
+    public boolean hasLoadedAudioFiles() {
+        return loadedAudioFiles;
+    }
+
+    public void loadAudioFiles(Enums.currentLocation currentLocation) {
+        loadedAudioFiles = false;
+        // Since there is no need to load in all the audio files from places we can't go to yet just load in the needed audio clips when we get there
 
         // Setup Audio Lists
-        Console.writeLine("Loading audio lists");
+        Console.writeLine("Loading audio list");
         ambientAudio = new AudioList();
-        // Planet
-        ambientAudio.createAudioClips(ResourcePaths.OST_AMBIENT_PREFIX_DANTOOINE);
-        ambientAudio.createAudioClips(ResourcePaths.OST_AMBIENT_PREFIX_DXUN);
-        ambientAudio.createAudioClips(ResourcePaths.OST_AMBIENT_PREFIX_KORRIBAN);
-        ambientAudio.createAudioClips(ResourcePaths.OST_AMBIENT_PREFIX_MALACHOR_V);
-        ambientAudio.createAudioClips(ResourcePaths.OST_AMBIENT_PREFIX_NAR_SHADDAA);
-        ambientAudio.createAudioClips(ResourcePaths.OST_AMBIENT_PREFIX_ONDERON);
-        ambientAudio.createAudioClips(ResourcePaths.OST_AMBIENT_PREFIX_TELOS);
+        battleAudio = new AudioList();
 
         // Ship
-        ambientAudio.createAudioClips(ResourcePaths.OST_AMBIENT_PREFIX_EBON_HAWK);
-        ambientAudio.createAudioClips(ResourcePaths.OST_AMBIENT_PREFIX_HARBINGER);
-        ambientAudio.createAudioClips(ResourcePaths.OST_AMBIENT_PREFIX_RAVAGER);
+        switch (Enums.getCurrentLocationName(currentLocation)) {
+            // Planet
+            case ResourcePaths.OST_AMBIENT_PREFIX_DANTOOINE ->
+                    ambientAudio.createAudioClips(ResourcePaths.OST_AMBIENT_PREFIX_DANTOOINE);
+            case ResourcePaths.OST_AMBIENT_PREFIX_DXUN ->
+                    ambientAudio.createAudioClips(ResourcePaths.OST_AMBIENT_PREFIX_DXUN);
+            case ResourcePaths.OST_AMBIENT_PREFIX_KORRIBAN ->
+                    ambientAudio.createAudioClips(ResourcePaths.OST_AMBIENT_PREFIX_KORRIBAN);
+            case ResourcePaths.OST_AMBIENT_PREFIX_MALACHOR_V ->
+                    ambientAudio.createAudioClips(ResourcePaths.OST_AMBIENT_PREFIX_MALACHOR_V);
+            case ResourcePaths.OST_AMBIENT_PREFIX_NAR_SHADDAA ->
+                    ambientAudio.createAudioClips(ResourcePaths.OST_AMBIENT_PREFIX_NAR_SHADDAA);
+            case ResourcePaths.OST_AMBIENT_PREFIX_ONDERON ->
+                    ambientAudio.createAudioClips(ResourcePaths.OST_AMBIENT_PREFIX_ONDERON);
+            case ResourcePaths.OST_AMBIENT_PREFIX_TELOS ->
+                    ambientAudio.createAudioClips(ResourcePaths.OST_AMBIENT_PREFIX_TELOS);
 
-        // Other
-        ambientAudio.createAudioClips(ResourcePaths.OST_AMBIENT_PREFIX_PERAGUS);
+            // Ship
+            case ResourcePaths.OST_AMBIENT_PREFIX_EBON_HAWK ->
+                    ambientAudio.createAudioClips(ResourcePaths.OST_AMBIENT_PREFIX_EBON_HAWK);
+            case ResourcePaths.OST_AMBIENT_PREFIX_HARBINGER ->
+                    ambientAudio.createAudioClips(ResourcePaths.OST_AMBIENT_PREFIX_HARBINGER);
+            case ResourcePaths.OST_AMBIENT_PREFIX_RAVAGER ->
+                    ambientAudio.createAudioClips(ResourcePaths.OST_AMBIENT_PREFIX_RAVAGER);
 
-        // Battle
-        battleAudio = new AudioList();
-        battleAudio.createAudioClips(ResourcePaths.OST_BATTLE_PREFIX);
+            // Other
+            case ResourcePaths.OST_AMBIENT_PREFIX_PERAGUS, ResourcePaths.DIALOGUE_PERAGUS_DIRECTORY ->
+                    ambientAudio.createAudioClips(ResourcePaths.OST_AMBIENT_PREFIX_PERAGUS);
+            case ResourcePaths.OST_BATTLE_PREFIX -> battleAudio.createAudioClips(ResourcePaths.OST_BATTLE_PREFIX);
+        }
+
+        loadedAudioFiles = true;
     }
+
+    //endregion
 
     public void getDialogueAudio(List<String> dialogueIDs, String dialogueTreeID, String dialogueTreeLocation) {
         dialogueAudio.put(dialogueTreeID, new ArrayList<>());
@@ -236,7 +266,7 @@ public class GameAudioManager {
         @Override
         public void run() {
             try {
-                Clip  clip = AudioSystem.getClip();
+                Clip clip = AudioSystem.getClip();
                 clip.open(audioInputStream);
                 GameAudioManager.getInstance().setVolume(clip, audioVolume);
                 clip.start();

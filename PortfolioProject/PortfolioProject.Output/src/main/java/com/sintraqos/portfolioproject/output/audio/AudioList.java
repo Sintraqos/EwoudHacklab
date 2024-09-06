@@ -2,6 +2,7 @@ package com.sintraqos.portfolioproject.output.audio;
 
 import com.sintraqos.portfolioproject.output.OutputManager;
 import com.sintraqos.portfolioproject.statics.Console;
+import com.sintraqos.portfolioproject.statics.Enums;
 import com.sintraqos.portfolioproject.statics.Functions;
 import com.sintraqos.portfolioproject.statics.ResourcePaths;
 
@@ -30,7 +31,7 @@ public class AudioList {
         // Create new audioList
         audioClips.put(audioPrefix, new ArrayList<>());
 
-        List<String> fileNames = OutputManager.getInstance().getAudioPathsFile().getFilePaths(audioPrefix);
+        List<String> fileNames = OutputManager.getInstance().getAudioPathsFile().getFilePaths(Enums.getCurrentLocationName(audioPrefix));
 
         IntStream.range(0, fileNames.size()).parallel().forEach(i ->
                 audioClips.get(audioPrefix).add(

@@ -103,11 +103,15 @@ public class CharacterScreenGUI_Base  extends GUIScreen {
 
     // Setup
 
-    public void createBase(JPanel rootPanel, String labelText) {
-        createBase(rootPanel, labelText, true);
+    public void createBase(JPanel rootPanel) {
+        createBase(rootPanel, "", true, true);
     }
 
-    public void createBase(JPanel rootPanel, String labelText, boolean createBasePanels) {
+    public void createBase(JPanel rootPanel, String labelText) {
+        createBase(rootPanel, labelText, true, true);
+    }
+
+    public void createBase(JPanel rootPanel, String labelText, boolean createBasePanels, boolean hasLoadScreen) {
         this.rootPanel = rootPanel;
         setup(this.rootPanel);
 
@@ -124,6 +128,36 @@ public class CharacterScreenGUI_Base  extends GUIScreen {
 
         guiPanelWidth = windowSizeX - (panelPaddingX * 2);
         guiPanelHeight = windowSizeY - (panelPaddingY * 2) - (guiHeight * 2);
+
+        if (hasLoadScreen) {
+            setupLoadScreen();
+        }
+        if (!hasLoadScreen) {
+            setupScreen(labelText, createBasePanels);
+        }
+    }
+
+    void setupLoadScreen() {
+        rootPanel.removeAll();
+
+        // Background
+        rootPanel = new GUI_JPanelBackground();
+        getGameGUIManager().setScaledImage((GUI_JPanelBackground) rootPanel, ResourcePaths.GUI_LOADSCREEN, windowSizeX, windowSizeY);
+        setup(rootPanel);
+
+        // Create panel that contains all gui elements
+        objectPanel = setParent(rootPanel, addJPanel(guiPanelWidth, guiPanelHeight));
+        setLayout(objectPanel, new BoxLayout(objectPanel, BoxLayout.Y_AXIS));
+
+        // Add the label to the top
+        topLabel = setParent(objectPanel, addLabel(guiPanelWidth, guiHeight, "Loading...", ResourcePaths.LABEL_IMAGE));
+
+        // Finally set the window size to make sure everything is properly sized
+        setWindowSize();
+    }
+
+    public void setupScreen(String labelText, boolean createBasePanels) {
+        rootPanel.removeAll();
 
         // Background
         rootPanel = new GUI_JPanelBackground();

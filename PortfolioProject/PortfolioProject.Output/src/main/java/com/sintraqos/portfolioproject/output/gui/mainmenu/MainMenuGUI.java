@@ -23,6 +23,9 @@ public class MainMenuGUI extends GUIScreen {    // GUI Components
 
     // Setup
     public MainMenuGUI() {
+        // Unload the unneeded GUI elements
+        GameGUIManager.getInstance().disposePlayerPortraits();
+
         setup(rootPanel);
 
         int guiPadding = (int) (25 * getGameGUIManager().getGUIScale());
