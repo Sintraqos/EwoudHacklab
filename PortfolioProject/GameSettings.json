@@ -13,7 +13,7 @@
   "sfxVolume": 1.0,
   "dialogueVolume": 1.0,
   "gameTickSpeed": 60,
-  "guiTickSpeed": 60,
+  "guiTickSpeed": 250,
   "keyBindings": {
     "Move Forward": "W",
     "Move Left": "A",

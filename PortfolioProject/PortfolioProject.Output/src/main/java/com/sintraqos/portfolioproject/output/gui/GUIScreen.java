@@ -57,10 +57,6 @@ public class GUIScreen {
 
     //endregion
 
-    public void clearFrame(){
-        gameGUIManager.getFrame().removeAll();
-    }
-
     //region Add JPanel Background
 
     public JPanel addJPanelBackground(int width, int height, String imagePath) {

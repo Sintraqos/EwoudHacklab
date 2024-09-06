@@ -50,10 +50,8 @@ public class GameGUIManager {
         // Images Setup
         loadImages();
 
-//        // Portraits Setup
+        // Portraits Setup
         loadCompanionPortraits();
-//
-//        loadPlayerPortraits();
 
         // Create new font
         loadFont();
@@ -120,12 +118,18 @@ public class GameGUIManager {
     public boolean hasLoadedPortraits(){return loadedPortraits;}
 
     public void loadPlayerPortraits() {
+        new Thread(this::handleLoadPlayerPortraits).start();
+    }
+
+    public void handleLoadPlayerPortraits() {
         loadedPortraits = false;
 
         Console.writeHeader("Loading Player Portraits");
+        new Thread(() -> loadPlayerPortraits(ResourcePaths.PORTRAIT_MALE_PREFIX));
+        new Thread(() -> loadPlayerPortraits(ResourcePaths.PORTRAIT_FEMALE_PREFIX));
 
-        loadPlayerPortraits(ResourcePaths.PORTRAIT_MALE_PREFIX);
-        loadPlayerPortraits(ResourcePaths.PORTRAIT_FEMALE_PREFIX);
+//        loadPlayerPortraits(ResourcePaths.PORTRAIT_MALE_PREFIX);
+//        loadPlayerPortraits(ResourcePaths.PORTRAIT_FEMALE_PREFIX);
 
         Console.writeLine("Finished Loading Player Portraits");
         Console.writeLine();

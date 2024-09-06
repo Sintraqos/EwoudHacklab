@@ -1,232 +1,123 @@
-[11:18] - Created directory at: resources/dialogue/per.
-[11:18] - Created directory at: resources/dialogue/per.
+[11:57] - Created directory at: resources/dialogue/per.
+[11:57] - Created directory at: resources/dialogue/per.
 « Setup Game Manager »
 « Setup Json Files Connection »
-[11:18] - Created directory at: C:\Users\Sintraqos\Desktop\Github\EwoudHacklab\PortfolioProject/JsonFiles.
-[11:18] - Created directory at: C:\Users\Sintraqos\Desktop\Github\EwoudHacklab\PortfolioProject/JsonFiles/Account/
-[11:18] - Created directory at: C:\Users\Sintraqos\Desktop\Github\EwoudHacklab\PortfolioProject/JsonFiles/Save.
-[11:18] - Created directory at: C:\Users\Sintraqos\Desktop\Github\EwoudHacklab\PortfolioProject/JsonFiles/Items/
-[11:18] - Created directory at: C:\Users\Sintraqos\Desktop\Github\EwoudHacklab\PortfolioProject/JsonFiles/Companions.
-[11:18] - Finished connection handler setup.
-[11:18] - ####################################################
+[11:57] - Created directory at: C:\Users\Sintraqos\Desktop\Github\EwoudHacklab\PortfolioProject/JsonFiles.
+[11:57] - Created directory at: C:\Users\Sintraqos\Desktop\Github\EwoudHacklab\PortfolioProject/JsonFiles/Account/
+[11:57] - Created directory at: C:\Users\Sintraqos\Desktop\Github\EwoudHacklab\PortfolioProject/JsonFiles/Save.
+[11:57] - Created directory at: C:\Users\Sintraqos\Desktop\Github\EwoudHacklab\PortfolioProject/JsonFiles/Items/
+[11:57] - Created directory at: C:\Users\Sintraqos\Desktop\Github\EwoudHacklab\PortfolioProject/JsonFiles/Companions.
+[11:57] - Finished connection handler setup.
+[11:57] - ####################################################
 « Setup Item Manager »
-[11:18] - Create new item armor list.
-[11:18] - Created new item: Test Armor Piece.
-[11:18] - Created new item: Test Belt.
-[11:18] - Created new item: Test Gloves.
-[11:18] - Created new item: Test Head Gear.
-[11:18] - Created new item: Test Implant.
-[11:18] - Create new item weapon list.
-[11:18] - Created new item: Test Main Hand Sword.
-[11:18] - Created new item: Test Off Hand Sword.
-[11:18] - Created new item: Test Two Handed Sword.
-[11:18] - Finished Setup Item Manager.
-[11:18] - ####################################################
+[11:57] - Create new item armor list.
+[11:57] - Create new item weapon list.
+[11:57] - Finished Setup Item Manager.
+[11:57] - ####################################################
 « Setup Player Manager »
-[11:18] - Finished Setup Player Manager.
-[11:18] - ####################################################
-[11:18] - Finished Setup Game Manager.
-[11:18] - ####################################################
-[11:18] - Created directory at: resources/resourcePaths.
+[11:57] - Finished Setup Player Manager.
+[11:57] - ####################################################
+[11:57] - Finished Setup Game Manager.
+[11:57] - ####################################################
+[11:57] - Created directory at: resources/resourcePaths.
 « Setup Output Manager »
 « Setup Audio Manager »
-[11:18] - Loading GUI audio files.
-[11:18] - Created audio clip: GUI_click.
-[11:18] - Created audio clip: GUI_close.
-[11:18] - Created audio clip: GUI_prompt.
-[11:18] - Created audio clip: GUI_invadd.
-[11:18] - Created audio clip: GUI_invdrop.
-[11:18] - Created audio clip: GUI_invselect.
-[11:18] - ####################################################
-[11:18] - Loading music audio files.
-[11:18] - Created audio clip: OST_mus_sion.
-[11:18] - Created audio clip: OST_mus_main.
-[11:18] - ####################################################
-[11:18] - Finished Setup Audio Manager.
-[11:18] - ####################################################
+[11:57] - Loading GUI audio files.
+[11:57] - Created audio clip: GUI_click.
+[11:57] - Created audio clip: GUI_close.
+[11:57] - Created audio clip: GUI_prompt.
+[11:57] - Created audio clip: GUI_invadd.
+[11:57] - Created audio clip: GUI_invdrop.
+[11:57] - Created audio clip: GUI_invselect.
+[11:57] - ####################################################
+[11:57] - Loading music audio files.
+[11:57] - Created audio clip: OST_mus_sion.
+[11:57] - Created audio clip: OST_mus_main.
+[11:57] - ####################################################
+[11:57] - Finished Setup Audio Manager.
+[11:57] - ####################################################
 « Setup Gui Manager »
 « Loading Images »
-[11:18] - Loaded Title Screen Image.
-[11:18] - Loaded Class Icon Images.
-[11:18] - Loaded Default Portrait Images.
-[11:18] - Loaded GUI Element Images.
-[11:18] - Finished Loading Images.
-[11:18] - ####################################################
+[11:57] - Loaded Title Screen Image.
+[11:57] - Loaded Class Icon Images.
+[11:57] - Loaded Default Portrait Images.
+[11:57] - Loaded GUI Element Images.
+[11:57] - Finished Loading Images.
+[11:57] - ####################################################
 « Loading Companion Portraits »
-[11:18] - Adding portrait: comp_BaoDur_2.
-[11:18] - Adding portrait: comp_HK50.
-[11:18] - Adding portrait: comp_Kreia.
-[11:18] - Adding portrait: comp_Mira_2.
-[11:18] - Adding portrait: comp_BaoDur_3.
-[11:18] - Adding portrait: comp_Mira_3.
-[11:18] - Adding portrait: comp_HK50.
-[11:18] - Adding portrait: comp_Kreia.
-[11:18] - Adding portrait: comp_BaoDur_1.
-[11:18] - Adding portrait: comp_HK50.
-[11:18] - Adding portrait: comp_Mira_1.
-[11:18] - Adding portrait: comp_Kreia.
-[11:18] - Adding portrait: comp_Mandalore.
-[11:18] - Adding portrait: comp_B4D4.
-[11:18] - Adding portrait: comp_Atris.
-[11:18] - Adding portrait: comp_Mandalore.
-[11:18] - Adding portrait: comp_Disciple_2.
-[11:18] - Adding portrait: comp_B4D4.
-[11:18] - Adding portrait: comp_Atris.
-[11:18] - Adding portrait: comp_Mandalore.
-[11:18] - Adding portrait: comp_B4D4.
-[11:18] - Adding portrait: comp_Disciple_3.
-[11:18] - Adding portrait: comp_Atris.
-[11:18] - Adding portrait: comp_Visas_2.
-[11:18] - Adding portrait: comp_HK47.
-[11:18] - Adding portrait: comp_HandM_2.
-[11:18] - Adding portrait: comp_Disciple_1.
-[11:18] - Adding portrait: comp_Visas_3.
-[11:18] - Adding portrait: comp_HandM_3.
-[11:18] - Adding portrait: comp_HK47.
-[11:18] - Adding portrait: comp_Remote.
-[11:18] - Adding portrait: comp_Visas_1.
-[11:18] - Adding portrait: comp_HandM_1.
-[11:18] - Adding portrait: comp_HK47.
-[11:18] - Adding portrait: comp_Remote.
-[11:18] - Adding portrait: comp_HK51.
-[11:18] - Adding portrait: comp_Atton_2.
-[11:18] - Adding portrait: comp_G0T0.
-[11:18] - Adding portrait: comp_Remote.
-[11:18] - Adding portrait: comp_HK51.
-[11:18] - Adding portrait: comp_Atton_3.
-[11:18] - Adding portrait: comp_G0T0.
-[11:18] - Adding portrait: comp_Hanharr.
-[11:18] - Adding portrait: comp_HK51.
-[11:18] - Adding portrait: comp_G0T0.
-[11:18] - Adding portrait: comp_Atton_1.
-[11:18] - Adding portrait: comp_Hanharr.
-[11:18] - Adding portrait: comp_3CFD.
-[11:18] - Adding portrait: comp_T3M4.
-[11:18] - Adding portrait: comp_3CFD.
-[11:18] - Adding portrait: comp_3CFD.
-[11:18] - Adding portrait: comp_Hanharr.
-[11:18] - Adding portrait: comp_T3M4.
-[11:18] - Adding portrait: comp_T3M4.
-[11:18] - Finished Loading Companion Portraits.
-[11:18] - ####################################################
+[11:57] - Adding portrait: comp_BaoDur_2.
+[11:57] - Adding portrait: comp_Kreia.
+[11:57] - Adding portrait: comp_HK50.
+[11:57] - Adding portrait: comp_Mira_2.
+[11:57] - Adding portrait: comp_HK50.
+[11:57] - Adding portrait: comp_Mira_3.
+[11:57] - Adding portrait: comp_BaoDur_3.
+[11:57] - Adding portrait: comp_Kreia.
+[11:57] - Adding portrait: comp_Mira_1.
+[11:57] - Adding portrait: comp_HK50.
+[11:57] - Adding portrait: comp_BaoDur_1.
+[11:57] - Adding portrait: comp_Atris.
+[11:57] - Adding portrait: comp_Kreia.
+[11:57] - Adding portrait: comp_Mandalore.
+[11:57] - Adding portrait: comp_B4D4.
+[11:57] - Adding portrait: comp_Atris.
+[11:57] - Adding portrait: comp_Mandalore.
+[11:57] - Adding portrait: comp_Disciple_2.
+[11:57] - Adding portrait: comp_B4D4.
+[11:57] - Adding portrait: comp_Mandalore.
+[11:57] - Adding portrait: comp_Atris.
+[11:57] - Adding portrait: comp_Disciple_3.
+[11:57] - Adding portrait: comp_B4D4.
+[11:57] - Adding portrait: comp_Visas_2.
+[11:57] - Adding portrait: comp_HandM_2.
+[11:57] - Adding portrait: comp_HK47.
+[11:57] - Adding portrait: comp_Visas_3.
+[11:57] - Adding portrait: comp_Disciple_1.
+[11:57] - Adding portrait: comp_HandM_3.
+[11:57] - Adding portrait: comp_Visas_1.
+[11:57] - Adding portrait: comp_HK47.
+[11:57] - Adding portrait: comp_HandM_1.
+[11:57] - Adding portrait: comp_Remote.
+[11:57] - Adding portrait: comp_HK51.
+[11:57] - Adding portrait: comp_HK47.
+[11:57] - Adding portrait: comp_Atton_2.
+[11:57] - Adding portrait: comp_Remote.
+[11:57] - Adding portrait: comp_HK51.
+[11:57] - Adding portrait: comp_Remote.
+[11:57] - Adding portrait: comp_G0T0.
+[11:57] - Adding portrait: comp_Atton_3.
+[11:57] - Adding portrait: comp_HK51.
+[11:57] - Adding portrait: comp_Hanharr.
+[11:57] - Adding portrait: comp_G0T0.
+[11:57] - Adding portrait: comp_Atton_1.
+[11:57] - Adding portrait: comp_3CFD.
+[11:57] - Adding portrait: comp_G0T0.
+[11:57] - Adding portrait: comp_Hanharr.
+[11:57] - Adding portrait: comp_3CFD.
+[11:57] - Adding portrait: comp_T3M4.
+[11:57] - Adding portrait: comp_3CFD.
+[11:57] - Adding portrait: comp_Hanharr.
+[11:57] - Adding portrait: comp_T3M4.
+[11:57] - Adding portrait: comp_T3M4.
+[11:57] - Finished Loading Companion Portraits.
+[11:57] - ####################################################
 « Loading Font File »
-[11:18] - Finished Loading Font File.
-[11:18] - ####################################################
-[11:18] - Finished Setup GUI Manager.
-[11:18] - ####################################################
-[11:18] - Finished Setup Output Manager.
-[11:18] - ####################################################
-[11:18] - Currently playing: OST_mus_sion.
-[11:18] - Loaded in main menu panel.
-[11:18] - Currently playing one-shot: GUI_click.
+[11:57] - Finished Loading Font File.
+[11:57] - ####################################################
+[11:57] - Finished Setup GUI Manager.
+[11:57] - ####################################################
+[11:57] - Finished Setup Output Manager.
+[11:57] - ####################################################
+[11:57] - Currently playing: OST_mus_sion.
+[11:57] - Loaded in main menu panel.
+[11:57] - Currently playing one-shot: GUI_click.
+[11:57] - Loading.
 « Loading Player Portraits »
-[11:18] - New portrait prefix: play_Male_
-[11:18] - Adding portrait: play_Male_06_1.
-[11:18] - Adding portrait: play_Male_11_2.
-[11:18] - Adding portrait: play_Male_14_3.
-[11:18] - Adding portrait: play_Male_15_3.
-[11:18] - Adding portrait: play_Male_06_2.
-[11:18] - Adding portrait: play_Male_16_1.
-[11:18] - Adding portrait: play_Male_15_1.
-[11:18] - Adding portrait: play_Male_11_3.
-[11:18] - Adding portrait: play_Male_06_3.
-[11:18] - Adding portrait: play_Male_16_2.
-[11:18] - Adding portrait: play_Male_15_2.
-[11:18] - Adding portrait: play_Male_12_1.
-[11:18] - Adding portrait: play_Male_16_3.
-[11:18] - Adding portrait: play_Male_05_1.
-[11:18] - Adding portrait: play_Male_12_2.
-[11:18] - Adding portrait: play_Male_13_3.
-[11:18] - Adding portrait: play_Male_17_1.
-[11:18] - Adding portrait: play_Male_05_2.
-[11:19] - Adding portrait: play_Male_12_3.
-[11:19] - Adding portrait: play_Male_14_1.
-[11:19] - Adding portrait: play_Male_17_2.
-[11:19] - Adding portrait: play_Male_05_3.
-[11:19] - Adding portrait: play_Male_13_1.
-[11:19] - Adding portrait: play_Male_14_2.
-[11:19] - Adding portrait: play_Male_17_3.
-[11:19] - Adding portrait: play_Male_08_1.
-[11:19] - Adding portrait: play_Male_13_2.
-[11:19] - Adding portrait: play_Male_10_2.
-[11:19] - Adding portrait: play_Male_09_2.
-[11:19] - Adding portrait: play_Male_08_2.
-[11:19] - Adding portrait: play_Male_03_1.
-[11:19] - Adding portrait: play_Male_09_3.
-[11:19] - Adding portrait: play_Male_08_3.
-[11:19] - Adding portrait: play_Male_10_3.
-[11:19] - Adding portrait: play_Male_03_2.
-[11:19] - Adding portrait: play_Male_10_1.
-[11:19] - Adding portrait: play_Male_11_1.
-[11:19] - Adding portrait: play_Male_03_3.
-[11:19] - Adding portrait: play_Male_09_1.
-[11:19] - Adding portrait: play_Male_02_1.
-[11:19] - Adding portrait: play_Male_04_1.
-[11:19] - Adding portrait: play_Male_01_1.
-[11:19] - Adding portrait: play_Male_07_1.
-[11:19] - Adding portrait: play_Male_02_2.
-[11:19] - Adding portrait: play_Male_01_2.
-[11:19] - Adding portrait: play_Male_04_2.
-[11:19] - Adding portrait: play_Male_07_2.
-[11:19] - Adding portrait: play_Male_01_3.
-[11:19] - Adding portrait: play_Male_04_3.
-[11:19] - Adding portrait: play_Male_02_3.
-[11:19] - Adding portrait: play_Male_07_3.
-[11:19] - ####################################################
-[11:19] - New portrait prefix: play_Fem_
-[11:19] - Adding portrait: play_Fem_06_1.
-[11:19] - Adding portrait: play_Fem_15_3.
-[11:19] - Adding portrait: play_Fem_11_2.
-[11:19] - Adding portrait: play_Fem_14_3.
-[11:19] - Adding portrait: play_Fem_06_2.
-[11:19] - Adding portrait: play_Fem_15_1.
-[11:19] - Adding portrait: play_Fem_11_3.
-[11:19] - Adding portrait: play_Fem_16_1.
-[11:19] - Adding portrait: play_Fem_06_3.
-[11:19] - Adding portrait: play_Fem_15_2.
-[11:19] - Adding portrait: play_Fem_12_1.
-[11:19] - Adding portrait: play_Fem_16_2.
-[11:19] - Adding portrait: play_Fem_05_1.
-[11:19] - Adding portrait: play_Fem_13_3.
-[11:19] - Adding portrait: play_Fem_12_2.
-[11:19] - Adding portrait: play_Fem_16_3.
-[11:19] - Adding portrait: play_Fem_05_2.
-[11:19] - Adding portrait: play_Fem_12_3.
-[11:19] - Adding portrait: play_Fem_14_1.
-[11:19] - Adding portrait: play_Fem_05_3.
-[11:19] - Adding portrait: play_Fem_17_1.
-[11:19] - Adding portrait: play_Fem_14_2.
-[11:19] - Adding portrait: play_Fem_17_2.
-[11:19] - Adding portrait: play_Fem_13_1.
-[11:19] - Adding portrait: play_Fem_08_1.
-[11:19] - Adding portrait: play_Fem_10_2.
-[11:19] - Adding portrait: play_Fem_17_3.
-[11:19] - Adding portrait: play_Fem_08_2.
-[11:19] - Adding portrait: play_Fem_13_2.
-[11:19] - Adding portrait: play_Fem_10_3.
-[11:19] - Adding portrait: play_Fem_08_3.
-[11:19] - Adding portrait: play_Fem_09_2.
-[11:19] - Adding portrait: play_Fem_03_1.
-[11:19] - Adding portrait: play_Fem_11_1.
-[11:19] - Adding portrait: play_Fem_09_3.
-[11:19] - Adding portrait: play_Fem_09_1.
-[11:19] - Adding portrait: play_Fem_02_1.
-[11:19] - Adding portrait: play_Fem_03_2.
-[11:19] - Adding portrait: play_Fem_07_1.
-[11:19] - Adding portrait: play_Fem_10_1.
-[11:19] - Adding portrait: play_Fem_03_3.
-[11:19] - Adding portrait: play_Fem_02_2.
-[11:19] - Adding portrait: play_Fem_07_2.
-[11:19] - Adding portrait: play_Fem_01_1.
-[11:19] - Adding portrait: play_Fem_02_3.
-[11:19] - Adding portrait: play_Fem_01_2.
-[11:19] - Adding portrait: play_Fem_04_1.
-[11:19] - Adding portrait: play_Fem_07_3.
-[11:19] - Adding portrait: play_Fem_04_2.
-[11:19] - Adding portrait: play_Fem_01_3.
-[11:19] - Adding portrait: play_Fem_04_3.
-[11:19] - ####################################################
-[11:19] - Finished Loading Player Portraits.
-[11:19] - ####################################################
-[11:19] - Currently playing: OST_mus_main.
-[11:19] - Loaded in Character Screen: Select Gender and Class panel.
+[11:57] - Loading.
+[11:57] - Finished Loading Player Portraits.
+[11:57] - ####################################################
+[11:57] - Currently playing: OST_mus_main.
+[11:57] - Loaded in Character Screen: Select Gender and Class panel.
+[11:57] - Currently playing: OST_mus_sion.
+[11:57] - Loaded in main menu panel.
+[11:57] - Currently playing one-shot: GUI_click.

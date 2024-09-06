@@ -22,7 +22,7 @@ public class CharacterScreenGUI_SelectGenderClass extends CharacterScreenGUI_Bas
     JButton classSentinelButton;
     JLabel classInfoPanel;
 
-    JPanel buttonpanel;
+    JPanel buttonPanel;
     JButton cancelButton;
     JButton confirmButton;
 
@@ -47,7 +47,8 @@ public class CharacterScreenGUI_SelectGenderClass extends CharacterScreenGUI_Bas
 
         try {
             while (!GameGUIManager.getInstance().hasLoadedPortraits()){
-                Thread.sleep(100);
+                setLoadingText();
+                Thread.sleep(GameSettings.getInstance().getGuiTickSpeed());
             }
         }
         catch (InterruptedException ex){
@@ -122,11 +123,11 @@ public class CharacterScreenGUI_SelectGenderClass extends CharacterScreenGUI_Bas
 
         // Add buttons
         setParent(getObjectPanel(), addJPanel(getGuiPanelWidth(), objectPaddingY)); // Create padding object
-        buttonpanel = setParent(getObjectPanel(), addJPanel(getGuiPanelWidth(), getGuiHeight()));
-        setLayout(buttonpanel, new GridBagLayout());
-        cancelButton = setParent(buttonpanel, addButton(getGuiWidth(), getGuiHeight(), "Cancel", cancelListener));
-        setParent(buttonpanel, addJPanel(iconSize, getGuiHeight()));
-        confirmButton = setParent(buttonpanel, addButton(getGuiWidth(), getGuiHeight(), "Confirm", confirmListener));
+        buttonPanel = setParent(getObjectPanel(), addJPanel(getGuiPanelWidth(), getGuiHeight()));
+        setLayout(buttonPanel, new GridBagLayout());
+        cancelButton = setParent(buttonPanel, addButton(getGuiWidth(), getGuiHeight(), "Cancel", cancelListener));
+        setParent(buttonPanel, addJPanel(iconSize, getGuiHeight()));
+        confirmButton = setParent(buttonPanel, addButton(getGuiWidth(), getGuiHeight(), "Confirm", confirmListener));
 
         // Set window size
         setWindowSize();

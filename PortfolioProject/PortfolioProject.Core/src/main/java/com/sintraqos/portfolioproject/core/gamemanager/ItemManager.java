@@ -3,9 +3,12 @@ package com.sintraqos.portfolioproject.core.gamemanager;
 import com.sintraqos.portfolioproject.statics.Console;
 import com.sintraqos.portfolioproject.statics.DataObjects.ItemObject;
 import com.sintraqos.portfolioproject.statics.Enums;
+import com.sintraqos.portfolioproject.statics.Functions;
+import com.sintraqos.portfolioproject.statics.ResourcePaths;
 import com.sintraqos.portfolioproject.statics.items.*;
 
 import java.util.ArrayList;
+import java.util.stream.IntStream;
 
 public class ItemManager {
 
@@ -93,41 +96,44 @@ public class ItemManager {
         convertItemObjects(GameManager.getInstance().getConnectHandler().getItemObjects());
 
         // If the list doesn't have any values create new item list for that
-        boolean newItemList  =!itemList.isEmpty();
+        boolean newItemList = !itemList.isEmpty();
 
         Console.writeLine("Create new item armor list");
-        createArmorItemList();
 
+        new Thread(this::createArmorItemList);
         Console.writeLine("Create new item weapon list");
-        createWeaponItemList();
+        new Thread(this::createWeaponItemList);
 
         if (newItemList) {
 
-            for (ItemArmor item : itemArmorList) {
-                GameManager.getInstance().connectHandler.createItemObject(new ItemObject().createArmorItemObject(
-                        item.getItemID(),
-                        item.getItemType(),
-                        item.getItemName(),
-                        item.getItemDescription(),
-                        item.getItemArmorSlot(),
-                        item.getItemUpgradeSlots(),
-                        item.getItemArmorValue(),
-                        item.getItemArmorType()
-                ));
-            }
-            for (ItemWeapon item : itemWeaponList) {
-                GameManager.getInstance().connectHandler.createItemObject(new ItemObject().createWeaponItemObject(
-                        item.getItemID(),
-                        item.getItemType(),
-                        item.getItemName(),
-                        item.getItemDescription(),
-                        item.getItemWeaponSlot(),
-                        item.getItemUpgradeSlots(),
-                        item.getItemWeaponMinDamage(),
-                        item.getItemWeaponMaxDamage(),
-                        item.getItemWeaponDamageType()
-                ));
-            }
+            IntStream.range(0, itemArmorList.size()).parallel().forEach(
+                    i -> {
+                        GameManager.getInstance().connectHandler.createItemObject(new ItemObject().createArmorItemObject(
+                                itemArmorList.get(i).getItemID(),
+                                itemArmorList.get(i).getItemType(),
+                                itemArmorList.get(i).getItemName(),
+                                itemArmorList.get(i).getItemDescription(),
+                                itemArmorList.get(i).getItemArmorSlot(),
+                                itemArmorList.get(i).getItemUpgradeSlots(),
+                                itemArmorList.get(i).getItemArmorValue(),
+                                itemArmorList.get(i).getItemArmorType()
+                        ));
+                    });
+
+            IntStream.range(0, itemWeaponList.size()).parallel().forEach(
+                    i -> {
+                        GameManager.getInstance().connectHandler.createItemObject(new ItemObject().createWeaponItemObject(
+                                itemWeaponList.get(i).getItemID(),
+                                itemWeaponList.get(i).getItemType(),
+                                itemWeaponList.get(i).getItemName(),
+                                itemWeaponList.get(i).getItemDescription(),
+                                itemWeaponList.get(i).getItemWeaponSlot(),
+                                itemWeaponList.get(i).getItemUpgradeSlots(),
+                                itemWeaponList.get(i).getItemWeaponMinDamage(),
+                                itemWeaponList.get(i).getItemWeaponMaxDamage(),
+                                itemWeaponList.get(i).getItemWeaponDamageType()
+                        ));
+                    });
         }
 
         Console.writeLine("Finished Setup Item Manager");
@@ -135,15 +141,16 @@ public class ItemManager {
     }
 
     void convertItemObjects(ArrayList<ItemObject> itemObjects) {
-        for (ItemObject itemObject : itemObjects) {
-            switch (itemObject.getItemType()) {
-                case ITEM_TYPE_ARMOR ->
-                        itemArmorList.add(createItemArmor(itemObject.getItemName(), itemObject.getItemDescription(), itemObject.getItemArmorSlot(), itemObject.getItemArmorValue(), itemObject.getItemArmorType()));
+        IntStream.range(0, itemObjects.size()).parallel().forEach(
+                i -> {
+                    switch (itemObjects.get(i).getItemType()) {
+                        case ITEM_TYPE_ARMOR ->
+                                itemArmorList.add(createItemArmor(itemObjects.get(i).getItemName(), itemObjects.get(i).getItemDescription(), itemObjects.get(i).getItemArmorSlot(), itemObjects.get(i).getItemArmorValue(), itemObjects.get(i).getItemArmorType()));
 
-                case ITEM_TYPE_WEAPON ->
-                        itemWeaponList.add(createItemWeapon(itemObject.getItemName(), itemObject.getItemDescription(), itemObject.getItemWeaponSlot(), itemObject.getItemWeaponMinDamage(), itemObject.getItemWeaponMaxDamage(), itemObject.getItemWeaponDamageType()));
-            }
-        }
+                        case ITEM_TYPE_WEAPON ->
+                                itemWeaponList.add(createItemWeapon(itemObjects.get(i).getItemName(), itemObjects.get(i).getItemDescription(), itemObjects.get(i).getItemWeaponSlot(), itemObjects.get(i).getItemWeaponMinDamage(), itemObjects.get(i).getItemWeaponMaxDamage(), itemObjects.get(i).getItemWeaponDamageType()));
+                    }
+                });
     }
 
     // region Armor

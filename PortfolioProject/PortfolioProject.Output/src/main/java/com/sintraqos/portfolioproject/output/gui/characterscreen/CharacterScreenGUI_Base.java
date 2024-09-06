@@ -101,7 +101,7 @@ public class CharacterScreenGUI_Base  extends GUIScreen {
 
     //endregion
 
-    // Setup
+    //region Setup
 
     public void createBase(JPanel rootPanel) {
         createBase(rootPanel, "", true, true);
@@ -150,7 +150,8 @@ public class CharacterScreenGUI_Base  extends GUIScreen {
         setLayout(objectPanel, new BoxLayout(objectPanel, BoxLayout.Y_AXIS));
 
         // Add the label to the top
-        topLabel = setParent(objectPanel, addLabel(guiPanelWidth, guiHeight, "Loading...", ResourcePaths.LABEL_IMAGE));
+        topLabel = setParent(objectPanel, addLabel(guiPanelWidth, guiHeight, "", ResourcePaths.LABEL_IMAGE));
+        setLoadingText();
 
         // Finally set the window size to make sure everything is properly sized
         setWindowSize();
@@ -184,5 +185,26 @@ public class CharacterScreenGUI_Base  extends GUIScreen {
 
         // Finally set the window size to make sure everything is properly sized
         setWindowSize();
+    }
+
+    //endregion
+
+    String[] loadingText = new String[]{"Loading", "Loading.", "Loading..", "Loading..."};
+    int currentLoadText;
+    public void setLoadingText(){
+        String loadText = loadingText[currentLoadText];
+
+        currentLoadText++;
+        if(currentLoadText >= loadingText.length){
+            currentLoadText = 0;
+        }
+
+        Console.writeLine(loadText);
+
+        setLabelText(loadText);
+    }
+
+    public void setLabelText(String labelText) {
+        topLabel.setText(labelText);
     }
 }
