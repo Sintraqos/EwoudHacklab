@@ -40,7 +40,7 @@ public class DialogueManager {
         Console.writeHeader("Setup Dialogue Manager");
         dialogues = new HashMap<>();
 
-        List<String> fileNames = ResourcePaths.readPathsFile(ResourcePaths.DIALOGUE_DIRECTORY).getFilePaths(ResourcePaths.DIALOGUE_PERAGUS_DIRECTORY);
+        List<String> fileNames = ResourcePaths.readPathsFile(ResourcePaths.DIALOGUE_DIRECTORY).getFilePaths(ResourcePaths.DIRECTORY_PERAGUS);
 
         IntStream.range(0, fileNames.size()).parallel().forEach(i -> dialogues.put(
                 Functions.getFileNameWithoutExtension(fileNames.get(i)),

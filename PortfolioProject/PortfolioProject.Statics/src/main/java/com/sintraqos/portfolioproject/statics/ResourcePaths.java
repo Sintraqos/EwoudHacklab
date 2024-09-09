@@ -31,6 +31,20 @@ public class ResourcePaths {
     public static final String ITEM_IMAGE_DIRECTORY = "itemIcon";
     public static final String UI_ELEMENT_DIRECTORY = "uiElements";
 
+    // Locations
+    public static final String DIRECTORY_DANTOOINE = "dan";
+    public static final String DIRECTORY_DXUN = "dxn";
+    public static final String DIRECTORY_KORRIBAN = "kor";
+    public static final String DIRECTORY_MALACHOR_V = "mal";
+    public static final String DIRECTORY_NAR_SHADDAA = "nar";
+    public static final String DIRECTORY_ONDERON = "ond";
+    public static final String DIRECTORY_TELOS = "tel";
+    public static final String DIRECTORY_EBON_HAWK = "ebo";
+    public static final String DIRECTORY_HARBINGER = "har";
+    public static final String DIRECTORY_RAVAGER = "rav";
+    public static final String DIRECTORY_PERAGUS = "per";
+    public static final String DIRECTORY_SHARED = "shared";
+
     //region Image
 
     // Image Files
@@ -113,6 +127,30 @@ public class ResourcePaths {
     public static final String PORTRAIT_DEFAULT_MALE = "DefaultMalePortrait";
 
     //endregion
+
+    //endregion
+
+    //region Load Screen
+
+    public static final String LOADSCREEN_DIRECTORY = "loadScreens";
+
+    // Planet
+    public static final String LOADSCREEN_PREFIX_DANTOOINE = "load_dan";
+    public static final String LOADSCREEN_PREFIX_DXUN = "load_dxn";
+    public static final String LOADSCREEN_PREFIX_KORRIBAN = "load_kor";
+    public static final String LOADSCREEN_PREFIX_MALACHOR_V = "load_mal";
+    public static final String LOADSCREEN_PREFIX_NAR_SHADDAA = "load_nar";
+    public static final String LOADSCREEN_PREFIX_ONDERON = "load_ond";
+    public static final String LOADSCREEN_PREFIX_TELOS = "load_tel";
+
+    // Ship
+    public static final String LOADSCREEN_PREFIX_EBON_HAWK = "load_ebo";
+    public static final String LOADSCREEN_PREFIX_HARBINGER = "load_har";
+    public static final String LOADSCREEN_PREFIX_RAVAGER = "load_rav";
+
+    // Other
+    public static final String LOADSCREEN_PREFIX_PERAGUS = "load_per";
+    public static final String LOADSCREEN_PREFIX_MAIN_MENU = "load_mai";
 
     //endregion
 
@@ -204,7 +242,6 @@ public class ResourcePaths {
 
     //region ---- Peragus
 
-    public static final String DIALOGUE_PERAGUS_DIRECTORY = "per";
     public static final String KREIA_001 = "Kreia001";
     public static final String KREIA_002 = "Kreia002";
 
@@ -237,6 +274,10 @@ public class ResourcePaths {
         return IMAGE_DIRECTORY + PATH_SEPARATOR + UI_ELEMENT_DIRECTORY + PATH_SEPARATOR + imageName + EXTENSION_IMAGE;
     }
 
+    public static String getLoadScreenImagePath(){
+        return PATH_SEPARATOR + IMAGE_DIRECTORY + PATH_SEPARATOR + LOADSCREEN_DIRECTORY + PATH_SEPARATOR;
+    }
+
     //endregion
 
     //region Audio Path
@@ -244,14 +285,6 @@ public class ResourcePaths {
     // General
     static String getAudioDirectoryPath(String locationDirectory) {
         return PATH_SEPARATOR + AUDIO_DIRECTORY + PATH_SEPARATOR + locationDirectory + PATH_SEPARATOR;
-    }
-
-    static String getAudioDirectoryPath(String locationDirectory, String locationSubDirectory) {
-        return getAudioDirectoryPath(locationDirectory) + locationSubDirectory + PATH_SEPARATOR;
-    }
-
-    public static String getAudioFile(String locationDirectory, String locationSubDirectory, String fileName) {
-        return getAudioDirectoryPath(locationDirectory, locationSubDirectory) + fileName;
     }
 
     // Soundtrack
@@ -312,7 +345,7 @@ public class ResourcePaths {
 
     //endregion
 
-    //region Classes
+    //region Resource Path File
 
     public static class ResourcePathsFile implements Serializable {
         ConcurrentHashMap<String, List<String>> paths;
@@ -369,6 +402,7 @@ public class ResourcePaths {
             switch (fileType) {
                 case ResourcePaths.SOUND_TRACK_DIRECTORY -> fileType = ResourcePaths.getSoundtrackAudioPath();
                 case ResourcePaths.PORTRAIT_PLAYER_DIRECTORY -> fileType = ResourcePaths.getPortraitImagePath(ResourcePaths.PORTRAIT_PLAYER_DIRECTORY);
+                case ResourcePaths.LOADSCREEN_DIRECTORY -> fileType = ResourcePaths.getLoadScreenImagePath();
             }
 
             List<String> fileNames = new ArrayList<>();

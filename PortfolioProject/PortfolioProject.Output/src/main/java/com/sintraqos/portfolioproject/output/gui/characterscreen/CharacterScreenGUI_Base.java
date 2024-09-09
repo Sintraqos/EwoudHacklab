@@ -15,20 +15,6 @@ public class CharacterScreenGUI_Base  extends GUIScreen {
 
     JLabel topLabel;
 
-    // Sizes
-    private int windowSizeX;
-    private int windowSizeY;
-
-    private int panelPaddingX;
-    private int panelPaddingY;
-
-    private int guiHeight;
-    private int guiWidth;
-    private int guiPadding;
-
-    private int guiPanelWidth;
-    private int guiPanelHeight;
-
     //region Public
 
     //region ---- GUI Objects
@@ -59,46 +45,6 @@ public class CharacterScreenGUI_Base  extends GUIScreen {
 
     //endregion
 
-    //region ---- GUI Size
-
-    public int getWindowSizeX() {
-        return windowSizeX;
-    }
-
-    public int getWindowSizeY() {
-        return windowSizeY;
-    }
-
-    public int getPanelPaddingX() {
-        return panelPaddingX;
-    }
-
-    public int getPanelPaddingY() {
-        return panelPaddingY;
-    }
-
-    public int getGuiHeight() {
-        return guiHeight;
-    }
-
-    public int getGuiWidth() {
-        return guiWidth;
-    }
-
-    public int getGuiPadding() {
-        return guiPadding;
-    }
-
-    public int getGuiPanelWidth() {
-        return guiPanelWidth;
-    }
-
-    public int getGuiPanelHeight() {
-        return guiPanelHeight;
-    }
-
-    //endregion
-
     //endregion
 
     //region Setup
@@ -115,19 +61,7 @@ public class CharacterScreenGUI_Base  extends GUIScreen {
         this.rootPanel = rootPanel;
         setup(this.rootPanel);
 
-        // Set sizes
-        windowSizeX = GameSettings.getInstance().getWindowSize().width;
-        windowSizeY = GameSettings.getInstance().getWindowSize().height;
-
-        panelPaddingX = (int) (175 * getGameGUIManager().getGUIScale());
-        panelPaddingY = (int) (75 * getGameGUIManager().getGUIScale());
-
-        guiHeight = (int) (GameSettings.getInstance().getDefaultButtonSizeY() * getGameGUIManager().getGUIScale());
-        guiWidth = (int) (GameSettings.getInstance().getDefaultButtonSizeX() * getGameGUIManager().getGUIScale());
-        guiPadding = (int) (5 * getGameGUIManager().getGUIScale());
-
-        guiPanelWidth = windowSizeX - (panelPaddingX * 2);
-        guiPanelHeight = windowSizeY - (panelPaddingY * 2) - (guiHeight * 2);
+        setGUISizes();
 
         if (hasLoadScreen) {
             setupLoadScreen();
@@ -142,15 +76,15 @@ public class CharacterScreenGUI_Base  extends GUIScreen {
 
         // Background
         rootPanel = new GUI_JPanelBackground();
-        getGameGUIManager().setScaledImage((GUI_JPanelBackground) rootPanel, ResourcePaths.GUI_LOADSCREEN, windowSizeX, windowSizeY);
+        getGameGUIManager().setScaledImage((GUI_JPanelBackground) rootPanel, ResourcePaths.GUI_LOADSCREEN, getWindowSizeX(), getWindowSizeY());
         setup(rootPanel);
 
         // Create panel that contains all gui elements
-        objectPanel = setParent(rootPanel, addJPanel(guiPanelWidth, guiPanelHeight));
+        objectPanel = setParent(rootPanel, addJPanel(getGuiPanelWidth(), getGuiPanelHeight()));
         setLayout(objectPanel, new BoxLayout(objectPanel, BoxLayout.Y_AXIS));
 
         // Add the label to the top
-        topLabel = setParent(objectPanel, addLabel(guiPanelWidth, guiHeight, "", ResourcePaths.LABEL_IMAGE));
+        topLabel = setParent(objectPanel, addLabel(getGuiPanelWidth(), getGuiHeight(), "", ResourcePaths.LABEL_IMAGE));
         setLoadingText();
 
         // Finally set the window size to make sure everything is properly sized
@@ -162,24 +96,24 @@ public class CharacterScreenGUI_Base  extends GUIScreen {
 
         // Background
         rootPanel = new GUI_JPanelBackground();
-        getGameGUIManager().setScaledImage((GUI_JPanelBackground) rootPanel, ResourcePaths.GUI_BACKGROUND, windowSizeX, windowSizeY);
+        getGameGUIManager().setScaledImage((GUI_JPanelBackground) rootPanel, ResourcePaths.GUI_BACKGROUND,  getWindowSizeX(),  getWindowSizeY());
         setup(rootPanel);
 
         // Create panel that contains all gui elements
-        objectPanel = setParent(rootPanel, addJPanel(guiPanelWidth, guiPanelHeight));
+        objectPanel = setParent(rootPanel, addJPanel(getGuiPanelWidth(),  getGuiPanelHeight()));
         setLayout(objectPanel, new BoxLayout(objectPanel, BoxLayout.Y_AXIS));
 
         // Add the label to the top
-        topLabel = setParent(objectPanel, addLabel(guiPanelWidth, guiHeight, labelText, ResourcePaths.LABEL_IMAGE));
+        topLabel = setParent(objectPanel, addLabel(getGuiPanelWidth(), getGuiHeight(), labelText, ResourcePaths.LABEL_IMAGE));
         // Create empty
-        setParent(objectPanel, addJPanel(guiPanelWidth, guiPadding));
-        contentPanel = setParent(objectPanel, addJPanel(guiPanelWidth, guiPanelHeight - (2 * (guiHeight + guiPadding))));
+        setParent(objectPanel, addJPanel(getGuiPanelWidth(), getGuiPadding()));
+        contentPanel = setParent(objectPanel, addJPanel(getGuiPanelWidth(),  getGuiPanelHeight() - (2 * (getGuiHeight() + getGuiPadding()))));
 
         if (createBasePanels) {
             setLayout(contentPanel, new BoxLayout(contentPanel, BoxLayout.X_AXIS));
-            leftPanel = setParent(contentPanel, addJPanelBackground(guiPanelWidth / 2, guiPanelHeight, ResourcePaths.LABEL_IMAGE));
+            leftPanel = setParent(contentPanel, addJPanelBackground(getGuiPanelWidth() / 2, getGuiPanelHeight(), ResourcePaths.LABEL_IMAGE));
             setLayout(leftPanel, new BoxLayout(leftPanel, BoxLayout.Y_AXIS));
-            rightPanel = setParent(contentPanel, addJPanelBackground(guiPanelWidth / 2, guiPanelHeight, ResourcePaths.LABEL_IMAGE));
+            rightPanel = setParent(contentPanel, addJPanelBackground(getGuiPanelWidth() / 2,  getGuiPanelHeight(), ResourcePaths.LABEL_IMAGE));
             setLayout(rightPanel, new BoxLayout(rightPanel, BoxLayout.Y_AXIS));
         }
 

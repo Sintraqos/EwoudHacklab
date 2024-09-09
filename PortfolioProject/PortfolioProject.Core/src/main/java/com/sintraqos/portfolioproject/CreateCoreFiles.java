@@ -46,10 +46,10 @@ public class CreateCoreFiles {
                 )));
 
         // Create the dialogue tree
-        dialogueTree = new DialogueTree(ResourcePaths.KREIA_001, ResourcePaths.DIALOGUE_PERAGUS_DIRECTORY + ResourcePaths.KREIA_001, dialogueOptions);
+        dialogueTree = new DialogueTree(ResourcePaths.KREIA_001, ResourcePaths.DIRECTORY_PERAGUS + ResourcePaths.KREIA_001, dialogueOptions);
 
         // And create the new dialogue file
-        createDialogueFile(ResourcePaths.KREIA_001, dialogueTree, ResourcePaths.DIALOGUE_PERAGUS_DIRECTORY);
+        createDialogueFile(ResourcePaths.KREIA_001, dialogueTree, ResourcePaths.DIRECTORY_PERAGUS);
 
         //endregion
 
@@ -376,10 +376,10 @@ public class CreateCoreFiles {
         //endregion
 
         // Create the dialogue tree
-        dialogueTree = new DialogueTree(ResourcePaths.KREIA_002, ResourcePaths.DIALOGUE_PERAGUS_DIRECTORY + ResourcePaths.KREIA_002, dialogueOptions);
+        dialogueTree = new DialogueTree(ResourcePaths.KREIA_002, ResourcePaths.DIRECTORY_PERAGUS + ResourcePaths.KREIA_002, dialogueOptions);
 
         // And create the new dialogue file
-        createDialogueFile(ResourcePaths.KREIA_002, dialogueTree, ResourcePaths.DIALOGUE_PERAGUS_DIRECTORY);
+        createDialogueFile(ResourcePaths.KREIA_002, dialogueTree, ResourcePaths.DIRECTORY_PERAGUS);
 
         //endregion
 

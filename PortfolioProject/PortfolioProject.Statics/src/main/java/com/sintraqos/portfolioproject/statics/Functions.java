@@ -28,8 +28,6 @@ public class Functions {
         if (!new File(directoryPath).mkdirs() && !new File(directoryPath).exists()) {
             throw new Functions.ExceptionHandler("Failed to create new directory: " + directoryPath);
         }
-
-        Console.writeLine("Created directory at: " + directoryPath);
     }
 
     //endregion

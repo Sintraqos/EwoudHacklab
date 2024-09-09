@@ -122,7 +122,7 @@ public class GameAudioManager {
                     ambientAudio.createAudioClips(ResourcePaths.OST_AMBIENT_PREFIX_RAVAGER);
 
             // Other
-            case ResourcePaths.OST_AMBIENT_PREFIX_PERAGUS, ResourcePaths.DIALOGUE_PERAGUS_DIRECTORY ->
+            case ResourcePaths.OST_AMBIENT_PREFIX_PERAGUS, ResourcePaths.DIRECTORY_PERAGUS ->
                     ambientAudio.createAudioClips(ResourcePaths.OST_AMBIENT_PREFIX_PERAGUS);
             case ResourcePaths.OST_BATTLE_PREFIX -> battleAudio.createAudioClips(ResourcePaths.OST_BATTLE_PREFIX);
         }

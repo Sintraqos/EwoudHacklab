@@ -21,37 +21,28 @@ public class CharacterScreenGUI_CreateCharacter extends CharacterScreenGUI_Base 
     JButton cancelButton;
     JButton backButton;
 
+    ActionListener portraitListener;
+    ActionListener attributesListener;
+    ActionListener skillsListener;
+    ActionListener featsListener;
+    ActionListener nameListener;
+    ActionListener playListener;
+    ActionListener cancelListener;
+    ActionListener backListener;
+
     // Setup
-    public CharacterScreenGUI_CreateCharacter() {
-        createBase(rootPanel,"Character Generation");
+    public CharacterScreenGUI_CreateCharacter() {new Thread(this::setup).start();
+    }
+
+    void setup(){
+        // Setup load screen
+        createBase(rootPanel);
+
+        // Create the base
+        setupScreen("Character Generation", true);
 
         // Create listeners
-        // Portrait
-        ActionListener portraitListener = e -> {
-        };
-        // Attributes
-        ActionListener attributesListener = e -> {
-        };
-        // Skills
-        ActionListener skillsListener = e -> {
-        };
-        // Feats
-        ActionListener featsListener = e -> {
-        };
-        // Name
-        ActionListener nameListener = e -> {
-        };
-        // Load in the first gameplay scene with the selected character
-        ActionListener playListener = e -> {
-        };
-        // Return to start of character create
-        ActionListener cancelListener = e -> {
-            new MainMenuGUI();
-        };
-        // Return to main menu
-        ActionListener backListener = e -> {
-            new MainMenuGUI();
-        };
+        createListeners();
 
         // Add buttons
         portraitButton = setParent(getRightPanel(), addPadding(addButton(getGuiPanelWidth() / 2 - (2 * getGuiPadding()), getGuiHeight(), "Portrait", portraitListener),  getGuiPadding()));
@@ -64,7 +55,37 @@ public class CharacterScreenGUI_CreateCharacter extends CharacterScreenGUI_Base 
         cancelButton = setParent(getObjectPanel(), addButton(getGuiWidth(), getGuiHeight(), "Cancel", cancelListener));
         backButton = setParent(getObjectPanel(), addButton(getGuiWidth(), getGuiHeight(), "Back", backListener));
 
+        // Set window size
         setWindowSize();
         Console.writeLine("Loaded in Character Screen: Create Character");
+    }
+
+    void createListeners(){
+        // Portrait
+        portraitListener = e -> {
+        };
+        // Attributes
+        attributesListener = e -> {
+        };
+        // Skills
+        skillsListener = e -> {
+        };
+        // Feats
+        featsListener = e -> {
+        };
+        // Name
+        nameListener = e -> {
+        };
+        // Load in the first gameplay scene with the selected character
+        playListener = e -> {
+        };
+        // Return to start of character create
+        cancelListener = e -> {
+            new MainMenuGUI();
+        };
+        // Return to main menu
+        backListener = e -> {
+            new MainMenuGUI();
+        };
     }
 }

@@ -3,6 +3,7 @@ package com.sintraqos.portfolioproject.output;
 import com.sintraqos.portfolioproject.output.audio.GameAudioManager;
 import com.sintraqos.portfolioproject.output.gui.GameGUIManager;
 import com.sintraqos.portfolioproject.output.gui.mainmenu.MainMenuGUI;
+import com.sintraqos.portfolioproject.output.gui.dialogue.dialogueGUI;
 import com.sintraqos.portfolioproject.statics.Console;
 import com.sintraqos.portfolioproject.statics.ResourcePaths;
 
@@ -43,6 +44,11 @@ public class OutputManager {
         Console.writeLine();
 
         // Load in the main menu screen
-        new MainMenuGUI();
+        //new MainMenuGUI();
+
+
+
+
+        new dialogueGUI();
     }
 }

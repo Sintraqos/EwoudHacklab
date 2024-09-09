@@ -1,91 +1,6 @@
 {
   "paths": {
-    "Peragus": [
-      "OST_amb_per001.wav",
-      "OST_amb_per002.wav",
-      "OST_amb_per003.wav",
-      "OST_amb_per004.wav",
-      "OST_amb_per005.wav",
-      "OST_amb_per006.wav",
-      "OST_amb_per007.wav"
-    ],
-    "Korriban": [
-      "OST_amb_kor001.wav",
-      "OST_amb_kor002.wav",
-      "OST_amb_kor003.wav",
-      "OST_amb_kor004.wav"
-    ],
-    "Telos": [
-      "OST_amb_tel001.wav",
-      "OST_amb_tel002.wav",
-      "OST_amb_tel003.wav",
-      "OST_amb_tel004.wav",
-      "OST_amb_tel005.wav",
-      "OST_amb_tel006.wav",
-      "OST_amb_tel007.wav",
-      "OST_amb_tel008.wav",
-      "OST_amb_tel009.wav",
-      "OST_amb_tel010.wav",
-      "OST_amb_tel011.wav",
-      "OST_amb_tel012.wav",
-      "OST_amb_tel013.wav",
-      "OST_amb_tel014.wav",
-      "OST_amb_tel015.wav",
-      "OST_amb_tel016.wav"
-    ],
-    "Dantooine": [
-      "OST_amb_dan001.wav",
-      "OST_amb_dan002.wav",
-      "OST_amb_dan003.wav",
-      "OST_amb_dan004.wav",
-      "OST_amb_dan005.wav",
-      "OST_amb_dan006.wav"
-    ],
-    "Malachorv": [
-      "OST_amb_mal001.wav",
-      "OST_amb_mal002.wav",
-      "OST_amb_mal003.wav",
-      "OST_amb_mal004.wav",
-      "OST_amb_mal005.wav",
-      "OST_amb_mal006.wav",
-      "OST_amb_mal007.wav"
-    ],
-    "Onderon": [
-      "OST_amb_ond001.wav",
-      "OST_amb_ond002.wav",
-      "OST_amb_ond003.wav",
-      "OST_amb_ond004.wav",
-      "OST_amb_ond005.wav",
-      "OST_amb_ond006.wav",
-      "OST_amb_ond007.wav",
-      "OST_amb_ond008.wav",
-      "OST_amb_ond009.wav"
-    ],
-    "EbonHawk": [
-      "OST_amb_ebo001.wav",
-      "OST_amb_ebo002.wav",
-      "OST_amb_ebo003.wav",
-      "OST_amb_ebo004.wav"
-    ],
-    "Ravager": [
-      "OST_amb_nih001.wav",
-      "OST_amb_nih002.wav",
-      "OST_amb_nih003.wav"
-    ],
-    "Harbinger": [
-      "OST_amb_har001.wav",
-      "OST_amb_har002.wav",
-      "OST_amb_har003.wav"
-    ],
-    "Dxun": [
-      "OST_amb_dxn001.wav",
-      "OST_amb_dxn002.wav",
-      "OST_amb_dxn003.wav",
-      "OST_amb_dxn004.wav",
-      "OST_amb_dxn005.wav",
-      "OST_amb_dxn006.wav"
-    ],
-    "Battle": [
+    "OST_bat": [
       "OST_bat_000.wav",
       "OST_bat_001.wav",
       "OST_bat_002.wav",
@@ -102,14 +17,33 @@
       "OST_bat_013.wav",
       "OST_bat_final.wav"
     ],
-    "NarShaddaa": [
-      "OST_amb_nar001.wav",
-      "OST_amb_nar002.wav",
-      "OST_amb_nar003.wav",
-      "OST_amb_nar004.wav",
-      "OST_amb_nar005.wav",
-      "OST_amb_nar006.wav",
-      "OST_amb_nar007.wav"
+    "CURRENT_LOCATION_PERAGUS": [
+      "OST_amb_per001.wav",
+      "OST_amb_per002.wav",
+      "OST_amb_per003.wav",
+      "OST_amb_per004.wav",
+      "OST_amb_per005.wav",
+      "OST_amb_per006.wav",
+      "OST_amb_per007.wav"
+    ],
+    "CURRENT_LOCATION_NONE": [
+      "OST_amb_dan001.wav",
+      "OST_amb_dan002.wav",
+      "OST_amb_dan003.wav",
+      "OST_amb_dan004.wav",
+      "OST_amb_dan005.wav",
+      "OST_amb_dan006.wav"
+    ],
+    "CURRENT_LOCATION_ONDERON": [
+      "OST_amb_ond001.wav",
+      "OST_amb_ond002.wav",
+      "OST_amb_ond003.wav",
+      "OST_amb_ond004.wav",
+      "OST_amb_ond005.wav",
+      "OST_amb_ond006.wav",
+      "OST_amb_ond007.wav",
+      "OST_amb_ond008.wav",
+      "OST_amb_ond009.wav"
     ]
   }
 }

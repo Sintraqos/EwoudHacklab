@@ -128,9 +128,6 @@ public class GameGUIManager {
         new Thread(() -> loadPlayerPortraits(ResourcePaths.PORTRAIT_MALE_PREFIX));
         new Thread(() -> loadPlayerPortraits(ResourcePaths.PORTRAIT_FEMALE_PREFIX));
 
-//        loadPlayerPortraits(ResourcePaths.PORTRAIT_MALE_PREFIX);
-//        loadPlayerPortraits(ResourcePaths.PORTRAIT_FEMALE_PREFIX);
-
         Console.writeLine("Finished Loading Player Portraits");
         Console.writeLine();
 

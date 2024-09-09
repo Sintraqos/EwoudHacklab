@@ -33,6 +33,14 @@ public class CharacterScreenGUI_SelectGenderClass extends CharacterScreenGUI_Bas
     String classGuardianInfo = "<html>Jedi Guardians Focus On Combat Training<br/>And Lightsaber Mastery.</html>";
     String classSentinelInfo = "<html>Jedi Sentinels Are Well-Balanced<br/>And Possess Many Skills</html>";
 
+    ActionListener selectMaleListener;
+    ActionListener selectFemaleListener;
+    ActionListener selectConsularListener;
+    ActionListener selectGuardianListener;
+    ActionListener selectSentinelListener;
+    ActionListener cancelListener;
+    ActionListener confirmListener;
+
     // Setup
     public CharacterScreenGUI_SelectGenderClass() {
         new Thread(this::setup).start();
@@ -64,29 +72,7 @@ public class CharacterScreenGUI_SelectGenderClass extends CharacterScreenGUI_Bas
         classSentinelInfo = Functions.toTitleCase(classSentinelInfo);
 
         // Create listeners
-        // Select Male
-        ActionListener selectMaleListener = e -> playerIsMale = true;
-        // Select Female
-        ActionListener selectFemaleListener = e -> playerIsMale = false;
-        // Select Female
-        ActionListener selectConsularListener = e -> {
-            playerClass = Enums.playerClass.PLAYER_CLASS_CONSULAR;
-            setClassInfoPanel();
-        };
-        // Select Female
-        ActionListener selectGuardianListener = e -> {
-            playerClass = Enums.playerClass.PLAYER_CLASS_GUARDIAN;
-            setClassInfoPanel();
-        };
-        // Select Female
-        ActionListener selectSentinelListener = e -> {
-            playerClass = Enums.playerClass.PLAYER_CLASS_SENTINEL;
-            setClassInfoPanel();
-        };
-        // Return to main menu
-        ActionListener cancelListener = e -> new MainMenuGUI();
-        // Continue to character creation
-        ActionListener confirmListener = e -> new CharacterScreenGUI_CreateCharacter();
+        createListeners();
 
         int iconPadding = getGuiHeight() / 3;
         int iconSize = getGuiHeight() * 3;
@@ -135,6 +121,32 @@ public class CharacterScreenGUI_SelectGenderClass extends CharacterScreenGUI_Bas
         // Play audio
         GameAudioManager.getInstance().playAudio(ResourcePaths.OST_CHARACTER_CREATE, Enums.audioType.AUDIO_TYPE_MUSIC);
         Console.writeLine("Loaded in Character Screen: Select Gender and Class panel");
+    }
+
+    void createListeners(){
+        // Select Male
+        selectMaleListener = e -> playerIsMale = true;
+        // Select Female
+        selectFemaleListener = e -> playerIsMale = false;
+        // Select Female
+        selectConsularListener = e -> {
+            playerClass = Enums.playerClass.PLAYER_CLASS_CONSULAR;
+            setClassInfoPanel();
+        };
+        // Select Female
+        selectGuardianListener = e -> {
+            playerClass = Enums.playerClass.PLAYER_CLASS_GUARDIAN;
+            setClassInfoPanel();
+        };
+        // Select Female
+        selectSentinelListener = e -> {
+            playerClass = Enums.playerClass.PLAYER_CLASS_SENTINEL;
+            setClassInfoPanel();
+        };
+        // Return to main menu
+        cancelListener = e -> new MainMenuGUI();
+        // Continue to character creation
+        confirmListener = e -> new CharacterScreenGUI_CreateCharacter();
     }
 
     void setClassInfoPanel() {

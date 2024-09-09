@@ -99,41 +99,37 @@ public class ItemManager {
         boolean newItemList = !itemList.isEmpty();
 
         Console.writeLine("Create new item armor list");
+        createArmorItemList();
 
-        new Thread(this::createArmorItemList);
         Console.writeLine("Create new item weapon list");
-        new Thread(this::createWeaponItemList);
+        createWeaponItemList();
 
         if (newItemList) {
 
             IntStream.range(0, itemArmorList.size()).parallel().forEach(
-                    i -> {
-                        GameManager.getInstance().connectHandler.createItemObject(new ItemObject().createArmorItemObject(
-                                itemArmorList.get(i).getItemID(),
-                                itemArmorList.get(i).getItemType(),
-                                itemArmorList.get(i).getItemName(),
-                                itemArmorList.get(i).getItemDescription(),
-                                itemArmorList.get(i).getItemArmorSlot(),
-                                itemArmorList.get(i).getItemUpgradeSlots(),
-                                itemArmorList.get(i).getItemArmorValue(),
-                                itemArmorList.get(i).getItemArmorType()
-                        ));
-                    });
+                    i -> GameManager.getInstance().connectHandler.createItemObject(new ItemObject().createArmorItemObject(
+                            itemArmorList.get(i).getItemID(),
+                            itemArmorList.get(i).getItemType(),
+                            itemArmorList.get(i).getItemName(),
+                            itemArmorList.get(i).getItemDescription(),
+                            itemArmorList.get(i).getItemArmorSlot(),
+                            itemArmorList.get(i).getItemUpgradeSlots(),
+                            itemArmorList.get(i).getItemArmorValue(),
+                            itemArmorList.get(i).getItemArmorType()
+                    )));
 
             IntStream.range(0, itemWeaponList.size()).parallel().forEach(
-                    i -> {
-                        GameManager.getInstance().connectHandler.createItemObject(new ItemObject().createWeaponItemObject(
-                                itemWeaponList.get(i).getItemID(),
-                                itemWeaponList.get(i).getItemType(),
-                                itemWeaponList.get(i).getItemName(),
-                                itemWeaponList.get(i).getItemDescription(),
-                                itemWeaponList.get(i).getItemWeaponSlot(),
-                                itemWeaponList.get(i).getItemUpgradeSlots(),
-                                itemWeaponList.get(i).getItemWeaponMinDamage(),
-                                itemWeaponList.get(i).getItemWeaponMaxDamage(),
-                                itemWeaponList.get(i).getItemWeaponDamageType()
-                        ));
-                    });
+                    i -> GameManager.getInstance().connectHandler.createItemObject(new ItemObject().createWeaponItemObject(
+                            itemWeaponList.get(i).getItemID(),
+                            itemWeaponList.get(i).getItemType(),
+                            itemWeaponList.get(i).getItemName(),
+                            itemWeaponList.get(i).getItemDescription(),
+                            itemWeaponList.get(i).getItemWeaponSlot(),
+                            itemWeaponList.get(i).getItemUpgradeSlots(),
+                            itemWeaponList.get(i).getItemWeaponMinDamage(),
+                            itemWeaponList.get(i).getItemWeaponMaxDamage(),
+                            itemWeaponList.get(i).getItemWeaponDamageType()
+                    )));
         }
 
         Console.writeLine("Finished Setup Item Manager");
@@ -250,11 +246,7 @@ public class ItemManager {
     //endregion
 
     boolean isNewItem(String itemName) {
-        if (itemList.stream().filter(item -> item.getItemName().equalsIgnoreCase(itemName)).findFirst().isPresent()) {
-            return false;
-        }
-
-        return true;
+        return itemList.stream().noneMatch(item -> item.getItemName().equalsIgnoreCase(itemName));
     }
 
     int getValidItemID() {

@@ -20,6 +20,58 @@ public class GUIScreen {
         return gameGUIManager;
     }
 
+    //region ---- GUI Size
+    private int windowSizeX;
+    private int windowSizeY;
+
+    private int panelPaddingX;
+    private int panelPaddingY;
+
+    private int guiHeight;
+    private int guiWidth;
+    private int guiPadding;
+
+    private int guiPanelWidth;
+    private int guiPanelHeight;
+
+    public int getWindowSizeX() {
+        return windowSizeX;
+    }
+
+    public int getWindowSizeY() {
+        return windowSizeY;
+    }
+
+    public int getPanelPaddingX() {
+        return panelPaddingX;
+    }
+
+    public int getPanelPaddingY() {
+        return panelPaddingY;
+    }
+
+    public int getGuiHeight() {
+        return guiHeight;
+    }
+
+    public int getGuiWidth() {
+        return guiWidth;
+    }
+
+    public int getGuiPadding() {
+        return guiPadding;
+    }
+
+    public int getGuiPanelWidth() {
+        return guiPanelWidth;
+    }
+
+    public int getGuiPanelHeight() {
+        return guiPanelHeight;
+    }
+
+    //endregion
+
     //region Setup
 
     public void setup(JPanel rootPanel) {
@@ -29,6 +81,7 @@ public class GUIScreen {
     public void setup(JPanel rootPanel, LayoutManager layout) {
         // Set references
         gameGUIManager = GameGUIManager.getInstance();
+        setGUISizes();
 
         this.rootPanel = rootPanel;
 
@@ -38,7 +91,23 @@ public class GUIScreen {
 
     //endregion
 
-    //region Set window size
+    //region Set size
+
+    public  void setGUISizes(){
+        // Set sizes
+        windowSizeX = GameSettings.getInstance().getWindowSize().width;
+        windowSizeY = GameSettings.getInstance().getWindowSize().height;
+
+        panelPaddingX = (int) (175 * getGameGUIManager().getGUIScale());
+        panelPaddingY = (int) (75 * getGameGUIManager().getGUIScale());
+
+        guiHeight = (int) (GameSettings.getInstance().getDefaultButtonSizeY() * getGameGUIManager().getGUIScale());
+        guiWidth = (int) (GameSettings.getInstance().getDefaultButtonSizeX() * getGameGUIManager().getGUIScale());
+        guiPadding = (int) (5 * getGameGUIManager().getGUIScale());
+
+        guiPanelWidth = windowSizeX - (panelPaddingX * 2);
+        guiPanelHeight = windowSizeY - (panelPaddingY * 2) - (guiHeight * 2);
+    }
 
     public void setWindowSize() {
 
