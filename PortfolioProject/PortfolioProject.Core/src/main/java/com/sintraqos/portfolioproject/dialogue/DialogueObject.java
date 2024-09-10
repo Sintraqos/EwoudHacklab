@@ -15,6 +15,8 @@ public class DialogueObject implements Serializable {
     List<String> dialogueBranches = new ArrayList<>();
     transient DialogueConditions dialogueConditions;
 
+    public String getDialogueID(){return dialogueID;}
+
     public List<String> getDialogueBranches(){return dialogueBranches;}
 
     DialogueObject(){}

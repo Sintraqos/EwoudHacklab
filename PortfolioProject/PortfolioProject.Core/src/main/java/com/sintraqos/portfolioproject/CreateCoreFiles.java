@@ -64,7 +64,7 @@ public class CreateCoreFiles {
         dialogueOptions.add(new DialogueObject("Per_Morgue_Kreia_GREETINGS_001", StaticUtils.NAME_KREIA,
                 "Yes? What have you found?",
                 List.of(
-                        "Per_Morgue_Player_029"
+                        "Per_Morgue_EXIT_FIRST_TIME_002"
                 )));
         dialogueOptions.add(new DialogueObject("Per_Morgue_Kreia_001", StaticUtils.NAME_KREIA,
                 "Find what you're looking for amongst the dead?",
@@ -146,12 +146,12 @@ public class CreateCoreFiles {
         dialogueOptions.add(new DialogueObject("Per_Morgue_Kreia_012", StaticUtils.NAME_KREIA,
                 "You may wish to extend your search to some clothes... if only for proper first impressions.",
                 List.of(
-                        "Per_Morgue_Player_028"
+                        "Per_Morgue_EXIT_FIRST_TIME_002"
                 )));
         dialogueOptions.add(new DialogueObject("Per_Morgue_Kreia_013", StaticUtils.NAME_KREIA,
                 "I am not offering to help you - I am not so young as to leap from death's door as quickly as you.",
                 List.of(
-                        "Per_Morgue_Player_029"
+                        "Per_Morgue_EXIT_FIRST_TIME_002"
                 )));
 
         //endregion

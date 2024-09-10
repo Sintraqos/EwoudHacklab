@@ -2,9 +2,10 @@ package com.sintraqos.portfolioproject.dialogue;
 
 import com.sintraqos.portfolioproject.statics.Enums;
 
-import java.util.EnumMap;
+import java.io.Serializable;
+import java.util.*;
 
-public class DialogueConditions {
+public class DialogueConditions  implements Serializable {
 
     EnumMap<Enums.entitySkills, Integer> skillCondition;
 

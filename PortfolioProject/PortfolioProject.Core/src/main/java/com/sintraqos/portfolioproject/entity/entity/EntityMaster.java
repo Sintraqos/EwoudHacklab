@@ -5,7 +5,7 @@ import com.sintraqos.portfolioproject.statics.Enums;
 import java.util.HashMap;
 
 public class EntityMaster {
-    private String entityName;
+    protected String entityName;
     private int entityLevel;
     HashMap<Enums.entitySkills, Integer> entitySkills;
 

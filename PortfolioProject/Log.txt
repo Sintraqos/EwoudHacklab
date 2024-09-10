@@ -1,123 +1,98 @@
-[11:57] - Created directory at: resources/dialogue/per.
-[11:57] - Created directory at: resources/dialogue/per.
+[10:49] - Created directory at: resources/dialogue/per.
+[10:49] - Created directory at: resources/dialogue/per.
 « Setup Game Manager »
 « Setup Json Files Connection »
-[11:57] - Created directory at: C:\Users\Sintraqos\Desktop\Github\EwoudHacklab\PortfolioProject/JsonFiles.
-[11:57] - Created directory at: C:\Users\Sintraqos\Desktop\Github\EwoudHacklab\PortfolioProject/JsonFiles/Account/
-[11:57] - Created directory at: C:\Users\Sintraqos\Desktop\Github\EwoudHacklab\PortfolioProject/JsonFiles/Save.
-[11:57] - Created directory at: C:\Users\Sintraqos\Desktop\Github\EwoudHacklab\PortfolioProject/JsonFiles/Items/
-[11:57] - Created directory at: C:\Users\Sintraqos\Desktop\Github\EwoudHacklab\PortfolioProject/JsonFiles/Companions.
-[11:57] - Finished connection handler setup.
-[11:57] - ####################################################
+[10:49] - Created directory at: C:\Users\Sintraqos\Desktop\Github\EwoudHacklab\PortfolioProject/JsonFiles.
+[10:49] - Created directory at: C:\Users\Sintraqos\Desktop\Github\EwoudHacklab\PortfolioProject/JsonFiles/Account/
+[10:49] - Created directory at: C:\Users\Sintraqos\Desktop\Github\EwoudHacklab\PortfolioProject/JsonFiles/Save.
+[10:49] - Created directory at: C:\Users\Sintraqos\Desktop\Github\EwoudHacklab\PortfolioProject/JsonFiles/Items/
+[10:49] - Created directory at: C:\Users\Sintraqos\Desktop\Github\EwoudHacklab\PortfolioProject/JsonFiles/Companions.
+[10:49] - Finished connection handler setup.
+[10:49] - ####################################################
 « Setup Item Manager »
-[11:57] - Create new item armor list.
-[11:57] - Create new item weapon list.
-[11:57] - Finished Setup Item Manager.
-[11:57] - ####################################################
+[10:49] - Create new item armor list.
+[10:49] - Create new item weapon list.
+[10:49] - Finished Setup Item Manager.
+[10:49] - ####################################################
 « Setup Player Manager »
-[11:57] - Finished Setup Player Manager.
-[11:57] - ####################################################
-[11:57] - Finished Setup Game Manager.
-[11:57] - ####################################################
-[11:57] - Created directory at: resources/resourcePaths.
-« Setup Output Manager »
-« Setup Audio Manager »
-[11:57] - Loading GUI audio files.
-[11:57] - Created audio clip: GUI_click.
-[11:57] - Created audio clip: GUI_close.
-[11:57] - Created audio clip: GUI_prompt.
-[11:57] - Created audio clip: GUI_invadd.
-[11:57] - Created audio clip: GUI_invdrop.
-[11:57] - Created audio clip: GUI_invselect.
-[11:57] - ####################################################
-[11:57] - Loading music audio files.
-[11:57] - Created audio clip: OST_mus_sion.
-[11:57] - Created audio clip: OST_mus_main.
-[11:57] - ####################################################
-[11:57] - Finished Setup Audio Manager.
-[11:57] - ####################################################
-« Setup Gui Manager »
-« Loading Images »
-[11:57] - Loaded Title Screen Image.
-[11:57] - Loaded Class Icon Images.
-[11:57] - Loaded Default Portrait Images.
-[11:57] - Loaded GUI Element Images.
-[11:57] - Finished Loading Images.
-[11:57] - ####################################################
-« Loading Companion Portraits »
-[11:57] - Adding portrait: comp_BaoDur_2.
-[11:57] - Adding portrait: comp_Kreia.
-[11:57] - Adding portrait: comp_HK50.
-[11:57] - Adding portrait: comp_Mira_2.
-[11:57] - Adding portrait: comp_HK50.
-[11:57] - Adding portrait: comp_Mira_3.
-[11:57] - Adding portrait: comp_BaoDur_3.
-[11:57] - Adding portrait: comp_Kreia.
-[11:57] - Adding portrait: comp_Mira_1.
-[11:57] - Adding portrait: comp_HK50.
-[11:57] - Adding portrait: comp_BaoDur_1.
-[11:57] - Adding portrait: comp_Atris.
-[11:57] - Adding portrait: comp_Kreia.
-[11:57] - Adding portrait: comp_Mandalore.
-[11:57] - Adding portrait: comp_B4D4.
-[11:57] - Adding portrait: comp_Atris.
-[11:57] - Adding portrait: comp_Mandalore.
-[11:57] - Adding portrait: comp_Disciple_2.
-[11:57] - Adding portrait: comp_B4D4.
-[11:57] - Adding portrait: comp_Mandalore.
-[11:57] - Adding portrait: comp_Atris.
-[11:57] - Adding portrait: comp_Disciple_3.
-[11:57] - Adding portrait: comp_B4D4.
-[11:57] - Adding portrait: comp_Visas_2.
-[11:57] - Adding portrait: comp_HandM_2.
-[11:57] - Adding portrait: comp_HK47.
-[11:57] - Adding portrait: comp_Visas_3.
-[11:57] - Adding portrait: comp_Disciple_1.
-[11:57] - Adding portrait: comp_HandM_3.
-[11:57] - Adding portrait: comp_Visas_1.
-[11:57] - Adding portrait: comp_HK47.
-[11:57] - Adding portrait: comp_HandM_1.
-[11:57] - Adding portrait: comp_Remote.
-[11:57] - Adding portrait: comp_HK51.
-[11:57] - Adding portrait: comp_HK47.
-[11:57] - Adding portrait: comp_Atton_2.
-[11:57] - Adding portrait: comp_Remote.
-[11:57] - Adding portrait: comp_HK51.
-[11:57] - Adding portrait: comp_Remote.
-[11:57] - Adding portrait: comp_G0T0.
-[11:57] - Adding portrait: comp_Atton_3.
-[11:57] - Adding portrait: comp_HK51.
-[11:57] - Adding portrait: comp_Hanharr.
-[11:57] - Adding portrait: comp_G0T0.
-[11:57] - Adding portrait: comp_Atton_1.
-[11:57] - Adding portrait: comp_3CFD.
-[11:57] - Adding portrait: comp_G0T0.
-[11:57] - Adding portrait: comp_Hanharr.
-[11:57] - Adding portrait: comp_3CFD.
-[11:57] - Adding portrait: comp_T3M4.
-[11:57] - Adding portrait: comp_3CFD.
-[11:57] - Adding portrait: comp_Hanharr.
-[11:57] - Adding portrait: comp_T3M4.
-[11:57] - Adding portrait: comp_T3M4.
-[11:57] - Finished Loading Companion Portraits.
-[11:57] - ####################################################
-« Loading Font File »
-[11:57] - Finished Loading Font File.
-[11:57] - ####################################################
-[11:57] - Finished Setup GUI Manager.
-[11:57] - ####################################################
-[11:57] - Finished Setup Output Manager.
-[11:57] - ####################################################
-[11:57] - Currently playing: OST_mus_sion.
-[11:57] - Loaded in main menu panel.
-[11:57] - Currently playing one-shot: GUI_click.
-[11:57] - Loading.
-« Loading Player Portraits »
-[11:57] - Loading.
-[11:57] - Finished Loading Player Portraits.
-[11:57] - ####################################################
-[11:57] - Currently playing: OST_mus_main.
-[11:57] - Loaded in Character Screen: Select Gender and Class panel.
-[11:57] - Currently playing: OST_mus_sion.
-[11:57] - Loaded in main menu panel.
-[11:57] - Currently playing one-shot: GUI_click.
+[10:49] - Finished Setup Player Manager.
+[10:49] - ####################################################
+[10:49] - Finished Setup Game Manager.
+[10:49] - ####################################################
+[10:49] - Loaded in dialogue tree: Kreia002.
+[10:49] - Kreia: Find what you're looking for amongst the dead?
+[10:49] - Dialogue choices:
+[10:49] - 1 - I thought you were dead.
+[10:49] - 2 - Slept too long? You looked dead when I came in.
+[10:49] - Sintraqos: I thought you were dead.
+[10:49] - Kreia: Close to death, yes, closer than I'd like. You have the smell of the kolto tank about you... how do you feel?
+[10:49] - Dialogue choices:
+[10:49] - 1 - A little disoriented... was it your voice I heard in the kolto tank?
+[10:49] - 2 - Your voice - I heard it as I floated in the kolto tank.
+[10:49] - Sintraqos: Your voice - I heard it as I floated in the kolto tank.
+[10:49] - Kreia: Yes, I had hoped as much - I slept here too long, and could not awaken. It may be I reached out unconsciously, and your mind must have been a willing one. Or perhaps you have been trained for such things?
+[10:49] - Dialogue choices:
+[10:49] - 1 - Who are you?
+[10:49] - 2 - The kolto tank left me a little drained... who are you?
+[10:49] - 3 - Just stay out of my mind in the future. Now what do you want?
+[10:49] - 4 - Enough with the false concern - what do you want?
+[10:49] - 5 - So you can touch minds... and feign death. Who are you?
+[10:49] - Sintraqos: Who are you?
+[10:49] - Kreia: I am Kreia, and I am your rescuer - as you are mine. Tell me - do you recall what happened?
+[10:49] - Dialogue choices:
+[10:49] - 1 - Last thing I remember, I was on board a Republic ship, the Harbinger... what happened to it?
+[10:49] - 2 - I'm the one asking the questions. How did I get here?
+[10:50] - Sintraqos: Last thing I remember, I was on board a Republic ship, the Harbinger... what happened to it?
+[10:50] - Kreia: Your ship was attacked. You were the only survivor... a result of your Jedi training, no doubt.
+[10:50] - Dialogue choices:
+[10:50] - 1 - If you think I'm a Jedi, you're mistaken.
+[10:50] - 2 - I am no longer a member of the Jedi Order.
+[10:50] - 3 - How do you know I was a Jedi?
+[10:50] - Sintraqos: How do you know I was a Jedi?
+[10:50] - Kreia: Your stance, your walk tells me you are a Jedi. Your walk is heavy, you carry something that weighs you down.
+[10:50] - Dialogue choices:
+[10:50] - 1 - The Jedi Order and I have a... troubled history.
+[10:50] - 2 - That is no business of yours.
+[10:50] - 3 - Let's deal with the now. What is this place?
+[10:50] - Sintraqos: That is no business of yours.
+[10:50] - Kreia: So it would seem. Keep your past - and let us focus on the now.
+[10:50] - Dialogue choices:
+[10:50] - 1 - The Jedi Order and I have a... troubled history.
+[10:50] - 2 - That is no business of yours.
+[10:50] - 3 - Let's deal with the now. What is this place?
+[10:50] - Sintraqos: The Jedi Order and I have a... troubled history.
+[10:50] - Kreia: So it would seem. Keep your past - and let us focus on the now.
+[10:50] - Dialogue choices:
+[10:50] - 1 - The Jedi Order and I have a... troubled history.
+[10:50] - 2 - That is no business of yours.
+[10:50] - 3 - Let's deal with the now. What is this place?
+[10:50] - Sintraqos: The Jedi Order and I have a... troubled history.
+[10:50] - Kreia: So it would seem. Keep your past - and let us focus on the now.
+[10:50] - Dialogue choices:
+[10:50] - 1 - The Jedi Order and I have a... troubled history.
+[10:50] - 2 - That is no business of yours.
+[10:50] - 3 - Let's deal with the now. What is this place?
+[10:50] - Sintraqos: Let's deal with the now. What is this place?
+[10:50] - Kreia: I do not know. I was removed from the events of the world as I slept. A survey of the surroundings may provide the answers we seek. The ship we arrived in must still be in this place. We should recover it and leave.
+[10:50] - Dialogue choices:
+[10:50] - 1 - Why do we need to leave?
+[10:50] - 2 - Care to explain why you're in such a hurry?
+[10:50] - 3 - "We?" Why do you think we are together in this?
+[10:50] - Sintraqos: "We?" Why do you think we are together in this?
+[10:50] - Kreia: We were attacked once, and I fear our attackers will not give up the hunt so easily - without transport, weapons, and information, they will find us easy prey indeed.
+[10:50] - Dialogue choices:
+[10:50] - 1 - [Awareness] You seem nervous, worried. Is something wrong?
+[10:50] - 2 - We'll see. There's got to be someone left alive around here.
+[10:50] - 3 - I'll go look for our ship - and some weapons.
+[10:50] - 4 - Is there anything else I should keep an eye out for?
+[10:50] - Sintraqos: [Awareness] You seem nervous, worried. Is something wrong?
+[10:50] - Kreia: Even as I slept, I felt much unrest here - I saw strange visions, minds colored with fear - now, everything here feels terribly silent. I would find out as much as you can about this place quickly - I fear we will need to depart as suddenly as we arrived.
+[10:50] - Dialogue choices:
+[10:50] - 1 - We'll see. There's got to be someone left alive around here.
+[10:50] - 2 - I'll go look for our ship - and some weapons.
+[10:50] - 3 - Is there anything else I should keep an eye out for?
+[10:50] - Sintraqos: I'll go look for our ship - and some weapons.
+[10:50] - Kreia: You may wish to extend your search to some clothes... if only for proper first impressions.
+[10:50] - Dialogue choices:
+[10:50] - 1 - Very well. I'll take a look around.
+[10:50] - Sintraqos: Very well. I'll take a look around.

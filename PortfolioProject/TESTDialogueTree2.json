@@ -3,15 +3,6 @@
   "dialogueTreeLocation": "perKreia002",
   "dialogueObjects": [
     {
-      "dialogueID": "Per_Morgue_Kreia_GREETINGS_001",
-      "dialogueOwner": "Kreia",
-      "dialogueText": "Yes? What have you found?",
-      "dialogueEmotion": "DIALOGUE_EMOTION_NEUTRAL",
-      "dialogueBranches": [
-        "Per_Morgue_EXIT_FIRST_TIME_002"
-      ]
-    },
-    {
       "dialogueID": "Per_Morgue_Kreia_001",
       "dialogueOwner": "Kreia",
       "dialogueText": "Find what you\u0027re looking for amongst the dead?",

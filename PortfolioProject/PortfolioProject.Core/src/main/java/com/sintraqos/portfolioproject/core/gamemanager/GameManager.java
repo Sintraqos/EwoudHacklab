@@ -31,7 +31,7 @@ public class GameManager {
     ConnectHandler connectHandler;
     public ConnectHandler getConnectHandler(){return connectHandler;}
 
-    void setup(){
+    void setup() {
 
         new CreateCoreFiles();
 
@@ -48,12 +48,15 @@ public class GameManager {
         ItemManager.getInstance();
         PlayerManager.getInstance();
 
-       // DialogueManager.getInstance();
+        //DialogueManager.getInstance();
 
         Console.writeLine("Finished Setup Game Manager");
         Console.writeLine();
 
-        OutputManager.getInstance();
+        //OutputManager.getInstance();
+
+
+        DialogueManager.getInstance().TESTHandleDialogue();
     }
 
     void handleSettings() {
