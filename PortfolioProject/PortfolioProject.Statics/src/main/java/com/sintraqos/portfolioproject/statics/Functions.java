@@ -128,4 +128,16 @@ public class Functions {
     }
 
     //endregion
+
+    //region Parse
+
+    public static Integer parseIntOrNull(String value) {
+        try {
+            return Integer.parseInt(value);
+        } catch (NumberFormatException e) {
+            return null;
+        }
+    }
+
+    //endregion
 }

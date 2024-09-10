@@ -2,12 +2,10 @@ package com.sintraqos.portfolioproject.dialogue;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.sintraqos.portfolioproject.entity.player.PlayerManager;
 import com.sintraqos.portfolioproject.statics.*;
 import com.sintraqos.portfolioproject.statics.Console;
 
 import java.io.*;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
@@ -29,14 +27,9 @@ public class DialogueManager {
     }
 
     HashMap<String, DialogueTree> dialogues;
-    String currentDialogueID;
 
     public HashMap<String, DialogueTree> getDialogues() {
         return dialogues;
-    }
-
-    public String getCurrentDialogueID() {
-        return currentDialogueID;
     }
 
     //region Setup
@@ -67,88 +60,70 @@ public class DialogueManager {
 
     //endregion
 
-    int currentDialoguePosition;
+    //region Dialogue Handler
+
+    int dialogueIndex;
     DialogueTree dialogueTree;
+
+    public List<DialogueObject> getCurrentBranches() {
+        return dialogueTree.getCurrentDialogue(dialogueTree.dialogueObjects.get(dialogueIndex).getDialogueBranches());
+    }
 
     public void handleDialogueTree(DialogueTree dialogueTree) {
         this.dialogueTree = dialogueTree;
+        dialogueIndex = 0;
+        Console.writeLine("Loaded in dialogue tree: " + dialogueTree.dialogueTreeID);
         handleDialogueTree();
     }
 
     void handleDialogueTree() {
-        currentDialoguePosition = 0;
-        Console.writeLine("Loaded in dialogue tree: " + dialogueTree.dialogueTreeID);
-
-        while (true) {
-
-            // Write out the current dialogue text
-            displayCurrentDialogue(dialogueTree.getDialogueObjects().get(currentDialoguePosition));
-            // Check if the dialogue ended here
-            if (checkIfEnd(dialogueTree.getDialogueObjects().get(currentDialoguePosition))) {
-                handleDialogueEnd();
-                return;
-            }
-
-            // Otherwise display the player choices
-            displayDialogueChoices(dialogueTree);
-
-            handleDialogueChoice();
-        }
-    }
-
-    void displayDialogueChoices(DialogueTree dialogueTree) {
-        Console.writeLine("Dialogue choices:");
-
-        int dialogueIndex = 1;
-
-        for (DialogueObject dialogueObject : getCurrentBranches()) {
-            displayCurrentDialogue(dialogueIndex, dialogueObject);
-            dialogueIndex++;
-        }
-    }
-
-    List<DialogueObject> getCurrentBranches(DialogueObject dialogueObject){
-        return dialogueTree.getCurrentDialogue(dialogueObject.getDialogueBranches());
-    }
-
-    List<DialogueObject> getCurrentBranches(){
-        return dialogueTree.getCurrentDialogue(dialogueTree.dialogueObjects.get(currentDialoguePosition).getDialogueBranches());
-    }
-
-    void displayCurrentDialogue(DialogueObject dialogueObject) {
-        if (Objects.equals(dialogueObject.dialogueOwner, StaticUtils.NAME_PLAYER)) {
-            dialogueObject.dialogueOwner = PlayerManager.getInstance().getCurrentPlayer().getEntityName();
+        // Check if the dialogue ended here
+        if (dialogueIndex < 0) {
+            handleDialogueEnd();
+            return;
         }
 
+        // Write out the current dialogue text
+        DialogueObject dialogueObject = dialogueTree.getDialogueObjects().get(dialogueIndex);
         Console.writeLine(dialogueObject.dialogueOwner + ": " + dialogueObject.dialogueText);
+
+        // Otherwise display the player choices
+        displayDialogueChoices();
+
+        TESTHandleDialogueChoice();
+        //handleDialogueChoice();
     }
 
-    void displayCurrentDialogue(int dialogueIndex, DialogueObject dialogueObject) {
-        Console.writeLine(dialogueIndex + " - " + dialogueObject.dialogueText);
+    void displayDialogueChoices() {
+        Console.writeLine("Dialogue Options:");
+
+        for (int i = 1; i <= getCurrentBranches().size(); i++) {
+            DialogueObject dialogueObject = getCurrentBranches().get(i - 1);
+            Console.writeLine(i + " - " + dialogueObject.dialogueText);
+        }
+    }
+
+    public void handleDialogueChoice(int currentChoice) {
+        DialogueObject chosenDialogue = getCurrentBranches().get(currentChoice - 1);
+        dialogueIndex = dialogueTree.getDialogueObjects().indexOf(dialogueTree.getCurrentDialogue(chosenDialogue.getDialogueBranches()).getFirst());
+
+        handleDialogueTree();
     }
 
     void handleDialogueEnd() {
         Console.writeLine("Dialogue end!");
     }
 
-    boolean checkIfEnd(DialogueObject dialogueObject) {
-        return Objects.equals(dialogueObject.getDialogueBranches().getFirst(), StaticUtils.DIALOGUE_EXIT_CONDITION);
-    }
-
-    public void handleDialogueChoice() {
+    void TESTHandleDialogueChoice() {
         while (true) {
-            Integer currentChoice = parseIntOrNull(System.console().readLine());
+            Integer currentChoice = Functions.parseIntOrNull(System.console().readLine());
 
             if (currentChoice != null && currentChoice <= getCurrentBranches().size()) {
-                //TODO: move the dialogue tree towards the new index from the choice
-                DialogueObject chosenDialogue = getCurrentBranches().get(currentChoice - 1);
-                currentDialoguePosition = dialogueTree.getDialogueObjects().indexOf(getCurrentBranches(chosenDialogue).getFirst());
-                displayCurrentDialogue(chosenDialogue);
+                handleDialogueChoice(currentChoice);
                 break;
             }
         }
     }
-
 
     public void TESTHandleDialogue() {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
@@ -165,11 +140,5 @@ public class DialogueManager {
         }
     }
 
-    public static Integer parseIntOrNull(String value) {
-        try {
-            return Integer.parseInt(value);
-        } catch (NumberFormatException e) {
-            return null;
-        }
-    }
+    //endregion
 }

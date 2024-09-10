@@ -1,98 +1,86 @@
-[10:49] - Created directory at: resources/dialogue/per.
-[10:49] - Created directory at: resources/dialogue/per.
+[11:53] - Created directory at: resources/dialogue/per.
+[11:53] - Created directory at: resources/dialogue/per.
 « Setup Game Manager »
 « Setup Json Files Connection »
-[10:49] - Created directory at: C:\Users\Sintraqos\Desktop\Github\EwoudHacklab\PortfolioProject/JsonFiles.
-[10:49] - Created directory at: C:\Users\Sintraqos\Desktop\Github\EwoudHacklab\PortfolioProject/JsonFiles/Account/
-[10:49] - Created directory at: C:\Users\Sintraqos\Desktop\Github\EwoudHacklab\PortfolioProject/JsonFiles/Save.
-[10:49] - Created directory at: C:\Users\Sintraqos\Desktop\Github\EwoudHacklab\PortfolioProject/JsonFiles/Items/
-[10:49] - Created directory at: C:\Users\Sintraqos\Desktop\Github\EwoudHacklab\PortfolioProject/JsonFiles/Companions.
-[10:49] - Finished connection handler setup.
-[10:49] - ####################################################
+[11:53] - Created directory at: C:\Users\Sintraqos\Desktop\Github\EwoudHacklab\PortfolioProject/JsonFiles.
+[11:53] - Created directory at: C:\Users\Sintraqos\Desktop\Github\EwoudHacklab\PortfolioProject/JsonFiles/Account/
+[11:53] - Created directory at: C:\Users\Sintraqos\Desktop\Github\EwoudHacklab\PortfolioProject/JsonFiles/Save.
+[11:53] - Created directory at: C:\Users\Sintraqos\Desktop\Github\EwoudHacklab\PortfolioProject/JsonFiles/Items/
+[11:53] - Created directory at: C:\Users\Sintraqos\Desktop\Github\EwoudHacklab\PortfolioProject/JsonFiles/Companions.
+[11:53] - Finished connection handler setup.
+[11:53] - ####################################################
 « Setup Item Manager »
-[10:49] - Create new item armor list.
-[10:49] - Create new item weapon list.
-[10:49] - Finished Setup Item Manager.
-[10:49] - ####################################################
+[11:53] - Create new item armor list.
+[11:53] - Create new item weapon list.
+[11:53] - Finished Setup Item Manager.
+[11:53] - ####################################################
 « Setup Player Manager »
-[10:49] - Finished Setup Player Manager.
-[10:49] - ####################################################
-[10:49] - Finished Setup Game Manager.
-[10:49] - ####################################################
-[10:49] - Loaded in dialogue tree: Kreia002.
-[10:49] - Kreia: Find what you're looking for amongst the dead?
-[10:49] - Dialogue choices:
-[10:49] - 1 - I thought you were dead.
-[10:49] - 2 - Slept too long? You looked dead when I came in.
-[10:49] - Sintraqos: I thought you were dead.
-[10:49] - Kreia: Close to death, yes, closer than I'd like. You have the smell of the kolto tank about you... how do you feel?
-[10:49] - Dialogue choices:
-[10:49] - 1 - A little disoriented... was it your voice I heard in the kolto tank?
-[10:49] - 2 - Your voice - I heard it as I floated in the kolto tank.
-[10:49] - Sintraqos: Your voice - I heard it as I floated in the kolto tank.
-[10:49] - Kreia: Yes, I had hoped as much - I slept here too long, and could not awaken. It may be I reached out unconsciously, and your mind must have been a willing one. Or perhaps you have been trained for such things?
-[10:49] - Dialogue choices:
-[10:49] - 1 - Who are you?
-[10:49] - 2 - The kolto tank left me a little drained... who are you?
-[10:49] - 3 - Just stay out of my mind in the future. Now what do you want?
-[10:49] - 4 - Enough with the false concern - what do you want?
-[10:49] - 5 - So you can touch minds... and feign death. Who are you?
-[10:49] - Sintraqos: Who are you?
-[10:49] - Kreia: I am Kreia, and I am your rescuer - as you are mine. Tell me - do you recall what happened?
-[10:49] - Dialogue choices:
-[10:49] - 1 - Last thing I remember, I was on board a Republic ship, the Harbinger... what happened to it?
-[10:49] - 2 - I'm the one asking the questions. How did I get here?
-[10:50] - Sintraqos: Last thing I remember, I was on board a Republic ship, the Harbinger... what happened to it?
-[10:50] - Kreia: Your ship was attacked. You were the only survivor... a result of your Jedi training, no doubt.
-[10:50] - Dialogue choices:
-[10:50] - 1 - If you think I'm a Jedi, you're mistaken.
-[10:50] - 2 - I am no longer a member of the Jedi Order.
-[10:50] - 3 - How do you know I was a Jedi?
-[10:50] - Sintraqos: How do you know I was a Jedi?
-[10:50] - Kreia: Your stance, your walk tells me you are a Jedi. Your walk is heavy, you carry something that weighs you down.
-[10:50] - Dialogue choices:
-[10:50] - 1 - The Jedi Order and I have a... troubled history.
-[10:50] - 2 - That is no business of yours.
-[10:50] - 3 - Let's deal with the now. What is this place?
-[10:50] - Sintraqos: That is no business of yours.
-[10:50] - Kreia: So it would seem. Keep your past - and let us focus on the now.
-[10:50] - Dialogue choices:
-[10:50] - 1 - The Jedi Order and I have a... troubled history.
-[10:50] - 2 - That is no business of yours.
-[10:50] - 3 - Let's deal with the now. What is this place?
-[10:50] - Sintraqos: The Jedi Order and I have a... troubled history.
-[10:50] - Kreia: So it would seem. Keep your past - and let us focus on the now.
-[10:50] - Dialogue choices:
-[10:50] - 1 - The Jedi Order and I have a... troubled history.
-[10:50] - 2 - That is no business of yours.
-[10:50] - 3 - Let's deal with the now. What is this place?
-[10:50] - Sintraqos: The Jedi Order and I have a... troubled history.
-[10:50] - Kreia: So it would seem. Keep your past - and let us focus on the now.
-[10:50] - Dialogue choices:
-[10:50] - 1 - The Jedi Order and I have a... troubled history.
-[10:50] - 2 - That is no business of yours.
-[10:50] - 3 - Let's deal with the now. What is this place?
-[10:50] - Sintraqos: Let's deal with the now. What is this place?
-[10:50] - Kreia: I do not know. I was removed from the events of the world as I slept. A survey of the surroundings may provide the answers we seek. The ship we arrived in must still be in this place. We should recover it and leave.
-[10:50] - Dialogue choices:
-[10:50] - 1 - Why do we need to leave?
-[10:50] - 2 - Care to explain why you're in such a hurry?
-[10:50] - 3 - "We?" Why do you think we are together in this?
-[10:50] - Sintraqos: "We?" Why do you think we are together in this?
-[10:50] - Kreia: We were attacked once, and I fear our attackers will not give up the hunt so easily - without transport, weapons, and information, they will find us easy prey indeed.
-[10:50] - Dialogue choices:
-[10:50] - 1 - [Awareness] You seem nervous, worried. Is something wrong?
-[10:50] - 2 - We'll see. There's got to be someone left alive around here.
-[10:50] - 3 - I'll go look for our ship - and some weapons.
-[10:50] - 4 - Is there anything else I should keep an eye out for?
-[10:50] - Sintraqos: [Awareness] You seem nervous, worried. Is something wrong?
-[10:50] - Kreia: Even as I slept, I felt much unrest here - I saw strange visions, minds colored with fear - now, everything here feels terribly silent. I would find out as much as you can about this place quickly - I fear we will need to depart as suddenly as we arrived.
-[10:50] - Dialogue choices:
-[10:50] - 1 - We'll see. There's got to be someone left alive around here.
-[10:50] - 2 - I'll go look for our ship - and some weapons.
-[10:50] - 3 - Is there anything else I should keep an eye out for?
-[10:50] - Sintraqos: I'll go look for our ship - and some weapons.
-[10:50] - Kreia: You may wish to extend your search to some clothes... if only for proper first impressions.
-[10:50] - Dialogue choices:
-[10:50] - 1 - Very well. I'll take a look around.
-[10:50] - Sintraqos: Very well. I'll take a look around.
+[11:53] - Finished Setup Player Manager.
+[11:53] - ####################################################
+[11:53] - Finished Setup Game Manager.
+[11:53] - ####################################################
+[11:53] - Loaded in dialogue tree: Kreia002.
+[11:53] - Kreia: Find what you're looking for amongst the dead?
+[11:53] - Dialogue Options:
+[11:53] - 1 - I thought you were dead.
+[11:53] - 2 - Slept too long? You looked dead when I came in.
+[11:53] - Kreia: Close to death, yes, closer than I'd like. You have the smell of the kolto tank about you... how do you feel?
+[11:53] - Dialogue Options:
+[11:53] - 1 - A little disoriented... was it your voice I heard in the kolto tank?
+[11:53] - 2 - Your voice - I heard it as I floated in the kolto tank.
+[11:53] - Kreia: Yes, I had hoped as much - I slept here too long, and could not awaken. It may be I reached out unconsciously, and your mind must have been a willing one. Or perhaps you have been trained for such things?
+[11:53] - Dialogue Options:
+[11:53] - 1 - Who are you?
+[11:53] - 2 - The kolto tank left me a little drained... who are you?
+[11:53] - 3 - Just stay out of my mind in the future. Now what do you want?
+[11:53] - 4 - Enough with the false concern - what do you want?
+[11:53] - 5 - So you can touch minds... and feign death. Who are you?
+[11:53] - Kreia: I am Kreia, and I am your rescuer - as you are mine. Tell me - do you recall what happened?
+[11:53] - Dialogue Options:
+[11:53] - 1 - Last thing I remember, I was on board a Republic ship, the Harbinger... what happened to it?
+[11:53] - 2 - I'm the one asking the questions. How did I get here?
+[11:53] - Kreia: I confess I know little more than you do... I do not know where here is. I do recall rescuing you... the Republic ship you were on was attacked, and you were the only survivor. A result of your Jedi training, no doubt.
+[11:53] - Dialogue Options:
+[11:53] - 1 - If you think I'm a Jedi, you're mistaken.
+[11:53] - 2 - I am no longer a member of the Jedi Order.
+[11:53] - 3 - How do you know I was a Jedi?
+[11:53] - Kreia: Your stance, your walk tells me you are a Jedi. Your walk is heavy, you carry something that weighs you down.
+[11:53] - Dialogue Options:
+[11:53] - 1 - The Jedi Order and I have a... troubled history.
+[11:53] - 2 - That is no business of yours.
+[11:53] - 3 - Let's deal with the now. What is this place?
+[11:53] - Kreia: So it would seem. Keep your past - and let us focus on the now.
+[11:53] - Dialogue Options:
+[11:53] - 1 - The Jedi Order and I have a... troubled history.
+[11:53] - 2 - That is no business of yours.
+[11:53] - 3 - Let's deal with the now. What is this place?
+[11:53] - Kreia: So it would seem. Keep your past - and let us focus on the now.
+[11:53] - Dialogue Options:
+[11:53] - 1 - The Jedi Order and I have a... troubled history.
+[11:53] - 2 - That is no business of yours.
+[11:53] - 3 - Let's deal with the now. What is this place?
+[11:53] - Kreia: So it would seem. Keep your past - and let us focus on the now.
+[11:53] - Dialogue Options:
+[11:53] - 1 - The Jedi Order and I have a... troubled history.
+[11:53] - 2 - That is no business of yours.
+[11:53] - 3 - Let's deal with the now. What is this place?
+[11:53] - Kreia: I do not know. I was removed from the events of the world as I slept. A survey of the surroundings may provide the answers we seek. The ship we arrived in must still be in this place. We should recover it and leave.
+[11:53] - Dialogue Options:
+[11:53] - 1 - Why do we need to leave?
+[11:53] - 2 - Care to explain why you're in such a hurry?
+[11:53] - 3 - "We?" Why do you think we are together in this?
+[11:53] - Kreia: We were attacked once, and I fear our attackers will not give up the hunt so easily - without transport, weapons, and information, they will find us easy prey indeed.
+[11:53] - Dialogue Options:
+[11:53] - 1 - [Awareness] You seem nervous, worried. Is something wrong?
+[11:53] - 2 - We'll see. There's got to be someone left alive around here.
+[11:53] - 3 - I'll go look for our ship - and some weapons.
+[11:53] - 4 - Is there anything else I should keep an eye out for?
+[11:53] - Kreia: Even as I slept, I felt much unrest here - I saw strange visions, minds colored with fear - now, everything here feels terribly silent. I would find out as much as you can about this place quickly - I fear we will need to depart as suddenly as we arrived.
+[11:53] - Dialogue Options:
+[11:53] - 1 - We'll see. There's got to be someone left alive around here.
+[11:53] - 2 - I'll go look for our ship - and some weapons.
+[11:53] - 3 - Is there anything else I should keep an eye out for?
+[11:53] - Kreia: You may wish to extend your search to some clothes... if only for proper first impressions.
+[11:53] - Dialogue Options:
+[11:53] - 1 - Very well. I'll take a look around.
+[11:53] - Dialogue end!

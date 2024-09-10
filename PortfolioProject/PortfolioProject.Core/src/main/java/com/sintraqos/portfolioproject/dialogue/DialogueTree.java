@@ -35,15 +35,6 @@ public class DialogueTree implements Serializable {
         return dialogueObjects;
     }
 
-    public DialogueObject getCurrentDialogueObject(){
-        return new DialogueObject();
-    }
-
-//    public boolean checkIfEnd(){
-//        StaticUtils.DIALOGUE_EXIT_CONDITION
-//    }
-
-
     @Override
     public String toString() {
         return String.format("%s - %s", dialogueTreeLocation, dialogueTreeID);
