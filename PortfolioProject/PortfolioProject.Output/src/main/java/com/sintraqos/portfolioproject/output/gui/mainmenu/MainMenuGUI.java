@@ -72,7 +72,7 @@ public class MainMenuGUI extends GUIScreen {    // GUI Components
         setWindowSize();
 
         // Play Audio
-        GameAudioManager.getInstance().playAudio(ResourcePaths.OST_MAIN_MENU, Enums.audioType.AUDIO_TYPE_MUSIC);
+        GameAudioManager.getInstance().playMusicAudio(ResourcePaths.OST_MAIN_MENU);
         Console.writeLine("Loaded in main menu panel");
     }
 }

@@ -55,7 +55,7 @@ public class ResourcePaths {
     public static final String BUTTON_HOVER = "ButtonHover";
     public static final String LABEL_IMAGE = "Label";
     public static final String GUI_BACKGROUND = "GUI_Background";
-    public static final String GUI_LOADSCREEN = "GUI_Background";
+    public static final String GUI_LOAD_SCREEN = "GUI_Background";
     public static final String GUI_CLASS_ICON_CONSULAR = "ConsularIcon";
     public static final String GUI_CLASS_ICON_GUARDIAN = "GuardianIcon";
     public static final String GUI_CLASS_ICON_SENTINEL = "SentinelIcon";
@@ -132,25 +132,25 @@ public class ResourcePaths {
 
     //region Load Screen
 
-    public static final String LOADSCREEN_DIRECTORY = "loadScreens";
+    public static final String LOAD_SCREEN_DIRECTORY = "loadScreens";
 
     // Planet
-    public static final String LOADSCREEN_PREFIX_DANTOOINE = "load_dan";
-    public static final String LOADSCREEN_PREFIX_DXUN = "load_dxn";
-    public static final String LOADSCREEN_PREFIX_KORRIBAN = "load_kor";
-    public static final String LOADSCREEN_PREFIX_MALACHOR_V = "load_mal";
-    public static final String LOADSCREEN_PREFIX_NAR_SHADDAA = "load_nar";
-    public static final String LOADSCREEN_PREFIX_ONDERON = "load_ond";
-    public static final String LOADSCREEN_PREFIX_TELOS = "load_tel";
+    public static final String LOAD_SCREEN_PREFIX_DANTOOINE = "load_dan";
+    public static final String LOAD_SCREEN_PREFIX_DXUN = "load_dxn";
+    public static final String LOAD_SCREEN_PREFIX_KORRIBAN = "load_kor";
+    public static final String LOAD_SCREEN_PREFIX_MALACHOR_V = "load_mal";
+    public static final String LOAD_SCREEN_PREFIX_NAR_SHADDAA = "load_nar";
+    public static final String LOAD_SCREEN_PREFIX_ONDERON = "load_ond";
+    public static final String LOAD_SCREEN_PREFIX_TELOS = "load_tel";
 
     // Ship
-    public static final String LOADSCREEN_PREFIX_EBON_HAWK = "load_ebo";
-    public static final String LOADSCREEN_PREFIX_HARBINGER = "load_har";
-    public static final String LOADSCREEN_PREFIX_RAVAGER = "load_rav";
+    public static final String LOAD_SCREEN_PREFIX_EBON_HAWK = "load_ebo";
+    public static final String LOAD_SCREEN_PREFIX_HARBINGER = "load_har";
+    public static final String LOAD_SCREEN_PREFIX_RAVAGER = "load_rav";
 
     // Other
-    public static final String LOADSCREEN_PREFIX_PERAGUS = "load_per";
-    public static final String LOADSCREEN_PREFIX_MAIN_MENU = "load_mai";
+    public static final String LOAD_SCREEN_PREFIX_PERAGUS = "load_per";
+    public static final String LOAD_SCREEN_PREFIX_MAIN_MENU = "load_mai";
 
     //endregion
 
@@ -184,15 +184,15 @@ public class ResourcePaths {
 
     // The "OST" prefix is for defining that it is part of the OST (Original Sound Track)
 
-    // OST_amb_ABCxxx – These are ambient tracks that play while you explore. ‘xx’ is an arbitrary number which is tied to different maps within areas, the ‘ABC’ is abbreviations of locations.
-    // For example, ‘ebo’ is Ebon Hawk; ‘per’ is Peragus; ‘dan’ is Dantooine etc.
+    // OST_amb_ABCxxx – These are ambient tracks that play while you explore. "xx" is an arbitrary number which is tied to different maps within areas, the "ABC" is abbreviations of locations.
+    // For example, "ebo" is Ebon Hawk; "per" is Peragus; "dan" is Dantooine etc.
 
     // OST_bat_xxx - These are very short sequences that allow the respective battle track to end naturally when you exit combat.
-    // For example “OST_bat_000” will play when you fight the droids on Peragus, and ‘OST_bat_final” plays when you fight Kreia on Malachor etc.
+    // For example “OST_bat_000” will play when you fight the droids on Peragus, and "OST_bat_final" plays when you fight Kreia on Malachor etc.
 
-    // OST_mus_a_xxx – These are event specific tracks. The ‘xx’ is an arbitrary number which is tied to events. For example, ‘OST_mus_a_261’ plays when you crash into the Polar Area of Telos.
+    // OST_mus_a_xxx – These are event specific tracks. The "xx" is an arbitrary number which is tied to events. For example, "OST_mus_a_261" plays when you crash into the Polar Area of Telos.
     // OST_mus_s_xxx – These are short (‘s’) tracks that reoccur occasionally.
-    // The ‘xxx’ is the instance it’s tied to. Each of these are pretty self-explanatory, for example ‘OST_mus_s_darkside’ plays when you get darkside points. ‘OST_mus_s_romance’ plays during your character romance etc.
+    // The ‘xxx’ is the instance it’s tied to. Each of these are pretty self-explanatory, for example "OST_mus_s_darkside" plays when you get dark side points. "OST_mus_s_romance" plays during your character romance etc.
 
     // Menu's
     public static final String OST_MAIN_MENU = "OST_mus_sion";                  // Play this on main menu
@@ -248,13 +248,6 @@ public class ResourcePaths {
                 "Kreia002"
             };
 
-//    public static final HashMap<Enums.currentLocation,String[]> PERAGUS_KREIA_DIALOGUE = new HashMap<>();
-//    static {
-//        PERAGUS_KREIA_DIALOGUE.put(Enums.currentLocation.CURRENT_LOCATION_PERAGUS, new String[]{
-//                "Kreia001",
-//                "Kreia002"});
-//    }
-
     //endregion
 
     //endregion
@@ -285,7 +278,7 @@ public class ResourcePaths {
     }
 
     public static String getLoadScreenImagePath(){
-        return PATH_SEPARATOR + IMAGE_DIRECTORY + PATH_SEPARATOR + LOADSCREEN_DIRECTORY + PATH_SEPARATOR;
+        return PATH_SEPARATOR + IMAGE_DIRECTORY + PATH_SEPARATOR + LOAD_SCREEN_DIRECTORY + PATH_SEPARATOR;
     }
 
     //endregion
@@ -309,10 +302,6 @@ public class ResourcePaths {
     // SFX
     public static String getSoundEffectAudioPath() {
         return getAudioDirectoryPath(SOUND_EFFECT_DIRECTORY);
-    }
-
-    public static String getSoundEffectAudioFile(String fileName) {
-        return getSoundEffectAudioPath() + fileName + EXTENSION_AUDIO;
     }
 
     // GUI
@@ -414,7 +403,7 @@ public class ResourcePaths {
             switch (fileType) {
                 case ResourcePaths.SOUND_TRACK_DIRECTORY -> fileType = ResourcePaths.getSoundtrackAudioPath();
                 case ResourcePaths.PORTRAIT_PLAYER_DIRECTORY -> fileType = ResourcePaths.getPortraitImagePath(ResourcePaths.PORTRAIT_PLAYER_DIRECTORY);
-                case ResourcePaths.LOADSCREEN_DIRECTORY -> fileType = ResourcePaths.getLoadScreenImagePath();
+                case ResourcePaths.LOAD_SCREEN_DIRECTORY -> fileType = ResourcePaths.getLoadScreenImagePath();
                 case ResourcePaths.DIALOGUE_DIRECTORY -> fileType = ResourcePaths.getDialogueDirectory(filePrefix);
             }
 

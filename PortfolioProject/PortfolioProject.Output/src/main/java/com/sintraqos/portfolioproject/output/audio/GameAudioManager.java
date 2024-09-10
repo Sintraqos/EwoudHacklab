@@ -4,14 +4,13 @@ import com.sintraqos.portfolioproject.statics.*;
 import com.sintraqos.portfolioproject.statics.dialogue.DialogueListener;
 import com.sintraqos.portfolioproject.statics.dialogue.DialogueManager;
 import com.sintraqos.portfolioproject.statics.dialogue.DialogueObject;
-import com.sintraqos.portfolioproject.statics.dialogue.DialogueTree;
 
 import java.io.IOException;
 import java.util.*;
 
 import javax.sound.sampled.*;
 
-public class GameAudioManager {
+public class GameAudioManager implements LineListener{
     // Get instance
     static GameAudioManager instance;
 
@@ -38,6 +37,8 @@ public class GameAudioManager {
 
     AudioList ambientAudio;
     AudioList battleAudio;
+
+    private static final int BUFFER_SIZE = 4096;
 
     void setup() {
         Console.writeHeader("Setup Audio Manager");
@@ -85,8 +86,6 @@ public class GameAudioManager {
     }
 
     public void loadAudioFiles(String dialogueFile) {
-        Console.writeLine("Load Audiofiles: " + dialogueFile);
-
         Map<String, AudioClip> audioClips = new HashMap<>();
 
         for (DialogueObject dialogueObject : DialogueManager.getInstance().getDialogueTree(dialogueFile).getDialogueObjects()) {
@@ -151,6 +150,15 @@ public class GameAudioManager {
         loadedAudioFiles = true;
     }
 
+    @Override
+    public void update(LineEvent event) {
+        if (LineEvent.Type.START == event.getType()) {
+            System.out.println("Playback started.");
+        } else if (LineEvent.Type.STOP == event.getType()) {
+            System.out.println("Playback completed.");
+        }
+    }
+
     //endregion
 
     static class DialogueResponder implements DialogueListener {
@@ -210,50 +218,38 @@ public class GameAudioManager {
         };
     }
 
-    public void playAudio(String audioName, Enums.audioType audioType) {
-        playAudio(audioName, audioType, -1);
-    }
-
-    public void playAudio(String audioName, Enums.audioType audioType, int loopCount) {
+    public void playMusicAudio(String audioName) {
+        stopAudio(audioName);
         try {
-            Clip clip = AudioSystem.getClip();
-            float audioVolume = 0;
-            switch (audioType) {
-                case AUDIO_TYPE_MUSIC:
-                    audioVolume = musicVolume;
-                    if (musicClip == null) {
-                        musicClip = clip;
-                    }
-                    break;
-
-                case AUDIO_TYPE_SFX:
-                    audioVolume = sfxVolume;
-                    if (sfxClip == null) {
-                        sfxClip = clip;
-                    }
-                    break;
-
-                case AUDIO_TYPE_DIALOGUE:
-                    audioVolume = dialogueVolume;
-                    if (dialogueClip == null) {
-                        dialogueClip = clip;
-                    }
-                    break;
+            if (musicClip == null) {
+                musicClip = AudioSystem.getClip();
             }
+            playMusicAudio(musicClip, audioName, musicVolume, -1);
 
-            clip.open(audioClips.get(audioName).audioInputStream);
-            setVolume(clip, audioVolume);
-            clip.start();
-            clip.loop(loopCount);
-
-            Console.writeLine("Currently playing: " + audioName);
-        } catch (IOException | LineUnavailableException ex) {
+        } catch (LineUnavailableException ex) {
             throw new Functions.ExceptionHandler("Failed play audio clip", ex);
         }
     }
 
-    public void stopAudio() {
-        musicClip.stop();
+    void stopAudio(String audioName){
+        audioClips.get(audioName).reset();
+    }
+
+    void playMusicAudio(Clip clip, String audioName, float audioVolume, int loopCount) {
+
+            if (clip.isActive() || clip.isRunning()) {
+                clip.close();
+            }
+        try {
+            clip.open(audioClips.get(audioName).audioInputStream);
+
+            setVolume(clip, audioVolume);
+            clip.loop(loopCount);
+            clip.start();
+            Console.writeLine("Playing: " + audioName);
+        } catch (LineUnavailableException | IOException ex) {
+            throw new Functions.ExceptionHandler("Failed to play new audioclip",ex);
+        }
     }
 
     // For stuff like button clicks or other sound effects that only need to be played once
@@ -272,8 +268,6 @@ public class GameAudioManager {
         }
 
         new Thread(new OneShotAudioTask(audioClip.audioInputStream, audioVolume)).start();
-
-        Console.writeLine("Currently playing one-shot: " + audioClip.getAudioClipName());
     }
 
     public void setVolume(Clip clip, float volume) {
@@ -292,12 +286,11 @@ public class GameAudioManager {
             try {
                 Clip clip = AudioSystem.getClip();
                 clip.open(audioInputStream);
+                clip.addLineListener(new CloseClipWhenDone());
                 GameAudioManager.getInstance().setVolume(clip, audioVolume);
                 clip.start();
-                //audioInputStream.reset();
-                Thread.sleep(clip.getMicrosecondLength() + 25);    // The added time is for preventing the clip from cutting off all of a sudden
-                clip.close();
-            } catch (InterruptedException | LineUnavailableException | IOException ex) {
+                audioInputStream.reset();
+            } catch (LineUnavailableException | IOException ex) {
                 Thread.currentThread().interrupt();
                 throw new Functions.ExceptionHandler("Failed play audio clip", ex);
             }
@@ -306,6 +299,18 @@ public class GameAudioManager {
         public OneShotAudioTask(AudioInputStream audioInputStream, float audioVolume) {
             this.audioInputStream = audioInputStream;
             this.audioVolume = audioVolume;
+        }
+
+        private static class CloseClipWhenDone implements LineListener
+        {
+            @Override public void update(LineEvent event)
+            {
+                if (event.getType().equals(LineEvent.Type.STOP))
+                {
+                    Line soundClip = event.getLine();
+                    soundClip.close();
+                }
+            }
         }
     }
 

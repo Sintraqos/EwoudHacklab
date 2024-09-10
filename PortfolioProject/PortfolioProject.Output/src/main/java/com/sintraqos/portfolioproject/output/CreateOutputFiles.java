@@ -57,22 +57,22 @@ public class CreateOutputFiles {
 
         // Load Screens
         // Planet
-        paths.createPathFile(Enums.getCurrentLocationName(ResourcePaths.LOADSCREEN_PREFIX_DANTOOINE), ResourcePaths.LOADSCREEN_DIRECTORY, ResourcePaths.LOADSCREEN_PREFIX_DANTOOINE);
-        paths.createPathFile(Enums.getCurrentLocationName(ResourcePaths.LOADSCREEN_PREFIX_DXUN), ResourcePaths.LOADSCREEN_DIRECTORY, ResourcePaths.LOADSCREEN_PREFIX_DXUN);
-        paths.createPathFile(Enums.getCurrentLocationName(ResourcePaths.LOADSCREEN_PREFIX_KORRIBAN), ResourcePaths.LOADSCREEN_DIRECTORY, ResourcePaths.LOADSCREEN_PREFIX_KORRIBAN);
-        paths.createPathFile(Enums.getCurrentLocationName(ResourcePaths.LOADSCREEN_PREFIX_MALACHOR_V), ResourcePaths.LOADSCREEN_DIRECTORY, ResourcePaths.LOADSCREEN_PREFIX_MALACHOR_V);
-        paths.createPathFile(Enums.getCurrentLocationName(ResourcePaths.LOADSCREEN_PREFIX_NAR_SHADDAA), ResourcePaths.LOADSCREEN_DIRECTORY, ResourcePaths.LOADSCREEN_PREFIX_NAR_SHADDAA);
-        paths.createPathFile(Enums.getCurrentLocationName(ResourcePaths.LOADSCREEN_PREFIX_ONDERON), ResourcePaths.LOADSCREEN_DIRECTORY, ResourcePaths.LOADSCREEN_PREFIX_ONDERON);
-        paths.createPathFile(Enums.getCurrentLocationName(ResourcePaths.LOADSCREEN_PREFIX_TELOS), ResourcePaths.LOADSCREEN_DIRECTORY, ResourcePaths.LOADSCREEN_PREFIX_TELOS);
+        paths.createPathFile(Enums.getCurrentLocationName(ResourcePaths.LOAD_SCREEN_PREFIX_DANTOOINE), ResourcePaths.LOAD_SCREEN_DIRECTORY, ResourcePaths.LOAD_SCREEN_PREFIX_DANTOOINE);
+        paths.createPathFile(Enums.getCurrentLocationName(ResourcePaths.LOAD_SCREEN_PREFIX_DXUN), ResourcePaths.LOAD_SCREEN_DIRECTORY, ResourcePaths.LOAD_SCREEN_PREFIX_DXUN);
+        paths.createPathFile(Enums.getCurrentLocationName(ResourcePaths.LOAD_SCREEN_PREFIX_KORRIBAN), ResourcePaths.LOAD_SCREEN_DIRECTORY, ResourcePaths.LOAD_SCREEN_PREFIX_KORRIBAN);
+        paths.createPathFile(Enums.getCurrentLocationName(ResourcePaths.LOAD_SCREEN_PREFIX_MALACHOR_V), ResourcePaths.LOAD_SCREEN_DIRECTORY, ResourcePaths.LOAD_SCREEN_PREFIX_MALACHOR_V);
+        paths.createPathFile(Enums.getCurrentLocationName(ResourcePaths.LOAD_SCREEN_PREFIX_NAR_SHADDAA), ResourcePaths.LOAD_SCREEN_DIRECTORY, ResourcePaths.LOAD_SCREEN_PREFIX_NAR_SHADDAA);
+        paths.createPathFile(Enums.getCurrentLocationName(ResourcePaths.LOAD_SCREEN_PREFIX_ONDERON), ResourcePaths.LOAD_SCREEN_DIRECTORY, ResourcePaths.LOAD_SCREEN_PREFIX_ONDERON);
+        paths.createPathFile(Enums.getCurrentLocationName(ResourcePaths.LOAD_SCREEN_PREFIX_TELOS), ResourcePaths.LOAD_SCREEN_DIRECTORY, ResourcePaths.LOAD_SCREEN_PREFIX_TELOS);
 
         // Ship
-        paths.createPathFile(Enums.getCurrentLocationName(ResourcePaths.LOADSCREEN_PREFIX_EBON_HAWK), ResourcePaths.LOADSCREEN_DIRECTORY, ResourcePaths.LOADSCREEN_PREFIX_EBON_HAWK);
-        paths.createPathFile(Enums.getCurrentLocationName(ResourcePaths.LOADSCREEN_PREFIX_HARBINGER), ResourcePaths.LOADSCREEN_DIRECTORY, ResourcePaths.LOADSCREEN_PREFIX_HARBINGER);
-        paths.createPathFile(Enums.getCurrentLocationName(ResourcePaths.LOADSCREEN_PREFIX_RAVAGER), ResourcePaths.LOADSCREEN_DIRECTORY, ResourcePaths.LOADSCREEN_PREFIX_RAVAGER);
+        paths.createPathFile(Enums.getCurrentLocationName(ResourcePaths.LOAD_SCREEN_PREFIX_EBON_HAWK), ResourcePaths.LOAD_SCREEN_DIRECTORY, ResourcePaths.LOAD_SCREEN_PREFIX_EBON_HAWK);
+        paths.createPathFile(Enums.getCurrentLocationName(ResourcePaths.LOAD_SCREEN_PREFIX_HARBINGER), ResourcePaths.LOAD_SCREEN_DIRECTORY, ResourcePaths.LOAD_SCREEN_PREFIX_HARBINGER);
+        paths.createPathFile(Enums.getCurrentLocationName(ResourcePaths.LOAD_SCREEN_PREFIX_RAVAGER), ResourcePaths.LOAD_SCREEN_DIRECTORY, ResourcePaths.LOAD_SCREEN_PREFIX_RAVAGER);
 
         // Other
-        paths.createPathFile(Enums.getCurrentLocationName(ResourcePaths.LOADSCREEN_PREFIX_PERAGUS), ResourcePaths.LOADSCREEN_DIRECTORY, ResourcePaths.LOADSCREEN_PREFIX_PERAGUS);
-        paths.createPathFile(Enums.getCurrentLocationName(ResourcePaths.DIRECTORY_SHARED), ResourcePaths.LOADSCREEN_DIRECTORY, ResourcePaths.LOADSCREEN_PREFIX_MAIN_MENU);
+        paths.createPathFile(Enums.getCurrentLocationName(ResourcePaths.LOAD_SCREEN_PREFIX_PERAGUS), ResourcePaths.LOAD_SCREEN_DIRECTORY, ResourcePaths.LOAD_SCREEN_PREFIX_PERAGUS);
+        paths.createPathFile(Enums.getCurrentLocationName(ResourcePaths.DIRECTORY_SHARED), ResourcePaths.LOAD_SCREEN_DIRECTORY, ResourcePaths.LOAD_SCREEN_PREFIX_MAIN_MENU);
 
         //endregion
 

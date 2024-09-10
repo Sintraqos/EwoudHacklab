@@ -211,30 +211,30 @@ public class Enums {
 
         switch (currentLocationString) {
             // Planet
-            case ResourcePaths.OST_AMBIENT_PREFIX_DANTOOINE, ResourcePaths.LOADSCREEN_PREFIX_DANTOOINE ->
+            case ResourcePaths.OST_AMBIENT_PREFIX_DANTOOINE, ResourcePaths.LOAD_SCREEN_PREFIX_DANTOOINE ->
                     currentLocation = Enums.currentLocation.CURRENT_LOCATION_DANTOOINE;
-            case ResourcePaths.OST_AMBIENT_PREFIX_DXUN, ResourcePaths.LOADSCREEN_PREFIX_DXUN -> currentLocation = Enums.currentLocation.CURRENT_LOCATION_DXUN;
-            case ResourcePaths.OST_AMBIENT_PREFIX_KORRIBAN, ResourcePaths.LOADSCREEN_PREFIX_KORRIBAN ->
+            case ResourcePaths.OST_AMBIENT_PREFIX_DXUN, ResourcePaths.LOAD_SCREEN_PREFIX_DXUN -> currentLocation = Enums.currentLocation.CURRENT_LOCATION_DXUN;
+            case ResourcePaths.OST_AMBIENT_PREFIX_KORRIBAN, ResourcePaths.LOAD_SCREEN_PREFIX_KORRIBAN ->
                     currentLocation = Enums.currentLocation.CURRENT_LOCATION_KORRIBAN;
-            case ResourcePaths.OST_AMBIENT_PREFIX_MALACHOR_V, ResourcePaths.LOADSCREEN_PREFIX_MALACHOR_V ->
+            case ResourcePaths.OST_AMBIENT_PREFIX_MALACHOR_V, ResourcePaths.LOAD_SCREEN_PREFIX_MALACHOR_V ->
                     currentLocation = Enums.currentLocation.CURRENT_LOCATION_MALACHOR_V;
-            case ResourcePaths.OST_AMBIENT_PREFIX_NAR_SHADDAA, ResourcePaths.LOADSCREEN_PREFIX_NAR_SHADDAA ->
+            case ResourcePaths.OST_AMBIENT_PREFIX_NAR_SHADDAA, ResourcePaths.LOAD_SCREEN_PREFIX_NAR_SHADDAA ->
                     currentLocation = Enums.currentLocation.CURRENT_LOCATION_NAR_SHADDAA;
-            case ResourcePaths.OST_AMBIENT_PREFIX_ONDERON, ResourcePaths.LOADSCREEN_PREFIX_ONDERON ->
+            case ResourcePaths.OST_AMBIENT_PREFIX_ONDERON, ResourcePaths.LOAD_SCREEN_PREFIX_ONDERON ->
                     currentLocation = Enums.currentLocation.CURRENT_LOCATION_ONDERON;
-            case ResourcePaths.OST_AMBIENT_PREFIX_TELOS, ResourcePaths.LOADSCREEN_PREFIX_TELOS ->
+            case ResourcePaths.OST_AMBIENT_PREFIX_TELOS, ResourcePaths.LOAD_SCREEN_PREFIX_TELOS ->
                     currentLocation = Enums.currentLocation.CURRENT_LOCATION_TELOS;
 
             // Ship
-            case ResourcePaths.OST_AMBIENT_PREFIX_EBON_HAWK , ResourcePaths.LOADSCREEN_PREFIX_EBON_HAWK->
+            case ResourcePaths.OST_AMBIENT_PREFIX_EBON_HAWK , ResourcePaths.LOAD_SCREEN_PREFIX_EBON_HAWK ->
                     currentLocation = Enums.currentLocation.CURRENT_LOCATION_EBON_HAWK;
-            case ResourcePaths.OST_AMBIENT_PREFIX_HARBINGER, ResourcePaths.LOADSCREEN_PREFIX_HARBINGER ->
+            case ResourcePaths.OST_AMBIENT_PREFIX_HARBINGER, ResourcePaths.LOAD_SCREEN_PREFIX_HARBINGER ->
                     currentLocation = Enums.currentLocation.CURRENT_LOCATION_HARBINGER;
-            case ResourcePaths.OST_AMBIENT_PREFIX_RAVAGER, ResourcePaths.LOADSCREEN_PREFIX_RAVAGER ->
+            case ResourcePaths.OST_AMBIENT_PREFIX_RAVAGER, ResourcePaths.LOAD_SCREEN_PREFIX_RAVAGER ->
                     currentLocation = Enums.currentLocation.CURRENT_LOCATION_RAVAGER;
 
             // Other
-            case ResourcePaths.OST_AMBIENT_PREFIX_PERAGUS, ResourcePaths.DIRECTORY_PERAGUS, ResourcePaths.LOADSCREEN_PREFIX_PERAGUS ->
+            case ResourcePaths.OST_AMBIENT_PREFIX_PERAGUS, ResourcePaths.DIRECTORY_PERAGUS, ResourcePaths.LOAD_SCREEN_PREFIX_PERAGUS ->
                     currentLocation = Enums.currentLocation.CURRENT_LOCATION_PERAGUS;
             case ResourcePaths.OST_BATTLE_PREFIX -> currentLocation = Enums.currentLocation.CURRENT_LOCATION_BATTLE;
 

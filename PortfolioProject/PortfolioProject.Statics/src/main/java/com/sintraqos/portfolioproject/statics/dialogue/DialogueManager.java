@@ -154,7 +154,7 @@ public class DialogueManager {
         }
     }
 
-    private List<DialogueListener> listeners = new ArrayList<>();
+    private final List<DialogueListener> listeners = new ArrayList<>();
 
     public void addListener(DialogueListener toAdd){
         listeners.add(toAdd);

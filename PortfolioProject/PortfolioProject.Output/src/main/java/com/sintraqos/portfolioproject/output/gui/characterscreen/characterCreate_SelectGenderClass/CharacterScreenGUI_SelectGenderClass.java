@@ -47,6 +47,9 @@ public class CharacterScreenGUI_SelectGenderClass extends CharacterScreenGUI_Bas
     }
 
     void setup(){
+        // Play audio
+        GameAudioManager.getInstance().playMusicAudio(ResourcePaths.OST_CHARACTER_CREATE);
+
         // Setup load screen
         createBase(rootPanel);
 
@@ -118,8 +121,6 @@ public class CharacterScreenGUI_SelectGenderClass extends CharacterScreenGUI_Bas
         // Set window size
         setWindowSize();
 
-        // Play audio
-        GameAudioManager.getInstance().playAudio(ResourcePaths.OST_CHARACTER_CREATE, Enums.audioType.AUDIO_TYPE_MUSIC);
         Console.writeLine("Loaded in Character Screen: Select Gender and Class panel");
     }
 

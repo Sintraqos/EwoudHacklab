@@ -38,18 +38,18 @@ public class OutputManager {
         portraitPathsFile = ResourcePaths.readPathsFile(ResourcePaths.PORTRAIT_PLAYER_DIRECTORY);
 
         // Then set up the manager objects
-        GameAudioManager.getInstance().loadAudioFiles(Enums.currentLocation.CURRENT_LOCATION_PERAGUS);
+        //GameAudioManager.getInstance().loadAudioFiles(Enums.currentLocation.CURRENT_LOCATION_PERAGUS);
+        GameAudioManager.getInstance();
         GameGUIManager.getInstance();
 
         Console.writeLine("Finished Setup Output Manager");
         Console.writeLine();
 
         // Load in the main menu screen
-        //new MainMenuGUI();
 
 
+        new MainMenuGUI();
 
-
-        new dialogueGUI();
+        //new dialogueGUI();
     }
 }

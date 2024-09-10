@@ -45,12 +45,4 @@ public class dialogueGUI extends GUIScreen{
 //        GameAudioManager.getInstance().playAudio(ResourcePaths.OST_MAIN_MENU, Enums.audioType.AUDIO_TYPE_MUSIC);
 //        Console.writeLine("Loaded in Dialogue Panel");
     }
-
-    public void playDialogueAudio(String audioName){
-        GameAudioManager.getInstance().playAudio(audioName, Enums.audioType.AUDIO_TYPE_DIALOGUE);
-    }
-
-    public void playSoundTrackAudio(String audioName){
-        GameAudioManager.getInstance().playAudio(audioName, Enums.audioType.AUDIO_TYPE_MUSIC);
-    }
 }

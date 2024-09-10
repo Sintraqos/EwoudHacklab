@@ -5,7 +5,6 @@ import com.google.gson.GsonBuilder;
 import com.sintraqos.portfolioproject.CreateCoreFiles;
 import com.sintraqos.portfolioproject.connect.ConnectHandler;
 import com.sintraqos.portfolioproject.connect.JSONFiles.JSONFileConnectHandler;
-import com.sintraqos.portfolioproject.output.audio.GameAudioManager;
 import com.sintraqos.portfolioproject.statics.dialogue.DialogueManager;
 import com.sintraqos.portfolioproject.entity.player.PlayerManager;
 import com.sintraqos.portfolioproject.output.OutputManager;
@@ -57,7 +56,7 @@ public class GameManager {
         OutputManager.getInstance();
 
 
-        DialogueManager.getInstance().TESTHandleDialogue();
+        //DialogueManager.getInstance().TESTHandleDialogue();
     }
 
     void handleSettings() {

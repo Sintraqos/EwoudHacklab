@@ -76,7 +76,7 @@ public class CharacterScreenGUI_Base  extends GUIScreen {
 
         // Background
         rootPanel = new GUI_JPanelBackground();
-        getGameGUIManager().setScaledImage((GUI_JPanelBackground) rootPanel, ResourcePaths.GUI_LOADSCREEN, getWindowSizeX(), getWindowSizeY());
+        getGameGUIManager().setScaledImage((GUI_JPanelBackground) rootPanel, ResourcePaths.GUI_LOAD_SCREEN, getWindowSizeX(), getWindowSizeY());
         setup(rootPanel);
 
         // Create panel that contains all gui elements
