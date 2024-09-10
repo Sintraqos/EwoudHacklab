@@ -5,6 +5,7 @@ import com.sintraqos.portfolioproject.output.gui.GameGUIManager;
 import com.sintraqos.portfolioproject.output.gui.mainmenu.MainMenuGUI;
 import com.sintraqos.portfolioproject.output.gui.dialogue.dialogueGUI;
 import com.sintraqos.portfolioproject.statics.Console;
+import com.sintraqos.portfolioproject.statics.Enums;
 import com.sintraqos.portfolioproject.statics.ResourcePaths;
 
 public class OutputManager {
@@ -37,7 +38,7 @@ public class OutputManager {
         portraitPathsFile = ResourcePaths.readPathsFile(ResourcePaths.PORTRAIT_PLAYER_DIRECTORY);
 
         // Then set up the manager objects
-        GameAudioManager.getInstance();
+        GameAudioManager.getInstance().loadAudioFiles(Enums.currentLocation.CURRENT_LOCATION_PERAGUS);
         GameGUIManager.getInstance();
 
         Console.writeLine("Finished Setup Output Manager");

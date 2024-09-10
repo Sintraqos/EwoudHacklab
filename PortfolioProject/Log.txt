@@ -1,110 +1,157 @@
 « Setup Game Manager »
 « Setup Json Files Connection »
-[20:43] - Finished connection handler setup.
-[20:43] - ####################################################
+[18:02] - Finished connection handler setup.
+[18:02] - ####################################################
 « Setup Item Manager »
-[20:43] - Create new item armor list.
-[20:43] - Created new item: Test Armor Piece.
-[20:43] - Created new item: Test Belt.
-[20:43] - Created new item: Test Gloves.
-[20:43] - Created new item: Test Head Gear.
-[20:43] - Created new item: Test Implant.
-[20:43] - Create new item weapon list.
-[20:43] - Created new item: Test Main Hand Sword.
-[20:43] - Created new item: Test Off Hand Sword.
-[20:43] - Created new item: Test Two Handed Sword.
-[20:43] - Finished Setup Item Manager.
-[20:43] - ####################################################
+[18:02] - Create new item armor list.
+[18:02] - Created new item: Test Armor Piece.
+[18:02] - Created new item: Test Belt.
+[18:02] - Created new item: Test Gloves.
+[18:02] - Created new item: Test Head Gear.
+[18:02] - Created new item: Test Implant.
+[18:02] - Create new item weapon list.
+[18:02] - Created new item: Test Main Hand Sword.
+[18:02] - Created new item: Test Off Hand Sword.
+[18:02] - Created new item: Test Two Handed Sword.
+[18:02] - Finished Setup Item Manager.
+[18:02] - ####################################################
 « Setup Player Manager »
-[20:43] - Finished Setup Player Manager.
-[20:43] - ####################################################
-[20:43] - Finished Setup Game Manager.
-[20:43] - ####################################################
+[18:02] - Finished Setup Player Manager.
+[18:02] - ####################################################
+« Setup Dialogue Manager »
+[18:02] - Loaded in dialogue tree: Kreia001.
+[18:02] - Loaded in dialogue tree: Kreia002.
+[18:02] - Finished Setup Dialogue Manager.
+[18:02] - ####################################################
+[18:02] - Finished Setup Game Manager.
+[18:02] - ####################################################
 « Setup Output Manager »
+[18:02] - Ost.
+[18:02] - Player.
 « Setup Audio Manager »
-[20:43] - Loading GUI audio files.
-[20:43] - Created audio clip: GUI_click.
-[20:43] - Created audio clip: GUI_close.
-[20:43] - Created audio clip: GUI_prompt.
-[20:43] - Created audio clip: GUI_invadd.
-[20:43] - Created audio clip: GUI_invdrop.
-[20:43] - Created audio clip: GUI_invselect.
-[20:43] - ####################################################
-[20:43] - Loading music audio files.
-[20:43] - Created audio clip: OST_mus_sion.
-[20:43] - Created audio clip: OST_mus_main.
-[20:43] - ####################################################
-[20:43] - Finished Setup Audio Manager.
-[20:43] - ####################################################
+[18:02] - Loading GUI audio files.
+[18:02] - Created audio clip: GUI_click.
+[18:02] - Created audio clip: GUI_close.
+[18:02] - Created audio clip: GUI_prompt.
+[18:02] - Created audio clip: GUI_invadd.
+[18:02] - Created audio clip: GUI_invdrop.
+[18:02] - Created audio clip: GUI_invselect.
+[18:02] - ####################################################
+[18:02] - Loading music audio files.
+[18:02] - Created audio clip: OST_mus_sion.
+[18:02] - Created audio clip: OST_mus_main.
+[18:02] - ####################################################
+[18:02] - Finished Setup Audio Manager.
+[18:02] - ####################################################
+[18:02] - Loading audio list.
+[18:02] - New Audio List Prefix: OST_amb_per.
+[18:02] - Created audio clip: OST_amb_per005.
+[18:02] - Created audio clip: OST_amb_per007.
+[18:02] - Created audio clip: OST_amb_per001.
+[18:02] - Created audio clip: OST_amb_per002.
+[18:02] - Created audio clip: OST_amb_per006.
+[18:02] - Created audio clip: OST_amb_per004.
+[18:02] - Created audio clip: OST_amb_per003.
+[18:02] - ####################################################
+[18:02] - Load Audiofiles: Kreia001.
+[18:02] - Created audio clip: Per_Intro_Kreia_001.
+[18:02] - Load Audiofiles: Kreia002.
+[18:02] - Created audio clip: Per_Morgue_Kreia_GREETINGS_001.
+[18:02] - Created audio clip: Per_Morgue_Kreia_001.
+[18:02] - Created audio clip: Per_Morgue_Kreia_002.
+[18:02] - Created audio clip: Per_Morgue_Kreia_003.
+[18:02] - Created audio clip: Per_Morgue_Kreia_004.
+[18:02] - Created audio clip: Per_Morgue_Kreia_005.
+[18:02] - Created audio clip: Per_Morgue_Kreia_006.
+[18:02] - Created audio clip: Per_Morgue_Kreia_007.
+[18:02] - Created audio clip: Per_Morgue_Kreia_008.
+[18:02] - Created audio clip: Per_Morgue_Kreia_009.
+[18:02] - Created audio clip: Per_Morgue_Kreia_010.
+[18:02] - Created audio clip: Per_Morgue_Kreia_011.
+[18:02] - Created audio clip: Per_Morgue_Kreia_012.
+[18:02] - Created audio clip: Per_Morgue_Kreia_013.
 « Setup Gui Manager »
 « Loading Images »
-[20:43] - Loaded Title Screen Image.
-[20:43] - Loaded Class Icon Images.
-[20:43] - Loaded Default Portrait Images.
-[20:43] - Loaded GUI Element Images.
-[20:43] - Finished Loading Images.
-[20:43] - ####################################################
+[18:02] - Loaded Title Screen Image.
+[18:02] - Loaded Class Icon Images.
+[18:02] - Loaded Default Portrait Images.
+[18:02] - Loaded GUI Element Images.
+[18:02] - Finished Loading Images.
+[18:02] - ####################################################
 « Loading Companion Portraits »
-[20:43] - Adding portrait: comp_HK50.
-[20:43] - Adding portrait: comp_BaoDur_2.
-[20:43] - Adding portrait: comp_HK47.
-[20:43] - Adding portrait: comp_Mira_2.
-[20:43] - Adding portrait: comp_HandM_2.
-[20:43] - Adding portrait: comp_B4D4.
-[20:43] - Adding portrait: comp_Kreia.
-[20:43] - Adding portrait: comp_3CFD.
-[20:43] - Adding portrait: comp_B4D4.
-[20:43] - Adding portrait: comp_HandM_3.
-[20:43] - Adding portrait: comp_HK47.
-[20:43] - Adding portrait: comp_HK50.
-[20:43] - Adding portrait: comp_B4D4.
-[20:43] - Adding portrait: comp_BaoDur_3.
-[20:43] - Adding portrait: comp_HandM_1.
-[20:43] - Adding portrait: comp_3CFD.
-[20:43] - Adding portrait: comp_HK50.
-[20:43] - Adding portrait: comp_HK47.
-[20:43] - Adding portrait: comp_Mira_3.
-[20:43] - Adding portrait: comp_BaoDur_1.
-[20:43] - Adding portrait: comp_Kreia.
-[20:43] - Adding portrait: comp_3CFD.
-[20:43] - Adding portrait: comp_G0T0.
-[20:43] - Adding portrait: comp_Mandalore.
-[20:43] - Adding portrait: comp_Atton_2.
-[20:43] - Adding portrait: comp_Mira_1.
-[20:43] - Adding portrait: comp_Atris.
-[20:43] - Adding portrait: comp_Visas_2.
-[20:43] - Adding portrait: comp_G0T0.
-[20:43] - Adding portrait: comp_Kreia.
-[20:43] - Adding portrait: comp_Atton_3.
-[20:43] - Adding portrait: comp_Atris.
-[20:43] - Adding portrait: comp_Mandalore.
-[20:43] - Adding portrait: comp_Visas_3.
-[20:43] - Adding portrait: comp_HK51.
-[20:43] - Adding portrait: comp_G0T0.
-[20:43] - Adding portrait: comp_Disciple_2.
-[20:43] - Adding portrait: comp_Visas_1.
-[20:43] - Adding portrait: comp_Atton_1.
-[20:43] - Adding portrait: comp_Atris.
-[20:43] - Adding portrait: comp_Mandalore.
-[20:43] - Adding portrait: comp_HK51.
-[20:43] - Adding portrait: comp_HK51.
-[20:43] - Adding portrait: comp_Hanharr.
-[20:43] - Adding portrait: comp_Remote.
-[20:43] - Adding portrait: comp_Disciple_3.
-[20:43] - Adding portrait: comp_Disciple_1.
-[20:43] - Adding portrait: comp_Remote.
-[20:43] - Adding portrait: comp_T3M4.
-[20:43] - Adding portrait: comp_T3M4.
-[20:43] - Adding portrait: comp_Remote.
-[20:43] - Adding portrait: comp_T3M4.
-[20:43] - Adding portrait: comp_Hanharr.
-[20:43] - Adding portrait: comp_Hanharr.
-[20:43] - Finished Loading Companion Portraits.
-[20:43] - ####################################################
+[18:02] - Adding portrait: comp_HK50.
+[18:02] - Adding portrait: comp_Visas_2.
+[18:02] - Adding portrait: comp_HK51.
+[18:02] - Adding portrait: comp_Mandalore.
+[18:02] - Adding portrait: comp_Kreia.
+[18:02] - Adding portrait: comp_BaoDur_2.
+[18:02] - Adding portrait: comp_HK47.
+[18:02] - Adding portrait: comp_Mira_2.
+[18:02] - Adding portrait: comp_Visas_3.
+[18:02] - Adding portrait: comp_Mandalore.
+[18:02] - Adding portrait: comp_BaoDur_3.
+[18:02] - Adding portrait: comp_HK51.
+[18:02] - Adding portrait: comp_Mira_3.
+[18:02] - Adding portrait: comp_HK47.
+[18:02] - Adding portrait: comp_HK50.
+[18:02] - Adding portrait: comp_Kreia.
+[18:02] - Adding portrait: comp_Visas_1.
+[18:02] - Adding portrait: comp_Mandalore.
+[18:02] - Adding portrait: comp_HK51.
+[18:02] - Adding portrait: comp_Mira_1.
+[18:02] - Adding portrait: comp_HK47.
+[18:02] - Adding portrait: comp_BaoDur_1.
+[18:02] - Adding portrait: comp_HK50.
+[18:02] - Adding portrait: comp_Kreia.
+[18:02] - Adding portrait: comp_HandM_2.
+[18:02] - Adding portrait: comp_Atris.
+[18:02] - Adding portrait: comp_B4D4.
+[18:02] - Adding portrait: comp_Atris.
+[18:02] - Adding portrait: comp_Hanharr.
+[18:02] - Adding portrait: comp_G0T0.
+[18:02] - Adding portrait: comp_Atton_2.
+[18:02] - Adding portrait: comp_HandM_3.
+[18:02] - Adding portrait: comp_Atris.
+[18:02] - Adding portrait: comp_B4D4.
+[18:02] - Adding portrait: comp_G0T0.
+[18:02] - Adding portrait: comp_Disciple_2.
+[18:02] - Adding portrait: comp_Atton_3.
+[18:02] - Adding portrait: comp_Hanharr.
+[18:02] - Adding portrait: comp_B4D4.
+[18:02] - Adding portrait: comp_Remote.
+[18:02] - Adding portrait: comp_HandM_1.
+[18:02] - Adding portrait: comp_G0T0.
+[18:02] - Adding portrait: comp_Atton_1.
+[18:02] - Adding portrait: comp_Remote.
+[18:02] - Adding portrait: comp_Disciple_3.
+[18:02] - Adding portrait: comp_Disciple_1.
+[18:02] - Adding portrait: comp_T3M4.
+[18:02] - Adding portrait: comp_Hanharr.
+[18:02] - Adding portrait: comp_T3M4.
+[18:02] - Adding portrait: comp_3CFD.
+[18:02] - Adding portrait: comp_3CFD.
+[18:02] - Adding portrait: comp_T3M4.
+[18:02] - Adding portrait: comp_Remote.
+[18:02] - Adding portrait: comp_3CFD.
+[18:02] - Finished Loading Companion Portraits.
+[18:02] - ####################################################
 « Loading Font File »
-[20:43] - Finished Loading Font File.
-[20:43] - ####################################################
-[20:43] - Finished Setup GUI Manager.
-[20:43] - ####################################################
-[20:43] - Finished Setup Output Manager.
-[20:43] - ####################################################
+[18:02] - Finished Loading Font File.
+[18:02] - ####################################################
+[18:02] - Finished Setup GUI Manager.
+[18:02] - ####################################################
+[18:02] - Finished Setup Output Manager.
+[18:02] - ####################################################
+[18:02] - Loaded in dialogue tree: Kreia002.
+[18:02] - Per_Morgue_Kreia_001.
+[18:02] - Currently playing one-shot: Per_Morgue_Kreia_001.
+[18:02] - Kreia: Find what you're looking for amongst the dead?
+[18:02] - Dialogue Options:
+[18:02] - 1 - I thought you were dead.
+[18:02] - 2 - Slept too long? You looked dead when I came in.
+[18:02] - Per_Morgue_Kreia_002.
+[18:02] - Currently playing one-shot: Per_Morgue_Kreia_002.
+[18:02] - Kreia: Close to death, yes, closer than I'd like. You have the smell of the kolto tank about you... how do you feel?
+[18:02] - Dialogue Options:
+[18:02] - 1 - A little disoriented... was it your voice I heard in the kolto tank?
+[18:02] - 2 - Your voice - I heard it as I floated in the kolto tank.

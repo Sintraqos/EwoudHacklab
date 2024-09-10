@@ -2,11 +2,14 @@ package com.sintraqos.portfolioproject;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.sintraqos.portfolioproject.dialogue.*;
 import com.sintraqos.portfolioproject.statics.Enums;
 import com.sintraqos.portfolioproject.statics.Functions;
 import com.sintraqos.portfolioproject.statics.ResourcePaths;
 import com.sintraqos.portfolioproject.statics.StaticUtils;
+import com.sintraqos.portfolioproject.statics.dialogue.DialogueConditions;
+import com.sintraqos.portfolioproject.statics.dialogue.DialogueObject;
+import com.sintraqos.portfolioproject.statics.dialogue.DialogueOption;
+import com.sintraqos.portfolioproject.statics.dialogue.DialogueTree;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -18,21 +21,13 @@ public class CreateCoreFiles {
     static ConcurrentHashMap<String,List<String>> filePaths =new ConcurrentHashMap<>();
 
     public CreateCoreFiles() {
-        //region File Paths
-
-        ResourcePaths.ResourcePathsFile paths = new ResourcePaths.ResourcePathsFile();
-
-//        paths.createPathFile(
-//                Enums.getCurrentLocationName(ResourcePaths.DIALOGUE_PERAGUS_DIRECTORY),
-//                ResourcePaths.DIALOGUE_DIRECTORY,
-//                ResourcePaths.DIALOGUE_PERAGUS_DIRECTORY);
-
-        //endregion
 
         //region Dialogue Tree
 
         DialogueTree dialogueTree;
         ArrayList<DialogueObject> dialogueOptions;
+
+        //region Peragus
 
         //region Awaken 001
 
@@ -46,10 +41,10 @@ public class CreateCoreFiles {
                 )));
 
         // Create the dialogue tree
-        dialogueTree = new DialogueTree(ResourcePaths.KREIA_001, ResourcePaths.DIRECTORY_PERAGUS + ResourcePaths.KREIA_001, dialogueOptions);
+        dialogueTree = new DialogueTree(ResourcePaths.PERAGUS_KREIA_DIALOGUE[0], Enums.currentLocation.CURRENT_LOCATION_PERAGUS, dialogueOptions);
 
         // And create the new dialogue file
-        createDialogueFile(ResourcePaths.KREIA_001, dialogueTree, ResourcePaths.DIRECTORY_PERAGUS);
+        createDialogueFile(ResourcePaths.PERAGUS_KREIA_DIALOGUE[0], dialogueTree, ResourcePaths.DIRECTORY_PERAGUS);
 
         //endregion
 
@@ -64,7 +59,7 @@ public class CreateCoreFiles {
         dialogueOptions.add(new DialogueObject("Per_Morgue_Kreia_GREETINGS_001", StaticUtils.NAME_KREIA,
                 "Yes? What have you found?",
                 List.of(
-                        "Per_Morgue_Player_029"
+                        "Per_Morgue_EXIT_FIRST_TIME_002"
                 )));
         dialogueOptions.add(new DialogueObject("Per_Morgue_Kreia_001", StaticUtils.NAME_KREIA,
                 "Find what you're looking for amongst the dead?",
@@ -146,12 +141,12 @@ public class CreateCoreFiles {
         dialogueOptions.add(new DialogueObject("Per_Morgue_Kreia_012", StaticUtils.NAME_KREIA,
                 "You may wish to extend your search to some clothes... if only for proper first impressions.",
                 List.of(
-                        "Per_Morgue_Player_028"
+                        "Per_Morgue_EXIT_FIRST_TIME_002"
                 )));
         dialogueOptions.add(new DialogueObject("Per_Morgue_Kreia_013", StaticUtils.NAME_KREIA,
                 "I am not offering to help you - I am not so young as to leap from death's door as quickly as you.",
                 List.of(
-                        "Per_Morgue_Player_029"
+                        "Per_Morgue_EXIT_FIRST_TIME_002"
                 )));
 
         //endregion
@@ -376,19 +371,16 @@ public class CreateCoreFiles {
         //endregion
 
         // Create the dialogue tree
-        dialogueTree = new DialogueTree(ResourcePaths.KREIA_002, ResourcePaths.DIRECTORY_PERAGUS + ResourcePaths.KREIA_002, dialogueOptions);
+        dialogueTree = new DialogueTree(ResourcePaths.PERAGUS_KREIA_DIALOGUE[1], Enums.currentLocation.CURRENT_LOCATION_PERAGUS, dialogueOptions);
 
         // And create the new dialogue file
-        createDialogueFile(ResourcePaths.KREIA_002, dialogueTree, ResourcePaths.DIRECTORY_PERAGUS);
+        createDialogueFile(ResourcePaths.PERAGUS_KREIA_DIALOGUE[1], dialogueTree, ResourcePaths.DIRECTORY_PERAGUS);
 
         //endregion
 
-//        for(DialogueObject object : dialogueTree.getDialogueObjects()){
-//            paths.put(ResourcePaths.KREIA_002, object.getDialogueBranches());
-//        }
-
         //endregion
 
+        //endregion
     }
 
     void createDialogueFile(String fileName, DialogueTree newDialogueTree, String locationPath) {

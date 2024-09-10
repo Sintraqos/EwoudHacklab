@@ -1,12 +1,13 @@
 package com.sintraqos.portfolioproject.output.audio;
 
 import com.sintraqos.portfolioproject.statics.*;
+import com.sintraqos.portfolioproject.statics.dialogue.DialogueListener;
+import com.sintraqos.portfolioproject.statics.dialogue.DialogueManager;
+import com.sintraqos.portfolioproject.statics.dialogue.DialogueObject;
+import com.sintraqos.portfolioproject.statics.dialogue.DialogueTree;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import javax.sound.sampled.*;
 
@@ -25,7 +26,7 @@ public class GameAudioManager {
     }
 
     public Map<String, AudioClip> audioClips = new HashMap<>();
-    public Map<String, List<AudioClip>> dialogueAudio = new HashMap<>();
+    public Map<String, Map<String,AudioClip>> dialogueAudio = new HashMap<>();
 
     Clip musicClip;
     Clip sfxClip;
@@ -40,6 +41,9 @@ public class GameAudioManager {
 
     void setup() {
         Console.writeHeader("Setup Audio Manager");
+
+        DialogueResponder responder = new DialogueResponder();
+        DialogueManager.getInstance().addListener(responder);
 
         // Set volume
         masterVolume = GameSettings.getInstance().getMasterVolume();
@@ -80,6 +84,19 @@ public class GameAudioManager {
         Console.writeLine();
     }
 
+    public void loadAudioFiles(String dialogueFile) {
+        Console.writeLine("Load Audiofiles: " + dialogueFile);
+
+        Map<String, AudioClip> audioClips = new HashMap<>();
+
+        for (DialogueObject dialogueObject : DialogueManager.getInstance().getDialogueTree(dialogueFile).getDialogueObjects()) {
+            AudioClip audioClip = new AudioClip(dialogueObject.getDialogueID(), ResourcePaths.getDialogueAudioFile(ResourcePaths.DIRECTORY_PERAGUS, DialogueManager.getInstance().getDialogueTree(dialogueFile).getDialogueTreeID(), dialogueObject.getDialogueID()));
+            audioClips.put(dialogueObject.getDialogueID(), audioClip);
+        }
+
+        dialogueAudio.put(dialogueFile, audioClips);
+    }
+
     boolean loadedAudioFiles;
 
     public boolean hasLoadedAudioFiles() {
@@ -96,35 +113,39 @@ public class GameAudioManager {
         battleAudio = new AudioList();
 
         // Ship
-        switch (Enums.getCurrentLocationName(currentLocation)) {
+        switch (currentLocation) {
             // Planet
-            case ResourcePaths.OST_AMBIENT_PREFIX_DANTOOINE ->
+            case CURRENT_LOCATION_DANTOOINE->
                     ambientAudio.createAudioClips(ResourcePaths.OST_AMBIENT_PREFIX_DANTOOINE);
-            case ResourcePaths.OST_AMBIENT_PREFIX_DXUN ->
+            case CURRENT_LOCATION_DXUN ->
                     ambientAudio.createAudioClips(ResourcePaths.OST_AMBIENT_PREFIX_DXUN);
-            case ResourcePaths.OST_AMBIENT_PREFIX_KORRIBAN ->
+            case CURRENT_LOCATION_KORRIBAN ->
                     ambientAudio.createAudioClips(ResourcePaths.OST_AMBIENT_PREFIX_KORRIBAN);
-            case ResourcePaths.OST_AMBIENT_PREFIX_MALACHOR_V ->
+            case CURRENT_LOCATION_MALACHOR_V ->
                     ambientAudio.createAudioClips(ResourcePaths.OST_AMBIENT_PREFIX_MALACHOR_V);
-            case ResourcePaths.OST_AMBIENT_PREFIX_NAR_SHADDAA ->
+            case CURRENT_LOCATION_NAR_SHADDAA ->
                     ambientAudio.createAudioClips(ResourcePaths.OST_AMBIENT_PREFIX_NAR_SHADDAA);
-            case ResourcePaths.OST_AMBIENT_PREFIX_ONDERON ->
+            case CURRENT_LOCATION_ONDERON ->
                     ambientAudio.createAudioClips(ResourcePaths.OST_AMBIENT_PREFIX_ONDERON);
-            case ResourcePaths.OST_AMBIENT_PREFIX_TELOS ->
+            case CURRENT_LOCATION_TELOS ->
                     ambientAudio.createAudioClips(ResourcePaths.OST_AMBIENT_PREFIX_TELOS);
 
             // Ship
-            case ResourcePaths.OST_AMBIENT_PREFIX_EBON_HAWK ->
+            case CURRENT_LOCATION_EBON_HAWK ->
                     ambientAudio.createAudioClips(ResourcePaths.OST_AMBIENT_PREFIX_EBON_HAWK);
-            case ResourcePaths.OST_AMBIENT_PREFIX_HARBINGER ->
+            case CURRENT_LOCATION_HARBINGER ->
                     ambientAudio.createAudioClips(ResourcePaths.OST_AMBIENT_PREFIX_HARBINGER);
-            case ResourcePaths.OST_AMBIENT_PREFIX_RAVAGER ->
+            case CURRENT_LOCATION_RAVAGER ->
                     ambientAudio.createAudioClips(ResourcePaths.OST_AMBIENT_PREFIX_RAVAGER);
 
             // Other
-            case ResourcePaths.OST_AMBIENT_PREFIX_PERAGUS, ResourcePaths.DIRECTORY_PERAGUS ->
+            case CURRENT_LOCATION_PERAGUS ->
+            {
                     ambientAudio.createAudioClips(ResourcePaths.OST_AMBIENT_PREFIX_PERAGUS);
-            case ResourcePaths.OST_BATTLE_PREFIX -> battleAudio.createAudioClips(ResourcePaths.OST_BATTLE_PREFIX);
+                    loadAudioFiles(ResourcePaths.PERAGUS_KREIA_DIALOGUE[0]);
+                    loadAudioFiles(ResourcePaths.PERAGUS_KREIA_DIALOGUE[1]);
+            }
+            case CURRENT_LOCATION_BATTLE -> battleAudio.createAudioClips(ResourcePaths.OST_BATTLE_PREFIX);
         }
 
         loadedAudioFiles = true;
@@ -132,19 +153,18 @@ public class GameAudioManager {
 
     //endregion
 
-    public void getDialogueAudio(List<String> dialogueIDs, String dialogueTreeID, String dialogueTreeLocation) {
-        dialogueAudio.put(dialogueTreeID, new ArrayList<>());
-
-        for (String dialogueID : dialogueIDs) {
-
-            String audioClipPath = ResourcePaths.getDialogueAudioFile(dialogueTreeLocation, dialogueID);
-
-            if (getClass().getResource(audioClipPath) != null) {
-                AudioClip dialogueAudioClip = new AudioClip(dialogueID, audioClipPath);
-
-                dialogueAudio.get(dialogueTreeID).add(dialogueAudioClip);
-            }
+    static class DialogueResponder implements DialogueListener {
+        @Override
+        public void onDialogueUpdate(String dialogueTreeID, DialogueObject dialogueObject){
+            GameAudioManager.getInstance().playDialogueAudio(dialogueTreeID, dialogueObject.getDialogueID());
         }
+    }
+
+    public void playDialogueAudio(String dialogueTreeID, String dialogueID){
+        AudioClip audioClip = dialogueAudio.get(dialogueTreeID).get(dialogueID);
+        Console.writeLine(audioClip.audioClipName);
+
+        playOneShotAudio(audioClip, Enums.audioType.AUDIO_TYPE_DIALOGUE);
     }
 
     public void setVolume(Enums.audioType audioType, float volume) {
@@ -238,6 +258,10 @@ public class GameAudioManager {
 
     // For stuff like button clicks or other sound effects that only need to be played once
     public void playOneShotAudio(String audioName, Enums.audioType audioType) {
+        playOneShotAudio(audioClips.get(audioName), audioType);
+    }
+
+    public void playOneShotAudio(AudioClip audioClip, Enums.audioType audioType) {
         GameSettings settings = GameSettings.getInstance();
         float audioVolume = 0;
         switch (audioType) {
@@ -247,9 +271,9 @@ public class GameAudioManager {
             default -> audioVolume = settings.getMasterVolume();
         }
 
-        new Thread(new OneShotAudioTask(audioClips.get(audioName).audioInputStream, audioVolume)).start();
+        new Thread(new OneShotAudioTask(audioClip.audioInputStream, audioVolume)).start();
 
-        Console.writeLine("Currently playing one-shot: " + audioName);
+        Console.writeLine("Currently playing one-shot: " + audioClip.getAudioClipName());
     }
 
     public void setVolume(Clip clip, float volume) {
@@ -270,7 +294,7 @@ public class GameAudioManager {
                 clip.open(audioInputStream);
                 GameAudioManager.getInstance().setVolume(clip, audioVolume);
                 clip.start();
-                audioInputStream.reset();
+                //audioInputStream.reset();
                 Thread.sleep(clip.getMicrosecondLength() + 25);    // The added time is for preventing the clip from cutting off all of a sudden
                 clip.close();
             } catch (InterruptedException | LineUnavailableException | IOException ex) {

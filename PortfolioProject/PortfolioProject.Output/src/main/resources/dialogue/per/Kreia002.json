@@ -1,6 +1,6 @@
 {
   "dialogueTreeID": "Kreia002",
-  "dialogueTreeLocation": "perKreia002",
+  "dialogueTreeLocation": "CURRENT_LOCATION_PERAGUS",
   "dialogueObjects": [
     {
       "dialogueID": "Per_Morgue_Kreia_GREETINGS_001",
@@ -8,7 +8,7 @@
       "dialogueText": "Yes? What have you found?",
       "dialogueEmotion": "DIALOGUE_EMOTION_NEUTRAL",
       "dialogueBranches": [
-        "Per_Morgue_Player_029"
+        "Per_Morgue_EXIT_FIRST_TIME_002"
       ]
     },
     {
@@ -138,7 +138,7 @@
       "dialogueText": "You may wish to extend your search to some clothes... if only for proper first impressions.",
       "dialogueEmotion": "DIALOGUE_EMOTION_NEUTRAL",
       "dialogueBranches": [
-        "Per_Morgue_Player_028"
+        "Per_Morgue_EXIT_FIRST_TIME_002"
       ]
     },
     {
@@ -147,7 +147,7 @@
       "dialogueText": "I am not offering to help you - I am not so young as to leap from death\u0027s door as quickly as you.",
       "dialogueEmotion": "DIALOGUE_EMOTION_NEUTRAL",
       "dialogueBranches": [
-        "Per_Morgue_Player_029"
+        "Per_Morgue_EXIT_FIRST_TIME_002"
       ]
     },
     {

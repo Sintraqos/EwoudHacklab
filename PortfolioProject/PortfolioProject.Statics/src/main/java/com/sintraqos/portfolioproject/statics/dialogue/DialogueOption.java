@@ -1,4 +1,4 @@
-package com.sintraqos.portfolioproject.dialogue;
+package com.sintraqos.portfolioproject.statics.dialogue;
 
 import com.sintraqos.portfolioproject.statics.Enums;
 

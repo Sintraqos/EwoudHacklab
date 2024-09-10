@@ -3,8 +3,6 @@ package com.sintraqos.portfolioproject.connect.JSONFiles;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.sintraqos.portfolioproject.connect.ConnectHandler;
-import com.sintraqos.portfolioproject.core.gamemanager.GameManager;
-import com.sintraqos.portfolioproject.dialogue.DialogueTree;
 import com.sintraqos.portfolioproject.statics.Console;
 import com.sintraqos.portfolioproject.statics.DataObjects.AccountObject;
 import com.sintraqos.portfolioproject.statics.DataObjects.ItemObject;

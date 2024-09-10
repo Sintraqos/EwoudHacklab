@@ -1,6 +1,6 @@
 {
   "dialogueTreeID": "Kreia001",
-  "dialogueTreeLocation": "perKreia001",
+  "dialogueTreeLocation": "CURRENT_LOCATION_PERAGUS",
   "dialogueObjects": [
     {
       "dialogueID": "Per_Intro_Kreia_001",

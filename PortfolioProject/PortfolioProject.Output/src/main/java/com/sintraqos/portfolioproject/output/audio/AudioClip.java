@@ -22,6 +22,11 @@ public class AudioClip {
 
 
     public AudioClip(String audioClipName, String audioClipPath) {
+
+        if (Functions.class.getResource(audioClipPath) == null) {
+            return;
+        }
+
         try {
             audioInputStream = AudioSystem.getAudioInputStream(Objects.requireNonNull(Functions.class.getResource(audioClipPath)));
             Console.writeLine("Created audio clip: " + Functions.getFileNameWithoutExtension(audioClipName));

@@ -1,4 +1,4 @@
-package com.sintraqos.portfolioproject.dialogue;
+package com.sintraqos.portfolioproject.statics.dialogue;
 
 import com.sintraqos.portfolioproject.statics.Enums;
 
@@ -14,6 +14,8 @@ public class DialogueObject implements Serializable {
     Enums.dialogueEmotion dialogueEmotion = Enums.dialogueEmotion.DIALOGUE_EMOTION_NEUTRAL; // Change sprite of the speaking person to whichever emotion is needed for the dialogue
     List<String> dialogueBranches = new ArrayList<>();
     transient DialogueConditions dialogueConditions;
+
+    public String getDialogueID(){return dialogueID;}
 
     public List<String> getDialogueBranches(){return dialogueBranches;}
 

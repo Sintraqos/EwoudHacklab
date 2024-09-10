@@ -5,14 +5,13 @@ import com.sintraqos.portfolioproject.statics.Enums;
 
 public class PlayerMaster extends EntityMaster {
 
-    private String playerName;
     private boolean playerIsMale;
     private Enums.playerClass playerClass;
 
     private int playerCurrentExp;
 
     public void SetPlayerName(String playerName) {
-        this.playerName = playerName;
+        entityName = playerName;
     }
 
     public int getPlayerCurrentExp() {
@@ -20,10 +19,11 @@ public class PlayerMaster extends EntityMaster {
     }
 
     PlayerMaster() {
+        entityName = "Sintraqos";
     }
 
     public PlayerMaster(boolean playerIsMale, Enums.playerClass playerClass) {
-        playerName = "";
+        entityName = "";
         this.playerIsMale = playerIsMale;
         this.playerClass = playerClass;
         playerCurrentExp = 0;

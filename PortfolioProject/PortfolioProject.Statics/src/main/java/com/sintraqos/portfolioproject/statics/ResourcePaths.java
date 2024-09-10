@@ -242,8 +242,18 @@ public class ResourcePaths {
 
     //region ---- Peragus
 
-    public static final String KREIA_001 = "Kreia001";
-    public static final String KREIA_002 = "Kreia002";
+    public static final String[] PERAGUS_KREIA_DIALOGUE = new String[]
+            {
+                "Kreia001",
+                "Kreia002"
+            };
+
+//    public static final HashMap<Enums.currentLocation,String[]> PERAGUS_KREIA_DIALOGUE = new HashMap<>();
+//    static {
+//        PERAGUS_KREIA_DIALOGUE.put(Enums.currentLocation.CURRENT_LOCATION_PERAGUS, new String[]{
+//                "Kreia001",
+//                "Kreia002"});
+//    }
 
     //endregion
 
@@ -315,8 +325,8 @@ public class ResourcePaths {
     }
 
     // Dialogue
-    public static String getDialogueAudioFile(String locationDirectory, String fileName) {
-        return getAudioDirectoryPath(locationDirectory) + fileName + EXTENSION_AUDIO;
+    public static String getDialogueAudioFile(String locationDirectory,String dialogueID, String fileName) {
+        return getAudioDirectoryPath(DIALOGUE_DIRECTORY) + locationDirectory + PATH_SEPARATOR + dialogueID + PATH_SEPARATOR + fileName + EXTENSION_AUDIO;
     }
 
     //endregion
@@ -331,8 +341,12 @@ public class ResourcePaths {
         return RESOURCE_DIRECTORY + PATH_SEPARATOR + FILEPATH_DIRECTORY;
     }
 
-    public static String getDialogueFile(String fileName) {
-        return ResourcePaths.PATH_SEPARATOR + ResourcePaths.DIALOGUE_DIRECTORY + ResourcePaths.PATH_SEPARATOR + fileName;
+    public static String getDialogueDirectory(String currentLocation) {
+        return PATH_SEPARATOR + DIALOGUE_DIRECTORY + PATH_SEPARATOR + currentLocation + PATH_SEPARATOR;
+    }
+
+    public static String getDialogueFile(String currentLocation, String fileName) {
+        return getDialogueDirectory(currentLocation) + fileName + EXTENSION_DATAFILE;
     }
 
     public static String getResourceFilepathDialogueDirectory() {
@@ -376,13 +390,11 @@ public class ResourcePaths {
         }
 
         public void createPathFile(String fileType, ResourcePaths.ResourcePathsFile paths) {
-
             Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
             if(new File(ResourcePaths.getDataPath(ResourcePaths.getResourceFilepathDirectory() , fileType)).exists()) {
                 try (Reader reader = new FileReader(ResourcePaths.getDataPath(ResourcePaths.getResourceFilepathDirectory(), fileType))) {
                     ResourcePaths.ResourcePathsFile currentPaths = gson.fromJson(reader, ResourcePaths.ResourcePathsFile.class);
-
                     if (!currentPaths.getFilePaths().isEmpty()) {
                         paths.put(currentPaths.getFilePaths());
                     }
@@ -403,6 +415,7 @@ public class ResourcePaths {
                 case ResourcePaths.SOUND_TRACK_DIRECTORY -> fileType = ResourcePaths.getSoundtrackAudioPath();
                 case ResourcePaths.PORTRAIT_PLAYER_DIRECTORY -> fileType = ResourcePaths.getPortraitImagePath(ResourcePaths.PORTRAIT_PLAYER_DIRECTORY);
                 case ResourcePaths.LOADSCREEN_DIRECTORY -> fileType = ResourcePaths.getLoadScreenImagePath();
+                case ResourcePaths.DIALOGUE_DIRECTORY -> fileType = ResourcePaths.getDialogueDirectory(filePrefix);
             }
 
             List<String> fileNames = new ArrayList<>();
@@ -430,7 +443,10 @@ public class ResourcePaths {
             return "Resource Paths Length: " + paths.size();
         }
     }
+
     public static ResourcePathsFile readPathsFile(String pathType) {
+        Console.writeLine(pathType);
+
         try (Reader reader = new InputStreamReader(Objects.requireNonNull(Functions.class.getResourceAsStream(PATH_SEPARATOR + getDataPath(FILEPATH_DIRECTORY, pathType))))) {
             return new Gson().fromJson(reader, ResourcePathsFile.class);
         } catch (IOException ex) {

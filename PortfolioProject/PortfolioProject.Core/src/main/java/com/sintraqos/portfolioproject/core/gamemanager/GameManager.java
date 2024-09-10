@@ -5,7 +5,8 @@ import com.google.gson.GsonBuilder;
 import com.sintraqos.portfolioproject.CreateCoreFiles;
 import com.sintraqos.portfolioproject.connect.ConnectHandler;
 import com.sintraqos.portfolioproject.connect.JSONFiles.JSONFileConnectHandler;
-import com.sintraqos.portfolioproject.dialogue.DialogueManager;
+import com.sintraqos.portfolioproject.output.audio.GameAudioManager;
+import com.sintraqos.portfolioproject.statics.dialogue.DialogueManager;
 import com.sintraqos.portfolioproject.entity.player.PlayerManager;
 import com.sintraqos.portfolioproject.output.OutputManager;
 import com.sintraqos.portfolioproject.statics.Console;
@@ -31,7 +32,7 @@ public class GameManager {
     ConnectHandler connectHandler;
     public ConnectHandler getConnectHandler(){return connectHandler;}
 
-    void setup(){
+    void setup() {
 
         new CreateCoreFiles();
 
@@ -48,12 +49,15 @@ public class GameManager {
         ItemManager.getInstance();
         PlayerManager.getInstance();
 
-       // DialogueManager.getInstance();
+        DialogueManager.getInstance();
 
         Console.writeLine("Finished Setup Game Manager");
         Console.writeLine();
 
         OutputManager.getInstance();
+
+
+        DialogueManager.getInstance().TESTHandleDialogue();
     }
 
     void handleSettings() {
