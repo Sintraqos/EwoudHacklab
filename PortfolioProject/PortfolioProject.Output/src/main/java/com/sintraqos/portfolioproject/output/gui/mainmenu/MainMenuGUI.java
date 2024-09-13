@@ -4,8 +4,10 @@ import com.sintraqos.portfolioproject.output.audio.GameAudioManager;
 import com.sintraqos.portfolioproject.output.gui.GUIScreen;
 import com.sintraqos.portfolioproject.output.gui.GameGUIManager;
 import com.sintraqos.portfolioproject.output.gui.characterscreen.characterCreate_SelectGenderClass.CharacterScreenGUI_SelectGenderClass;
+import com.sintraqos.portfolioproject.output.gui.dialogue.DialogueGUI;
 import com.sintraqos.portfolioproject.output.gui.options.OptionsGUI;
 import com.sintraqos.portfolioproject.statics.*;
+import com.sintraqos.portfolioproject.statics.dialogue.DialogueManager;
 
 import java.awt.event.*;
 
@@ -29,7 +31,7 @@ public class MainMenuGUI extends GUIScreen {    // GUI Components
         setup(rootPanel);
 
         // Logo
-        titleScreenLogo = setParent(rootPanel, addPadding(addUnscaledLabel((int) (640 * getGameGUIManager().getGUIScale()), (int) (320 * getGameGUIManager().getGUIScale()), "", ResourcePaths.TITLE_SCREEN_LOGO), getGuiPadding()));
+       // titleScreenLogo = setParent(rootPanel, addPadding(addUnscaledLabel((int) (640 * getGameGUIManager().getGUIScale()), (int) (320 * getGameGUIManager().getGUIScale()), "", ResourcePaths.TITLE_SCREEN_LOGO), getGuiPadding()));
 
         // Button
 
@@ -40,6 +42,8 @@ public class MainMenuGUI extends GUIScreen {    // GUI Components
         };
         // Load Game
         ActionListener loadGameListener = e -> {
+            //new DialogueGUI();
+            DialogueManager.getInstance().TESTHandleDialogue();
         };
         // Music
         ActionListener musicListener = e -> {

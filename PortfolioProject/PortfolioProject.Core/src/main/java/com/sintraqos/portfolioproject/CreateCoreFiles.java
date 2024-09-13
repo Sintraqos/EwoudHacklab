@@ -29,7 +29,7 @@ public class CreateCoreFiles {
 
         //region Peragus
 
-        //region Awaken 001
+        //region Kreia 001
 
         dialogueOptions = new ArrayList<>();
 

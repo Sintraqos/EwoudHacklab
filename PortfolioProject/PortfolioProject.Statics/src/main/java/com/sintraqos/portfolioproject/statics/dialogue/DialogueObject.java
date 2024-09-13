@@ -12,20 +12,32 @@ public class DialogueObject implements Serializable {
     String dialogueOwner;   // Whoever speaks the given dialogue
     String dialogueText;    // The text of the dialogue option
     Enums.dialogueEmotion dialogueEmotion = Enums.dialogueEmotion.DIALOGUE_EMOTION_NEUTRAL; // Change sprite of the speaking person to whichever emotion is needed for the dialogue
-    List<String> dialogueBranches = new ArrayList<>();
-    transient DialogueConditions dialogueConditions;
+    List<String> dialogueBranches = new ArrayList<>();  // The paths the current dialogueObject can take
+    transient DialogueConditions dialogueConditions;    // Since the dialogue option sometimes has conditions, such as needed skill points, get the needed conditions
 
-    public String getDialogueID(){return dialogueID;}
+    public String getDialogueID() {
+        return dialogueID;
+    }
 
-    public List<String> getDialogueBranches(){return dialogueBranches;}
+    public String getDialogueOwner(){return dialogueOwner;}
+    public String getDialogueText(){return dialogueText;}
 
-    DialogueObject(){}
+    public List<String> getDialogueBranches() {
+        return dialogueBranches;
+    }
+
+    public DialogueConditions getDialogueConditions() {
+        return dialogueConditions;
+    }
+
+    DialogueObject() {
+    }
 
     public DialogueObject(String dialogueID, String dialogueOwner, String dialogueText, List<String> dialogueBranches) {
         this.dialogueID = dialogueID;
         this.dialogueOwner = dialogueOwner;
         this.dialogueText = dialogueText;
-        this.dialogueBranches= dialogueBranches;
+        this.dialogueBranches = dialogueBranches;
     }
 
     @Override

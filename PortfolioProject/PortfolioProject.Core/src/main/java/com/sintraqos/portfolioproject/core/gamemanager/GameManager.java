@@ -55,7 +55,6 @@ public class GameManager {
 
         OutputManager.getInstance();
 
-
         //DialogueManager.getInstance().TESTHandleDialogue();
     }
 

@@ -1,12 +1,12 @@
 package com.sintraqos.portfolioproject.statics.dialogue;
 
 import com.sintraqos.portfolioproject.statics.Enums;
-
 import java.util.ArrayList;
 
 public class DialogueOption extends DialogueObject {
 
     Enums.alignment dialogueAlignment = Enums.alignment.ALIGNMENT_NEUTRAL;
+    public Enums.alignment getDialogueAlignment() {return dialogueAlignment;}
 
     public DialogueOption(String dialogueID, String dialogueOwner, String dialogueText, String dialogueBranch) {
         this.dialogueID = dialogueID;

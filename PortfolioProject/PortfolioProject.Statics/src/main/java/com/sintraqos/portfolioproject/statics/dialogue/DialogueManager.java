@@ -12,7 +12,6 @@ import java.util.List;
 import java.util.Objects;
 
 public class DialogueManager {
-
     // Get instance
     static DialogueManager instance;
 
@@ -28,16 +27,15 @@ public class DialogueManager {
 
     HashMap<String, DialogueTree> dialogueTrees;
 
-    public HashMap<String, DialogueTree> getDialogueTrees() {
-        return dialogueTrees;
-    }
-
     //region Setup
 
     void setup() {
         Console.writeHeader("Setup Dialogue Manager");
+        // Setup components and variables
         dialogueTrees = new HashMap<>();
+        listeners = new ArrayList<>();
 
+        // Get the dialogue trees
         // Peragus - Kreia
         addDialogueTree(ResourcePaths.DIRECTORY_PERAGUS, ResourcePaths.PERAGUS_KREIA_DIALOGUE);
 
@@ -46,18 +44,36 @@ public class DialogueManager {
     }
 
     void addDialogueTree(String location, String[] fileNames){
+        // Loop through the array of filenames
         for(String fileName : fileNames){
-            dialogueTrees.put(fileName, getDialogueTree(location, fileName));
+            // Find the dialogue tree
+            DialogueTree dialogueTree = getDialogueTree(location, fileName);
+
+            // Add the new tree to the list
+            dialogueTrees.put(fileName, dialogueTree);
         }
     }
 
     DialogueTree getDialogueTree(String location, String fileName) {
+        // Get the file from the given input, throw exception when the file doesn't exist
         try (Reader reader = new InputStreamReader(Objects.requireNonNull(Functions.class.getResourceAsStream(ResourcePaths.getDialogueFile(location, fileName))))) {
+            // Create new DialogueTree from the given JSON file
             DialogueTree dialogueTree = new Gson().fromJson(reader, DialogueTree.class);
             Console.writeLine("Loaded in dialogue tree: " + dialogueTree.dialogueTreeID);
+
+            // And finally return the file
             return dialogueTree;
         } catch (IOException ex) {
             throw new Functions.ExceptionHandler("Error reading paths file", ex);
+        }
+    }
+
+    public DialogueTree getDialogueTree(String dialogueTree) {
+        // Return the dialogue tree based on the dialogueTreeID, if the file hasn't been loaded in, or hasn't been added throw exception
+        try {
+            return dialogueTrees.get(dialogueTree);
+        } catch (Exception ex) {
+            throw new Functions.ExceptionHandler("Invalid dialogue file", ex);
         }
     }
 
@@ -65,46 +81,42 @@ public class DialogueManager {
 
     //region Dialogue Handler
 
-    int dialogueIndex;
-    DialogueTree dialogueTree;
-
-    public DialogueTree getDialogueTree(String dialogueFile) {
-        try {
-            return dialogueTrees.get(dialogueFile);
-
-        }
-        catch (Exception ex){
-            throw new Functions.ExceptionHandler("Invalid dialogue file", ex);
-        }
-    }
+    int dialogueIndex;                  // The current index we are at on the dialogue tree
+    DialogueTree currentDialogueTree;   // The current DialogueTree
 
     public List<DialogueObject> getCurrentBranches() {
-        return dialogueTree.getCurrentDialogue(dialogueTree.dialogueObjects.get(dialogueIndex).getDialogueBranches());
+        return currentDialogueTree.getCurrentDialogue(currentDialogueTree.dialogueObjects.get(dialogueIndex).getDialogueBranches());
     }
 
-    public void handleDialogueTree(DialogueTree dialogueTree) {
-        this.dialogueTree = dialogueTree;
-        dialogueIndex = 0;
+    public void setupDialogueTree(DialogueTree dialogueTree) {
+        // Set variables and components
+        currentDialogueTree = dialogueTree;
+        dialogueIndex = 0;  // Always make sure this is set to 0 when starting, since we don't want to start at the end of a given dialogue tree
 
-        Console.writeLine("Loaded in dialogue tree: " + dialogueTree.dialogueTreeID);
-        handleDialogueTree();
+        Console.writeLine("Loaded in dialogue tree: " + currentDialogueTree.dialogueTreeID);
+
+        //handleDialogueStart(dialogueTree);  // Invoke dialogue start
+        handleDialogueSetup(currentDialogueTree);
     }
 
     void handleDialogueTree() {
-        // Check if the dialogue ended here
+        // Check if the dialogue ended here, if true invoke the dialogueEnd
         if (dialogueIndex < 0) {
             handleDialogueEnd();
             return;
         }
 
+        // Set the current DialogueObject
+        DialogueObject currentDialogue = currentDialogueTree.getDialogueObjects().get(dialogueIndex);
+        // Update dialogueUpdate event
+        onDialogueUpdate(currentDialogueTree.dialogueTreeID, currentDialogue);
         // Write out the current dialogue text
-        DialogueObject dialogueObject = dialogueTree.getDialogueObjects().get(dialogueIndex);
-        onDialogueUpdate(dialogueTree.dialogueTreeID, dialogueObject);
-        Console.writeLine(dialogueObject.dialogueOwner + ": " + dialogueObject.dialogueText);
+        Console.writeLine(currentDialogue.dialogueOwner + ": " + currentDialogue.dialogueText);
 
         // Otherwise display the player choices
         displayDialogueChoices();
 
+        // Handle dialogueChoice
         TESTHandleDialogueChoice();
         //handleDialogueChoice();
     }
@@ -112,22 +124,89 @@ public class DialogueManager {
     void displayDialogueChoices() {
         Console.writeLine("Dialogue Options:");
 
-        for (int i = 1; i <= getCurrentBranches().size(); i++) {
-            DialogueObject dialogueObject = getCurrentBranches().get(i - 1);
-            Console.writeLine(i + " - " + dialogueObject.dialogueText);
+        // Get the current dialogueBranches and loop trough them
+        List<DialogueObject> currentBranches = getCurrentBranches();
+        for (int i = 0; i < currentBranches.size(); i++) {
+            // For now write them out in the console as:
+            // 1 - Dialogue Text.
+            Console.writeLine((i + 1)+ " - " +
+                    Functions.capitalize(   // Make sure the String starts with a capitalized letter
+                    Functions.punctuate(    // And make sure the String ends with punctuation
+                            currentBranches.get(i).dialogueText)));
         }
     }
 
     public void handleDialogueChoice(int currentChoice) {
+        // Get the chosen dialogueObject based on the given index
         DialogueObject chosenDialogue = getCurrentBranches().get(currentChoice - 1);
-        dialogueIndex = dialogueTree.getDialogueObjects().indexOf(dialogueTree.getCurrentDialogue(chosenDialogue.getDialogueBranches()).getFirst());
+        // And move the dialogueIndex to the new value
+        dialogueIndex = currentDialogueTree.getDialogueObjects().indexOf(currentDialogueTree.getCurrentDialogue(chosenDialogue.getDialogueBranches()).getFirst());
+
+        // Finally return to the dialogue tree handler
+        handleDialogueTree();
+    }
+
+    //endregion
+
+    //region Events
+
+    private List<DialogueEvent> listeners = new ArrayList<>();
+
+    public void addListener(DialogueEvent listener) {
+        // Add listeners to the event
+        // Check if the list already has the listener active in it, if not add it,
+        // otherwise don't re-add it to the list, since we don't need to invoke the same listener twice
+        if (!listeners.contains(listener)) {
+            Console.writeLine("Adding listener");
+            listeners.add(listener);
+        }
+    }
+
+    public void removeListener(DialogueEvent listener) {
+        // Remove listeners from the event
+        // Check if the list contains the listener
+        if (listeners.contains(listener)) {
+            Console.writeLine("Removing listener");
+            listeners.remove(listener);
+        }
+    }
+    void handleDialogueSetup(DialogueTree currentDialogueTree) {
+        // When starting dialogue invoke dialogueSetup event
+        // Loop through all listeners and invoke
+        Console.writeLine("Dialogue setup!");
+        for(DialogueEvent listener : new ArrayList<>(listeners)){
+            listener.onDialogueSetup(currentDialogueTree);
+        }
+    }
+
+   public void handleDialogueStart() {
+        // When starting dialogue invoke dialogueStart event
+        // Loop through all listeners and invoke
+        Console.writeLine("Dialogue start!");
+        for(DialogueEvent listener : new ArrayList<>(listeners)){
+            listener.onDialogueStart(currentDialogueTree);
+        }
 
         handleDialogueTree();
     }
 
-    void handleDialogueEnd() {
-        Console.writeLine("Dialogue end!");
+    public void onDialogueUpdate(String dialogueTreeID, DialogueObject dialogueObject){
+        // When reaching new dialogue invoke dialogueUpdate event
+        // Loop through all listeners and invoke
+        for(DialogueEvent listener : new ArrayList<>(listeners)){
+            listener.onDialogueUpdate(dialogueTreeID, dialogueObject);
+        }
     }
+
+    void handleDialogueEnd() {
+        // When reached end invoke dialogueEnd event
+        Console.writeLine("Dialogue end!");
+        for(DialogueEvent listener : new ArrayList<>(listeners)){
+            listener.onDialogueEnd();
+        }
+    }
+
+    //endregion
 
     void TESTHandleDialogueChoice() {
         while (true) {
@@ -147,24 +226,12 @@ public class DialogueManager {
         // Check if there is already a settings file present
         if (new File(filePath).exists()) {
             try (Reader reader = new FileReader(filePath)) {
-                handleDialogueTree(gson.fromJson(reader, DialogueTree.class));
+                setupDialogueTree(gson.fromJson(reader, DialogueTree.class));
+                //currentDialogueTree = gson.fromJson(reader, DialogueTree.class);
             } catch (IOException ex) {
                 throw new Functions.ExceptionHandler("Failed to read from settings file", ex);
             }
         }
     }
 
-    private final List<DialogueListener> listeners = new ArrayList<>();
-
-    public void addListener(DialogueListener toAdd){
-        listeners.add(toAdd);
-    }
-
-    public void onDialogueUpdate(String dialogueTreeID, DialogueObject dialogueObject){
-        for(DialogueListener listener : listeners){
-            listener.onDialogueUpdate(dialogueTreeID, dialogueObject);
-        }
-    }
-
-    //endregion
 }
