@@ -2,12 +2,18 @@ package com.sintraqos.portfolioproject.Connect;
 
 import com.sintraqos.portfolioproject.Account.Account;
 import com.sintraqos.portfolioproject.Logger.Console;
-import lombok.Getter;
 
 public class ConnectionHandlerBase {
 
-    @Getter
     static ConnectionHandlerBase instance;
+    public static ConnectionHandlerBase getInstance(){
+        if(instance == null){
+            instance = new ConnectionHandlerBase();
+            instance.initializeConnection();
+        }
+
+        return instance;
+    }
 
     protected boolean isConnected;
 
