@@ -118,26 +118,36 @@ Use cases:
 
 ---------------------------------------------
 
-Database:
+Database Tables:
 
-Account:
-    - Integer (Primary Key, Unique, Auto Incr) UserID
-    - String (Unique) Username
-    - String EMailAddress
-    - String PasswordSalt
-    - String passwordHash
-    - Integer (default 1) AdminLevel
+    Account:
+        - Integer (Primary Key, Unique, Auto Incr) userID
+        - String (Unique) username
+        - String eMailAddress
+        - String passwordSalt
+        - String passwordHash
+        - Boolean (default false) isAdmin
 
-Account Library:
-    - Integer UserID
-    - Integer GameID
-    - Time GameAquired
-    - Time GameLastPlayed
-    - Time GamePlayTime
+    Account Library:
+        - Integer userID
+            The owner of the game library
+        - Integer gameID
+            The specific game in the library
+        - Time gameAquired
+            The date and time the user aquired the game
+        - Time gameLastPlayed
+            The date and time the user last played the game
+        - Time gamePlayTime
+            How many hours, minutes and seconds the user has in the game
 
-Game:
-    - Integer (Primary Key, Unique, Auto Incr) gameID
-    - String gameName
+    Game:
+        - Integer (Primary Key, Unique, Auto Incr) gameID
+        - String gameName
+
+        Optional:
+            - String gameDescription
+            - String gameDeveloper
+            - String gamePublisher
 
 ---------------------------------------------
 

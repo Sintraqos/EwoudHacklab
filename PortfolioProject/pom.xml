@@ -11,7 +11,8 @@
 	<groupId>com.sintraqos.portfolioproject</groupId>
 	<artifactId>spring</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>spring</name>
+    <packaging>pom</packaging>
+    <name>spring</name>
 	<description>Demo project for Spring Boot</description>
 	<url/>
 	<licenses>
@@ -20,7 +21,10 @@
 	<developers>
 		<developer/>
 	</developers>
-	<scm>
+    <modules>
+        <module>PortfolioProject.Core</module>
+    </modules>
+    <scm>
 		<connection/>
 		<developerConnection/>
 		<tag/>
