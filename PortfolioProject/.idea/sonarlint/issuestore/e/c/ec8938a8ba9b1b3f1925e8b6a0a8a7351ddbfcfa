@@ -1,11 +1,0 @@
-
-g	java:S101"MRename this class name to match the regular expression '^[A-Z][a-zA-Z0-9]*$'.(øŠŞ¬ÿÿÿÿÿ
-H
-java:S2387"2"rootPanel" is the name of a field in "GUIScreen".(ì˜ïÅ
-J
-java:S1172"4Remove this unused method parameter "dialogueIndex".(ˆÎÎò
-J
-java:S1481"/Remove this unused "guiPadding" local variable.(›ÈâÁüÿÿÿÿ
-V	java:S125"<This block of commented-out lines of code should be removed.(æáãßüÿÿÿÿ
-V	java:S125""<This block of commented-out lines of code should be removed.(·Ïœ¼üÿÿÿÿ
-V	java:S125:"<This block of commented-out lines of code should be removed.(ì²ÌŠüÿÿÿÿ

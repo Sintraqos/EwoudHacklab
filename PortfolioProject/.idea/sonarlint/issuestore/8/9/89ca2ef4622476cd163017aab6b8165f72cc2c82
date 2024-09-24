@@ -1,23 +1,0 @@
-
-
-java:S1319"mThe return type of this method should be an interface such as "Map" rather than the implementation "HashMap".(æÁ»üÿÿÿÿ8ÄßŸˆ2
-Z
-java:S18547"8Remove this useless assignment to local variable "gson".(È™ëûÿÿÿÿ8Šóş2
-R
-java:S11726"0Remove this unused method parameter "directory".(æ™ôıÿÿÿÿ8Šóş2
-K
-java:S14817")Remove this unused "gson" local variable.(È™ëûÿÿÿÿ8óş2
-X	java:S125:"<This block of commented-out lines of code should be removed.(ÈÜóá8óş2
-j
-java:S1128"MRemove this unused import 'com.sintraqos.portfolioproject.statics.Functions'.(¼µúÔ8óş2
-F
-java:S1128	")Remove this unused import 'java.io.File'.(†Ğ¥Å8óş2
-Q
-java:S1128
-"/Remove this unused import 'java.io.FileReader'.(Â¡¢äşÿÿÿÿ8óş2
-R
-java:S1128"0Remove this unused import 'java.io.IOException'.(ªº»Úıÿÿÿÿ8óş2
-K
-java:S1128".Remove this unused import 'java.util.Objects'.(¼¸õ›8óş2
-Y
-java:S1128"7Remove this unused import 'java.util.stream.IntStream'.(ÙÉ½Ÿùÿÿÿÿ8óş2
