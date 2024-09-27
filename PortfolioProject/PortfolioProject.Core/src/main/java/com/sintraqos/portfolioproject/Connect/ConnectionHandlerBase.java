@@ -1,7 +1,8 @@
 package com.sintraqos.portfolioproject.Connect;
 
 import com.sintraqos.portfolioproject.Account.Account;
-import com.sintraqos.portfolioproject.Logger.Console;
+import com.sintraqos.portfolioproject.Statics.Console;
+import com.sintraqos.portfolioproject.Statics.Message;
 
 public class ConnectionHandlerBase {
 
@@ -17,6 +18,9 @@ public class ConnectionHandlerBase {
 
     protected boolean isConnected;
 
+    /**
+     * Get the current connect state
+     */
     public boolean getIsConnected() {
         // Check if there currently is a connection active, return the current status, if it isn't connected log it
         if (!isConnected) {
@@ -29,60 +33,77 @@ public class ConnectionHandlerBase {
 
     //region Connection
 
+    /**
+     * Setup for connection, prepare all parts to start connection
+     */
     public void initializeConnection() {
-        // Setup for connection, prepare all parts to start connection
-        Console.writeLine("Initializing connection");
-
         isConnected = false;
+
+        Console.writeLine("Initializing connection");
     }
 
+    /**
+     * Start the connection, if there is already a connection active don't do anything except log a message
+     */
     public void startConnection() {
         if(getIsConnected()){
             Console.writeLine("Connection is already active");
         }
 
         // Start connection
-        Console.writeLine("Started connection");
-
-        isConnected = true;
+        Console.writeLine("Starting connection");
     }
 
+    /**
+     * Stop the connection if it is connected
+     */
     public void stopConnection() {
         // If it isn't connected just return to prevent errors
         if(!getIsConnected()) {
             return;
         }
 
-        isConnected = false;
-        Console.writeLine("Stopped active connection");
+        Console.writeLine("Stopping active connection");
     }
 
     //endregion
 
     //region Account
 
-    public void createAccount(Account account){
-        if(!getIsConnected()) {
-            return;
-        }
+    /**
+     * Create a new account object without any games
+     *
+     * @param account the Account object from the account list
+     * @return new message containing if it was successful and the message the function gives back
+     */
+    public Message createAccount(Account account){
+        Console.writeLine("Created account: " + account.getUserName());
 
-        Console.writeLine("Creating account: " + account.getUserName());
+        return new Message(true, "Account created");
     }
 
-    public void removeAccount(Account account){
-        if(!getIsConnected()) {
-            return;
-        }
+    /**
+     * Remove the given account from the database
+     *
+     * @param account the Account object from the account list
+     * @return new message containing if it was successful and the message the function gives back
+     */
+    public Message removeAccount(Account account){
+        Console.writeLine("Removed account: " + account.getUserName());
 
-        Console.writeLine("Creating account: " + account.getUserName());
+        return new Message(true, "Account removed");
     }
 
-    public void updateAccount(Account account){
-        if(!getIsConnected()) {
-            return;
-        }
+    /**
+     * Update the given account inside the database
+     *
+     * @param account the Account object from the account list
+     * @return new message containing if it was successful and the message the function gives back
+     */
+    public Message updateAccount(Account account){
+        Console.writeLine("Updated account: " + account.getUserName());
 
-        Console.writeLine("Updating account: " + account.getUserName());
+        return new Message(true, "Account Updated");
     }
 
     //endregion

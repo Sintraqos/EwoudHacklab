@@ -1,7 +1,7 @@
 package com.sintraqos.portfolioproject.Account;
 
 import com.sintraqos.portfolioproject.Game.Game;
-import com.sintraqos.portfolioproject.Logger.Console;
+import com.sintraqos.portfolioproject.Statics.Console;
 import lombok.Getter;
 
 import java.util.ArrayList;
@@ -10,14 +10,27 @@ import java.util.ArrayList;
 public class AccountLibrary {
     private final ArrayList<Game> gameLibrary;
 
+    /**
+     * Create a new AccountLibrary object with a new list
+     */
     public AccountLibrary() {
         gameLibrary = new ArrayList<>();
     }
 
+    /**
+     * Create a new AccountLibrary object with a filled in list
+     *
+     * @param gameLibrary the previously created list
+     */
     public AccountLibrary(ArrayList<Game> gameLibrary) {
         this.gameLibrary = gameLibrary;
     }
 
+    /**
+     * Add a new game to the library, if the game already is in the library don't add it
+     *
+     * @param game the new game to add to the list
+     */
     public void addGame(Game game) {
         // Check if the library already has a game
         if (gameLibrary.contains(game)) {

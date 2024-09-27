@@ -1,4 +1,4 @@
-package com.sintraqos.portfolioproject.Logger;
+package com.sintraqos.portfolioproject.Statics;
 
 import java.io.*;
 import java.text.SimpleDateFormat;
