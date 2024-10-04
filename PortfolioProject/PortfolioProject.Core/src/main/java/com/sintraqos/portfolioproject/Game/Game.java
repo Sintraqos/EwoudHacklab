@@ -5,6 +5,9 @@ import lombok.Getter;
 
 import java.time.*;
 
+/**
+ * Use for storing game data
+ */
 public class Game {
     @Getter
     private int gameID;
@@ -24,21 +27,17 @@ public class Game {
     private Time gamePlayTime;
 
     /**
-     * Create a new Game object using a base from the game list
+     * Create a new Game object using a base from the game list, use this to store game data inside the accountLibrary
      * @param baseGame the base of the game from the game list
-     * @param gameAcquired the date of when the user acquired the game
-     * @param gameLastPlayed when was the last time the user has played the game
-     * @param gamePlayTime how much time has the user spend playing the game
-    */
-    public Game(Game baseGame, LocalDateTime gameAcquired, LocalDateTime gameLastPlayed, Time gamePlayTime){
+     */
+    public Game(Game baseGame){
         this.gameName = baseGame.getGameName();
         this.gameDescription = baseGame.getGameDescription();
         this.gameDeveloper = baseGame.getGameDeveloper();
         this.gamePublisher = baseGame.getGamePublisher();
 
-        this.gameAcquired = gameAcquired;
-        this.gameLastPlayed = gameLastPlayed;
-        this.gamePlayTime = gamePlayTime;
+        this.gameAcquired = LocalDateTime.now();
+        this.gameLastPlayed = LocalDateTime.now();
     }
 
     /**
@@ -62,6 +61,7 @@ public class Game {
      * @param gamePlayTime how much time there should be added to the current game time
      */
     public void addGameTime(Time gamePlayTime){
+        gameLastPlayed = LocalDateTime.now();
         this.gamePlayTime.addTime(gamePlayTime);
     }
 }

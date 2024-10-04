@@ -1,3 +1,1 @@
-[10:55] - Initializing connection
-[10:55] - 1:0
-[10:55] - 21:34
+[10:53] - Initializing Spring-Boot

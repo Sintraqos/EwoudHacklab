@@ -5,27 +5,30 @@ import lombok.Getter;
 
 import java.util.ArrayList;
 
+/**
+ * Use for storing account data
+ */
 @Getter
 public class Account {
     private int accountID = -1; // Default value for check if the database needs to assign a new ID
     private final String userName;
     private String eMail;
     private String password;
-    private final AccountLibrary gameLibrary;
+    private final AccountLibrary accountLibrary;
 
     /**
      * Create a new account object without any games
      *
-     * @param userName  the userName of the account
-     * @param eMail     the e-mail of the account
-     * @param password  the password of the account
+     * @param userName the userName of the account
+     * @param eMail    the e-mail of the account
+     * @param password the password of the account
      */
     public Account(String userName, String eMail, String password) {
         this.accountID = accountID;
         this.userName = userName;
         this.eMail = eMail;
         this.password = password;
-        gameLibrary = new AccountLibrary();
+        accountLibrary = new AccountLibrary();
     }
 
     /**
@@ -39,6 +42,6 @@ public class Account {
     public Account(int accountID, String userName, ArrayList<Game> gameLibrary) {
         this.accountID = accountID;
         this.userName = userName;
-        this.gameLibrary = new AccountLibrary(gameLibrary);
+        this.accountLibrary = new AccountLibrary(gameLibrary);
     }
 }

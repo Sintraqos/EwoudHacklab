@@ -2,19 +2,14 @@ package com.sintraqos.portfolioproject.Statics;
 
 import lombok.Getter;
 
+/**
+ * Use for storing time, since this gives more flexibility for what's needed
+ */
 public class Time {
     @Getter
     private int hour;
     @Getter
     private int minute;
-
-    /**
-     * Create a new Time object with both hour and minute set to 0
-     */
-    public Time(){
-        hour = 0;
-        minute = 0;
-    }
 
     /**
      * Create a new Time object with specified times

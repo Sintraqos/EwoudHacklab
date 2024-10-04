@@ -1,9 +1,11 @@
 package com.sintraqos.portfolioproject.Game;
 
-import com.sintraqos.portfolioproject.Connect.ConnectionHandlerBase;
 import com.sintraqos.portfolioproject.Statics.Console;
 
-public class GameModel {
+/**
+ * Use for interaction with the InteractHandler and the GameController
+ */
+public class GameModel{
 
     static GameModel instance;
 
@@ -16,10 +18,7 @@ public class GameModel {
         return instance;
     }
 
-    ConnectionHandlerBase connectionHandler;
-
-    void onNewInstance(){
-        connectionHandler = ConnectionHandlerBase.getInstance();
+    protected void onNewInstance() {
         Console.writeLine("Created new instance of GameModel");
     }
 

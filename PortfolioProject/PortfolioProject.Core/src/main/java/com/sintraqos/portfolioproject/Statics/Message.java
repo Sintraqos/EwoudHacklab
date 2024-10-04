@@ -2,6 +2,9 @@ package com.sintraqos.portfolioproject.Statics;
 
 import lombok.Getter;
 
+/**
+ * Use for returning multiple variables at once instead of a singular one
+ */
 public class Message {
     @Getter
     boolean isSuccessful;

@@ -55,69 +55,6 @@ User stories:
 
 ---------------------------------------------
 
-Use cases:
-
-    UC-01: As a user, I want to be able to create an account, so I will be able to use the website
-
-        Stakeholders and interests:
-            - User: Wants to be able to create an account, so they can start to track their game activity
-
-        Preconditions:
-            - Website is active
-            - Database is running and connected
-
-        Success Guarantee (Postconditions):
-            - New account is created and added to the database
-            - User can now log in to their account
-
-        Main Success Scenario (Basic Flow):
-            - User selects the register button
-            - User fills in their account information
-            - The data gets added to the database
-            - The user can log in to their account now
-
-        Extensions (Alternative Path):
-            - The data fails to get added to the database
-            - The user has to update the information of the account
-
-        Serial Requirements:
-            - None
-
-        Technology and Data Variation List:
-            - None
-
-    UC-02: As a user, I want to be able to log in to my account, so I can display my game library, so I can see which games I own, and how much time I've spend playing those games
-
-        Stakeholders and interests:
-            - User: Wants to be able to login into their account, so they can display their library and view their current game times
-
-        Preconditions:
-            - Website is active
-            - Database is running and connected
-            - User has created an account and that account is valid
-
-        Success Guarantee (Postconditions):
-            - User has logged in to their account
-            - User has received all information of the account from the database
-
-        Main Success Scenario (Basic Flow):
-            - User fills in their information into the required fields
-            - User selects the login button
-            - The data gets sent to the service, and compares it to what it has stored in the database
-            - The service sends the user that they have logged in succesfully, with their data from the database
-            - The user's screen moves to the library screen
-
-        Extensions (Alternative Path):
-            - The data that the service got doesn't exist, or doesn't match up with the database
-
-        Serial Requirements:
-            - None
-
-        Technology and Data Variation List:
-            - None
-
----------------------------------------------
-
 Database Tables:
 
     Account:
@@ -206,3 +143,11 @@ Classes:
                 - Database Password (String)
                 - Database Root Password (String)
             - Functions
+
+---------------------------------------------
+
+Minimal viable product:
+    - User can create account
+    - User can add the game to their account
+    - User can get their game library
+    - User can show the information of the game

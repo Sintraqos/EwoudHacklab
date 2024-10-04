@@ -6,6 +6,9 @@ import lombok.Getter;
 
 import java.util.ArrayList;
 
+/**
+ * Use for storage and logic for games on the Account object
+ */
 @Getter
 public class AccountLibrary {
     private final ArrayList<Game> gameLibrary;
@@ -39,6 +42,6 @@ public class AccountLibrary {
         }
 
         // Add the game to the library
-        gameLibrary.add(game);
+        gameLibrary.add(new Game(game));
     }
 }

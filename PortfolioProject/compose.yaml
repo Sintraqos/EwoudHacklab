@@ -1,1 +1,14 @@
 services:
+  mariadb:
+    image: mariadb:10.4
+    volumes:
+      - mariadbdata:/var/lib/mysql
+    environment:
+      MYSQL_DATABASE: mariadb
+      MYSQL_USER: mariadb
+      MYSQL_PASSWORD: mariadb
+      MYSQL_ROOT_PASSWORD: mariadb
+    ports:
+      - "3306:3306"
+volumes:
+  mariadbdata: {}
