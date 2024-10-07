@@ -61,10 +61,9 @@ public class AccountController {
         // Create new Account object
         Account account = new Account(userName, eMail, password);
 
-        //TODO: Check if the account was successfully created inside the database
-        Message createAccount = connectHandler.createAccount(account);
-        if (!createAccount.isSuccessful()) {
-            Console.writeLine("Failed to create new account: " + userName + " - Reason: " + createAccount.getMessage());
+        Message createAccountMessage = connectHandler.createAccount(account);
+        if (!createAccountMessage.isSuccessful()) {
+            Console.writeLine("Failed to create new account: " + userName + " - Reason: " + createAccountMessage.getMessage());
             return;
         }
 
@@ -82,12 +81,13 @@ public class AccountController {
     public void handleLogin(String userName, String password){
         // Try to retrieve the account using the connectionHandler,
         // if it failed to retrieve it, or just failed for some reason stop this code after writing out the message
-        Message getAccount = connectHandler.getAccount(userName,password);
-        if (!getAccount.isSuccessful()) {
-            Console.writeLine("Failed to log in to account: " + userName + " - Reason: " + getAccount.getMessage());
+        Account account = new Account(userName, password);
+        Message loginAccountMessage = connectHandler.loginAccount(account);
+        if (!loginAccountMessage.isSuccessful()) {
+            Console.writeLine("Failed to log into account: " + userName + " - Reason: " + loginAccountMessage.getMessage());
             return;
         }
 
-        Console.writeLine("Successfully retrieved account: " + userName);
+        Console.writeLine("Successfully logged in to account: " + userName);
     }
 }

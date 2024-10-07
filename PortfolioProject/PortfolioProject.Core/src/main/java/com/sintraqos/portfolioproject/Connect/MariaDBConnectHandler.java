@@ -4,7 +4,9 @@ import com.sintraqos.portfolioproject.Account.Account;
 import com.sintraqos.portfolioproject.Game.Game;
 import com.sintraqos.portfolioproject.Statics.Console;
 import com.sintraqos.portfolioproject.Statics.Message;
+import com.sintraqos.portfolioproject.Statics.PasswordEncrypter;
 import lombok.Getter;
+import lombok.SneakyThrows;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -29,90 +31,32 @@ public class MariaDBConnectHandler extends ConnectionHandler {
         return instance;
     }
 
-    //region Connection
+    DatabaseSettings settings = new DatabaseSettings();
 
+    String getConnectionURI(){
+        return String.format("jdbc:mysql://%s/%s", settings.getDbFullAddress(), settings.getDbName());
+    }
+
+    //region Connection
+    Connection con;
+    @SneakyThrows   // Since we wish to throw an exception based on an SQLException
     @Override
     public void initializeConnection() {
         super.initializeConnection();
-        DatabaseSettings settings = new DatabaseSettings();
+        settings = new DatabaseSettings();
 
         // Make test connection to the database
-        try (Connection con = DriverManager
-                .getConnection(String.format(
-                                "jdbc:mysql://%s/%s", settings.getDbFullAddress(), settings.getDbName()),
-                        settings.getDbUser(),
-                        settings.getDbRootPassword())) {
-
+        try {
+            con =  DriverManager.getConnection(getConnectionURI(), settings.getDbUser(), settings.getDbRootPassword());
             Console.writeLine("Connected to the database!");
 
-            // If the connection has been made, try to create a new table if it doesn't exist
-            try (Statement stmt = con.createStatement()) {
-                // Create new tables if they don't exist
-                // Account:
-                    // - Integer (Primary Key, Unique, Auto Incr) userID
-                    // - String (Unique) username
-                    // - String eMailAddress
-                    // - String passwordSalt
-                    // - String passwordHash
-                    // - Boolean (default false) isAdmin
-                stmt.execute("CREATE TABLE IF NOT EXISTS `accounts` (" +        // Check if the table exists, if not execute the given query
-                                "`accountID` int(11) NOT NULL AUTO_INCREMENT," +    // Give an auto incrementing account ID
-                                "`username` varchar(50) NOT NULL," +
-                                "`email` varchar(50) NOT NULL," +
-                                "`passwordSalt` varchar(50) NOT NULL," +
-                                "`passwordHash` varchar(50) NOT NULL," +
-                                "`isAdmin` tinyint(4) NOT NULL DEFAULT 0," +
-                                "PRIMARY KEY (`accountID`)," +                      // Make the accountID a primary key
-                                "UNIQUE KEY `username` (`username`)" +              // Make the username unique
-                                ") ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;");
-                Console.writeLine("Table 'Account' Found!");
+            // When the connection has been made, try to create a new table if it doesn't exist
+            createTables();
 
-                // Account Library:
-                    // - Integer userID : Base on accountID
-                    // - Integer gameID : Base on gameID
-                    // - Time gameAcquired
-                    // - Time gameLastPlayed
-                    // - Time gamePlayTime
-                stmt.execute("CREATE TABLE IF NOT EXISTS `accountLibrary` (" + // Check if the table exists, if not execute the given query
-                                "`accountID` int(11) NOT NULL," +
-                                "`gameID` int(11) NOT NULL," +
-                                "`gameAquired` datetime DEFAULT curdate()," +
-                                "`gameLastPlayed` datetime DEFAULT NULL," +
-                                "`gamePlayTime` float DEFAULT NULL" +
-                                ") ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;");
-                Console.writeLine("Table 'AccountLibrary' Found!");
-
-                // Game:
-                    // - Integer (Primary Key, Auto Incr) gameID
-                    // - String gameName
-                    // - String gameDescription
-                    // - String gameDeveloper
-                    // - String gamePublisher
-                stmt.execute("CREATE TABLE IF NOT EXISTS `games` (" +       // Check if the table exists, if not execute the given query
-                                "`gameID` int(11) NOT NULL AUTO_INCREMENT," +   // Give an auto incrementing gameID
-                                "`gameName` varchar(50) NOT NULL," +
-                                "`gameDescription` varchar(250) NOT NULL," +
-                                "`gameDeveloper` varchar(50) NOT NULL," +
-                                "`gamePublisher` varchar(50) NOT NULL," +
-                                "PRIMARY KEY (`gameID`)" +                       // Make the gameID a primary key
-                                ") ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;");
-                Console.writeLine("Table 'Game' Found!");
-            }
-
-//                // Get every employee from the table
-//                String selectSql = "SELECT * FROM employees";
-//                try (ResultSet resultSet = stmt.executeQuery(selectSql)) {
-//                    // Print resultSet
-//                    while (resultSet.next()) {
-//                        System.out.println(String.format("ID: %s - Name: %s - Salary: %s - Position: %s", resultSet.getInt("emp_id"), resultSet.getString("name"), resultSet.getDouble("salary"), resultSet.getString("position")));
-//                    }
-//                }
-//            }
+            // When the connection has been made, and all the tables are inside the database, set isConnected to true
+            isConnected = true;
         } catch (SQLException ex) {
-            // Handle exception
-            System.out.println("SQLException: " + ex.getMessage());
-            System.out.println("SQLState: " + ex.getSQLState());
-            System.out.println("VendorError: " + ex.getErrorCode());
+            throw new CustomSQLException(ex, "Failed to make a successful connection to the database");
         }
     }
 
@@ -132,23 +76,90 @@ public class MariaDBConnectHandler extends ConnectionHandler {
         isConnected = false;
     }
 
+    @SneakyThrows   // Since we wish to throw an exception based on an SQLException
+    void createTables() {
+        try (Statement st = con.createStatement()) {
+            // Create new tables if they don't exist
+            // Account:
+            // - Integer (Primary Key, Unique, Auto Increment) userID : Use for identifying the corresponding account Library
+            // - String (Unique) username
+            // - String eMailAddress
+            // - String passwordHash
+            // - String passwordSalt
+            // - Boolean (default false) isAdmin
+
+            String createTableQuery;
+
+            createTableQuery =
+                    "CREATE TABLE IF NOT EXISTS `" + settings.accountTable + "` (" +        // Check if the table exists, if not execute the given query
+                            "`accountID` int(11) NOT NULL AUTO_INCREMENT," +                        // Give an auto incrementing account ID
+                            "`username` varchar(50) NOT NULL," +
+                            "`email` varchar(50) NOT NULL," +
+                            "`passwordHash` varchar(255) NOT NULL," +
+                            "`passwordSalt` varchar(255) NOT NULL," +
+                            "`isAdmin` tinyint(4) NOT NULL DEFAULT 0," +
+                            "PRIMARY KEY (`accountID`)," +                                          // Make the accountID a primary key
+                            "UNIQUE KEY `username` (`username`)" +                                  // Make the username unique
+                            ") ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;";
+            st.execute(createTableQuery);
+            Console.writeLine("Table '" + settings.accountTable + "' Found!");
+
+            // Account Library:
+            // - Integer userID : Base on accountID
+            // - Integer gameID : Base on gameID
+            // - Time gameAcquired
+            // - Time gameLastPlayed
+            // - Time gamePlayTime
+            createTableQuery =
+                    "CREATE TABLE IF NOT EXISTS `" + settings.accountLibraryTable + "` (" + // Check if the table exists, if not execute the given query
+                            "`accountID` int(11) NOT NULL," +
+                            "`gameID` int(11) NOT NULL," +
+                            "`gameAquired` datetime DEFAULT curdate()," +
+                            "`gameLastPlayed` datetime DEFAULT NULL," +
+                            "`gamePlayTime` float DEFAULT NULL" +
+                            ") ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;";
+            st.execute(createTableQuery);
+            Console.writeLine("Table '" + settings.accountLibraryTable + "' Found!");
+
+            // Game:
+            // - Integer (Primary Key, Auto Increment) gameID
+            // - String gameName
+            // - String gameDescription
+            // - String gameDeveloper
+            // - String gamePublisher
+            createTableQuery =
+                    "CREATE TABLE IF NOT EXISTS `" + settings.gamesTable + "` (" +      // Check if the table exists, if not execute the given query
+                            "`gameID` int(11) NOT NULL AUTO_INCREMENT," +                       // Give an auto incrementing gameID
+                            "`gameName` varchar(50) NOT NULL," +
+                            "`gameDescription` varchar(250) NOT NULL," +
+                            "`gameDeveloper` varchar(50) NOT NULL," +
+                            "`gamePublisher` varchar(50) NOT NULL," +
+                            "PRIMARY KEY (`gameID`)" +                                          // Make the gameID a primary key
+                            ") ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;";
+            st.execute(createTableQuery);
+            Console.writeLine("Table '" + settings.gamesTable + "' Found!");
+        } catch (SQLException ex) {
+            throw new CustomSQLException(ex);
+        }
+    }
+
     //endregion
 
     //region Database Settings
 
-    class DatabaseSettings implements java.io.Serializable {
-        @Getter
+    @Getter
+    static class DatabaseSettings implements java.io.Serializable {
         private String dbAddress = "localhost";
-        @Getter
         private int dbPort = 3306;
-        @Getter
         private String dbName = "mariadb";
-        @Getter
         private String dbUser = "mariadb";
-        @Getter
         private String dbPassword = "mariadb";
-        @Getter
         private String dbRootPassword = "mariadb";
+
+        // Tables
+        private final String accountTable = "accounts";
+        private final String accountLibraryTable = "accountLibrary";
+        private final String gamesTable = "games";
 
         // Getters
         public String getDbFullAddress() {
@@ -169,6 +180,7 @@ public class MariaDBConnectHandler extends ConnectionHandler {
 
     //region Account
 
+    @SneakyThrows   // Since we wish to throw an exception based on an SQLException
     @Override
     public Message createAccount(Account account) {
         // Check if there is an active  connection
@@ -176,20 +188,73 @@ public class MariaDBConnectHandler extends ConnectionHandler {
             return new Message(false, "No active connection");
         }
 
-        //TODO: Check if the userName isn't already taken by another account, if it is available add it to the table
+        //Check if the given username is available
+        try (Statement st = con.createStatement()) {
+            // Create the query
+            String nameCheckQuery = "SELECT * FROM " + settings.accountTable + " WHERE username='" + account.getUserName() + "';";
 
+            ResultSet rs = st.executeQuery(nameCheckQuery);
+            // If the account already exists
+            if (rs.next()) {
+                return new Message(false, "Username already in use");
+            }
+        } catch (SQLException ex) {
+            throw new CustomSQLException(ex);
+        }
+
+        // Create the query
+        String accountInsertQuery = "INSERT INTO " + settings.accountTable + "(username, email, passwordSalt, passwordHash) VALUES (?,?,?,?);";
+
+        try (PreparedStatement st = con.prepareStatement(accountInsertQuery)) {
+            // Set the st
+            st.setString(1, account.getUserName());  // Username
+            st.setString(2, account.getEMail());     // E-Mail
+            // Generate password with custom salt
+            String[] password = PasswordEncrypter.encryptPassword(account.getPassword());
+            st.setString(3, password[0]);  // Password Hash
+            st.setString(4, password[1]);  // Password Salt
+
+            // Finally execute the made statement
+            st.execute();
+        }
+        catch (CustomSQLException ex){
+            return new Message(false, "Failed add new user to the database");
+        }
+
+        // If created successfully return a new message back to the controller
         return super.createAccount(account);
     }
 
+    @SneakyThrows   // Since we wish to throw an exception based on an SQLException
     @Override
-    public Message getAccount(String userName, String password) {
+    public Message loginAccount(Account account) {
         // Check if there is an active  connection
         if (!getIsConnected()) {
             return new Message(false, "No active connection");
         }
 
-        //TODO: Check if the account exists inside the database
-        return super.getAccount(userName, password);
+        // Send a message to the database, and try to get an account with the given name
+        try (Statement st = con.createStatement()) {
+
+            // Create the query to grab all the needed information from the database
+            String nameCheckQuery = "SELECT accountID, username, passwordHash, passwordSalt FROM " + settings.accountTable + " WHERE username='" + account.getUserName() + "';";
+            ResultSet rs = st.executeQuery(nameCheckQuery);
+            // If the account exists inside the database
+            if (rs.next()) {
+                // Check if the password that was given was the same as was stored
+                if (PasswordEncrypter.verifyPassword(account.getPassword(), rs.getString("passwordHash"), rs.getString("passwordSalt"))) {
+                    return super.loginAccount(account);
+                } else {
+                    return new Message(false, "Password incorrect");
+                }
+            } else {
+                Console.writeLine("Account could not be found!");
+                return new Message(false, "Account could not be found");
+            }
+            
+        } catch (SQLException ex) {
+            throw new CustomSQLException(ex);
+        }
     }
 
     @Override
@@ -257,4 +322,23 @@ public class MariaDBConnectHandler extends ConnectionHandler {
     }
 
     //endregion
+
+    public static class CustomSQLException extends SQLException {
+        public CustomSQLException(SQLException ex) {
+            super(ex.getMessage());
+
+            Console.writeLine("SQLException: " + ex.getMessage());
+            Console.writeLine("SQLState: " + ex.getSQLState());
+            Console.writeLine("Error Code: " + ex.getErrorCode());
+        }
+
+        public CustomSQLException(SQLException ex, String message) {
+            super(ex.getMessage());
+
+            Console.writeLine("Exception Message: " + message);
+            Console.writeLine("SQL Exception: " + ex.getMessage());
+            Console.writeLine("SQL State: " + ex.getSQLState());
+            Console.writeLine("Error Code: " + ex.getErrorCode());
+        }
+    }
 }

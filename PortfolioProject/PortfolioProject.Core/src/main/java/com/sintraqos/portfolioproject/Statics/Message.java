@@ -5,10 +5,9 @@ import lombok.Getter;
 /**
  * Use for returning multiple variables at once instead of a singular one
  */
+@Getter
 public class Message {
-    @Getter
     boolean isSuccessful;
-    @Getter
     String message;
 
     /**

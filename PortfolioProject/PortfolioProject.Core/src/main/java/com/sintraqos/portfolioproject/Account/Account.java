@@ -20,11 +20,22 @@ public class Account {
      * Create a new account object without any games
      *
      * @param userName the userName of the account
+     * @param password the password of the account
+     */
+    public Account(String userName, String password) {
+        this.userName = userName;
+        this.password = password;
+        accountLibrary = new AccountLibrary();
+    }
+
+    /**
+     * Create a new account object without any games
+     *
+     * @param userName the userName of the account
      * @param eMail    the e-mail of the account
      * @param password the password of the account
      */
     public Account(String userName, String eMail, String password) {
-        this.accountID = accountID;
         this.userName = userName;
         this.eMail = eMail;
         this.password = password;

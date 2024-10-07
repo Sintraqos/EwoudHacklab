@@ -24,8 +24,12 @@ public class Main {
 
         AccountController.getInstance().createAccount("Username", "e@mail.com", "password");
         AccountController.getInstance().handleLogin("Username", "password");
+        AccountController.getInstance().handleLogin("Username", "wrongpassword");
     }
 
+    /**
+     * Use for quickly adding games to the library
+     */
     static void createGameLibrary() {
         GameController.getInstance().addGame(new Game(
                 GameController.getInstance().getAvailableGameID(),

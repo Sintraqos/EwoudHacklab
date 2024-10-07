@@ -72,7 +72,7 @@ public class ConnectionHandler {
     /**
      * Create a new account object without any games
      *
-     * @param account the Account object from the account list
+     * @param account the Account object created
      * @return new message containing if it was successful and the message the function gives back
      */
     public Message createAccount(Account account){
@@ -84,12 +84,11 @@ public class ConnectionHandler {
     /**
      * Get a user account from the database
      *
-     * @param username username of the account
-     * @param password password of the account
+     * @param account the Account object created
      * @return new message containing if it was successful and the message the function gives back
      */
-    public Message getAccount(String username, String password){
-        Console.writeLine("Got account: " + username);
+    public Message loginAccount(Account account){
+        Console.writeLine("Got account: " + account.getUserName());
 
         return new Message(true, "Account received");
     }

@@ -5,10 +5,9 @@ import lombok.Getter;
 /**
  * Use for storing time, since this gives more flexibility for what's needed
  */
+@Getter
 public class Time {
-    @Getter
     private int hour;
-    @Getter
     private int minute;
 
     /**

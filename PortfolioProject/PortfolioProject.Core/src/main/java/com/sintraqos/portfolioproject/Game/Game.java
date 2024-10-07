@@ -8,22 +8,15 @@ import java.time.*;
 /**
  * Use for storing game data
  */
+@Getter
 public class Game {
-    @Getter
     private int gameID;
-    @Getter
     private String gameName;
-    @Getter
     private String gameDescription;
-    @Getter
     private String gameDeveloper;
-    @Getter
     private String gamePublisher;
-    @Getter
     private LocalDateTime gameAcquired;
-    @Getter
     private LocalDateTime gameLastPlayed;
-    @Getter
     private Time gamePlayTime;
 
     /**
@@ -37,7 +30,6 @@ public class Game {
         this.gamePublisher = baseGame.getGamePublisher();
 
         this.gameAcquired = LocalDateTime.now();
-        this.gameLastPlayed = LocalDateTime.now();
     }
 
     /**
