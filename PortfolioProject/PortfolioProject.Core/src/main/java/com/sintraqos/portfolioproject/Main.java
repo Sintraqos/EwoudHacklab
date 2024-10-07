@@ -1,5 +1,6 @@
 package com.sintraqos.portfolioproject;
 
+import com.sintraqos.portfolioproject.Account.Account;
 import com.sintraqos.portfolioproject.Account.AccountController;
 import com.sintraqos.portfolioproject.Game.Game;
 import com.sintraqos.portfolioproject.Game.GameController;
@@ -23,8 +24,17 @@ public class Main {
         createGameLibrary();
 
         AccountController.getInstance().createAccount("Username", "e@mail.com", "password");
-        AccountController.getInstance().handleLogin("Username", "password");
-        AccountController.getInstance().handleLogin("Username", "wrongpassword");
+        AccountController.getInstance().loginAccount("Username", "password");
+        AccountController.getInstance().loginAccount("Username", "wrong password");
+
+        // For testing add a new instance of a game, later we will grab a game from the library from its index
+        AccountController.getInstance().getAccountList().get(0).getAccountLibrary().addGame(new Game(
+                GameController.getInstance().getAvailableGameID(),
+                "The Legend of Zelda: Breath of the Wild",
+                "An open-world action-adventure game set in the kingdom of Hyrule.",
+                "Nintendo EPD",
+                "Nintendo"));
+        AccountController.getInstance().updateLibrary(0);
     }
 
     /**

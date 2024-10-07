@@ -4,6 +4,7 @@ import com.sintraqos.portfolioproject.Statics.Time;
 import lombok.Getter;
 
 import java.time.*;
+import java.util.Date;
 
 /**
  * Use for storing game data
@@ -15,8 +16,8 @@ public class Game {
     private String gameDescription;
     private String gameDeveloper;
     private String gamePublisher;
-    private LocalDateTime gameAcquired;
-    private LocalDateTime gameLastPlayed;
+    private Date gameAcquired;
+    private Date gameLastPlayed;
     private Time gamePlayTime;
 
     /**
@@ -28,8 +29,7 @@ public class Game {
         this.gameDescription = baseGame.getGameDescription();
         this.gameDeveloper = baseGame.getGameDeveloper();
         this.gamePublisher = baseGame.getGamePublisher();
-
-        this.gameAcquired = LocalDateTime.now();
+        gamePlayTime = new Time(0,0);
     }
 
     /**
@@ -53,7 +53,7 @@ public class Game {
      * @param gamePlayTime how much time there should be added to the current game time
      */
     public void addGameTime(Time gamePlayTime){
-        gameLastPlayed = LocalDateTime.now();
+        //gameLastPlayed = LocalDateTime.now();
         this.gamePlayTime.addTime(gamePlayTime);
     }
 }

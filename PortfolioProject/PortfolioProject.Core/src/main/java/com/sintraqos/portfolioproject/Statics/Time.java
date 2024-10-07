@@ -10,6 +10,15 @@ public class Time {
     private int hour;
     private int minute;
 
+    public int getTotalMinutes(){
+        return (hour * 60) + minute;
+    }
+
+    /**
+     * Use for storing time, since this gives more flexibility for what's needed
+     */
+    public Time() {}
+
     /**
      * Create a new Time object with specified times
      * @param hour the current hour

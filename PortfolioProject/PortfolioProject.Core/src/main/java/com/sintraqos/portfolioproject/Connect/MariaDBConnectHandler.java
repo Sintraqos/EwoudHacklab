@@ -1,5 +1,6 @@
 package com.sintraqos.portfolioproject.Connect;
 
+import com.fasterxml.jackson.databind.ser.std.SqlDateSerializer;
 import com.sintraqos.portfolioproject.Account.Account;
 import com.sintraqos.portfolioproject.Game.Game;
 import com.sintraqos.portfolioproject.Statics.Console;
@@ -112,11 +113,11 @@ public class MariaDBConnectHandler extends ConnectionHandler {
             // - Time gamePlayTime
             createTableQuery =
                     "CREATE TABLE IF NOT EXISTS `" + settings.accountLibraryTable + "` (" + // Check if the table exists, if not execute the given query
-                            "`accountID` int(11) NOT NULL," +
-                            "`gameID` int(11) NOT NULL," +
-                            "`gameAquired` datetime DEFAULT curdate()," +
+                            "`userID` int(16) NOT NULL," +
+                            "`gameID` int(16) NOT NULL," +
+                            "`gameAcquired` datetime DEFAULT curdate()," +
                             "`gameLastPlayed` datetime DEFAULT NULL," +
-                            "`gamePlayTime` float DEFAULT NULL" +
+                            "`gamePlayTime` int(16) DEFAULT NULL" +
                             ") ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;";
             st.execute(createTableQuery);
             Console.writeLine("Table '" + settings.accountLibraryTable + "' Found!");
@@ -251,7 +252,7 @@ public class MariaDBConnectHandler extends ConnectionHandler {
                 Console.writeLine("Account could not be found!");
                 return new Message(false, "Account could not be found");
             }
-            
+
         } catch (SQLException ex) {
             throw new CustomSQLException(ex);
         }
@@ -284,6 +285,7 @@ public class MariaDBConnectHandler extends ConnectionHandler {
         return super.updateAccount(account);
     }
 
+    @SneakyThrows   // Since we wish to throw an exception based on an SQLException
     @Override
     public Message updateAccountLibrary(Account account) {
         // Check if there is an active  connection
@@ -291,10 +293,44 @@ public class MariaDBConnectHandler extends ConnectionHandler {
             return new Message(false, "No active connection");
         }
 
-        //TODO: Check if the accountLibrary exists inside the database, if it does update it with the new information
+        // Check if the account exists in the library
+        try (Statement st = con.createStatement()) {
+            // Create query
+            String nameCheckQuery = "SELECT accountID, username FROM " + settings.accountTable + " WHERE username='" + account.getUserName() + "';";
+            ResultSet rs = st.executeQuery(nameCheckQuery);
+            // If the account exists inside the database
+            if (!rs.next()) {
+                return new Message(false, "Account could not be found");
+            }
+        } catch (SQLException ex) {
+            throw new CustomSQLException(ex);
+        }
 
-        return super.updateAccount(account);
+        // Then loop trough each game inside the library
+        //String addGameQuery = "INSERT INTO `" + settings.accountLibraryTable + "` (`userID`, `gameID`, `gameLastPlayed`, `gamePlayTime`) values (?, ?, ?, ?) ON DUPLICATE KEY UPDATE `gameLastPlayed`,`gamePlayTime`";
+        String addGameQuery = "INSERT INTO `" + settings.accountLibraryTable + "` (`userID`, `gameID`) values (?, ?)";
+        try (PreparedStatement st = con.prepareStatement(addGameQuery)) {
+            for (Game game : account.getAccountLibrary().getGameLibrary()) {
+                Console.writeLine("Current Game: " + game.getGameName());
+                //TODO: Check if the game exists inside the library, if true overwrite the current stuff stored, otherwise add it
+
+                // Set the st
+                st.setInt(1, account.getAccountID());                       // Account ID
+                st.setInt(2, game.getGameID());                             // Game ID
+                //st.setDate(4, (Date) game.getGameLastPlayed());             // Game Last Played
+                //st.setInt(5, game.getGamePlayTime().getTotalMinutes());     // Game Play Time
+
+                // Finally execute the made statement
+                st.addBatch();
+            }
+            st.executeBatch();
+        } catch (CustomSQLException ex) {
+            return new Message(false, "Failed add new user to the database");
+        }
+
+        return super.updateAccountLibrary(account);
     }
+
     //endregion
 
     //region Game
@@ -323,6 +359,8 @@ public class MariaDBConnectHandler extends ConnectionHandler {
 
     //endregion
 
+    //region Exceptions
+
     public static class CustomSQLException extends SQLException {
         public CustomSQLException(SQLException ex) {
             super(ex.getMessage());
@@ -341,4 +379,6 @@ public class MariaDBConnectHandler extends ConnectionHandler {
             Console.writeLine("Error Code: " + ex.getErrorCode());
         }
     }
+
+    //endregion
 }

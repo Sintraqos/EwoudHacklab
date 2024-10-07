@@ -1,6 +1,7 @@
 package com.sintraqos.portfolioproject.Account;
 
 import com.sintraqos.portfolioproject.Connect.MariaDBConnectHandler;
+import com.sintraqos.portfolioproject.Game.Game;
 import com.sintraqos.portfolioproject.Statics.Console;
 import com.sintraqos.portfolioproject.Statics.Message;
 import lombok.Getter;
@@ -30,7 +31,9 @@ public class AccountController {
         AccountModel.getInstance();
         AccountView.getInstance();
     }
-
+    /**
+     * This will be removed later, but for ease of life it will stay for now
+     */
     ArrayList<Account> accountList = new ArrayList<>();
 
     /**
@@ -67,8 +70,6 @@ public class AccountController {
             return;
         }
 
-        accountList.add(account);
-
         Console.writeLine("Created new account: " + userName);
     }
 
@@ -78,7 +79,7 @@ public class AccountController {
      * @param userName the name of the new account
      * @param password the password of the new account
      */
-    public void handleLogin(String userName, String password){
+    public void loginAccount(String userName, String password){
         // Try to retrieve the account using the connectionHandler,
         // if it failed to retrieve it, or just failed for some reason stop this code after writing out the message
         Account account = new Account(userName, password);
@@ -88,6 +89,26 @@ public class AccountController {
             return;
         }
 
+        accountList.add(account);
+
         Console.writeLine("Successfully logged in to account: " + userName);
     }
+
+    /**
+     * Log in to account
+     *
+     * @param accountID the account to update the library of
+     */
+    public void updateLibrary(int accountID){
+        Account account = accountList.get(accountID);   //TODO: Grab the account from the database instead of from the list
+
+        Message addGameMessage = connectHandler.updateAccountLibrary(account);
+        if (!addGameMessage.isSuccessful()) {
+            Console.writeLine("Failed to add game to account: " + account.getUserName() + " - Reason: " + addGameMessage.getMessage());
+            return;
+        }
+
+        Console.writeLine("Successfully added game to account: " + account.getUserName());
+    }
+
 }
