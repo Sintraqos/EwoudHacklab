@@ -27,14 +27,7 @@ public class Main {
         AccountController.getInstance().loginAccount("Username", "password");
         AccountController.getInstance().loginAccount("Username", "wrong password");
 
-        // For testing add a new instance of a game, later we will grab a game from the library from its index
-        AccountController.getInstance().getAccountList().get(0).getAccountLibrary().addGame(new Game(
-                GameController.getInstance().getAvailableGameID(),
-                "The Legend of Zelda: Breath of the Wild",
-                "An open-world action-adventure game set in the kingdom of Hyrule.",
-                "Nintendo EPD",
-                "Nintendo"));
-        AccountController.getInstance().updateLibrary(0);
+        AccountController.getInstance().updateLibrary("Username");
     }
 
     /**

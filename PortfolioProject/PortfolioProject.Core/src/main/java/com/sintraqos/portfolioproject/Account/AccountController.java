@@ -1,5 +1,6 @@
 package com.sintraqos.portfolioproject.Account;
 
+import com.sintraqos.portfolioproject.Connect.ConnectionHandler;
 import com.sintraqos.portfolioproject.Connect.MariaDBConnectHandler;
 import com.sintraqos.portfolioproject.Game.Game;
 import com.sintraqos.portfolioproject.Statics.Console;
@@ -31,10 +32,6 @@ public class AccountController {
         AccountModel.getInstance();
         AccountView.getInstance();
     }
-    /**
-     * This will be removed later, but for ease of life it will stay for now
-     */
-    ArrayList<Account> accountList = new ArrayList<>();
 
     /**
      * Create a new AccountLibrary object with a filled in list
@@ -42,10 +39,13 @@ public class AccountController {
      * @param userName the name of the account we're looking for
      */
     public Account getAccount(String userName) {
-        // Loop through the list and find the first Account object with the name given. If the Account doesn't exist in the list, return null
-        return accountList.stream()
-                .filter(account -> account.getUserName().equalsIgnoreCase(userName))
-                .findFirst().orElse(null);
+        ConnectionHandler.GetAccountMessage getAccountMessage =connectHandler.getAccount(new Account(userName,""));
+        if(getAccountMessage.getMessage().isSuccessful()){
+        return getAccountMessage.getAccount();}
+        else {
+            Console.writeLine("Account not found");
+            return null;
+        }
     }
 
     /**
@@ -58,7 +58,8 @@ public class AccountController {
     public void createAccount(String userName, String eMail, String password) {
         // Check if there already is an account with the given name
         if (getAccount(userName) != null) {
-            Console.writeLine("Account already exists!");
+            Console.writeLine("Account already exists");
+            return;
         }
 
         // Create new Account object
@@ -89,22 +90,18 @@ public class AccountController {
             return;
         }
 
-        accountList.add(account);
-
         Console.writeLine("Successfully logged in to account: " + userName);
     }
 
     /**
      * Log in to account
      *
-     * @param accountID the account to update the library of
+     * @param username the account to update the library of
      */
-    public void updateLibrary(int accountID){
-        Account account = accountList.get(accountID);   //TODO: Grab the account from the database instead of from the list
-
-        Message addGameMessage = connectHandler.updateAccountLibrary(account);
-        if (!addGameMessage.isSuccessful()) {
-            Console.writeLine("Failed to add game to account: " + account.getUserName() + " - Reason: " + addGameMessage.getMessage());
+    public void updateLibrary(String username){
+        Account account = getAccount(username);
+        if(account == null) {
+            Console.writeLine("Failed to add game to account: " + account.getUserName());
             return;
         }
 

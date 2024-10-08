@@ -25,6 +25,7 @@ public class Game {
      * @param baseGame the base of the game from the game list
      */
     public Game(Game baseGame){
+        this.gameID = baseGame.getGameID();
         this.gameName = baseGame.getGameName();
         this.gameDescription = baseGame.getGameDescription();
         this.gameDeveloper = baseGame.getGameDeveloper();

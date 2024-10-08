@@ -1,6 +1,7 @@
 package com.sintraqos.portfolioproject.Account;
 
 import com.sintraqos.portfolioproject.Game.Game;
+import com.sintraqos.portfolioproject.Game.GameController;
 import lombok.Getter;
 
 import java.util.ArrayList;
@@ -11,10 +12,10 @@ import java.util.ArrayList;
 @Getter
 public class Account {
     private int accountID = -1; // Default value for check if the database needs to assign a new ID
-    private final String userName;
+    private String userName;
     private String eMail;
     private String password;
-    private final AccountLibrary accountLibrary;
+    private AccountLibrary accountLibrary;
 
     /**
      * Create a new account object without any games
@@ -26,6 +27,12 @@ public class Account {
         this.userName = userName;
         this.password = password;
         accountLibrary = new AccountLibrary();
+        accountLibrary.addGame(new Game(
+                69420,
+                "The Legend of Zelda: Breath of the Wild",
+                "An open-world action-adventure game set in the kingdom of Hyrule.",
+                "Nintendo EPD",
+                "Nintendo"));
     }
 
     /**
@@ -39,7 +46,13 @@ public class Account {
         this.userName = userName;
         this.eMail = eMail;
         this.password = password;
-        accountLibrary = new AccountLibrary();
+        this.accountLibrary = new AccountLibrary();
+        this.accountLibrary.addGame(new Game(
+                69420,
+                "The Legend of Zelda: Breath of the Wild",
+                "An open-world action-adventure game set in the kingdom of Hyrule.",
+                "Nintendo EPD",
+                "Nintendo"));
     }
 
     /**
@@ -54,5 +67,11 @@ public class Account {
         this.accountID = accountID;
         this.userName = userName;
         this.accountLibrary = new AccountLibrary(gameLibrary);
+        this.accountLibrary.addGame(new Game(
+                69420,
+                "The Legend of Zelda: Breath of the Wild",
+                "An open-world action-adventure game set in the kingdom of Hyrule.",
+                "Nintendo EPD",
+                "Nintendo"));
     }
 }

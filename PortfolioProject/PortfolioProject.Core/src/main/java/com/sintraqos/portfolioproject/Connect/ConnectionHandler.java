@@ -4,8 +4,12 @@ import com.sintraqos.portfolioproject.Account.Account;
 import com.sintraqos.portfolioproject.Game.Game;
 import com.sintraqos.portfolioproject.Statics.Console;
 import com.sintraqos.portfolioproject.Statics.Message;
+import lombok.Getter;
+import lombok.SneakyThrows;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * The base form of the connectionHandler with all it's base functions
@@ -82,16 +86,40 @@ public class ConnectionHandler {
     }
 
     /**
-     * Get a user account from the database
+     * Log into a user account from the database
      *
      * @param account the Account object created
      * @return new message containing if it was successful and the message the function gives back
      */
     public Message loginAccount(Account account){
-        Console.writeLine("Got account: " + account.getUserName());
+        Console.writeLine("Logged into account account: " + account.getUserName());
 
-        return new Message(true, "Account received");
+        return new Message(true, "Account login");
     }
+
+    /**
+     * Get a user account from the database
+     *
+     * @param account the Account object created
+     * @return new message containing if it was successful and the message the function gives back
+     */
+    public GetAccountMessage getAccount(Account account) {
+        Console.writeLine("Received account: " + account.getUserName());
+
+        return new GetAccountMessage(account, new Message(true, "Account received"));
+    }
+
+    @Getter
+    public class GetAccountMessage {
+        Account account;
+        Message message;
+
+        public GetAccountMessage(Account account, Message message) {
+            this.account = account;
+            this.message = message;
+        }
+    }
+
     /**
      * Remove the given account from the database
      *

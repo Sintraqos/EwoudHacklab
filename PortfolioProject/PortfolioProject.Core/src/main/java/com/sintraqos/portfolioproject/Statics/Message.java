@@ -2,6 +2,8 @@ package com.sintraqos.portfolioproject.Statics;
 
 import lombok.Getter;
 
+import java.util.ArrayList;
+
 /**
  * Use for returning multiple variables at once instead of a singular one
  */
@@ -9,6 +11,9 @@ import lombok.Getter;
 public class Message {
     boolean isSuccessful;
     String message;
+
+    ArrayList<String> stringVariables;
+    ArrayList<Integer> intVariables;
 
     /**
      * Create a new Message object

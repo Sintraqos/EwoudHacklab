@@ -11,6 +11,8 @@ import lombok.SneakyThrows;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * The MariaDB form of the connectionHandler.
@@ -34,12 +36,13 @@ public class MariaDBConnectHandler extends ConnectionHandler {
 
     DatabaseSettings settings = new DatabaseSettings();
 
-    String getConnectionURI(){
+    String getConnectionURI() {
         return String.format("jdbc:mysql://%s/%s", settings.getDbFullAddress(), settings.getDbName());
     }
 
-    //region Connection
     Connection con;
+
+    //region Connection
     @SneakyThrows   // Since we wish to throw an exception based on an SQLException
     @Override
     public void initializeConnection() {
@@ -48,7 +51,7 @@ public class MariaDBConnectHandler extends ConnectionHandler {
 
         // Make test connection to the database
         try {
-            con =  DriverManager.getConnection(getConnectionURI(), settings.getDbUser(), settings.getDbRootPassword());
+            con = DriverManager.getConnection(getConnectionURI(), settings.getDbUser(), settings.getDbRootPassword());
             Console.writeLine("Connected to the database!");
 
             // When the connection has been made, try to create a new table if it doesn't exist
@@ -77,7 +80,8 @@ public class MariaDBConnectHandler extends ConnectionHandler {
         isConnected = false;
     }
 
-    @SneakyThrows   // Since we wish to throw an exception based on an SQLException
+    @SneakyThrows
+        // Since we wish to throw an exception based on an SQLException
     void createTables() {
         try (Statement st = con.createStatement()) {
             // Create new tables if they don't exist
@@ -106,17 +110,17 @@ public class MariaDBConnectHandler extends ConnectionHandler {
             Console.writeLine("Table '" + settings.accountTable + "' Found!");
 
             // Account Library:
-            // - Integer userID : Base on accountID
+            // - Integer accountID : Base on accountID
             // - Integer gameID : Base on gameID
             // - Time gameAcquired
             // - Time gameLastPlayed
             // - Time gamePlayTime
             createTableQuery =
                     "CREATE TABLE IF NOT EXISTS `" + settings.accountLibraryTable + "` (" + // Check if the table exists, if not execute the given query
-                            "`userID` int(16) NOT NULL," +
+                            "`accountID` int(16) NOT NULL," +
                             "`gameID` int(16) NOT NULL," +
-                            "`gameAcquired` datetime DEFAULT curdate()," +
-                            "`gameLastPlayed` datetime DEFAULT NULL," +
+                            "`gameAcquired` date DEFAULT curdate()," +
+                            "`gameLastPlayed` date DEFAULT NULL," +
                             "`gamePlayTime` int(16) DEFAULT NULL" +
                             ") ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;";
             st.execute(createTableQuery);
@@ -189,12 +193,16 @@ public class MariaDBConnectHandler extends ConnectionHandler {
             return new Message(false, "No active connection");
         }
 
-        //Check if the given username is available
-        try (Statement st = con.createStatement()) {
-            // Create the query
-            String nameCheckQuery = "SELECT * FROM " + settings.accountTable + " WHERE username='" + account.getUserName() + "';";
+        // Send a message to the database, and try to get an account with the given name
+        String nameCheckQuery = "SELECT * FROM %s WHERE username=?".formatted(settings.accountTable);
+        try {
+            PreparedStatement st = con.prepareStatement(nameCheckQuery);
+            st.setString(1, account.getUserName());
 
-            ResultSet rs = st.executeQuery(nameCheckQuery);
+            // Create the query to grab all the needed information from the database
+            ResultSet rs = st.executeQuery();
+
+
             // If the account already exists
             if (rs.next()) {
                 return new Message(false, "Username already in use");
@@ -204,7 +212,7 @@ public class MariaDBConnectHandler extends ConnectionHandler {
         }
 
         // Create the query
-        String accountInsertQuery = "INSERT INTO " + settings.accountTable + "(username, email, passwordSalt, passwordHash) VALUES (?,?,?,?);";
+        String accountInsertQuery = "INSERT INTO %s (username, email, passwordSalt, passwordHash) VALUES (?,?,?,?)".formatted(settings.accountTable);
 
         try (PreparedStatement st = con.prepareStatement(accountInsertQuery)) {
             // Set the st
@@ -216,9 +224,8 @@ public class MariaDBConnectHandler extends ConnectionHandler {
             st.setString(4, password[1]);  // Password Salt
 
             // Finally execute the made statement
-            st.execute();
-        }
-        catch (CustomSQLException ex){
+            st.executeQuery();
+        } catch (CustomSQLException ex) {
             return new Message(false, "Failed add new user to the database");
         }
 
@@ -235,11 +242,14 @@ public class MariaDBConnectHandler extends ConnectionHandler {
         }
 
         // Send a message to the database, and try to get an account with the given name
-        try (Statement st = con.createStatement()) {
+        String nameCheckQuery = "SELECT accountID, username, passwordHash, passwordSalt FROM %s WHERE username=?".formatted(settings.accountTable);
+        try (PreparedStatement st = con.prepareStatement(nameCheckQuery)) {
+            // Create query
+            st.setString(1, account.getUserName());
 
             // Create the query to grab all the needed information from the database
-            String nameCheckQuery = "SELECT accountID, username, passwordHash, passwordSalt FROM " + settings.accountTable + " WHERE username='" + account.getUserName() + "';";
-            ResultSet rs = st.executeQuery(nameCheckQuery);
+            ResultSet rs = st.executeQuery();
+
             // If the account exists inside the database
             if (rs.next()) {
                 // Check if the password that was given was the same as was stored
@@ -265,6 +275,12 @@ public class MariaDBConnectHandler extends ConnectionHandler {
             return new Message(false, "No active connection");
         }
 
+        // Check if the account exists in the library
+        GetAccountMessage getAccount = getAccount(account);
+        if(!getAccount.message.isSuccessful()){
+            return new Message(false, getAccount.message.getMessage());
+        }
+
         //TODO: Check if the account exists inside the database, if it does remove it from the table
         // if(!ACCOUNT_EXISTS_IN_DB){
         //      return new Message(false, "Account with userName: " + account.getUserName() + " couldn't be found!")
@@ -278,6 +294,12 @@ public class MariaDBConnectHandler extends ConnectionHandler {
         // Check if there is an active  connection
         if (!getIsConnected()) {
             return new Message(false, "No active connection");
+        }
+
+        // Check if the account exists in the library
+        GetAccountMessage getAccount = getAccount(account);
+        if(!getAccount.message.isSuccessful()){
+            return new Message(false, getAccount.message.getMessage());
         }
 
         //TODO: Check if the account exists inside the database, if it does update it with the new information
@@ -294,41 +316,78 @@ public class MariaDBConnectHandler extends ConnectionHandler {
         }
 
         // Check if the account exists in the library
-        try (Statement st = con.createStatement()) {
-            // Create query
-            String nameCheckQuery = "SELECT accountID, username FROM " + settings.accountTable + " WHERE username='" + account.getUserName() + "';";
-            ResultSet rs = st.executeQuery(nameCheckQuery);
-            // If the account exists inside the database
-            if (!rs.next()) {
-                return new Message(false, "Account could not be found");
-            }
-        } catch (SQLException ex) {
-            throw new CustomSQLException(ex);
+        GetAccountMessage getAccount = getAccount(account);
+        if(!getAccount.message.isSuccessful()){
+            return new Message(false, getAccount.message.getMessage());
         }
 
+        account = getAccount.account;
+
         // Then loop trough each game inside the library
-        //String addGameQuery = "INSERT INTO `" + settings.accountLibraryTable + "` (`userID`, `gameID`, `gameLastPlayed`, `gamePlayTime`) values (?, ?, ?, ?) ON DUPLICATE KEY UPDATE `gameLastPlayed`,`gamePlayTime`";
-        String addGameQuery = "INSERT INTO `" + settings.accountLibraryTable + "` (`userID`, `gameID`) values (?, ?)";
+        //String addGameQuery = "INSERT INTO `" + settings.accountLibraryTable + "` (`accountID`, `gameID`, `gameLastPlayed`, `gamePlayTime`) values (?, ?, ?, ?) ON DUPLICATE KEY UPDATE `gameLastPlayed`,`gamePlayTime`";
+        //String addGameQuery = "INSERT INTO %s (`accountID`, `gameID`) values (?, ?)".formatted(settings.accountLibraryTable);
+        String addGameQuery = "INSERT INTO %s (`accountID`, `gameID`, `gameLastPlayed`, `gamePlayTime`) values (?, ?, ?, ?) ON DUPLICATE KEY UPDATE `gameLastPlayed`,`gamePlayTime`".formatted(settings.accountLibraryTable);
         try (PreparedStatement st = con.prepareStatement(addGameQuery)) {
+            Console.writeLine("Account: " + account.getUserName() + " - ID: " + account.getAccountID());
             for (Game game : account.getAccountLibrary().getGameLibrary()) {
-                Console.writeLine("Current Game: " + game.getGameName());
+                Console.writeLine("Current Game: " + game.getGameName() + " - ID: " + game.getGameID());
                 //TODO: Check if the game exists inside the library, if true overwrite the current stuff stored, otherwise add it
 
                 // Set the st
                 st.setInt(1, account.getAccountID());                       // Account ID
                 st.setInt(2, game.getGameID());                             // Game ID
-                //st.setDate(4, (Date) game.getGameLastPlayed());             // Game Last Played
-                //st.setInt(5, game.getGamePlayTime().getTotalMinutes());     // Game Play Time
+                st.setDate(3, (Date) game.getGameLastPlayed());             // Game Last Played
+                st.setInt(4, game.getGamePlayTime().getTotalMinutes());     // Game Play Time
 
                 // Finally execute the made statement
                 st.addBatch();
             }
             st.executeBatch();
         } catch (CustomSQLException ex) {
-            return new Message(false, "Failed add new user to the database");
+            return new Message(false, "Failed add new game to user: %s library to the database".formatted(account.getUserName()));
         }
 
         return super.updateAccountLibrary(account);
+    }
+
+    //endregion
+
+    //region getAccount
+
+    public GetAccountMessage getAccount(String username){
+        return getAccount(new Account(username,""));
+    }
+
+    @SneakyThrows   // Since we wish to throw an exception based on an SQLException
+    @Override
+    public GetAccountMessage getAccount(Account account) {
+        // Check if there is an active  connection
+
+        if (!getIsConnected()) {
+            return new GetAccountMessage(null,new  Message(false, "No active connection"));
+        }
+
+        // Send a message to the database, and try to get an account with the given name
+        String nameCheckQuery = "SELECT accountID, username FROM %s WHERE username=?".formatted(settings.accountTable);
+        try (PreparedStatement st = con.prepareStatement(nameCheckQuery)) {
+            // Create query
+            st.setString(1, account.getUserName());
+
+            // Create the query to grab all the needed information from the database
+            ResultSet rs = st.executeQuery();
+
+            // If the account exists inside the database
+            if (rs.next()) {
+                return super.getAccount(new Account(rs.getInt(1), rs.getString(2), new ArrayList<>()));
+            } else {
+                Console.writeLine("Account: %s could not be found!".formatted(account.getUserName()));
+                return new GetAccountMessage(null,new  Message(false, "Account could not be found"));
+            }
+
+        } catch (SQLException ex) {
+            throw new CustomSQLException(ex);
+        }
+
     }
 
     //endregion
