@@ -1,23 +1,23 @@
 package com.sintraqos.portfolioproject.Connect;
 
-import com.fasterxml.jackson.databind.ser.std.SqlDateSerializer;
-import com.sintraqos.portfolioproject.Account.Account;
+import com.sintraqos.portfolioproject.DTO.AccountDTO;
+import com.sintraqos.portfolioproject.DTO.GameDTO;
 import com.sintraqos.portfolioproject.Game.Game;
 import com.sintraqos.portfolioproject.Statics.Console;
 import com.sintraqos.portfolioproject.Statics.Message;
 import com.sintraqos.portfolioproject.Statics.PasswordEncrypter;
 import lombok.Getter;
 import lombok.SneakyThrows;
+import org.springframework.stereotype.Service;
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * The MariaDB form of the connectionHandler.
  * REQUIRES: Usage and running of a Maria DataBase
  */
+@Service
 public class MariaDBConnectHandler extends ConnectionHandler {
 
     static MariaDBConnectHandler instance;
@@ -43,6 +43,7 @@ public class MariaDBConnectHandler extends ConnectionHandler {
     Connection con;
 
     //region Connection
+
     @SneakyThrows   // Since we wish to throw an exception based on an SQLException
     @Override
     public void initializeConnection() {
@@ -187,7 +188,7 @@ public class MariaDBConnectHandler extends ConnectionHandler {
 
     @SneakyThrows   // Since we wish to throw an exception based on an SQLException
     @Override
-    public Message createAccount(Account account) {
+    public Message createAccount(AccountDTO accountDTO) {
         // Check if there is an active  connection
         if (!getIsConnected()) {
             return new Message(false, "No active connection");
@@ -197,7 +198,7 @@ public class MariaDBConnectHandler extends ConnectionHandler {
         String nameCheckQuery = "SELECT * FROM %s WHERE username=?".formatted(settings.accountTable);
         try {
             PreparedStatement st = con.prepareStatement(nameCheckQuery);
-            st.setString(1, account.getUserName());
+            st.setString(1, accountDTO.getUsername());
 
             // Create the query to grab all the needed information from the database
             ResultSet rs = st.executeQuery();
@@ -216,10 +217,10 @@ public class MariaDBConnectHandler extends ConnectionHandler {
 
         try (PreparedStatement st = con.prepareStatement(accountInsertQuery)) {
             // Set the st
-            st.setString(1, account.getUserName());  // Username
-            st.setString(2, account.getEMail());     // E-Mail
+            st.setString(1, accountDTO.getUsername());  // Username
+            st.setString(2, accountDTO.getEMail());     // E-Mail
             // Generate password with custom salt
-            String[] password = PasswordEncrypter.encryptPassword(account.getPassword());
+            String[] password = PasswordEncrypter.encryptPassword(accountDTO.getPassword());
             st.setString(3, password[0]);  // Password Hash
             st.setString(4, password[1]);  // Password Salt
 
@@ -230,12 +231,14 @@ public class MariaDBConnectHandler extends ConnectionHandler {
         }
 
         // If created successfully return a new message back to the controller
-        return super.createAccount(account);
+
+        return super.createAccount(accountDTO);
     }
+
 
     @SneakyThrows   // Since we wish to throw an exception based on an SQLException
     @Override
-    public Message loginAccount(Account account) {
+    public Message loginAccount(AccountDTO accountDTO) {
         // Check if there is an active  connection
         if (!getIsConnected()) {
             return new Message(false, "No active connection");
@@ -245,7 +248,7 @@ public class MariaDBConnectHandler extends ConnectionHandler {
         String nameCheckQuery = "SELECT accountID, username, passwordHash, passwordSalt FROM %s WHERE username=?".formatted(settings.accountTable);
         try (PreparedStatement st = con.prepareStatement(nameCheckQuery)) {
             // Create query
-            st.setString(1, account.getUserName());
+            st.setString(1, accountDTO.getUsername());
 
             // Create the query to grab all the needed information from the database
             ResultSet rs = st.executeQuery();
@@ -253,8 +256,8 @@ public class MariaDBConnectHandler extends ConnectionHandler {
             // If the account exists inside the database
             if (rs.next()) {
                 // Check if the password that was given was the same as was stored
-                if (PasswordEncrypter.verifyPassword(account.getPassword(), rs.getString("passwordHash"), rs.getString("passwordSalt"))) {
-                    return super.loginAccount(account);
+                if (PasswordEncrypter.verifyPassword(accountDTO.getPassword(), rs.getString("passwordHash"), rs.getString("passwordSalt"))) {
+                    return super.loginAccount(accountDTO);
                 } else {
                     return new Message(false, "Password incorrect");
                 }
@@ -269,15 +272,15 @@ public class MariaDBConnectHandler extends ConnectionHandler {
     }
 
     @Override
-    public Message removeAccount(Account account) {
+    public Message removeAccount(AccountDTO accountDTO) {
         // Check if there is an active  connection
         if (!getIsConnected()) {
             return new Message(false, "No active connection");
         }
 
         // Check if the account exists in the library
-        GetAccountMessage getAccount = getAccount(account);
-        if(!getAccount.message.isSuccessful()){
+        GetAccountMessage getAccount = getAccount(accountDTO.getAccountID());
+        if (!getAccount.message.isSuccessful()) {
             return new Message(false, getAccount.message.getMessage());
         }
 
@@ -286,49 +289,47 @@ public class MariaDBConnectHandler extends ConnectionHandler {
         //      return new Message(false, "Account with userName: " + account.getUserName() + " couldn't be found!")
         // }
 
-        return super.removeAccount(account);
+        return super.removeAccount(accountDTO);
     }
 
     @Override
-    public Message updateAccount(Account account) {
+    public Message updateAccount(AccountDTO accountDTO) {
         // Check if there is an active  connection
         if (!getIsConnected()) {
             return new Message(false, "No active connection");
         }
 
         // Check if the account exists in the library
-        GetAccountMessage getAccount = getAccount(account);
-        if(!getAccount.message.isSuccessful()){
+        GetAccountMessage getAccount = getAccount(accountDTO.getAccountID());
+        if (!getAccount.message.isSuccessful()) {
             return new Message(false, getAccount.message.getMessage());
         }
 
         //TODO: Check if the account exists inside the database, if it does update it with the new information
 
-        return super.updateAccount(account);
+        return super.updateAccount(accountDTO);
     }
 
     @SneakyThrows   // Since we wish to throw an exception based on an SQLException
     @Override
-    public Message updateAccountLibrary(Account account) {
+    public Message updateAccountLibrary(AccountDTO account) {
         // Check if there is an active  connection
         if (!getIsConnected()) {
             return new Message(false, "No active connection");
         }
 
         // Check if the account exists in the library
-        GetAccountMessage getAccount = getAccount(account);
-        if(!getAccount.message.isSuccessful()){
+        GetAccountMessage getAccount = getAccount(account.getAccountID());
+        if (!getAccount.message.isSuccessful()) {
             return new Message(false, getAccount.message.getMessage());
         }
 
         account = getAccount.account;
 
         // Then loop trough each game inside the library
-        //String addGameQuery = "INSERT INTO `" + settings.accountLibraryTable + "` (`accountID`, `gameID`, `gameLastPlayed`, `gamePlayTime`) values (?, ?, ?, ?) ON DUPLICATE KEY UPDATE `gameLastPlayed`,`gamePlayTime`";
-        //String addGameQuery = "INSERT INTO %s (`accountID`, `gameID`) values (?, ?)".formatted(settings.accountLibraryTable);
         String addGameQuery = "INSERT INTO %s (`accountID`, `gameID`, `gameLastPlayed`, `gamePlayTime`) values (?, ?, ?, ?) ON DUPLICATE KEY UPDATE `gameLastPlayed`,`gamePlayTime`".formatted(settings.accountLibraryTable);
         try (PreparedStatement st = con.prepareStatement(addGameQuery)) {
-            Console.writeLine("Account: " + account.getUserName() + " - ID: " + account.getAccountID());
+            Console.writeLine("Account: " + account.getUsername() + " - ID: " + account.getAccountID());
             for (Game game : account.getAccountLibrary().getGameLibrary()) {
                 Console.writeLine("Current Game: " + game.getGameName() + " - ID: " + game.getGameID());
                 //TODO: Check if the game exists inside the library, if true overwrite the current stuff stored, otherwise add it
@@ -344,7 +345,7 @@ public class MariaDBConnectHandler extends ConnectionHandler {
             }
             st.executeBatch();
         } catch (CustomSQLException ex) {
-            return new Message(false, "Failed add new game to user: %s library to the database".formatted(account.getUserName()));
+            return new Message(false, "Failed add new game to user: %s library to the database".formatted(account.getUsername()));
         }
 
         return super.updateAccountLibrary(account);
@@ -354,34 +355,30 @@ public class MariaDBConnectHandler extends ConnectionHandler {
 
     //region getAccount
 
-    public GetAccountMessage getAccount(String username){
-        return getAccount(new Account(username,""));
-    }
-
     @SneakyThrows   // Since we wish to throw an exception based on an SQLException
     @Override
-    public GetAccountMessage getAccount(Account account) {
+    public GetAccountMessage getAccount(int accountID) {
         // Check if there is an active  connection
 
         if (!getIsConnected()) {
-            return new GetAccountMessage(null,new  Message(false, "No active connection"));
+            return new GetAccountMessage(null, new Message(false, "No active connection"));
         }
 
         // Send a message to the database, and try to get an account with the given name
-        String nameCheckQuery = "SELECT accountID, username FROM %s WHERE username=?".formatted(settings.accountTable);
+        String nameCheckQuery = "SELECT accountID, username FROM %s WHERE accountID=?".formatted(settings.accountTable);
         try (PreparedStatement st = con.prepareStatement(nameCheckQuery)) {
             // Create query
-            st.setString(1, account.getUserName());
+            st.setInt(1, accountID);
 
             // Create the query to grab all the needed information from the database
             ResultSet rs = st.executeQuery();
 
             // If the account exists inside the database
             if (rs.next()) {
-                return super.getAccount(new Account(rs.getInt(1), rs.getString(2), new ArrayList<>()));
+                return super.getAccount(rs.getInt(1));
             } else {
-                Console.writeLine("Account: %s could not be found!".formatted(account.getUserName()));
-                return new GetAccountMessage(null,new  Message(false, "Account could not be found"));
+                Console.writeLine("Account could not be found!");
+                return new GetAccountMessage(null, new Message(false, "Account could not be found"));
             }
 
         } catch (SQLException ex) {
@@ -395,23 +392,23 @@ public class MariaDBConnectHandler extends ConnectionHandler {
     //region Game
 
     @Override
-    public Message addGame(Game game) {
+    public AddGameMessage addGame(GameDTO game) {
         return super.addGame(game);
     }
 
     @Override
-    public Message removeGame(Game game) {
+    public Message removeGame(GameDTO game) {
         return super.removeGame(game);
 
     }
 
     @Override
-    public ArrayList<Game> getGameList() {
+    public ArrayList<GameDTO> getGameList() {
         return super.getGameList();
     }
 
     @Override
-    public Message updateGameList(ArrayList<Game> accountLibrary) {
+    public Message updateGameList(ArrayList<GameDTO> accountLibrary) {
         return super.updateGameList(accountLibrary);
 
     }

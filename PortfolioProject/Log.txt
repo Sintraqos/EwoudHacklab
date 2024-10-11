@@ -1,70 +1,73 @@
-[11:54] - Initializing Spring-Boot
-[11:54] - Finished initializing Spring-Boot
-[11:54] - #################################
-[11:54] - Created new instance of GameController
-[11:54] - Created new instance of GameModel
-[11:54] - Created new instance of GameView
-[11:54] - Initializing connection
-[11:54] - Connected to the database!
-[11:54] - Table 'accounts' Found!
-[11:54] - Table 'accountLibrary' Found!
-[11:54] - Table 'games' Found!
-[11:54] - Created new instance of AccountController
-[11:54] - Created new instance of AccountModel
-[11:54] - Created new instance of AccountView
-[11:54] - Adding new game: The Legend of Zelda: Breath of the Wild
-[11:54] - Adding new game: The Witcher 3: Wild Hunt
-[11:54] - Adding new game: Dark Souls
-[11:54] - Adding new game: Stardew Valley
-[11:54] - Adding new game: Among Us
-[11:54] - Adding new game: Minecraft
-[11:54] - Adding new game: Fortnite
-[11:54] - Adding new game: Cyberpunk 2077
-[11:54] - Adding new game: Overwatch
-[11:54] - Adding new game: Animal Crossing: New Horizons
-[11:54] - Adding new game: Final Fantasy VII Remake
-[11:54] - Adding new game: Super Mario Odyssey
-[11:54] - Adding new game: God of War
-[11:54] - Adding new game: Hollow Knight
-[11:54] - Adding new game: Persona 5
-[11:54] - Adding new game: Doom Eternal
-[11:54] - Adding new game: Apex Legends
-[11:54] - Adding new game: Resident Evil Village
-[11:54] - Adding new game: Genshin Impact
-[11:54] - Adding new game: The Elder Scrolls V: Skyrim
-[11:54] - Adding new game: League of Legends
-[11:54] - Adding new game: Valorant
-[11:54] - Adding new game: Battlefield V
-[11:54] - Adding new game: Ghost of Tsushima
-[11:54] - Adding new game: Death Stranding
-[11:54] - Adding new game: Cuphead
-[11:54] - Adding new game: Returnal
-[11:54] - Adding new game: Monster Hunter: World
-[11:54] - Adding new game: Celeste
-[11:54] - Adding new game: Hades
-[11:54] - Adding new game: The Last of Us Part II
-[11:54] - Adding new game: Nioh 2
-[11:54] - Adding new game: Sekiro: Shadows Die Twice
-[11:54] - Adding new game: Far Cry 5
-[11:54] - Adding new game: Control
-[11:54] - Adding new game: Assassin's Creed Valhalla
-[11:54] - Adding new game: Watch Dogs: Legion
-[11:54] - Adding new game: Minecraft Dungeons
-[11:54] - Adding new game: Ghost Recon Breakpoint
-[11:54] - Adding new game: FIFA 21
-[11:54] - Adding new game: NBA 2K21
-[11:54] - Adding new game: Rogue Company
-[11:54] - Adding new game: Dead by Daylight
-[11:54] - Adding new game: Brawlhalla
-[11:54] - Adding new game: ARK: Survival Evolved
-[11:54] - Adding new game: Fall Guys: Ultimate Knockout
-[11:54] - Adding new game: Spyro Reignited Trilogy
-[11:54] - Adding new game: Tony Hawk's Pro Skater 1+2
-[11:54] - Adding new game: Riders Republic
-[11:54] - Received account: Username
-[11:54] - Account already exists
-[11:54] - Logged into account account: Username
-[11:54] - Successfully logged in to account: Username
-[11:54] - Failed to log into account: Username - Reason: Password incorrect
-[11:54] - Received account: Username
-[11:54] - Successfully added game to account: Username
+[11:58] - Initializing Spring-Boot
+[11:58] - Finished initializing Spring-Boot
+[11:58] - #################################
+[11:58] - Created new instance of GameController
+[11:58] - Initializing connection
+[11:58] - Connected to the database!
+[11:58] - Table 'accounts' Found!
+[11:58] - Table 'accountLibrary' Found!
+[11:58] - Table 'games' Found!
+[11:58] - Created new instance of GameModel
+[11:58] - Created new instance of GameView
+[11:58] - Created new instance of AccountController
+[11:58] - Created new instance of AccountModel
+[11:58] - Created new instance of AccountView
+[11:58] - Adding new game: The Legend of Zelda: Breath of the Wild
+[11:58] - Adding new game: The Witcher 3: Wild Hunt
+[11:58] - Adding new game: Dark Souls
+[11:58] - Adding new game: Stardew Valley
+[11:58] - Adding new game: Among Us
+[11:58] - Adding new game: Minecraft
+[11:58] - Adding new game: Fortnite
+[11:58] - Adding new game: Cyberpunk 2077
+[11:58] - Adding new game: Overwatch
+[11:58] - Adding new game: Animal Crossing: New Horizons
+[11:58] - Adding new game: Final Fantasy VII Remake
+[11:58] - Adding new game: Super Mario Odyssey
+[11:58] - Adding new game: God of War
+[11:58] - Adding new game: Hollow Knight
+[11:58] - Adding new game: Persona 5
+[11:58] - Adding new game: Doom Eternal
+[11:58] - Adding new game: Apex Legends
+[11:58] - Adding new game: Resident Evil Village
+[11:58] - Adding new game: Genshin Impact
+[11:58] - Adding new game: The Elder Scrolls V: Skyrim
+[11:58] - Adding new game: League of Legends
+[11:58] - Adding new game: Valorant
+[11:58] - Adding new game: Battlefield V
+[11:58] - Adding new game: Ghost of Tsushima
+[11:58] - Adding new game: Death Stranding
+[11:58] - Adding new game: Cuphead
+[11:58] - Adding new game: Returnal
+[11:58] - Adding new game: Monster Hunter: World
+[11:58] - Adding new game: Celeste
+[11:58] - Adding new game: Hades
+[11:58] - Adding new game: The Last of Us Part II
+[11:58] - Adding new game: Nioh 2
+[11:58] - Adding new game: Sekiro: Shadows Die Twice
+[11:58] - Adding new game: Far Cry 5
+[11:58] - Adding new game: Control
+[11:58] - Adding new game: Assassin's Creed Valhalla
+[11:58] - Adding new game: Watch Dogs: Legion
+[11:58] - Adding new game: Minecraft Dungeons
+[11:58] - Adding new game: Ghost Recon Breakpoint
+[11:58] - Adding new game: FIFA 21
+[11:58] - Adding new game: NBA 2K21
+[11:58] - Adding new game: Rogue Company
+[11:58] - Adding new game: Dead by Daylight
+[11:58] - Adding new game: Brawlhalla
+[11:58] - Adding new game: ARK: Survival Evolved
+[11:58] - Adding new game: Fall Guys: Ultimate Knockout
+[11:58] - Adding new game: Spyro Reignited Trilogy
+[11:58] - Adding new game: Tony Hawk's Pro Skater 1+2
+[11:58] - Adding new game: Riders Republic
+[11:58] - #################################
+[11:58] - Account could not be found!
+[11:58] - Account not found
+[11:58] - Failed to create new account: Username- Reason: Username already in use
+[11:58] - Logged into account account: Username
+[11:58] - Successfully logged in to account: Username - ID: 
+[11:58] - Failed to log into account: Username- Reason: Password incorrect
+[11:58] - Account could not be found!
+[11:58] - Account not found
+[11:58] - Failed find account with ID: 0

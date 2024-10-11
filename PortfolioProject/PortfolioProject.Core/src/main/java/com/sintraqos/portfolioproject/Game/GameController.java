@@ -59,4 +59,22 @@ public class GameController {
             gameLibrary.add(game);
         }
     }
+
+    /**
+     * Create a new Game object using a base from the game list
+     *
+     * @param game                 the game Object to be added to the list
+     * @param shouldUpdateDatabase check if adding the game should update the database, since we don't need to call the update 50times in a row
+     */
+    public void addGame(Game game, boolean shouldUpdateDatabase) {
+        addGame(game);
+
+        if (shouldUpdateDatabase) {
+            Console.writeLine("Updating database");
+        }
+    }
+
+    public ArrayList<Game> getGameLibrary(){
+       return GameModel.getInstance().getGameLibrary();
+    }
 }

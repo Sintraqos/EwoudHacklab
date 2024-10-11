@@ -1,15 +1,14 @@
 package com.sintraqos.portfolioproject.Connect;
 
 import com.sintraqos.portfolioproject.Account.Account;
+import com.sintraqos.portfolioproject.DTO.AccountDTO;
+import com.sintraqos.portfolioproject.DTO.GameDTO;
 import com.sintraqos.portfolioproject.Game.Game;
 import com.sintraqos.portfolioproject.Statics.Console;
 import com.sintraqos.portfolioproject.Statics.Message;
 import lombok.Getter;
-import lombok.SneakyThrows;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * The base form of the connectionHandler with all it's base functions
@@ -49,7 +48,7 @@ public class ConnectionHandler {
      * Start the connection, if there is already a connection active don't do anything except log a message
      */
     public void startConnection() {
-        if(getIsConnected()){
+        if (getIsConnected()) {
             Console.writeLine("Connection is already active");
         }
 
@@ -62,7 +61,7 @@ public class ConnectionHandler {
      */
     public void stopConnection() {
         // If it isn't connected just return to prevent errors
-        if(!getIsConnected()) {
+        if (!getIsConnected()) {
             return;
         }
 
@@ -76,11 +75,11 @@ public class ConnectionHandler {
     /**
      * Create a new account object without any games
      *
-     * @param account the Account object created
+     * @param accountDTO the Account object created
      * @return new message containing if it was successful and the message the function gives back
      */
-    public Message createAccount(Account account){
-        Console.writeLine("Created account: " + account.getUserName());
+    public Message createAccount(AccountDTO accountDTO) {
+        Console.writeLine("Created account: " + accountDTO.getUsername());
 
         return new Message(true, "Account created");
     }
@@ -88,11 +87,11 @@ public class ConnectionHandler {
     /**
      * Log into a user account from the database
      *
-     * @param account the Account object created
+     * @param accountDTO the Account object created
      * @return new message containing if it was successful and the message the function gives back
      */
-    public Message loginAccount(Account account){
-        Console.writeLine("Logged into account account: " + account.getUserName());
+    public Message loginAccount(AccountDTO accountDTO) {
+        Console.writeLine("Logged into account account: " + accountDTO.getUsername());
 
         return new Message(true, "Account login");
     }
@@ -100,21 +99,29 @@ public class ConnectionHandler {
     /**
      * Get a user account from the database
      *
-     * @param account the Account object created
+     * @param accountID the Account object created
      * @return new message containing if it was successful and the message the function gives back
      */
-    public GetAccountMessage getAccount(Account account) {
-        Console.writeLine("Received account: " + account.getUserName());
+    public GetAccountMessage getAccount(int accountID) {
+        return new GetAccountMessage(new AccountDTO(), new Message(true, "Account received"));
+    }
 
-        return new GetAccountMessage(account, new Message(true, "Account received"));
+    /**
+     * Get a user account from the database
+     *
+     * @param username the Account object created
+     * @return new message containing if it was successful and the message the function gives back
+     */
+    public GetAccountMessage getAccount(String username) {
+        return new GetAccountMessage(new AccountDTO(username), new Message(true, "Account received"));
     }
 
     @Getter
     public class GetAccountMessage {
-        Account account;
+        AccountDTO account;
         Message message;
 
-        public GetAccountMessage(Account account, Message message) {
+        public GetAccountMessage(AccountDTO account, Message message) {
             this.account = account;
             this.message = message;
         }
@@ -126,8 +133,8 @@ public class ConnectionHandler {
      * @param account the Account object from the account list
      * @return new message containing if it was successful and the message the function gives back
      */
-    public Message removeAccount(Account account){
-        Console.writeLine("Removed account: " + account.getUserName());
+    public Message removeAccount(AccountDTO account) {
+        Console.writeLine("Removed account: " + account.getUsername());
 
         return new Message(true, "Account removed");
     }
@@ -138,14 +145,14 @@ public class ConnectionHandler {
      * @param account the Account object from the account list
      * @return new message containing if it was successful and the message the function gives back
      */
-    public Message updateAccount(Account account) {
+    public Message updateAccount(AccountDTO account) {
         // Check if the update account library was successful
-        Message updateAccount =  updateAccountLibrary(account);
-        if(!updateAccount.isSuccessful()){
+        Message updateAccount = updateAccountLibrary(account);
+        if (!updateAccount.isSuccessful()) {
             return updateAccount;
         }
 
-        Console.writeLine("Updated account: " + account.getUserName());
+        Console.writeLine("Updated account: " + account.getUsername());
 
         return new Message(true, "Account Updated");
     }
@@ -153,11 +160,11 @@ public class ConnectionHandler {
     /**
      * Update the given account library inside the database
      *
-     * @param account the Account object from the account list
+     * @param accountDTO the Account object from the account list
      * @return new message containing if it was successful and the message the function gives back
      */
-    public Message updateAccountLibrary(Account account) {
-        for (Game game : account.getAccountLibrary().getGameLibrary()) {
+    public Message updateAccountLibrary(AccountDTO accountDTO) {
+        for (Game game : accountDTO.getAccountLibrary().getGameLibrary()) {
             Console.writeLine(
                     "Updated Game: " + "\n" +
                             "ID: " + game.getGameID() + "\n" +
@@ -178,10 +185,10 @@ public class ConnectionHandler {
      * @param game the Game object created inside the gameController
      * @return new message containing if it was successful and the message the function gives back
      */
-    public Message addGame(Game game){
+    public AddGameMessage addGame(GameDTO game) {
         Console.writeLine("Added game: " + game.getGameName());
 
-        return new Message(true, "Game added");
+        return new AddGameMessage(game, new Message(true, "Game added"));
     }
 
     /**
@@ -190,7 +197,7 @@ public class ConnectionHandler {
      * @param game the Game object from the game list
      * @return new message containing if it was successful and the message the function gives back
      */
-    public Message removeGame(Game game){
+    public Message removeGame(GameDTO game) {
         Console.writeLine("Removed game: " + game.getGameName());
 
         return new Message(true, "Game removed");
@@ -201,7 +208,7 @@ public class ConnectionHandler {
      *
      * @return all games stored inside the database
      */
-    public ArrayList<Game> getGameList(){
+    public ArrayList<GameDTO> getGameList() {
         Console.writeLine("Retrieving all games stored");
 
         return new ArrayList<>();
@@ -213,9 +220,9 @@ public class ConnectionHandler {
      * @param accountLibrary the AccountLibrary from the given account
      * @return new message containing if it was successful and the message the function gives back
      */
-    public Message updateGameList(ArrayList<Game> accountLibrary) {
+    public Message updateGameList(ArrayList<GameDTO> accountLibrary) {
 
-        for (Game game : accountLibrary) {
+        for (GameDTO game : accountLibrary) {
             Console.writeLine(
                     "Updated Game: " + "\n" +
                             "ID: " + game.getGameID() + "\n" +
@@ -224,6 +231,17 @@ public class ConnectionHandler {
         }
 
         return new Message(true, "Game Library Updated");
+    }
+
+    @Getter
+    public class AddGameMessage {
+        GameDTO gameDTO;
+        Message message;
+
+        public AddGameMessage(GameDTO gameDTO, Message message) {
+            this.gameDTO = gameDTO;
+            this.message = message;
+        }
     }
 
     //endregion

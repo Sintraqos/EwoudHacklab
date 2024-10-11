@@ -37,7 +37,7 @@ public class AccountLibrary {
     public void addGame(Game game) {
         // Check if the library already has a game
         if (gameLibrary.contains(game)) {
-            Console.writeLine("Game already in library");
+            Console.writeLine("Game: %s already in library".formatted(game.getGameName()));
             return;
         }
 

@@ -1,10 +1,7 @@
 package com.sintraqos.portfolioproject.Account;
 
-import com.sintraqos.portfolioproject.Connect.ConnectionHandler;
-import com.sintraqos.portfolioproject.Connect.MariaDBConnectHandler;
-import com.sintraqos.portfolioproject.Game.Game;
+import com.sintraqos.portfolioproject.DTO.AccountDTO;
 import com.sintraqos.portfolioproject.Statics.Console;
-import com.sintraqos.portfolioproject.Statics.Message;
 import lombok.Getter;
 
 import java.util.ArrayList;
@@ -14,8 +11,6 @@ import java.util.ArrayList;
  */
 @Getter
 public class AccountController {
-    MariaDBConnectHandler connectHandler = MariaDBConnectHandler.getInstance();
-
     static AccountController instance;
 
     public static AccountController getInstance() {
@@ -33,79 +28,90 @@ public class AccountController {
         AccountView.getInstance();
     }
 
-    /**
-     * Create a new AccountLibrary object with a filled in list
-     *
-     * @param userName the name of the account we're looking for
-     */
-    public Account getAccount(String userName) {
-        ConnectionHandler.GetAccountMessage getAccountMessage =connectHandler.getAccount(new Account(userName,""));
-        if(getAccountMessage.getMessage().isSuccessful()){
-        return getAccountMessage.getAccount();}
-        else {
-            Console.writeLine("Account not found");
-            return null;
-        }
-    }
+    ArrayList<Account> onlineAccounts = new ArrayList<>();
+
 
     /**
      * Create a new Account
      *
-     * @param userName the name of the new account
+     * @param username the name of the new account
      * @param eMail    the e-Mail address of the new account
      * @param password the password of the new account
      */
-    public void createAccount(String userName, String eMail, String password) {
-        // Check if there already is an account with the given name
-        if (getAccount(userName) != null) {
-            Console.writeLine("Account already exists");
-            return;
-        }
-
-        // Create new Account object
-        Account account = new Account(userName, eMail, password);
-
-        Message createAccountMessage = connectHandler.createAccount(account);
-        if (!createAccountMessage.isSuccessful()) {
-            Console.writeLine("Failed to create new account: " + userName + " - Reason: " + createAccountMessage.getMessage());
-            return;
-        }
-
-        Console.writeLine("Created new account: " + userName);
+    public void createAccount(String username, String eMail, String password) {
+        AccountModel.getInstance().createAccount(username, eMail, password);
     }
 
     /**
      * Log in to account
      *
-     * @param userName the name of the new account
+     * @param username the name of the new account
      * @param password the password of the new account
      */
-    public void loginAccount(String userName, String password){
-        // Try to retrieve the account using the connectionHandler,
-        // if it failed to retrieve it, or just failed for some reason stop this code after writing out the message
-        Account account = new Account(userName, password);
-        Message loginAccountMessage = connectHandler.loginAccount(account);
-        if (!loginAccountMessage.isSuccessful()) {
-            Console.writeLine("Failed to log into account: " + userName + " - Reason: " + loginAccountMessage.getMessage());
+    public void loginAccount(String username, String password) {
+        AccountModel.getInstance().loginAccount(username, password);
+    }
+
+    /**
+     * Log out of account
+     *
+     * @param username the name of the account
+     */
+    public void logoutAccount(String username) {
+        //TODO: Check if the account is online, then send an update message before logging the user out from their account
+
+        Account account = getOnlineAccount(username);
+        if (account == null) {
+            Console.writeLine("Account: %s was not online".formatted(username));
             return;
         }
 
-        Console.writeLine("Successfully logged in to account: " + userName);
+        updateLibrary(account.getAccountID());
+
+        Console.writeLine("Logged out of account: %s".formatted(username));
     }
 
     /**
      * Log in to account
      *
-     * @param username the account to update the library of
+     * @param accountID the account to update the library of
      */
-    public void updateLibrary(String username){
-        Account account = getAccount(username);
-        if(account == null) {
-            Console.writeLine("Failed to add game to account: " + account.getUserName());
-            return;
-        }
-
-        Console.writeLine("Successfully added game to account: " + account.getUserName());
+    public void updateLibrary(int accountID) {
+        AccountModel.getInstance().updateLibrary(accountID);
     }
 
+    //region Get Account
+
+    /**
+     * Get account by username
+     *
+     * @param username the name of the account
+     */
+    public Account getOnlineAccount(String username) {
+        return onlineAccounts.stream()
+                .filter(account -> account.getUsername().equalsIgnoreCase(username))
+                .findFirst().orElse(null);
+    }
+
+    /**
+     * Get account by ID
+     *
+     * @param accountID the ID of the account
+     */
+    public Account getOnlineAccount(int accountID) {
+        return onlineAccounts.stream()
+                .filter(account -> account.getAccountID() == accountID)
+                .findFirst().orElse(null);
+    }
+
+    /**
+     * Create a new AccountLibrary object with a filled in list
+     *
+     * @param accountID the ID of the account
+     */
+    public AccountDTO getAccount(int accountID) {
+        return AccountModel.getInstance().getAccount(accountID);
+    }
+
+    //endregion
 }

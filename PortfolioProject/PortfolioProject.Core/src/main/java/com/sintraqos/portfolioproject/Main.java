@@ -2,9 +2,11 @@ package com.sintraqos.portfolioproject;
 
 import com.sintraqos.portfolioproject.Account.Account;
 import com.sintraqos.portfolioproject.Account.AccountController;
+import com.sintraqos.portfolioproject.Entities.AccountEntity;
 import com.sintraqos.portfolioproject.Game.Game;
 import com.sintraqos.portfolioproject.Game.GameController;
 import com.sintraqos.portfolioproject.Statics.Console;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.SpringApplication;
 
@@ -23,11 +25,15 @@ public class Main {
 
         createGameLibrary();
 
+        Console.writeLine("#################################");
+
         AccountController.getInstance().createAccount("Username", "e@mail.com", "password");
         AccountController.getInstance().loginAccount("Username", "password");
         AccountController.getInstance().loginAccount("Username", "wrong password");
 
-        AccountController.getInstance().updateLibrary("Username");
+        AccountController.getInstance().updateLibrary(0);
+
+
     }
 
     /**
