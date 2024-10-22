@@ -3,9 +3,11 @@ package com.sintraqos.portfolioproject.DTO;
 import com.sintraqos.portfolioproject.Game.Game;
 import com.sintraqos.portfolioproject.Statics.Time;
 import lombok.Getter;
-
 import java.util.Date;
 
+/**
+ * Game DTO, use for transfer of game data
+ */
 @Getter
 public class GameDTO {
     private int gameID;

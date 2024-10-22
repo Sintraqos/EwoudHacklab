@@ -16,3 +16,7 @@ create sequence testsaccounts_seq start with 1 increment by 50 nocache;
 create table testsaccounts (accountid bigint not null, username varchar(100) not null, e_mail varchar(255), password_hash varchar(255), password_salt varchar(255), primary key (accountid)) engine=InnoDB;
 create sequence testsaccounts_seq start with 1 increment by 50 nocache;
 create table testsaccounts (accountid bigint not null, username varchar(100) not null, e_mail varchar(255), password_hash varchar(255), password_salt varchar(255), primary key (accountid)) engine=InnoDB;
+create sequence testsaccounts_seq start with 1 increment by 50 nocache;
+create table testsaccounts (accountid bigint not null, username varchar(100) not null, e_mail varchar(255), password_hash varchar(255), password_salt varchar(255), primary key (accountid)) engine=InnoDB;
+create sequence testsaccounts_seq start with 1 increment by 50 nocache;
+create table testsaccounts (accountid bigint not null, username varchar(100) not null, e_mail varchar(255), password_hash varchar(255), password_salt varchar(255), primary key (accountid)) engine=InnoDB;

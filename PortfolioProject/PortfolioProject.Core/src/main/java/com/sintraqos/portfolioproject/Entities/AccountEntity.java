@@ -1,15 +1,22 @@
 package com.sintraqos.portfolioproject.Entities;
 
 import jakarta.persistence.*;
-import lombok.Getter;
+import lombok.*;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+/**
+ * Account Entity Object, use for creating new Database Tables, and for storing the data from the database
+ */
 @Getter
+@Setter
+@NoArgsConstructor
 @Entity
-@Table(name = "TESTsaccounts")
+@Table(name = "accounts")
 public class AccountEntity {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long accountID;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int accountID;
 
     @Column(nullable = false, length = 100)
     private String username;
@@ -20,16 +27,12 @@ public class AccountEntity {
     @Column(name = "passwordHash")
     private String passwordHash;
 
-    @Column(name = "passwordSalt")
-    private String passwordSalt;
-
     public AccountEntity(String username, String eMail, String password) {
         this.username = username;
         this.eMail = eMail;
-        this.passwordHash = password;
-        this.passwordSalt = password;
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        this.passwordHash = passwordEncoder.encode(password);
     }
 
-    public AccountEntity() {
-    }
+
 }

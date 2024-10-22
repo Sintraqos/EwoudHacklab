@@ -5,7 +5,6 @@ import com.sintraqos.portfolioproject.DTO.GameDTO;
 import com.sintraqos.portfolioproject.Game.Game;
 import com.sintraqos.portfolioproject.Statics.Console;
 import com.sintraqos.portfolioproject.Statics.Message;
-import com.sintraqos.portfolioproject.Statics.PasswordEncrypter;
 import lombok.Getter;
 import lombok.SneakyThrows;
 import org.springframework.stereotype.Service;
@@ -219,10 +218,7 @@ public class MariaDBConnectHandler extends ConnectionHandler {
             // Set the st
             st.setString(1, accountDTO.getUsername());  // Username
             st.setString(2, accountDTO.getEMail());     // E-Mail
-            // Generate password with custom salt
-            String[] password = PasswordEncrypter.encryptPassword(accountDTO.getPassword());
-            st.setString(3, password[0]);  // Password Hash
-            st.setString(4, password[1]);  // Password Salt
+            st.setString(3, accountDTO.getPassword());  // Password Hash
 
             // Finally execute the made statement
             st.executeQuery();
@@ -256,11 +252,16 @@ public class MariaDBConnectHandler extends ConnectionHandler {
             // If the account exists inside the database
             if (rs.next()) {
                 // Check if the password that was given was the same as was stored
-                if (PasswordEncrypter.verifyPassword(accountDTO.getPassword(), rs.getString("passwordHash"), rs.getString("passwordSalt"))) {
+
+
+                //TODO: compare given password to the stored password
+//                if () {
                     return super.loginAccount(accountDTO);
-                } else {
-                    return new Message(false, "Password incorrect");
-                }
+//                } else {
+//                    return new Message(false, "Password incorrect");
+//                }
+
+
             } else {
                 Console.writeLine("Account could not be found!");
                 return new Message(false, "Account could not be found");

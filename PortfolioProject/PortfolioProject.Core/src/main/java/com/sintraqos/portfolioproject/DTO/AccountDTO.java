@@ -3,6 +3,9 @@ package com.sintraqos.portfolioproject.DTO;
 import com.sintraqos.portfolioproject.Account.*;
 import lombok.Getter;
 
+/**
+ * Account DTO, use for transfer of account data
+ */
 @Getter
 public class AccountDTO {
     private int accountID = -1; // Default value for check if the database needs to assign a new ID

@@ -7,10 +7,12 @@ import com.sintraqos.portfolioproject.Game.Game;
 import com.sintraqos.portfolioproject.Game.GameController;
 import com.sintraqos.portfolioproject.Statics.Console;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.SpringApplication;
+import org.springframework.context.annotation.ComponentScan;
 
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = "com.sintraqos.portfolioproject")
 public class Main {
     public static void main(String[] args) {
         Console.writeLine("Initializing Spring-Boot");
@@ -19,19 +21,19 @@ public class Main {
         Console.writeLine("Finished initializing Spring-Boot");
         Console.writeLine("#################################");
 
-        // Setup components
-        GameController.getInstance();
-        AccountController.getInstance();
-
-        createGameLibrary();
-
-        Console.writeLine("#################################");
-
-        AccountController.getInstance().createAccount("Username", "e@mail.com", "password");
-        AccountController.getInstance().loginAccount("Username", "password");
-        AccountController.getInstance().loginAccount("Username", "wrong password");
-
-        AccountController.getInstance().updateLibrary(0);
+//        // Setup components
+//        GameController.getInstance();
+//        AccountController.getInstance();
+//
+//        createGameLibrary();
+//
+//        Console.writeLine("#################################");
+//
+//        AccountController.getInstance().createAccount("Username", "e@mail.com", "password");
+//        AccountController.getInstance().loginAccount("Username", "password");
+//        AccountController.getInstance().loginAccount("Username", "wrong password");
+//
+//        AccountController.getInstance().updateLibrary(0);
 
 
     }
