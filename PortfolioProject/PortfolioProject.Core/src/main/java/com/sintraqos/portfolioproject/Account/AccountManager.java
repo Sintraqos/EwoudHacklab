@@ -1,8 +1,12 @@
 package com.sintraqos.portfolioproject.Account;
 
 import com.sintraqos.portfolioproject.DTO.AccountDTO;
+import com.sintraqos.portfolioproject.Entities.AccountEntity;
+import com.sintraqos.portfolioproject.Services.AccountService;
 import com.sintraqos.portfolioproject.Statics.Console;
 import lombok.Getter;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 
@@ -10,12 +14,13 @@ import java.util.ArrayList;
  * Use for user input handling for account related scripts
  */
 @Getter
-public class AccountController {
-    static AccountController instance;
+@Component
+public class AccountManager {
+    static AccountManager instance;
 
-    public static AccountController getInstance() {
+    public static AccountManager getInstance() {
         if (instance == null) {
-            instance = new AccountController();
+            instance = new AccountManager();
             instance.onNewInstance();
         }
 
@@ -29,7 +34,8 @@ public class AccountController {
     }
 
     ArrayList<Account> onlineAccounts = new ArrayList<>();
-
+    @Autowired
+    private AccountService accountService;
 
     /**
      * Create a new Account
@@ -39,7 +45,11 @@ public class AccountController {
      * @param password the password of the new account
      */
     public void createAccount(String username, String eMail, String password) {
-        AccountModel.getInstance().createAccount(username, eMail, password);
+        //Create new account
+        AccountEntity newAccount = accountService.createAccount(username, eMail, password);
+        if (newAccount != null) {
+            System.out.println("Created new account: " + username);
+        }
     }
 
     /**

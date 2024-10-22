@@ -28,4 +28,12 @@ public class GameEntity {
 
     @Column(name = "gamePublisher")
     private String gamePublisher;
+
+    public GameEntity(String gamename, String gameDescription, String gameDeveloper, String gamePublisher)
+    {
+        this.gameName = gamename;
+        this.gameDescription = gameDescription;
+        this.gameDeveloper = gameDeveloper;
+        this.gamePublisher = gamePublisher;
+    }
 }

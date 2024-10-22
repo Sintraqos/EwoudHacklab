@@ -8,13 +8,13 @@ import java.util.ArrayList;
 /**
  * Use for user input handling for all game related scripts
  */
-public class GameController {
+public class GameManager {
 
-    static GameController instance;
+    static GameManager instance;
 
-    public static GameController getInstance() {
+    public static GameManager getInstance() {
         if (instance == null) {
-            instance = new GameController();
+            instance = new GameManager();
             instance.onNewInstance();
         }
 

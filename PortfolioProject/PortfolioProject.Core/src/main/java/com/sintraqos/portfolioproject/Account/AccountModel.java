@@ -1,18 +1,18 @@
 package com.sintraqos.portfolioproject.Account;
 
-import com.sintraqos.portfolioproject.Connect.ConnectionHandler;
-import com.sintraqos.portfolioproject.Connect.MariaDBConnectHandler;
 import com.sintraqos.portfolioproject.DTO.AccountDTO;
 import com.sintraqos.portfolioproject.Entities.AccountEntity;
+import com.sintraqos.portfolioproject.Services.AccountService;
 import com.sintraqos.portfolioproject.Statics.Console;
-import com.sintraqos.portfolioproject.Statics.Message;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 /**
  * Use for interaction with the ConnectionHandler and the AccountController
  */
+@Component
 public class AccountModel {
-    MariaDBConnectHandler connectHandler = MariaDBConnectHandler.getInstance();
+    //MariaDBConnectHandler connectHandler = MariaDBConnectHandler.getInstance();
 
     static AccountModel instance;
 
@@ -28,6 +28,8 @@ public class AccountModel {
     protected void onNewInstance() {
         Console.writeLine("Created new instance of AccountModel");
     }
+    @Autowired
+    private AccountService accountService;
 
     /**
      * Create a new Account
@@ -37,21 +39,24 @@ public class AccountModel {
      * @param password the password of the new account
      */
     public void createAccount(String username, String eMail, String password) {
-        // Check if there already is an account with the given name
-        if (getAccount(0) != null) {
-            Console.writeLine("Account already exists");
-            return;
-        }
+//        // Check if there already is an account with the given name
+//        if (getAccount(0) != null) {
+//            Console.writeLine("Account already exists");
+//            return;
+//        }
+//
+//        // Create new Account object
+//        AccountDTO accountDTO = new AccountDTO(username, eMail, password);
+//        AccountController accountController =  new AccountController();
+//        accountController.createAccount(accountDTO);
+//
+//        Console.writeLine("Created new account: %s".formatted(username));
 
-        // Create new Account object
-        AccountDTO accountDTO = new AccountDTO(username, eMail, password);
-        Message createAccountMessage = connectHandler.createAccount(accountDTO);
-        if (!createAccountMessage.isSuccessful()) {
-            Console.writeLine("Failed to create new account: %s- Reason: %s".formatted(username, createAccountMessage.getMessage()));
-            return;
+        // Create new account
+        AccountEntity newAccount = accountService.createAccount(username, eMail, password);
+        if (newAccount != null) {
+            System.out.println("Created new account: " + username);
         }
-
-        Console.writeLine("Created new account: %s".formatted(username));
     }
 
     /**
@@ -61,16 +66,16 @@ public class AccountModel {
      * @param password the password of the new account
      */
     public void loginAccount(String username, String password) {
-        // Try to retrieve the account using the connectionHandler,
-        // if it failed to retrieve it, or just failed for some reason stop this code after writing out the message
-        AccountDTO accountDTO = new AccountDTO(username, password);
-        Message loginAccountMessage = connectHandler.loginAccount(accountDTO);
-        if (!loginAccountMessage.isSuccessful()) {
-            Console.writeLine("Failed to log into account: %s- Reason: %s".formatted(username, loginAccountMessage.getMessage()));
-            return;
-        }
+//        // Try to retrieve the account using the connectionHandler,
+//        // if it failed to retrieve it, or just failed for some reason stop this code after writing out the message
+//        AccountDTO accountDTO = new AccountDTO(username, password);
+//        Message loginAccountMessage = connectHandler.loginAccount(accountDTO);
+//        if (!loginAccountMessage.isSuccessful()) {
+//            Console.writeLine("Failed to log into account: %s- Reason: %s".formatted(username, loginAccountMessage.getMessage()));
+//            return;
+//        }
 
-        Console.writeLine("Successfully logged in to account: %s - ID: ".formatted(accountDTO.getUsername(), accountDTO.getAccountID()));
+        //Console.writeLine("Successfully logged in to account: %s - ID: ".formatted(accountDTO.getUsername(), accountDTO.getAccountID()));
     }
 
     /**
@@ -80,14 +85,14 @@ public class AccountModel {
      */
     public void logoutAccount(String username) {
         //TODO: Check if the account is online, then send an update message before logging the user out from their account
-
-        Account account = AccountController.getInstance().getOnlineAccount(username);
-        if (account == null) {
-            Console.writeLine("Account: %s was not online".formatted(username));
-            return;
-        }
-
-        updateLibrary(account.getAccountID());
+//
+//        Account account = AccountManager.getInstance().getOnlineAccount(username);
+//        if (account == null) {
+//            Console.writeLine("Account: %s was not online".formatted(username));
+//            return;
+//        }
+//
+//        updateLibrary(account.getAccountID());
 
         Console.writeLine("Logged out of account: %s".formatted(username));
     }
@@ -115,13 +120,13 @@ public class AccountModel {
      * @param accountID the ID of the account
      */
     public AccountDTO getAccount(int accountID) {
-        ConnectionHandler.GetAccountMessage getAccountMessage = connectHandler.getAccount(accountID);
-        if (getAccountMessage.getMessage().isSuccessful()) {
-            return getAccountMessage.getAccount();
-        } else {
-            Console.writeLine("Account not found");
+//        ConnectionHandler.GetAccountMessage getAccountMessage = connectHandler.getAccount(accountID);
+//        if (getAccountMessage.getMessage().isSuccessful()) {
+//            return getAccountMessage.getAccount();
+//        } else {
+//            Console.writeLine("Account not found");
             return null;
-        }
+//        }
     }
 
     //endregion
