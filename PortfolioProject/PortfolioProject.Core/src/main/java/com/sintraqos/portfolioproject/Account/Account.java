@@ -7,7 +7,7 @@ import lombok.Getter;
 import java.util.ArrayList;
 
 /**
- * Use for storing account data
+ * Use for storing account data locally
  */
 @Getter
 public class Account {

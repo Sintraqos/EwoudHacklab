@@ -2,6 +2,7 @@ package com.sintraqos.portfolioproject.Controllers;
 
 import com.sintraqos.portfolioproject.DTO.AccountDTO;
 import com.sintraqos.portfolioproject.Entities.AccountEntity;
+import com.sintraqos.portfolioproject.Messages.Message;
 import com.sintraqos.portfolioproject.Repositories.AccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -22,11 +23,31 @@ public class AccountController {
      *
      * @param accountDTO the new account to be added
      */
-    @PostMapping
+    @PostMapping("/api/accounts/createAccount")
     public ResponseEntity<AccountEntity> createAccount(@RequestBody AccountDTO accountDTO) {
-        AccountEntity account = new AccountEntity(accountDTO.getUsername(), accountDTO.getEMail(), accountDTO.getPassword());
+        AccountEntity account = new AccountEntity(accountDTO);
         AccountEntity savedAccount = accountRepository.save(account);
         return ResponseEntity.ok(savedAccount);
+    }
+
+    /**
+     * Delete an account
+     *
+     * @param accountDTO the account to be removed
+     */
+    @DeleteMapping("/api/accounts/deleteAccount")
+    public Message deleteAccount(@RequestBody AccountDTO accountDTO) {
+
+        // Check if the account exists
+        if (accountRepository.findByUsername(accountDTO.getUsername()) == null) {
+            return new Message("Could not find account with username: '%s'".formatted(accountDTO.getUsername()));
+        }
+
+        // Delete the account from the database
+        AccountEntity account = new AccountEntity(accountDTO);
+        accountRepository.delete(account);
+
+        return new Message(true, "Successfully removed account: '%s'".formatted(accountDTO.getUsername()));
     }
 
     /**

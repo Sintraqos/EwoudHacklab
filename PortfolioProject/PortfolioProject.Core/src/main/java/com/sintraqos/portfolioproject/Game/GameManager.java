@@ -10,23 +10,6 @@ import java.util.ArrayList;
  */
 public class GameManager {
 
-    static GameManager instance;
-
-    public static GameManager getInstance() {
-        if (instance == null) {
-            instance = new GameManager();
-            instance.onNewInstance();
-        }
-
-        return instance;
-    }
-
-    protected void onNewInstance() {
-        Console.writeLine("Created new instance of GameController");
-        GameModel.getInstance();
-        GameView.getInstance();
-    }
-
     @Getter
     private ArrayList<Game> gameLibrary = new ArrayList<>();
 
@@ -75,6 +58,6 @@ public class GameManager {
     }
 
     public ArrayList<Game> getGameLibrary(){
-       return GameModel.getInstance().getGameLibrary();
+       return new ArrayList<>();
     }
 }

@@ -1,4 +1,4 @@
-package com.sintraqos.portfolioproject.Statics;
+package com.sintraqos.portfolioproject.Messages;
 
 import lombok.Getter;
 
@@ -12,9 +12,6 @@ public class Message {
     boolean isSuccessful;
     String message;
 
-    ArrayList<String> stringVariables;
-    ArrayList<Integer> intVariables;
-
     /**
      * Create a new Message object
      *
@@ -23,6 +20,15 @@ public class Message {
      */
     public Message(boolean isSuccessful, String message) {
         this.isSuccessful = isSuccessful;
+        this.message = message;
+    }
+
+    /**
+     * Create a new Message object
+     *
+     * @param message the message the sender wishes to send back
+     */
+    public Message(String message) {
         this.message = message;
     }
 }

@@ -1,3 +1,10 @@
-[11:53] - Initializing Spring-Boot
-[11:54] - Finished initializing Spring-Boot
-[11:54] - #################################
+[11:33] - Finished initializing Spring-Boot
+[11:33] - #################################
+[11:33] - Created new account: 'Username'
+[11:33] - Failed to create account with username: 'Username', reason: 'Account already exists'
+[11:33] - Failed to log in to account with username: 'Username', reason: 'Incorrect password'
+[11:33] - Successfully logged in
+[11:33] - Failed to login with username: 'Username', Reason: 'Account already online'
+[11:33] - Failed to remove account with username: 'Username', reason: 'Incorrect password'
+[11:33] - Successfully removed account with username: 'Username'
+[11:33] - Failed to remove account with username: 'Username', reason: 'Account doesn't exist'

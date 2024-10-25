@@ -1,6 +1,7 @@
 package com.sintraqos.portfolioproject.DTO;
 
 import com.sintraqos.portfolioproject.Account.*;
+import com.sintraqos.portfolioproject.Entities.AccountEntity;
 import lombok.Getter;
 
 /**
@@ -16,6 +17,11 @@ public class AccountDTO {
 
     public AccountDTO(){}
 
+    /**
+     * Create a new AccountDTO object based on Account
+     *
+     * @param account the Account object created beforehand
+     */
     public AccountDTO(Account account) {
         this.accountID = account.getAccountID();
         this.username = account.getUsername();
@@ -24,33 +30,15 @@ public class AccountDTO {
         this.accountLibrary = account.getAccountLibrary();
     }
 
-    public AccountDTO(String username) {
-        this.username = username;
-    }
-
-    public AccountDTO(String username, String eMail, String password) {
-        this.username = username;
-        this.eMail = eMail;
-        this.password = password;
-    }
-
-    public AccountDTO(String username, String eMail, String password, AccountLibrary accountLibrary) {
-        this.username = username;
-        this.eMail = eMail;
-        this.password = password;
-        this.accountLibrary = accountLibrary;
-    }
-
-    public AccountDTO(String username, String password) {
-        this.username = username;
-        this.password = password;
-    }
-
-    public AccountDTO(int accountID, String username, String eMail, String password, AccountLibrary accountLibrary) {
-        this.accountID = accountID;
-        this.username = username;
-        this.eMail = eMail;
-        this.password = password;
-        this.accountLibrary = accountLibrary;
+    /**
+     * Create a new AccountDTO object based on AccountEntity
+     *
+     * @param account the AccountEntity object retrieved from the database
+     */
+    public AccountDTO(AccountEntity account) {
+        this.accountID = account.getAccountID();
+        this.username = account.getUsername();
+        this.eMail = account.getEMail();
+        this.password = account.getPasswordHash();
     }
 }
