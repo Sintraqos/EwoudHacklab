@@ -1,17 +1,26 @@
 package com.sintraqos.portfolioproject.Game;
 
+import com.sintraqos.portfolioproject.DTO.AccountDTO;
+import com.sintraqos.portfolioproject.DTO.GameDTO;
+import com.sintraqos.portfolioproject.Services.GameService;
 import com.sintraqos.portfolioproject.Statics.Console;
 import lombok.Getter;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 
 /**
  * Use for user input handling for all game related scripts
  */
+@Getter
+@Component
 public class GameManager {
 
-    @Getter
-    private ArrayList<Game> gameLibrary = new ArrayList<>();
+    private final ArrayList<Game> gameLibrary = new ArrayList<>();
+
+    @Autowired
+    private GameService gameService;
 
     /**
      * Create a new Game object using a base from the game list
@@ -19,15 +28,8 @@ public class GameManager {
      * @param gameName the name of the game we're looking for
      * @return the game from the library, if it isn't in the list returns null
      */
-    public Game getGame(String gameName) {
-        // Loop through the list and find the first Game object with the name given. If the Game doesn't exist in the list, return null
-        return gameLibrary.stream()
-                .filter(game -> game.getGameName().equalsIgnoreCase(gameName))
-                .findFirst().orElse(null);
-    }
-
-    public int getAvailableGameID() {
-        return gameLibrary.size() + 1;
+    public GameDTO getGame(String gameName) {
+        return new GameDTO(gameService.getGame(gameName).getEntity());
     }
 
     /**

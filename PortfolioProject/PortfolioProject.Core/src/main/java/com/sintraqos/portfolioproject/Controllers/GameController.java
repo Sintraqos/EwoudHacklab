@@ -5,10 +5,9 @@ import com.sintraqos.portfolioproject.Entities.GameEntity;
 import com.sintraqos.portfolioproject.Repositories.GameRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * Game Controller, use for communication between application and database
@@ -30,5 +29,25 @@ private GameRepository gameRepository;
         GameEntity game = new GameEntity(gameDTO.getGameName(), gameDTO.getGameDescription(), gameDTO.getGameDeveloper(), gameDTO.getGamePublisher());
         GameEntity savedGame = gameRepository.save(game);
         return ResponseEntity.ok(savedGame);
+    }
+
+    /**
+     * Get all games
+     */
+    @GetMapping
+    public List<GameEntity> getGames() {
+        return gameRepository.findAll();
+    }
+
+    /**
+     * Get game by ID
+     *
+     * @param id the gameID
+     */
+    @GetMapping("/{id}")
+    public ResponseEntity<GameEntity> getGameByID(@PathVariable Integer id) {
+        return gameRepository.findById(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
 }

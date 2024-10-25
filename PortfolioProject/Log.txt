@@ -1,10 +1,59 @@
-[11:33] - Finished initializing Spring-Boot
-[11:33] - #################################
-[11:33] - Created new account: 'Username'
-[11:33] - Failed to create account with username: 'Username', reason: 'Account already exists'
-[11:33] - Failed to log in to account with username: 'Username', reason: 'Incorrect password'
-[11:33] - Successfully logged in
-[11:33] - Failed to login with username: 'Username', Reason: 'Account already online'
-[11:33] - Failed to remove account with username: 'Username', reason: 'Incorrect password'
-[11:33] - Successfully removed account with username: 'Username'
-[11:33] - Failed to remove account with username: 'Username', reason: 'Account doesn't exist'
+[11:49] - Finished initializing Spring-Boot
+[11:49] - #################################
+[11:49] - Adding new game: The Legend of Zelda: Breath of the Wild
+[11:49] - Adding new game: The Witcher 3: Wild Hunt
+[11:49] - Adding new game: Dark Souls
+[11:49] - Adding new game: Stardew Valley
+[11:49] - Adding new game: Among Us
+[11:49] - Adding new game: Minecraft
+[11:49] - Adding new game: Fortnite
+[11:49] - Adding new game: Cyberpunk 2077
+[11:49] - Adding new game: Overwatch
+[11:49] - Adding new game: Animal Crossing: New Horizons
+[11:49] - Adding new game: Final Fantasy VII Remake
+[11:49] - Adding new game: Super Mario Odyssey
+[11:49] - Adding new game: God of War
+[11:49] - Adding new game: Hollow Knight
+[11:49] - Adding new game: Persona 5
+[11:49] - Adding new game: Doom Eternal
+[11:49] - Adding new game: Apex Legends
+[11:49] - Adding new game: Resident Evil Village
+[11:49] - Adding new game: Genshin Impact
+[11:49] - Adding new game: The Elder Scrolls V: Skyrim
+[11:49] - Adding new game: League of Legends
+[11:49] - Adding new game: Valorant
+[11:49] - Adding new game: Battlefield V
+[11:49] - Adding new game: Ghost of Tsushima
+[11:49] - Adding new game: Death Stranding
+[11:49] - Adding new game: Cuphead
+[11:49] - Adding new game: Returnal
+[11:49] - Adding new game: Monster Hunter: World
+[11:49] - Adding new game: Celeste
+[11:49] - Adding new game: Hades
+[11:49] - Adding new game: The Last of Us Part II
+[11:49] - Adding new game: Nioh 2
+[11:49] - Adding new game: Sekiro: Shadows Die Twice
+[11:49] - Adding new game: Far Cry 5
+[11:49] - Adding new game: Control
+[11:49] - Adding new game: Assassin's Creed Valhalla
+[11:49] - Adding new game: Watch Dogs: Legion
+[11:49] - Adding new game: Minecraft Dungeons
+[11:49] - Adding new game: Ghost Recon Breakpoint
+[11:49] - Adding new game: FIFA 21
+[11:49] - Adding new game: NBA 2K21
+[11:49] - Adding new game: Rogue Company
+[11:49] - Adding new game: Dead by Daylight
+[11:49] - Adding new game: Brawlhalla
+[11:49] - Adding new game: ARK: Survival Evolved
+[11:49] - Adding new game: Fall Guys: Ultimate Knockout
+[11:49] - Adding new game: Spyro Reignited Trilogy
+[11:49] - Adding new game: Tony Hawk's Pro Skater 1+2
+[11:49] - Adding new game: Riders Republic
+[11:49] - Created new account: 'Username'
+[11:49] - Failed to create account with username: 'Username', reason: 'Account already exists'
+[11:49] - Failed to log in to account with username: 'Username', reason: 'Incorrect password'
+[11:49] - Successfully logged in
+[11:49] - Failed to login with username: 'Username', Reason: 'Account already online'
+[11:49] - Failed to remove account with username: 'Username', reason: 'Incorrect password'
+[11:49] - Successfully removed account with username: 'Username'
+[11:49] - Failed to remove account with username: 'Username', reason: 'Account doesn't exist'

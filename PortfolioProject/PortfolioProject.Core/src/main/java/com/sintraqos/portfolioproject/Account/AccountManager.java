@@ -17,7 +17,8 @@ import java.util.ArrayList;
 @Component
 public class AccountManager {
 
-    ArrayList<AccountDTO> onlineAccounts = new ArrayList<>();
+   private final ArrayList<AccountDTO> onlineAccounts = new ArrayList<>();
+
     @Autowired
     private AccountService accountService;
 

@@ -35,13 +35,12 @@ public class Game {
 
     /**
      * Create a new Game object from incoming data from a database for example
-     * @param gameID the ID the game has in the database
      * @param gameName the name of the new game
      * @param gameDescription the description of the game
      * @param gameDeveloper who has created the game
      * @param gamePublisher who has published the game
      */
-    public Game(int gameID,String gameName, String gameDescription, String gameDeveloper, String gamePublisher){
+    public Game(String gameName, String gameDescription, String gameDeveloper, String gamePublisher){
         this.gameID = gameID;
         this.gameName = gameName;
         this.gameDescription = gameDescription;
