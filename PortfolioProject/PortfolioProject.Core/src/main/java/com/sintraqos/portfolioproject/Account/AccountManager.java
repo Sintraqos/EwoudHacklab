@@ -2,7 +2,9 @@ package com.sintraqos.portfolioproject.Account;
 
 import com.sintraqos.portfolioproject.DTO.AccountDTO;
 import com.sintraqos.portfolioproject.Messages.AccountEntityMessage;
+import com.sintraqos.portfolioproject.Messages.AccountLibraryEntityMessage;
 import com.sintraqos.portfolioproject.Messages.Message;
+import com.sintraqos.portfolioproject.Services.AccountLibraryService;
 import com.sintraqos.portfolioproject.Services.AccountService;
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,10 +19,13 @@ import java.util.ArrayList;
 @Component
 public class AccountManager {
 
-   private final ArrayList<AccountDTO> onlineAccounts = new ArrayList<>();
+    // Local storage of online accounts
+    private final ArrayList<Account> onlineAccounts = new ArrayList<>();
 
     @Autowired
     private AccountService accountService;
+    @Autowired
+    private AccountLibraryService accountLibraryService;
 
     /**
      * Create a new account
@@ -63,7 +68,8 @@ public class AccountManager {
      */
     public Message loginAccount(String username, String password) {
 
-        if(getOnlineAccount(username) != null){
+        // Check if the account is already online
+        if (getOnlineAccount(username) != null) {
             return new Message("Failed to login with username: '%s', Reason: 'Account already online'".formatted(username));
         }
 
@@ -71,7 +77,7 @@ public class AccountManager {
 
         if (message.isSuccessful()) {
             // Add the account to the online list
-            onlineAccounts.add(new AccountDTO(message.getEntity()));
+            onlineAccounts.add(new Account(message.getEntity()));
 
             return message;
         } else {
@@ -84,15 +90,18 @@ public class AccountManager {
      *
      * @param username the name of the account
      */
-    public void logoutAccount(String username) {
-        //TODO: Check if the account is online, then send an update message before logging the user out from their account
-
-        AccountDTO account = getOnlineAccount(username);
+    public Message logoutAccount(String username) {
+        // Check if the account is logged in
+        Account account = getOnlineAccount(username);
         if (account == null) {
-            return;
+            return new Message("Failed to logout user: '%s' since they weren't online".formatted(username));
         }
 
+        // Update the library, then remove the account from the onlineAccounts list
         updateLibrary(account.getAccountID());
+        onlineAccounts.remove(account);
+
+        return new Message("Successfully logged out user: '%s'".formatted(username));
     }
 
     /**
@@ -111,7 +120,7 @@ public class AccountManager {
      *
      * @param username the name of the account
      */
-    public AccountDTO getOnlineAccount(String username) {
+    public Account getOnlineAccount(String username) {
         return onlineAccounts.stream()
                 .filter(account -> account.getUsername().equalsIgnoreCase(username))
                 .findFirst().orElse(null);
@@ -122,29 +131,48 @@ public class AccountManager {
      *
      * @param accountID the ID of the account
      */
-    public AccountDTO getOnlineAccount(int accountID) {
+    public Account getOnlineAccount(int accountID) {
         return onlineAccounts.stream()
                 .filter(account -> account.getAccountID() == accountID)
                 .findFirst().orElse(null);
     }
 
     /**
-     * Create a new AccountLibrary object with a filled in list
+     * Get account using the username
      *
      * @param username the username of the account
      */
-    public AccountDTO getAccount(String username) {
-        return new AccountDTO(accountService.getAccount(username).getEntity());
+    public Account getAccount(String username) {
+        return new Account(accountService.getAccount(username).getEntity());
     }
 
     /**
-     * Create a new AccountLibrary object with a filled in list
+     * Get account using the ID
      *
      * @param accountID the ID of the account
      */
-    public AccountDTO getAccount(int accountID) {
-        return new AccountDTO(accountService.getAccount(accountID).getEntity());
+    public Account getAccount(int accountID) {
+        return new Account(accountService.getAccount(accountID).getEntity());
     }
 
     //endregion
+
+    /**
+     * Add a game using an ID
+     *
+     * @param username the name of the account
+     * @param gameID   the ID of the game
+     */
+    public Message addGame(String username, int gameID) {
+        AccountEntityMessage message = accountService.getAccount(username);
+
+        if (message.isSuccessful()) {
+
+            AccountLibraryEntityMessage libraryMessage = accountLibraryService.addGame(message.getEntity().getAccountID(), gameID);
+
+            return libraryMessage;
+        } else {
+            return new Message("Failed to retrieve account with username: '%s', reason: '%s'".formatted(username, message.getMessage()));
+        }
+    }
 }

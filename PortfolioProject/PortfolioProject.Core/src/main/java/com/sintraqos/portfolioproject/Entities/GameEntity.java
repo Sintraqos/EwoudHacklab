@@ -17,16 +17,16 @@ public class GameEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int gameID;
 
-    @Column(name = "gameName", nullable = false, length = 100)
+    @Column(nullable = false, length = 100)
     private String gameName;
 
-    @Column(name = "gameDescription")
+    @Column()
     private String gameDescription;
 
-    @Column(name = "gameDeveloper")
+    @Column()
     private String gameDeveloper;
 
-    @Column(name = "gamePublisher")
+    @Column()
     private String gamePublisher;
 
     public GameEntity(String gamename, String gameDescription, String gameDeveloper, String gamePublisher)

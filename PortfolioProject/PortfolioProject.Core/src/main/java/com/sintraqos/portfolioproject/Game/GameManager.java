@@ -2,6 +2,9 @@ package com.sintraqos.portfolioproject.Game;
 
 import com.sintraqos.portfolioproject.DTO.AccountDTO;
 import com.sintraqos.portfolioproject.DTO.GameDTO;
+import com.sintraqos.portfolioproject.Messages.AccountEntityMessage;
+import com.sintraqos.portfolioproject.Messages.GameEntityMessage;
+import com.sintraqos.portfolioproject.Messages.Message;
 import com.sintraqos.portfolioproject.Services.GameService;
 import com.sintraqos.portfolioproject.Statics.Console;
 import lombok.Getter;
@@ -37,29 +40,19 @@ public class GameManager {
      *
      * @param game the game Object to be added to the list
      */
-    public void addGame(Game game) {
-        // Check if there already is a game with the given name
-        if (getGame(game.getGameName()) == null && !gameLibrary.contains(game)) {
-            Console.writeLine("Adding new game: " + game.getGameName());
+    public Message addGame(Game game) {
+
+        // Add new game
+        GameEntityMessage message = gameService.addGame(new GameDTO(game));
+        if (!message.isSuccessful()) {
+            return new Message("Failed to add game with name: '%s', reason: '%s'".formatted(game.getGameName(), message.getMessage()));
+        } else {
             gameLibrary.add(game);
+            return message;
         }
     }
 
-    /**
-     * Create a new Game object using a base from the game list
-     *
-     * @param game                 the game Object to be added to the list
-     * @param shouldUpdateDatabase check if adding the game should update the database, since we don't need to call the update 50times in a row
-     */
-    public void addGame(Game game, boolean shouldUpdateDatabase) {
-        addGame(game);
-
-        if (shouldUpdateDatabase) {
-            Console.writeLine("Updating database");
-        }
-    }
-
-    public ArrayList<Game> getGameLibrary(){
-       return new ArrayList<>();
+    public ArrayList<Game> getGameLibrary() {
+        return new ArrayList<>();
     }
 }

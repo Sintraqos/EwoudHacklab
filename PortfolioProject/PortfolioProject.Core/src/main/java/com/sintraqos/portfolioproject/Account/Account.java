@@ -1,6 +1,7 @@
 package com.sintraqos.portfolioproject.Account;
 
 import com.sintraqos.portfolioproject.DTO.AccountDTO;
+import com.sintraqos.portfolioproject.Entities.AccountEntity;
 import com.sintraqos.portfolioproject.Game.Game;
 import lombok.Getter;
 
@@ -21,7 +22,7 @@ public class Account {
     }
 
     /**
-     * Create a new account object from an DTO object
+     * Create a new account object from a DTO object
      *
      * @param accountDTO the incoming DTO object
      */
@@ -30,7 +31,19 @@ public class Account {
         this.username = accountDTO.getUsername();
         this.eMail = accountDTO.getEMail();
         this.password = accountDTO.getPassword();
-        this.accountLibrary = accountDTO.getAccountLibrary();
+        this.accountLibrary = new AccountLibrary(accountDTO.getAccountLibrary());
+    }
+
+    /**
+     * Create a new account object from an Entity object
+     *
+     * @param accountEntity the incoming Entity object
+     */
+    public Account(AccountEntity accountEntity){
+        this.accountID = accountEntity.getAccountID();
+        this.username = accountEntity.getUsername();
+        this.eMail = accountEntity.getEMail();
+        this.password = accountEntity.getPasswordHash();
     }
 
     /**

@@ -13,7 +13,7 @@ public class AccountDTO {
     private String username;
     private String eMail;
     private String password;
-    private AccountLibrary accountLibrary;
+    private AccountLibraryDTO accountLibrary;
 
     public AccountDTO(){}
 
@@ -27,7 +27,7 @@ public class AccountDTO {
         this.username = account.getUsername();
         this.eMail = account.getEMail();
         this.password = account.getPassword();
-        this.accountLibrary = account.getAccountLibrary();
+        this.accountLibrary = new AccountLibraryDTO(account.getAccountLibrary());
     }
 
     /**

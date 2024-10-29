@@ -13,6 +13,8 @@ public class AccountService {
 
     @Autowired
     private AccountRepository accountRepository;
+    @Autowired
+    private AccountLibraryService accountLibraryService;
 
     /**
      * Create a new account
@@ -48,6 +50,11 @@ public class AccountService {
         // Compare the given password to the stored password
         Message passwordCheck = comparePassword(account.getPasswordHash(), password);
         if(passwordCheck.isSuccessful()){
+
+            // Clear the stored library of the account
+            accountLibraryService.deleteLibrary(account.getAccountID());
+
+            // Delete the account from the database
             accountRepository.delete(account);
             return new Message(true, "Successfully removed account with username: '%s'".formatted(username));
         }

@@ -1,5 +1,6 @@
 package com.sintraqos.portfolioproject.Account;
 
+import com.sintraqos.portfolioproject.DTO.AccountLibraryDTO;
 import com.sintraqos.portfolioproject.Game.Game;
 import com.sintraqos.portfolioproject.Statics.Console;
 import lombok.Getter;
@@ -18,6 +19,11 @@ public class AccountLibrary {
      */
     public AccountLibrary() {
         gameLibrary = new ArrayList<>();
+    }
+
+    public AccountLibrary(AccountLibraryDTO accountLibraryDTO)
+    {
+        this.gameLibrary = accountLibraryDTO.getGameLibrary();
     }
 
     /**
