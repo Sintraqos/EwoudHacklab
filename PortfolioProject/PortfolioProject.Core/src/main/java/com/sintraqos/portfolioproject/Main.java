@@ -53,8 +53,11 @@ public class Main {
 
         // Add And Remove Game From Account Library
         Console.writeLine("-- Add And Remove Game From Account Library");
-        Console.writeLine(accountManager.addGame("Username",1).getMessage());  // Using gameID
-        Console.writeLine(accountManager.addGame("Username",2).getMessage()); // Using gameName
+        Console.writeLine(accountManager.addGame("Username",1).getMessage());
+        Console.writeLine(accountManager.addGame("Username",2).getMessage());
+        Console.writeLine(accountManager.getGame("Username",2).getMessage());    // Get game with ID
+        Console.writeLine(accountManager.getGames("Username").getMessage());            // Get all games
+
 
         // Remove Account
         Console.writeLine("-- Remove Account");

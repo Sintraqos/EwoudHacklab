@@ -1,8 +1,6 @@
 package com.sintraqos.portfolioproject.Services;
 
-import com.sintraqos.portfolioproject.Entities.AccountEntity;
 import com.sintraqos.portfolioproject.Entities.AccountLibraryEntity;
-import com.sintraqos.portfolioproject.Messages.AccountEntityMessage;
 import com.sintraqos.portfolioproject.Messages.AccountLibraryEntityMessage;
 import com.sintraqos.portfolioproject.Repositories.AccountLibraryRepository;
 import com.sintraqos.portfolioproject.Repositories.GameRepository;
@@ -57,5 +55,10 @@ public class AccountLibraryService {
 
         // Return a message with the success
         return new AccountLibraryEntityMessage("Removed all games from account with ID: '%s'".formatted(accountID));
+    }
+
+    public AccountLibraryEntityMessage getGame(int accountID, int gameID) {
+        AccountLibraryEntity accountLibraryEntity =  accountLibraryRepository.findByAccountIDAndGameID(accountID, gameID);
+        return new AccountLibraryEntityMessage(accountLibraryEntity,"Retrieved game with ID: '%s'".formatted(gameID));
     }
 }

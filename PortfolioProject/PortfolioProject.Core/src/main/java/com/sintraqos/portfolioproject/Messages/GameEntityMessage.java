@@ -13,11 +13,6 @@ public class GameEntityMessage extends Message {
         this.entity = entity;
     }
 
-    public GameEntityMessage(GameEntity entity, boolean isSuccessful, String message) {
-        super(isSuccessful, message);
-        this.entity = entity;
-    }
-
     public GameEntityMessage(String message) {
         super(false, message);
     }

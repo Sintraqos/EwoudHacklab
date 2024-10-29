@@ -85,4 +85,8 @@ public class Account {
         this.username = username;
         this.accountLibrary = new AccountLibrary(gameLibrary);
     }
+
+    public void setAccountLibrary(ArrayList<Game> gameLibrary) {
+        accountLibrary = new AccountLibrary(gameLibrary);
+    }
 }

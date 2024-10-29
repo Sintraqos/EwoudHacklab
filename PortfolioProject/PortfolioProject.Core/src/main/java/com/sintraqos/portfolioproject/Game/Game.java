@@ -1,5 +1,6 @@
 package com.sintraqos.portfolioproject.Game;
 
+import com.sintraqos.portfolioproject.DTO.GameDTO;
 import com.sintraqos.portfolioproject.Statics.Time;
 import lombok.Getter;
 
@@ -22,25 +23,35 @@ public class Game {
 
     /**
      * Create a new Game object using a base from the game list, use this to store game data inside the accountLibrary
+     *
      * @param baseGame the base of the game from the game list
      */
-    public Game(Game baseGame){
+    public Game(Game baseGame) {
         this.gameID = baseGame.getGameID();
         this.gameName = baseGame.getGameName();
         this.gameDescription = baseGame.getGameDescription();
         this.gameDeveloper = baseGame.getGameDeveloper();
         this.gamePublisher = baseGame.getGamePublisher();
-        gamePlayTime = new Time(0,0);
+        gamePlayTime = new Time(0, 0);
+    }
+
+    public Game(GameDTO game) {
+        this.gameID = game.getGameID();
+        this.gameName = game.getGameName();
+        this.gameDescription = game.getGameDescription();
+        this.gameDeveloper = game.getGameDeveloper();
+        this.gamePublisher = game.getGamePublisher();
     }
 
     /**
      * Create a new Game object from incoming data from a database for example
-     * @param gameName the name of the new game
+     *
+     * @param gameName        the name of the new game
      * @param gameDescription the description of the game
-     * @param gameDeveloper who has created the game
-     * @param gamePublisher who has published the game
+     * @param gameDeveloper   who has created the game
+     * @param gamePublisher   who has published the game
      */
-    public Game(String gameName, String gameDescription, String gameDeveloper, String gamePublisher){
+    public Game(String gameName, String gameDescription, String gameDeveloper, String gamePublisher) {
         this.gameID = gameID;
         this.gameName = gameName;
         this.gameDescription = gameDescription;
@@ -50,9 +61,10 @@ public class Game {
 
     /**
      * Add specified game time to this Game object
+     *
      * @param gamePlayTime how much time there should be added to the current game time
      */
-    public void addGameTime(Time gamePlayTime){
+    public void addGameTime(Time gamePlayTime) {
         //gameLastPlayed = LocalDateTime.now();
         this.gamePlayTime.addTime(gamePlayTime);
     }

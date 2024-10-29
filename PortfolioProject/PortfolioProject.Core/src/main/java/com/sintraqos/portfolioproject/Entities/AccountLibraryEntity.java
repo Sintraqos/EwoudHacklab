@@ -35,7 +35,7 @@ public class AccountLibraryEntity {
     private Date gameLastPlayed;
 
     public AccountLibraryEntity(int accountID, GameDTO gameDTO) {
-        this.accountID= accountID;
+        this.accountID = accountID;
         this.gameID = gameDTO.getGameID();
         this.gamePlayTime = gameDTO.getGamePlayTime().getTotalMinutes();
         this.gameAquired = (Date) gameDTO.getGameAcquired();
@@ -43,12 +43,17 @@ public class AccountLibraryEntity {
     }
 
     public AccountLibraryEntity(int accountID, GameEntity gameDTO) {
-        this.accountID= accountID;
+        this.accountID = accountID;
         this.gameID = gameDTO.getGameID();
     }
 
     public AccountLibraryEntity(int accountID, int gameID) {
-        this.accountID= accountID;
+        this.accountID = accountID;
         this.gameID = gameID;
+    }
+
+    @Override
+    public String toString(){
+        return "%s - %s".formatted(accountID, gameID);
     }
 }

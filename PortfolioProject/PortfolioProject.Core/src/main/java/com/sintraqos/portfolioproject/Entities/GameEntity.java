@@ -29,8 +29,7 @@ public class GameEntity {
     @Column()
     private String gamePublisher;
 
-    public GameEntity(String gamename, String gameDescription, String gameDeveloper, String gamePublisher)
-    {
+    public GameEntity(String gamename, String gameDescription, String gameDeveloper, String gamePublisher) {
         this.gameName = gamename;
         this.gameDescription = gameDescription;
         this.gameDeveloper = gameDeveloper;

@@ -15,7 +15,8 @@ public class AccountDTO {
     private String password;
     private AccountLibraryDTO accountLibrary;
 
-    public AccountDTO(){}
+    public AccountDTO() {
+    }
 
     /**
      * Create a new AccountDTO object based on Account

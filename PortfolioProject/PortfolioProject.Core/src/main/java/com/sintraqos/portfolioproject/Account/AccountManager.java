@@ -1,6 +1,9 @@
 package com.sintraqos.portfolioproject.Account;
 
 import com.sintraqos.portfolioproject.DTO.AccountDTO;
+import com.sintraqos.portfolioproject.Entities.AccountLibraryEntity;
+import com.sintraqos.portfolioproject.Game.Game;
+import com.sintraqos.portfolioproject.Game.GameManager;
 import com.sintraqos.portfolioproject.Messages.AccountEntityMessage;
 import com.sintraqos.portfolioproject.Messages.AccountLibraryEntityMessage;
 import com.sintraqos.portfolioproject.Messages.Message;
@@ -11,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Use for user input handling for account related scripts
@@ -26,6 +30,8 @@ public class AccountManager {
     private AccountService accountService;
     @Autowired
     private AccountLibraryService accountLibraryService;
+    @Autowired
+    private GameManager gameManager;
 
     /**
      * Create a new account
@@ -142,8 +148,14 @@ public class AccountManager {
      *
      * @param username the username of the account
      */
-    public Account getAccount(String username) {
-        return new Account(accountService.getAccount(username).getEntity());
+    public AccountEntityMessage getAccount(String username) {
+        AccountEntityMessage message = accountService.getAccount(username);
+
+        if (!message.isSuccessful()) {
+            return new AccountEntityMessage("Failed to retrieve account with username: '%s', reason: '%s'".formatted(username, message.getMessage()));
+        }
+
+        return message;
     }
 
     /**
@@ -151,8 +163,14 @@ public class AccountManager {
      *
      * @param accountID the ID of the account
      */
-    public Account getAccount(int accountID) {
-        return new Account(accountService.getAccount(accountID).getEntity());
+    public AccountEntityMessage getAccount(int accountID) {
+        AccountEntityMessage message = accountService.getAccount(accountID);
+
+        if (!message.isSuccessful()) {
+            return new AccountEntityMessage("Failed to retrieve account with ID: '%s', reason: '%s'".formatted(accountID, message.getMessage()));
+        }
+
+        return message;
     }
 
     //endregion
@@ -164,15 +182,59 @@ public class AccountManager {
      * @param gameID   the ID of the game
      */
     public Message addGame(String username, int gameID) {
-        AccountEntityMessage message = accountService.getAccount(username);
 
-        if (message.isSuccessful()) {
-
-            AccountLibraryEntityMessage libraryMessage = accountLibraryService.addGame(message.getEntity().getAccountID(), gameID);
-
-            return libraryMessage;
-        } else {
-            return new Message("Failed to retrieve account with username: '%s', reason: '%s'".formatted(username, message.getMessage()));
+        AccountEntityMessage message = getAccount(username);
+        if (!message.isSuccessful()) {
+            return message;
         }
+
+        AccountLibraryEntityMessage libraryMessage = accountLibraryService.addGame(message.getEntity().getAccountID(), gameID);
+
+        return libraryMessage;
+    }
+
+    /**
+     * Get a game using an ID
+     *
+     * @param username the name of the account
+     * @param gameID   the ID of the game
+     */
+    public Message getGame(String username, int gameID)
+    {
+        AccountEntityMessage message = getAccount(username);
+        if (!message.isSuccessful()) {
+            return message;
+        }
+
+        AccountLibraryEntityMessage libraryMessage = accountLibraryService.getGame(message.getEntity().getAccountID(), gameID);
+
+        return libraryMessage;
+    }
+
+    /**
+     * Get all games from account
+     *
+     * @param username the name of the account
+     */
+    public Message getGames(String username)
+    {
+        AccountEntityMessage message = getAccount(username);
+        if (!message.isSuccessful()) {
+            return message;
+        }
+
+        List<AccountLibraryEntity> entityList = accountLibraryService.getLibrary(message.getEntity().getAccountID());
+        ArrayList<Game> games=  new ArrayList<Game>();
+        //TODO: convert all the entities to gameObjects
+        for(AccountLibraryEntity entity : entityList){
+            games.add(new Game(gameManager.getGame(entity.getGameID())));
+        }
+
+
+
+      Account account=  getOnlineAccount(username);
+        account.setAccountLibrary(new ArrayList<>());
+
+        return message;
     }
 }
