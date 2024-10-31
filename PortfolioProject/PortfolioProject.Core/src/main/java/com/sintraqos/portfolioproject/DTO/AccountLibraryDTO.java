@@ -10,7 +10,7 @@ import java.util.ArrayList;
  */
 @Getter
 public class AccountLibraryDTO {
-    private ArrayList<Game> gameLibrary;
+    private ArrayList<GameDTO> gameLibrary;
 
     public AccountLibraryDTO(AccountLibrary accountLibrary) {
         this.gameLibrary = accountLibrary.getGameLibrary();

@@ -40,7 +40,7 @@ public class AccountLibraryService {
 
         AccountLibraryEntity accountLibrary = new AccountLibraryEntity(accountID, gameID);
         return new AccountLibraryEntityMessage(accountLibraryRepository.save(accountLibrary),
-                "Added game with ID: '%s' to account account with ID: '%s'".formatted(accountID, gameID));
+                "Added game with ID: '%s' to account account with ID: '%s'".formatted(gameID, accountID));
     }
 
     /**

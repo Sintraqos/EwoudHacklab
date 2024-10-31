@@ -1,6 +1,7 @@
 package com.sintraqos.portfolioproject.Account;
 
 import com.sintraqos.portfolioproject.DTO.AccountDTO;
+import com.sintraqos.portfolioproject.DTO.GameDTO;
 import com.sintraqos.portfolioproject.Entities.AccountLibraryEntity;
 import com.sintraqos.portfolioproject.Game.Game;
 import com.sintraqos.portfolioproject.Game.GameManager;
@@ -199,8 +200,7 @@ public class AccountManager {
      * @param username the name of the account
      * @param gameID   the ID of the game
      */
-    public Message getGame(String username, int gameID)
-    {
+    public Message getGame(String username, int gameID) {
         AccountEntityMessage message = getAccount(username);
         if (!message.isSuccessful()) {
             return message;
@@ -216,25 +216,22 @@ public class AccountManager {
      *
      * @param username the name of the account
      */
-    public Message getGames(String username)
-    {
+    public Message getGames(String username) {
         AccountEntityMessage message = getAccount(username);
         if (!message.isSuccessful()) {
             return message;
         }
 
         List<AccountLibraryEntity> entityList = accountLibraryService.getLibrary(message.getEntity().getAccountID());
-        ArrayList<Game> games=  new ArrayList<Game>();
+        ArrayList<GameDTO> games = new ArrayList<GameDTO>();
         //TODO: convert all the entities to gameObjects
-        for(AccountLibraryEntity entity : entityList){
-            games.add(new Game(gameManager.getGame(entity.getGameID())));
+        for (AccountLibraryEntity entity : entityList) {
+            games.add(new GameDTO(entity, gameManager.getGame(entity.getGameID())));
         }
 
+        Account account = getOnlineAccount(username);
+        account.setAccountLibrary(games);
 
-
-      Account account=  getOnlineAccount(username);
-        account.setAccountLibrary(new ArrayList<>());
-
-        return message;
+        return new Message(account.toString());
     }
 }

@@ -1,6 +1,5 @@
 package com.sintraqos.portfolioproject.Entities;
 
-import com.sintraqos.portfolioproject.DTO.AccountLibraryDTO;
 import com.sintraqos.portfolioproject.DTO.GameDTO;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -29,7 +28,7 @@ public class AccountLibraryEntity {
     private int gamePlayTime;
 
     @Column(name = "gameAquired", columnDefinition = "DATE")
-    private Date gameAquired;
+    private Date gameAcquired;
 
     @Column(name = "gameLastPlayed", columnDefinition = "DATE")
     private Date gameLastPlayed;
@@ -38,7 +37,7 @@ public class AccountLibraryEntity {
         this.accountID = accountID;
         this.gameID = gameDTO.getGameID();
         this.gamePlayTime = gameDTO.getGamePlayTime().getTotalMinutes();
-        this.gameAquired = (Date) gameDTO.getGameAcquired();
+        this.gameAcquired = (Date) gameDTO.getGameAcquired();
         this.gameLastPlayed = (Date) gameDTO.getGameLastPlayed();
     }
 

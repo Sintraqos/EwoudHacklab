@@ -41,6 +41,9 @@ public class Game {
         this.gameDescription = game.getGameDescription();
         this.gameDeveloper = game.getGameDeveloper();
         this.gamePublisher = game.getGamePublisher();
+        this.gameAcquired = game.getGameAcquired();
+        this.gameLastPlayed = game.getGameLastPlayed();
+        this.gamePlayTime = game.getGamePlayTime();
     }
 
     /**

@@ -1,6 +1,7 @@
 package com.sintraqos.portfolioproject.Account;
 
 import com.sintraqos.portfolioproject.DTO.AccountLibraryDTO;
+import com.sintraqos.portfolioproject.DTO.GameDTO;
 import com.sintraqos.portfolioproject.Game.Game;
 import com.sintraqos.portfolioproject.Statics.Console;
 import lombok.Getter;
@@ -12,7 +13,7 @@ import java.util.ArrayList;
  */
 @Getter
 public class AccountLibrary {
-    private final ArrayList<Game> gameLibrary;
+    private final ArrayList<GameDTO> gameLibrary;
 
     /**
      * Create a new AccountLibrary object with a new list
@@ -31,7 +32,7 @@ public class AccountLibrary {
      *
      * @param gameLibrary the previously created list
      */
-    public AccountLibrary(ArrayList<Game> gameLibrary) {
+    public AccountLibrary(ArrayList<GameDTO> gameLibrary) {
         this.gameLibrary = gameLibrary;
     }
 
@@ -40,7 +41,7 @@ public class AccountLibrary {
      *
      * @param game the new game to add to the list
      */
-    public void addGame(Game game) {
+    public void addGame(GameDTO game) {
         // Check if the library already has a game
         if (gameLibrary.contains(game)) {
             Console.writeLine("Game: %s already in library".formatted(game.getGameName()));
@@ -48,6 +49,17 @@ public class AccountLibrary {
         }
 
         // Add the game to the library
-        gameLibrary.add(new Game(game));
+        gameLibrary.add(game);
+    }
+
+    @Override
+    public String toString()
+    {
+        StringBuilder result = new StringBuilder("Game Library:\n");
+        for (GameDTO gameDTO : gameLibrary) {
+            result.append("%s: %s - %s".formatted(gameDTO.getGameID(), gameDTO.getGameName(), gameDTO.getGamePlayTime().toString())).append("\n"); // Append each item and a newline
+        }
+
+        return result.toString();
     }
 }

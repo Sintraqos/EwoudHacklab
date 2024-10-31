@@ -19,6 +19,11 @@ public class Time {
      */
     public Time() {}
 
+    public Time(int totalMinutes){
+        this.hour = totalMinutes / 60; // Get the hours
+        this.minute = totalMinutes % 60; // Get the remaining minutes
+    }
+
     /**
      * Create a new Time object with specified times
      * @param hour the current hour

@@ -38,16 +38,6 @@ public class GameManager {
     /**
      * Create a new Game object using a base from the game list
      *
-     * @param gameName the name of the game we're looking for
-     * @return the game from the library, if it isn't in the list returns null
-     */
-    public GameDTO getGame(String gameName) {
-        return new GameDTO(gameService.getGame(gameName).getEntity());
-    }
-
-    /**
-     * Create a new Game object using a base from the game list
-     *
      * @param game the game Object to be added to the list
      */
     public Message addGame(Game game) {

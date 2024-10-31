@@ -1,6 +1,7 @@
 package com.sintraqos.portfolioproject.Account;
 
 import com.sintraqos.portfolioproject.DTO.AccountDTO;
+import com.sintraqos.portfolioproject.DTO.GameDTO;
 import com.sintraqos.portfolioproject.Entities.AccountEntity;
 import com.sintraqos.portfolioproject.Game.Game;
 import lombok.Getter;
@@ -80,13 +81,19 @@ public class Account {
      * @param username    the userName of the account
      * @param gameLibrary library the account has stored inside the database
      */
-    public Account(int accountID, String username, ArrayList<Game> gameLibrary) {
+    public Account(int accountID, String username, ArrayList<GameDTO> gameLibrary) {
         this.accountID = accountID;
         this.username = username;
         this.accountLibrary = new AccountLibrary(gameLibrary);
     }
 
-    public void setAccountLibrary(ArrayList<Game> gameLibrary) {
+    public void setAccountLibrary(ArrayList<GameDTO> gameLibrary) {
         accountLibrary = new AccountLibrary(gameLibrary);
+    }
+
+    @Override
+    public String toString()
+    {
+        return "%s\n%s".formatted(username, accountLibrary);
     }
 }

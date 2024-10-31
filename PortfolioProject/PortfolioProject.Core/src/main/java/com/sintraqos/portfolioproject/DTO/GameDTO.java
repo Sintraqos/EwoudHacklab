@@ -1,9 +1,11 @@
 package com.sintraqos.portfolioproject.DTO;
 
+import com.sintraqos.portfolioproject.Entities.AccountLibraryEntity;
 import com.sintraqos.portfolioproject.Entities.GameEntity;
 import com.sintraqos.portfolioproject.Game.Game;
 import com.sintraqos.portfolioproject.Statics.Time;
 import lombok.Getter;
+
 import java.util.Date;
 
 /**
@@ -20,7 +22,9 @@ public class GameDTO {
     private Date gameLastPlayed;
     private Time gamePlayTime;
 
-    public GameDTO(Game game) {
+    public GameDTO(Game game)
+    {
+        this.gameID = game.getGameID();
         this.gameName = game.getGameName();
         this.gameDescription = game.getGameDescription();
         this.gameDeveloper = game.getGameDeveloper();
@@ -28,6 +32,17 @@ public class GameDTO {
         this.gameAcquired = game.getGameAcquired();
         this.gameLastPlayed = game.getGameLastPlayed();
         this.gamePlayTime = game.getGamePlayTime();
+    }
+
+    public GameDTO(AccountLibraryEntity libraryEntity, GameDTO gameDTO) {
+        this.gameID = libraryEntity.getGameID();
+        this.gameName = gameDTO.getGameName();
+        this.gameDescription = gameDTO.getGameDescription();
+        this.gameDeveloper = gameDTO.getGameDeveloper();
+        this.gamePublisher = gameDTO.getGamePublisher();
+        this.gameAcquired = libraryEntity.getGameAcquired();
+        this.gameLastPlayed = libraryEntity.getGameLastPlayed();
+        this.gamePlayTime = new Time(libraryEntity.getGamePlayTime());
     }
 
     public GameDTO(GameEntity game) {

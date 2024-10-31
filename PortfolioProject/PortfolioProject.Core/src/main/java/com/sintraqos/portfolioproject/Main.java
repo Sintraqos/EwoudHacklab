@@ -35,6 +35,8 @@ public class Main {
         Console.writeLine("#################################");
         Console.writeLine("Create a test account and test login");
 
+        // Since the commands all return back a message write those out in the console for now
+
         // Register
         Console.writeLine("-- Register");
         Console.writeLine(accountManager.createAccount("Username", "e@mail.com", "password").getMessage());
@@ -60,10 +62,10 @@ public class Main {
 
 
         // Remove Account
-        Console.writeLine("-- Remove Account");
-        Console.writeLine(accountManager.deleteAccount("Username", "wrongPassword").getMessage());
-        Console.writeLine(accountManager.deleteAccount("Username", "password").getMessage());
-        Console.writeLine(accountManager.deleteAccount("Username", "password").getMessage());
+//        Console.writeLine("-- Remove Account");
+//        Console.writeLine(accountManager.deleteAccount("Username", "wrongPassword").getMessage());
+//        Console.writeLine(accountManager.deleteAccount("Username", "password").getMessage());
+//        Console.writeLine(accountManager.deleteAccount("Username", "password").getMessage());
     }
 
     /**
