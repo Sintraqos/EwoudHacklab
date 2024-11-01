@@ -1,7 +1,5 @@
 package com.sintraqos.portfolioproject.Account;
 
-import com.sintraqos.portfolioproject.DTO.AccountDTO;
-import com.sintraqos.portfolioproject.DTO.GameDTO;
 import com.sintraqos.portfolioproject.Entities.AccountLibraryEntity;
 import com.sintraqos.portfolioproject.Game.Game;
 import com.sintraqos.portfolioproject.Game.GameManager;
@@ -10,6 +8,7 @@ import com.sintraqos.portfolioproject.Messages.AccountLibraryEntityMessage;
 import com.sintraqos.portfolioproject.Messages.Message;
 import com.sintraqos.portfolioproject.Services.AccountLibraryService;
 import com.sintraqos.portfolioproject.Services.AccountService;
+import com.sintraqos.portfolioproject.Statics.Console;
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -223,15 +222,55 @@ public class AccountManager {
         }
 
         List<AccountLibraryEntity> entityList = accountLibraryService.getLibrary(message.getEntity().getAccountID());
-        ArrayList<GameDTO> games = new ArrayList<GameDTO>();
-        //TODO: convert all the entities to gameObjects
+        ArrayList<Game> games = new ArrayList<>();
         for (AccountLibraryEntity entity : entityList) {
-            games.add(new GameDTO(entity, gameManager.getGame(entity.getGameID())));
+            games.add(new Game(entity, gameManager.getGame(entity.getGameID())));
         }
 
-        Account account = getOnlineAccount(username);
+        Account account = new Account(message.getEntity());
         account.setAccountLibrary(games);
 
-        return new Message(account.toString());
+        return new Message(account.getAccountLibrary().toString());
+    }
+
+    /**
+     * Get all information from the given account
+     *
+     * @param username the name of the account
+     */
+    public Message displayAccount(String username) {
+        AccountEntityMessage message = getAccount(username);
+        if (!message.isSuccessful()) {
+            return message;
+        }
+
+        List<AccountLibraryEntity> entityList = accountLibraryService.getLibrary(message.getEntity().getAccountID());
+        ArrayList<Game> games = new ArrayList<>();
+        for (AccountLibraryEntity entity : entityList) {
+            games.add(new Game(entity, gameManager.getGame(entity.getGameID())));
+        }
+
+        Account account = new Account(message.getEntity());
+        account.setAccountLibrary(games);
+
+        return new Message("""
+                Account Information:
+                ID:         %s
+                Username:   %s
+                E-Mail:     %s
+                Password:   %s
+                Library:    %s
+                """.formatted(
+                account.getAccountID(),
+                account.getUsername(),
+                account.getEMail(),
+                account.getPassword(),
+                account.getAccountLibrary().toString()));
+    }
+
+    public Message updateAccount(String username, String eMail, String password) {
+        return new Message("updateAccount");
+
+        //TODO: Update the account information
     }
 }

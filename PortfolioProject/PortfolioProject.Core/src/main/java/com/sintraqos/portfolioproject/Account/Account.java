@@ -81,19 +81,19 @@ public class Account {
      * @param username    the userName of the account
      * @param gameLibrary library the account has stored inside the database
      */
-    public Account(int accountID, String username, ArrayList<GameDTO> gameLibrary) {
+    public Account(int accountID, String username, ArrayList<Game> gameLibrary) {
         this.accountID = accountID;
         this.username = username;
         this.accountLibrary = new AccountLibrary(gameLibrary);
     }
 
-    public void setAccountLibrary(ArrayList<GameDTO> gameLibrary) {
+    public void setAccountLibrary(ArrayList<Game> gameLibrary) {
         accountLibrary = new AccountLibrary(gameLibrary);
     }
 
     @Override
     public String toString()
     {
-        return "%s\n%s".formatted(username, accountLibrary);
+        return "%s%s".formatted(username, accountLibrary);
     }
 }

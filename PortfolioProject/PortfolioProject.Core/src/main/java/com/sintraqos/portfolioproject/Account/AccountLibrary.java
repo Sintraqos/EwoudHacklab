@@ -13,18 +13,19 @@ import java.util.ArrayList;
  */
 @Getter
 public class AccountLibrary {
-    private final ArrayList<GameDTO> gameLibrary;
+    private ArrayList<Game> gameLibrary = new ArrayList<>();
 
     /**
-     * Create a new AccountLibrary object with a new list
+     * Create a new AccountLibrary object
      */
     public AccountLibrary() {
         gameLibrary = new ArrayList<>();
     }
 
-    public AccountLibrary(AccountLibraryDTO accountLibraryDTO)
-    {
-        this.gameLibrary = accountLibraryDTO.getGameLibrary();
+    public AccountLibrary(AccountLibraryDTO accountLibraryDTO) {
+        for (GameDTO gameDTO : accountLibraryDTO.getGameLibrary()) {
+            gameLibrary.add(new Game(gameDTO));
+        }
     }
 
     /**
@@ -32,7 +33,7 @@ public class AccountLibrary {
      *
      * @param gameLibrary the previously created list
      */
-    public AccountLibrary(ArrayList<GameDTO> gameLibrary) {
+    public AccountLibrary(ArrayList<Game> gameLibrary) {
         this.gameLibrary = gameLibrary;
     }
 
@@ -49,15 +50,18 @@ public class AccountLibrary {
         }
 
         // Add the game to the library
-        gameLibrary.add(game);
+        gameLibrary.add(new Game(game));
     }
 
     @Override
     public String toString()
     {
-        StringBuilder result = new StringBuilder("Game Library:\n");
-        for (GameDTO gameDTO : gameLibrary) {
-            result.append("%s: %s - %s".formatted(gameDTO.getGameID(), gameDTO.getGameName(), gameDTO.getGamePlayTime().toString())).append("\n"); // Append each item and a newline
+        StringBuilder result = new StringBuilder();
+        for (Game game : gameLibrary) {
+            result.append("\n%s: %s - %s".formatted(
+                    game.getGameID(),
+                    game.getGameName(),
+                    game.getGamePlayTime().toString()));
         }
 
         return result.toString();

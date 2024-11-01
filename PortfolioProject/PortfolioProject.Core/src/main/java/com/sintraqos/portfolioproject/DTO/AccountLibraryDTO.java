@@ -10,9 +10,11 @@ import java.util.ArrayList;
  */
 @Getter
 public class AccountLibraryDTO {
-    private ArrayList<GameDTO> gameLibrary;
+    private ArrayList<GameDTO> gameLibrary = new ArrayList<>();
 
     public AccountLibraryDTO(AccountLibrary accountLibrary) {
-        this.gameLibrary = accountLibrary.getGameLibrary();
+        for(Game game : accountLibrary.getGameLibrary()){
+            gameLibrary.add(new GameDTO(game));
+        }
     }
 }

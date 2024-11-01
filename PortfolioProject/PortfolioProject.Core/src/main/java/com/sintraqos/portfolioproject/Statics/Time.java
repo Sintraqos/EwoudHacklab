@@ -10,23 +10,25 @@ public class Time {
     private int hour;
     private int minute;
 
-    public int getTotalMinutes(){
+    public int getTotalMinutes() {
         return (hour * 60) + minute;
     }
 
     /**
      * Use for storing time, since this gives more flexibility for what's needed
      */
-    public Time() {}
+    public Time() {
+    }
 
-    public Time(int totalMinutes){
+    public Time(int totalMinutes) {
         this.hour = totalMinutes / 60; // Get the hours
         this.minute = totalMinutes % 60; // Get the remaining minutes
     }
 
     /**
      * Create a new Time object with specified times
-     * @param hour the current hour
+     *
+     * @param hour   the current hour
      * @param minute the current minute
      */
     public Time(int hour, int minute) {
@@ -36,31 +38,34 @@ public class Time {
 
     /**
      * Create a new Time object with specified times
+     *
      * @param time add the time of this object to the current time
      */
-    public void addTime(Time time){
+    public void addTime(Time time) {
         this.hour += time.hour;
         this.minute += time.minute;
     }
 
     /**
      * Add the given hours to the current stored hours
+     *
      * @param hour add the hour(s) given to the current hours
      */
-    public void addHour(int hour){
+    public void addHour(int hour) {
         this.hour += hour;
     }
 
     /**
      * Add the given minutes to the current stored minutes
+     *
      * @param minute add the minute(s) given to the current minutes,
      *               if the stored minutes reaches, or exceeds 60,
      *               add an hour to the stored time and add the remaining minutes
      */
-    public void addMinute(int minute){
+    public void addMinute(int minute) {
         this.minute += minute;
 
-        if(this.minute >= 60){
+        if (this.minute >= 60) {
             int remainingMinutes = this.minute - 60;
             this.minute = 0;
             addHour(1);
@@ -70,6 +75,8 @@ public class Time {
 
     @Override
     public String toString() {
-        return hour + ":" + minute;
+        return "%s:%s".formatted(
+                String.format("%02d", hour),
+                String.format("%02d", minute));
     }
 }

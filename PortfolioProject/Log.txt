@@ -1,73 +1,27 @@
-[17:57] - Finished initializing Spring-Boot
-[17:57] - #################################
-[17:57] - Failed to add game with name: 'World of Warcraft', reason: 'Game already exists'
-[17:57] - Failed to add game with name: 'The Legend of Zelda: Breath of the Wild', reason: 'Game already exists'
-[17:57] - Failed to add game with name: 'The Witcher 3: Wild Hunt', reason: 'Game already exists'
-[17:57] - Failed to add game with name: 'Minecraft', reason: 'Game already exists'
-[17:57] - Failed to add game with name: 'Red Dead Redemption 2', reason: 'Game already exists'
-[17:57] - Failed to add game with name: 'Dark Souls', reason: 'Game already exists'
-[17:57] - Failed to add game with name: 'Super Mario Odyssey', reason: 'Game already exists'
-[17:57] - Failed to add game with name: 'Overwatch', reason: 'Game already exists'
-[17:57] - Failed to add game with name: 'Final Fantasy VII Remake', reason: 'Game already exists'
-[17:57] - Failed to add game with name: 'Among Us', reason: 'Game already exists'
-[17:57] - Failed to add game with name: 'Animal Crossing: New Horizons', reason: 'Game already exists'
-[17:57] - Failed to add game with name: 'Cyberpunk 2077', reason: 'Game already exists'
-[17:57] - Failed to add game with name: 'Hollow Knight', reason: 'Game already exists'
-[17:57] - Failed to add game with name: 'Call of Duty: Warzone', reason: 'Game already exists'
-[17:57] - Failed to add game with name: 'Sekiro: Shadows Die Twice', reason: 'Game already exists'
-[17:57] - Failed to add game with name: 'Fortnite', reason: 'Game already exists'
-[17:57] - Failed to add game with name: 'Destiny 2', reason: 'Game already exists'
-[17:57] - Failed to add game with name: 'Ghost of Tsushima', reason: 'Game already exists'
-[17:57] - Failed to add game with name: 'Genshin Impact', reason: 'Game already exists'
-[17:57] - Failed to add game with name: 'Resident Evil 2 Remake', reason: 'Game already exists'
-[17:57] - Failed to add game with name: 'Stardew Valley', reason: 'Game already exists'
-[17:57] - Failed to add game with name: 'DOOM Eternal', reason: 'Game already exists'
-[17:57] - Failed to add game with name: 'League of Legends', reason: 'Game already exists'
-[17:57] - Failed to add game with name: 'Apex Legends', reason: 'Game already exists'
-[17:57] - Failed to add game with name: 'Monster Hunter: World', reason: 'Game already exists'
-[17:57] - Failed to add game with name: 'Celeste', reason: 'Game already exists'
-[17:57] - Failed to add game with name: 'Dying Light', reason: 'Game already exists'
-[17:57] - Failed to add game with name: 'Dead by Daylight', reason: 'Game already exists'
-[17:57] - Failed to add game with name: 'Persona 5 Royal', reason: 'Game already exists'
-[17:57] - Failed to add game with name: 'Hades', reason: 'Game already exists'
-[17:57] - Failed to add game with name: 'Metal Gear Solid V: The Phantom Pain', reason: 'Game already exists'
-[17:57] - Failed to add game with name: 'Splatoon 2', reason: 'Game already exists'
-[17:57] - Failed to add game with name: 'Nier: Automata', reason: 'Game already exists'
-[17:57] - Failed to add game with name: 'The Elder Scrolls V: Skyrim', reason: 'Game already exists'
-[17:57] - Failed to add game with name: 'FIFA 22', reason: 'Game already exists'
-[17:57] - Failed to add game with name: 'Gran Turismo 7', reason: 'Game already exists'
-[17:57] - Failed to add game with name: 'Rainbow Six Siege', reason: 'Game already exists'
-[17:57] - Failed to add game with name: 'Assassin's Creed Valhalla', reason: 'Game already exists'
-[17:57] - Failed to add game with name: 'Control', reason: 'Game already exists'
-[17:57] - Failed to add game with name: 'Fire Emblem: Three Houses', reason: 'Game already exists'
-[17:57] - Failed to add game with name: 'Divinity: Original Sin 2', reason: 'Game already exists'
-[17:57] - Failed to add game with name: 'Ori and the Will of the Wisps', reason: 'Game already exists'
-[17:57] - Failed to add game with name: 'The Last of Us Part II', reason: 'Game already exists'
-[17:57] - Failed to add game with name: 'Monster Hunter Rise', reason: 'Game already exists'
-[17:57] - Failed to add game with name: 'Forza Horizon 5', reason: 'Game already exists'
-[17:57] - Failed to add game with name: 'Returnal', reason: 'Game already exists'
-[17:57] - Failed to add game with name: 'Hitman 3', reason: 'Game already exists'
-[17:57] - Failed to add game with name: 'Subnautica', reason: 'Game already exists'
-[17:57] - Failed to add game with name: 'The Outer Worlds', reason: 'Game already exists'
-[17:57] - Failed to add game with name: 'It Takes Two', reason: 'Game already exists'
-[17:57] - #################################
-[17:57] - Create a test account and test login
-[17:57] - -- Register
-[17:57] - Failed to create account with username: 'Username', reason: 'Account already exists'
-[17:57] - Failed to create account with username: 'Username', reason: 'Account already exists'
-[17:57] - -- Login
-[17:57] - Failed to log in to account with username: 'Username', reason: 'Incorrect password'
-[17:57] - Successfully logged in
-[17:57] - Failed to login with username: 'Username', Reason: 'Account already online'
-[17:57] - -- Logout And Login
-[17:57] - Successfully logged out user: 'Username'
-[17:57] - Successfully logged in
-[17:57] - -- Add And Remove Game From Account Library
-[17:57] - Game with ID: '1' already in account with ID: '6'
-[17:57] - Game with ID: '2' already in account with ID: '6'
-[17:57] - Retrieved game with ID: '2'
-[17:57] - Username
-Game Library:
-1: World of Warcraft - 833:20
-2: The Legend of Zelda: Breath of the Wild - 0:0
+[12:00] - Finished initializing Spring-Boot
+[12:00] - #################################
+[12:00] - Commands Have Sub Commands:
+help
+    - account
+    - game
+account
+    - create
+    - remove
+    - delete
+    - update
+    - display
+    - login
+    - logout
+    - add
+game
+
+[12:00] - Account Information:
+ID:         3
+Username:   Username
+E-Mail:     e@mail.com
+Password:   $2a$10$RzuubRocId/1LxYKrduiEOH4sJPq4y/O/TdLjqgBLEMabPHfK8cOK
+Library:    
+1: World of Warcraft - 02:01
+2: The Legend of Zelda: Breath of the Wild - 20:34
+3: The Witcher 3: Wild Hunt - 00:00
 

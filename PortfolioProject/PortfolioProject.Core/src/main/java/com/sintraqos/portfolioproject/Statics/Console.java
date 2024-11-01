@@ -17,11 +17,14 @@ public class Console {
      */
     public static void writeLine(String consoleText) {
         // Get the current time in the format of: '[12:34] - '
-        String currentTime = String.format("[%s] - ", new SimpleDateFormat("HH:mm").format(new Date()));
         // Write the text to the log file
-        writeLog(currentTime + consoleText);
+        writeLog(getTime() + consoleText);
         // And write it out to the console
-        System.out.println(currentTime + consoleText);
+        System.out.println(getTime() + consoleText);
+    }
+
+    static String getTime(){
+        return "[%s] - ".formatted(new SimpleDateFormat("HH:mm").format(new Date()));
     }
 
     //region Write to log file
@@ -68,4 +71,9 @@ public class Console {
     }
 
     //endregion
+
+    public static String readLine(){
+        System.out.print(getTime());
+        return System.console().readLine();
+    }
 }

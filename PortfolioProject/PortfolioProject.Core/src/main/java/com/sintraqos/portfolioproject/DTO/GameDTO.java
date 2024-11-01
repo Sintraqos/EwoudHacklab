@@ -51,5 +51,6 @@ public class GameDTO {
         this.gameDescription = game.getGameDescription();
         this.gameDeveloper = game.getGameDeveloper();
         this.gamePublisher = game.getGamePublisher();
+        this.gamePlayTime = new Time();
     }
 }
