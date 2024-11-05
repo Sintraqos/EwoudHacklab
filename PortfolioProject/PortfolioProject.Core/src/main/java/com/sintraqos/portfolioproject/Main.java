@@ -33,41 +33,6 @@ public class Main {
         Console.writeLine("Finished initializing Spring-Boot");
         Console.writeLine("#################################");
 
-//        // Create test Library
-//        createGameLibrary();
-//        Console.writeLine("#################################");
-//        Console.writeLine("Create a test account and test login");
-//
-//        // Since the commands all return back a message write those out in the console for now
-//
-//        // Register
-//        Console.writeLine("-- Register");
-//        Console.writeLine(accountManager.createAccount("Username", "e@mail.com", "password").getMessage());
-//        Console.writeLine(accountManager.createAccount("Username", "e@mail.com", "password").getMessage());
-//
-//        // Login
-//        Console.writeLine("-- Login");
-//        Console.writeLine(accountManager.loginAccount("Username", "wrongPassword").getMessage());
-//        Console.writeLine(accountManager.loginAccount("Username", "password").getMessage());
-//        Console.writeLine(accountManager.loginAccount("Username", "password").getMessage());
-//
-//        // Logout And Login
-//        Console.writeLine("-- Logout And Login");
-//        Console.writeLine(accountManager.logoutAccount("Username").getMessage());
-//        Console.writeLine(accountManager.loginAccount("Username", "password").getMessage());
-//
-//        // Add And Remove Game From Account Library
-//        Console.writeLine("-- Add And Remove Game From Account Library");
-//        Console.writeLine(accountManager.addGame("Username", 1).getMessage());
-//        Console.writeLine(accountManager.addGame("Username", 2).getMessage());
-//        Console.writeLine(accountManager.getGame("Username", 2).getMessage());    // Get game with ID
-//        Console.writeLine(accountManager.getGames("Username").getMessage());            // Get all games
-//        // Remove Account
-//        Console.writeLine("-- Remove Account");
-//        Console.writeLine(accountManager.deleteAccount("Username", "wrongPassword").getMessage());
-//        Console.writeLine(accountManager.deleteAccount("Username", "password").getMessage());
-//        Console.writeLine(accountManager.deleteAccount("Username", "password").getMessage());
-
         // Loop through the handleCommand
         while (true) {
             commandHandler.handleCommand(Console.readLine().toLowerCase());

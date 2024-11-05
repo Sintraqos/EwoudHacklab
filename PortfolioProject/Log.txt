@@ -1,27 +1,2 @@
-[12:00] - Finished initializing Spring-Boot
-[12:00] - #################################
-[12:00] - Commands Have Sub Commands:
-help
-    - account
-    - game
-account
-    - create
-    - remove
-    - delete
-    - update
-    - display
-    - login
-    - logout
-    - add
-game
-
-[12:00] - Account Information:
-ID:         3
-Username:   Username
-E-Mail:     e@mail.com
-Password:   $2a$10$RzuubRocId/1LxYKrduiEOH4sJPq4y/O/TdLjqgBLEMabPHfK8cOK
-Library:    
-1: World of Warcraft - 02:01
-2: The Legend of Zelda: Breath of the Wild - 20:34
-3: The Witcher 3: Wild Hunt - 00:00
-
+[11:56] - Finished initializing Spring-Boot
+[11:56] - #################################
