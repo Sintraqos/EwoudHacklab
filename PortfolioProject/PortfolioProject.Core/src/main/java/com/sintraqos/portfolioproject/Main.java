@@ -5,6 +5,7 @@ import com.sintraqos.portfolioproject.Game.Game;
 import com.sintraqos.portfolioproject.Game.GameManager;
 import com.sintraqos.portfolioproject.Statics.CommandHandler;
 import com.sintraqos.portfolioproject.Statics.Console;
+import com.sintraqos.portfolioproject.Webservice.WebServiceController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.SpringApplication;
@@ -13,13 +14,6 @@ import org.springframework.context.event.EventListener;
 
 @SpringBootApplication(scanBasePackages = "com.sintraqos.portfolioproject")
 public class Main {
-
-    @Autowired
-    private AccountManager accountManager;
-    @Autowired
-    private GameManager gameManager;
-    @Autowired
-    private CommandHandler commandHandler;
 
     public static void main(String[] args) {
         SpringApplication.run(Main.class, args);
@@ -33,9 +27,9 @@ public class Main {
         Console.writeLine("Finished initializing Spring-Boot");
         Console.writeLine("#################################");
 
-        // Loop through the handleCommand
-        while (true) {
-            commandHandler.handleCommand(Console.readLine().toLowerCase());
-        }
+//        // Loop through the handleCommand
+//        while (true) {
+//            commandHandler.handleCommand(Console.readLine().toLowerCase());
+//        }
     }
 }

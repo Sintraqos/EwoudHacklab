@@ -1,25 +1,25 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Register</title>
+  <title>Register</title>
 </head>
-    <body>
-        <div th:if="${param.error}">
-            Invalid username and / or password.
-        </div>
-        <div th:if="${param.logout}">
-            You have been logged out.
-        </div>
-        <form th:action="@{/register}" method="post">
-            <!-- Create Input fields -->
-            <div><label> User Name : <input type="text" name="username"/> </label></div>
-            <div><label> E-Mail Address: <input type="eMail" name="eMail"/> </label></div>
-            <div><label> Password: <input type="password" name="password"/> </label></div>
-            <div><label> Confirm Password: <input type="passwordConfirm" name="passwordConfirm"/> </label></div>
+<body>
+  <div th:if="${param.error}">
+    <span style="color:red;" th:text="${param.error}"></span>
+  </div>
+  <div th:if="${param.logout}">
+    You have been logged out.
+  </div>
+  <h1>Register</h1>
+    <form th:action="@{/registerAccount}" method="post">
+      <!-- Create Input fields -->
+      <div><label> User Name : <input type="text" name="username"/> </label></div>
+      <div><label> E-Mail Address: <input type="eMail" name="eMail"/> </label></div>
+      <div><label> Password: <input type="password" name="password"/> </label></div>
+      <div><label> Confirm Password: <input type="password" name="passwordConfirm"/> </label></div>
 
-            <!-- Create Submit Button -->
-            <div><input type="submit" value="Register"/></div>
-        </form>
-    </body>
+      <!-- Create Submit Button -->
+      <div><input type="submit" value="Register"/></div>
+  </form>
+</body>
 </html>

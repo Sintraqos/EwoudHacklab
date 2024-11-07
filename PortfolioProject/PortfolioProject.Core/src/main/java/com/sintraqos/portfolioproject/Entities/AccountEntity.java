@@ -23,7 +23,7 @@ import java.util.stream.Collectors;
 @Getter
 @Setter
 @Table(name = "accounts")
-public class AccountEntity implements UserDetails{
+public class AccountEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int accountID;
@@ -36,21 +36,6 @@ public class AccountEntity implements UserDetails{
 
     @Column(name = "passwordHash")
     private String passwordHash;
-
-    @Column(name = "authorities")
-    private String authorities;
-
-    /**
-     * Returns the authorities granted to the user.
-     * @return a collection of GrantedAuthority objects
-     */
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        // Split the authorities string and convert to a list of SimpleGrantedAuthority objects
-        return Arrays.stream(this.authorities.split("::"))
-                .map(SimpleGrantedAuthority::new)
-                .collect(Collectors.toList());
-    }
 
     public AccountEntity(String username, String password) {
         this.username = username;
@@ -68,30 +53,5 @@ public class AccountEntity implements UserDetails{
         this.username = accountDTO.getUsername();
         this.eMail = accountDTO.getEMail();
         this.passwordHash = accountDTO.getPassword();
-    }
-
-    @Override
-    public String getPassword() {
-        return passwordHash;
-    }
-
-    @Override
-    public boolean isAccountNonExpired() {
-        return UserDetails.super.isAccountNonExpired();
-    }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return UserDetails.super.isAccountNonLocked();
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return UserDetails.super.isCredentialsNonExpired();
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return UserDetails.super.isEnabled();
     }
 }
