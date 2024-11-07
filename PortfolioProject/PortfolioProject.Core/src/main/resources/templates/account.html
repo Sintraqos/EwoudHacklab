@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+<head>
+  <title>Account</title>
+</head>
+<body>
+<div th:if="${param.error}">
+  <span style="color:red;" th:text="${param.error}"></span>
+</div>
+<div th:if="${param.logout}">
+  You have been logged out.
+</div>
+<h1>Account: <span th:text="${username}"></span></h1>
+<form th:action="@{/getAccount}" method="post">
+
+  <!-- Create Buttons -->
+  <div><button type="submit" name="action" value="Library" th:formaction="@{/library}">Game Library</button></div>
+  <div><button type="submit" name="action" value="Settings" th:formaction="@{/settings}">Settings</button></div>
+
+</form>
+
+<!-- Separate Logout Form -->
+<form action="#" th:action="@{/logout}" method="post">
+  <button type="submit">Logout</button>
+</form>
+</body>
+</html>

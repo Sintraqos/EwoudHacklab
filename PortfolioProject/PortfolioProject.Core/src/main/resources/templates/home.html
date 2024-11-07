@@ -1,12 +1,17 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
-<head>
-  <title>Spring Security Example</title>
-</head>
-<body>
-<h1>Welcome!</h1>
-
-<p>Click <a th:href="@{/login}">here</a> to log into an existing account.</p>
-<p>Click <a th:href="@{/register}">here</a> to register a new account.</p>
-</body>
+  <head>
+    <title>Home</title>
+  </head>
+  <body>
+    <h1>Welcome!</h1>
+    <!-- Login Form -->
+    <form th:action="@{/login}" method="get">
+      <div><button type="submit" name="action" value="Login">Login</button></div>
+    </form>
+    <!-- Register Form -->
+    <form th:action="@{/register}" method="get">
+      <div><button type="submit" name="action" value="Register">Register</button></div>
+    </form>
+  </body>
 </html>

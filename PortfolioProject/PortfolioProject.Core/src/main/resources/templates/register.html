@@ -18,8 +18,9 @@
       <div><label> Password: <input type="password" name="password"/> </label></div>
       <div><label> Confirm Password: <input type="password" name="passwordConfirm"/> </label></div>
 
-      <!-- Create Submit Button -->
-      <div><input type="submit" value="Register"/></div>
+      <!-- Create Buttons -->
+      <div><button type="submit" name="action" value="Register">Register</button></div>
+      <div><button type="submit" name="action" value="Cancel" th:formaction="@{/returnHome}">Cancel</button></div>
   </form>
 </body>
 </html>

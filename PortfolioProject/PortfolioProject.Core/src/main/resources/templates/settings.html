@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+  <head>
+    <title>Settings</title>
+  </head>
+  <body>
+    <div th:if="${param.error}">
+      <span style="color:red;" th:text="${param.error}"></span>
+    </div>
+    <div th:if="${param.logout}">
+      You have been logged out.
+    </div>
+    <h1>Register</h1>
+    <form th:action="@{/registerAccount}" method="post">
+
+      <!-- Create Buttons -->
+      <div><button type="submit" name="action" value="Account" th:formaction="@{/account}">Account</button></div>
+    </form>
+  </body>
+</html>
