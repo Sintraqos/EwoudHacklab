@@ -1,12 +1,9 @@
 package com.sintraqos.portfolioproject.Game;
 
-import com.sintraqos.portfolioproject.DTO.AccountDTO;
 import com.sintraqos.portfolioproject.DTO.GameDTO;
-import com.sintraqos.portfolioproject.Messages.AccountEntityMessage;
 import com.sintraqos.portfolioproject.Messages.GameEntityMessage;
 import com.sintraqos.portfolioproject.Messages.Message;
 import com.sintraqos.portfolioproject.Services.GameService;
-import com.sintraqos.portfolioproject.Statics.Console;
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

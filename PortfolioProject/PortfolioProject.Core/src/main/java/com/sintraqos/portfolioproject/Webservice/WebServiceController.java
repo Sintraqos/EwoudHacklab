@@ -1,10 +1,16 @@
 package com.sintraqos.portfolioproject.Webservice;
 
 import com.sintraqos.portfolioproject.Account.AccountManager;
+import com.sintraqos.portfolioproject.DTO.AccountDTO;
+import com.sintraqos.portfolioproject.Messages.AccountMessage;
 import com.sintraqos.portfolioproject.Messages.Message;
 import com.sintraqos.portfolioproject.Statics.Console;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,11 +19,11 @@ import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.security.Principal;
-
 @Controller
 @RequestMapping("/")
 public class WebServiceController implements WebMvcConfigurer {
+
+    // Your controller methods here, using the authenticationManager if necessary
 
     @Autowired
     AccountManager accountManager;
@@ -78,26 +84,41 @@ public class WebServiceController implements WebMvcConfigurer {
 
     @GetMapping("/login")
     public String getLoginPage() {
+        Console.writeLine("Loading login page");
+
         return "login";
     }
+
+//    @PostMapping("/loginAccount")
+//    public String handleLogin(
+//            @RequestParam(required = true, name = "username") String username,
+//            @RequestParam(required = true, name = "password") String password,
+//            RedirectAttributes redirectAttributes, HttpSession session) {
+//
+//        // Log in to the account and check for errors
+//        AccountMessage accountMessage = accountManager.loginAccount(username, password);
+//        if (!accountMessage.isSuccessful()) {
+//            redirectAttributes.addAttribute("error", accountMessage.getMessage());
+//            return "redirect:/login";
+//        }
+//
+//
+//        Console.writeLine("Login!");
+//
+//        AccountDTO account = accountMessage.getAccount();
+//
+//        // If login is successful, redirect to the account page
+//        // Fill in the required variables using the HttpSession instead of filling it inside the URL
+//        session.setAttribute("account", account); // Storing the account in session
+//        return "redirect:/account";
+//    }
 
     @PostMapping("/loginAccount")
     public String handleLogin(
             @RequestParam(required = true, name = "username") String username,
             @RequestParam(required = true, name = "password") String password,
             RedirectAttributes redirectAttributes, HttpSession session) {
-
-        // Log in to the account and check for errors
-        Message message = accountManager.loginAccount(username, password);
-        if (!message.isSuccessful()) {
-            redirectAttributes.addAttribute("error", message.getMessage());
-            return "redirect:/login";
-        }
-
-        // If login is successful, redirect to the account page
-        // Fill in the required variables using the HttpSession instead of filling it inside the URL
-        session.setAttribute("username", username);
-        return "redirect:/account";
+                return "Login failed!";
     }
 
     //endregion
@@ -106,16 +127,19 @@ public class WebServiceController implements WebMvcConfigurer {
 
     @GetMapping("/account")
     public String getAccountPage(HttpSession session, Model model) {
-        // Retrieve the username from the session
-        String username = (String) session.getAttribute("username");
 
-        // Check if the username is not found in session
-        if (username == null || username.isEmpty()) {
-            // Redirect to home
-            return "redirect:/home";
+        Console.writeLine("Get Account info");
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication != null && authentication.isAuthenticated()) {
+            // Assuming the principal contains an AccountDTO object
+            AccountDTO accountDTO = (AccountDTO) authentication.getPrincipal();  // Or however you store the user info
+
+            // Add the account to the model
+            model.addAttribute("account", accountDTO);
+        } else {
+            return "redirect:/login";  // Redirect if the user is not authenticated
         }
-
-        model.addAttribute("username", username);
         return "account";
     }
 
@@ -134,8 +158,20 @@ public class WebServiceController implements WebMvcConfigurer {
     //region Library
 
     @GetMapping("/library")
-    public String getLibraryPage() {
+    public String getLibraryPage(HttpSession session) {
         //TODO: Get current account information, request the library from the DB and fill it in inside the library page
+        //AccountDTO accountDTO = (AccountDTO) session.getAttribute("account");
+
+//        // Retrieve the gameLibrary of the user
+//        AccountMessage accountMessage = accountManager.getGames(username);
+
+//        // Check if the account could not be found
+//        if (!accountMessage.isSuccessful()) {
+//            // Redirect to home
+//            return "redirect:/home";
+//        }
+//
+//        model.addAttribute("account", accountMessage);
         return "library";
     }
 

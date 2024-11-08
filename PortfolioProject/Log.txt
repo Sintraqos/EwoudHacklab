@@ -1,6 +1,2 @@
-[21:34] - Finished initializing Spring-Boot
-[21:34] - #################################
-[21:34] - Logout: a
-[21:34] - Handle Logout
-[21:34] - Logout: a
-[21:34] - Handle Logout
+[11:57] - Finished initializing Spring-Boot
+[11:57] - #################################

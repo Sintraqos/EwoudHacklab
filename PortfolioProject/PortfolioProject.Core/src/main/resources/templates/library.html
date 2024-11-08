@@ -10,15 +10,15 @@
 <div th:if="${param.logout}">
   You have been logged out.
 </div>
-<h1>Register</h1>
-<form th:action="@{/registerAccount}" method="post">
-<!--  <tr th:each="message : ${messages}">-->
-<!--    <td th:text="${message.id}">1</td>-->
-<!--    <td><a href="#" th:text="${message.title}">Title ...</a></td>-->
-<!--    <td th:text="${message.text}">Text ...</td>-->
-<!--  </tr>-->
-  <!-- Create Buttons -->
-  <div><button type="submit" name="action" value="Return" th:formaction="@{/account}">Return</button></div>
+<h1>Library</h1>
+<form th:action="@{/loginAccount}" method="post">
+  <!-- Create Input fields -->
+  <div><label> User Name : <input type="text" name="username"/> </label></div>
+  <div><label> Password: <input type="password" name="password"/> </label></div>
+
+  <!-- Create Button -->
+  <div><button type="submit" name="action" value="Login">Login</button></div>
+  <div><button type="submit" name="action" value="Cancel" th:formaction="@{/returnHome}">Cancel</button></div>
 </form>
 </body>
 </html>

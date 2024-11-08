@@ -12,6 +12,10 @@ import java.util.ArrayList;
 public class AccountLibraryDTO {
     private ArrayList<GameDTO> gameLibrary = new ArrayList<>();
 
+    public AccountLibraryDTO(){
+        gameLibrary = new ArrayList<>();
+    }
+
     public AccountLibraryDTO(AccountLibrary accountLibrary) {
         for(Game game : accountLibrary.getGameLibrary()){
             gameLibrary.add(new GameDTO(game));

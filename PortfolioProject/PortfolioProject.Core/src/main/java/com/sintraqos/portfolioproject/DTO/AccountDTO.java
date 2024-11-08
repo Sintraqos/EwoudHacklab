@@ -41,5 +41,6 @@ public class AccountDTO {
         this.username = account.getUsername();
         this.eMail = account.getEMail();
         this.password = account.getPasswordHash();
+        this.accountLibrary = new AccountLibraryDTO();
     }
 }

@@ -53,4 +53,9 @@ public class GameDTO {
         this.gamePublisher = game.getGamePublisher();
         this.gamePlayTime = new Time();
     }
+
+    @Override
+    public String toString(){
+        return "%s: %s - %s".formatted(gameID, gameName, gamePlayTime);
+    }
 }

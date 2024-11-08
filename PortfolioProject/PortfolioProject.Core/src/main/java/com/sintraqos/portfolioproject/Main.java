@@ -1,12 +1,6 @@
 package com.sintraqos.portfolioproject;
 
-import com.sintraqos.portfolioproject.Account.AccountManager;
-import com.sintraqos.portfolioproject.Game.Game;
-import com.sintraqos.portfolioproject.Game.GameManager;
-import com.sintraqos.portfolioproject.Statics.CommandHandler;
 import com.sintraqos.portfolioproject.Statics.Console;
-import com.sintraqos.portfolioproject.Webservice.WebServiceController;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
@@ -26,10 +20,5 @@ public class Main {
     public void onApplicationReady() {
         Console.writeLine("Finished initializing Spring-Boot");
         Console.writeLine("#################################");
-
-//        // Loop through the handleCommand
-//        while (true) {
-//            commandHandler.handleCommand(Console.readLine().toLowerCase());
-//        }
     }
 }
