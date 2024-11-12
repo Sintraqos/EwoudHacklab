@@ -1,17 +1,14 @@
 package com.sintraqos.portfolioproject.Webservice;
 
-import com.sintraqos.portfolioproject.Account.AccountManager;
-import com.sintraqos.portfolioproject.DTO.AccountDTO;
-import com.sintraqos.portfolioproject.Messages.AccountMessage;
-import com.sintraqos.portfolioproject.Messages.Message;
+import com.sintraqos.portfolioproject.Entities.UserEntity;
+import com.sintraqos.portfolioproject.Repositories.UserRepository;
+import com.sintraqos.portfolioproject.DTO.UserDTO;
 import com.sintraqos.portfolioproject.Statics.Console;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -23,10 +20,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @RequestMapping("/")
 public class WebServiceController implements WebMvcConfigurer {
 
-    // Your controller methods here, using the authenticationManager if necessary
+    @Autowired
+    private UserRepository userRepository;
 
     @Autowired
-    AccountManager accountManager;
+    private PasswordEncoder passwordEncoder;
 
     public void addViewControllers(ViewControllerRegistry registry) {
         // Home page
@@ -59,23 +57,27 @@ public class WebServiceController implements WebMvcConfigurer {
             @RequestParam(required = true, name = "eMail") String eMail,
             @RequestParam(required = true, name = "password") String password,
             @RequestParam(required = true, name = "passwordConfirm") String passwordConfirm,
-            RedirectAttributes redirectAttributes) {
+            Model model) {
 
-        // Check for password mismatch
+        // Validate password
         if (!password.equals(passwordConfirm)) {
-            redirectAttributes.addAttribute("error", "Password Mismatch!");
-            return "redirect:/register";
+            model.addAttribute("error", "Passwords do not match!");
+            return "register";
         }
 
-        // Create the account and check for errors
-        Message message = accountManager.createAccount(username, eMail, new BCryptPasswordEncoder().encode(password));
-        if (!message.isSuccessful()) {
-            redirectAttributes.addAttribute("error", message.getMessage());
-            return "redirect:/register";
-        }
+        // Hash the password
+        String passwordHash = passwordEncoder.encode(password);
 
-        // If registration is successful, redirect to the home page
-        return "redirect:/home";
+        // Create and save the new user
+        UserEntity user = new UserEntity(username, eMail, passwordHash);
+        user.setAccountNonExpired(true);
+        user.setAccountNonLocked(true);
+        user.setCredentialsNonExpired(true);
+        user.setEnabled(true);
+        userRepository.save(user);
+
+        model.addAttribute("message", "Registration successful!");
+        return "login";  // Redirect to login page after successful registration
     }
 
     //endregion
@@ -84,41 +86,7 @@ public class WebServiceController implements WebMvcConfigurer {
 
     @GetMapping("/login")
     public String getLoginPage() {
-        Console.writeLine("Loading login page");
-
         return "login";
-    }
-
-//    @PostMapping("/loginAccount")
-//    public String handleLogin(
-//            @RequestParam(required = true, name = "username") String username,
-//            @RequestParam(required = true, name = "password") String password,
-//            RedirectAttributes redirectAttributes, HttpSession session) {
-//
-//        // Log in to the account and check for errors
-//        AccountMessage accountMessage = accountManager.loginAccount(username, password);
-//        if (!accountMessage.isSuccessful()) {
-//            redirectAttributes.addAttribute("error", accountMessage.getMessage());
-//            return "redirect:/login";
-//        }
-//
-//
-//        Console.writeLine("Login!");
-//
-//        AccountDTO account = accountMessage.getAccount();
-//
-//        // If login is successful, redirect to the account page
-//        // Fill in the required variables using the HttpSession instead of filling it inside the URL
-//        session.setAttribute("account", account); // Storing the account in session
-//        return "redirect:/account";
-//    }
-
-    @PostMapping("/loginAccount")
-    public String handleLogin(
-            @RequestParam(required = true, name = "username") String username,
-            @RequestParam(required = true, name = "password") String password,
-            RedirectAttributes redirectAttributes, HttpSession session) {
-                return "Login failed!";
     }
 
     //endregion
@@ -126,21 +94,18 @@ public class WebServiceController implements WebMvcConfigurer {
     //region Account
 
     @GetMapping("/account")
-    public String getAccountPage(HttpSession session, Model model) {
-
-        Console.writeLine("Get Account info");
-
+    public String getAccountPage(Model model) {
+        // Get the currently authenticated user
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication != null && authentication.isAuthenticated()) {
-            // Assuming the principal contains an AccountDTO object
-            AccountDTO accountDTO = (AccountDTO) authentication.getPrincipal();  // Or however you store the user info
+        String username = authentication.getName(); // This is the logged-in username
 
-            // Add the account to the model
-            model.addAttribute("account", accountDTO);
-        } else {
-            return "redirect:/login";  // Redirect if the user is not authenticated
-        }
-        return "account";
+        // Fetch the complete UserEntity from the database using the username
+        UserEntity userEntity = userRepository.findByUsername(username);
+
+        // Pass the username to the model to be used in the Thymeleaf template
+        model.addAttribute("user", userEntity);
+
+        return "account";  // Return the account.html view
     }
 
     //endregion

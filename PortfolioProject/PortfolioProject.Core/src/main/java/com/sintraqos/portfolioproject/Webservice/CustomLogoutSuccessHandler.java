@@ -1,6 +1,6 @@
 package com.sintraqos.portfolioproject.Webservice;
 
-import com.sintraqos.portfolioproject.Account.AccountManager;
+import com.sintraqos.portfolioproject.User.UserManager;
 import com.sintraqos.portfolioproject.Messages.Message;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -14,10 +14,10 @@ import java.io.IOException;
 @Component
 public class CustomLogoutSuccessHandler implements LogoutSuccessHandler {
 
-    private final AccountManager accountManager;
+    private final UserManager userManager;
 
-    public CustomLogoutSuccessHandler(AccountManager accountManager) {
-        this.accountManager = accountManager;
+    public CustomLogoutSuccessHandler(UserManager userManager) {
+        this.userManager = userManager;
     }
 
     @Override
@@ -28,7 +28,7 @@ public class CustomLogoutSuccessHandler implements LogoutSuccessHandler {
         String username = (String) request.getSession().getAttribute("username");
 
         if (username != null) {
-            Message message = accountManager.logoutAccount(username);
+            Message message = userManager.logoutAccount(username);
             if (!message.isSuccessful()) {
                 // Add an error message to the redirect attributes
                 request.getSession().setAttribute("error", message.getMessage());

@@ -1,34 +1,34 @@
 package com.sintraqos.portfolioproject.DTO;
 
-import com.sintraqos.portfolioproject.Account.*;
-import com.sintraqos.portfolioproject.Entities.AccountEntity;
+import com.sintraqos.portfolioproject.User.*;
+import com.sintraqos.portfolioproject.Entities.UserEntity;
 import lombok.Getter;
 
 /**
  * Account DTO, use for transfer of account data
  */
 @Getter
-public class AccountDTO {
+public class UserDTO {
     private int accountID = -1; // Default value for check if the database needs to assign a new ID
     private String username;
     private String eMail;
     private String password;
-    private AccountLibraryDTO accountLibrary;
+    private UserLibraryDTO accountLibrary;
 
-    public AccountDTO() {
+    public UserDTO() {
     }
 
     /**
      * Create a new AccountDTO object based on Account
      *
-     * @param account the Account object created beforehand
+     * @param user the Account object created beforehand
      */
-    public AccountDTO(Account account) {
-        this.accountID = account.getAccountID();
-        this.username = account.getUsername();
-        this.eMail = account.getEMail();
-        this.password = account.getPassword();
-        this.accountLibrary = new AccountLibraryDTO(account.getAccountLibrary());
+    public UserDTO(User user) {
+        this.accountID = user.getAccountID();
+        this.username = user.getUsername();
+        this.eMail = user.getEMail();
+        this.password = user.getPassword();
+        this.accountLibrary = new UserLibraryDTO(user.getUserLibrary());
     }
 
     /**
@@ -36,11 +36,11 @@ public class AccountDTO {
      *
      * @param account the AccountEntity object retrieved from the database
      */
-    public AccountDTO(AccountEntity account) {
+    public UserDTO(UserEntity account) {
         this.accountID = account.getAccountID();
         this.username = account.getUsername();
         this.eMail = account.getEMail();
         this.password = account.getPasswordHash();
-        this.accountLibrary = new AccountLibraryDTO();
+        this.accountLibrary = new UserLibraryDTO();
     }
 }

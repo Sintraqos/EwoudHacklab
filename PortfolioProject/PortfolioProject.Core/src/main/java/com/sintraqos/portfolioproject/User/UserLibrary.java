@@ -1,6 +1,6 @@
-package com.sintraqos.portfolioproject.Account;
+package com.sintraqos.portfolioproject.User;
 
-import com.sintraqos.portfolioproject.DTO.AccountLibraryDTO;
+import com.sintraqos.portfolioproject.DTO.UserLibraryDTO;
 import com.sintraqos.portfolioproject.DTO.GameDTO;
 import com.sintraqos.portfolioproject.Game.Game;
 import com.sintraqos.portfolioproject.Statics.Console;
@@ -12,18 +12,18 @@ import java.util.ArrayList;
  * Use for storage and logic for games on the Account object
  */
 @Getter
-public class AccountLibrary {
+public class UserLibrary {
     private ArrayList<Game> gameLibrary = new ArrayList<>();
 
     /**
      * Create a new AccountLibrary object
      */
-    public AccountLibrary() {
+    public UserLibrary() {
         gameLibrary = new ArrayList<>();
     }
 
-    public AccountLibrary(AccountLibraryDTO accountLibraryDTO) {
-        for (GameDTO gameDTO : accountLibraryDTO.getGameLibrary()) {
+    public UserLibrary(UserLibraryDTO userLibraryDTO) {
+        for (GameDTO gameDTO : userLibraryDTO.getGameLibrary()) {
             gameLibrary.add(new Game(gameDTO));
         }
     }
@@ -33,7 +33,7 @@ public class AccountLibrary {
      *
      * @param gameLibrary the previously created list
      */
-    public AccountLibrary(ArrayList<Game> gameLibrary) {
+    public UserLibrary(ArrayList<Game> gameLibrary) {
         this.gameLibrary = gameLibrary;
     }
 

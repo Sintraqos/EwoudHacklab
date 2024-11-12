@@ -10,9 +10,9 @@ Idea long:
 
 Core:
     - User:
-        - User can create account
-        - User can log in to their account
-        - User can delete their account
+        - User can create user
+        - User can log in to their user
+        - User can delete their user
         - User can add a game to their library
         - User can add hours to the given game
             - Get the game activity: When the user started a game and how long the user has played the game
@@ -20,10 +20,10 @@ Core:
         - User can view their game library
 
     - Admin
-        - Admin can remove account
-        - Admin can view account
-            - Display account's game library
-            - Display account's game activity
+        - Admin can remove user
+        - Admin can view user
+            - Display user's game library
+            - Display user's game activity
             
     - Website
         - The website displays the games in the user's library
@@ -39,19 +39,19 @@ Extra:
 
 User stories:
     US-01:
-        As a user, I want to be able to create an account, so I will be able to use the website
+        As a user, I want to be able to create an user, so I will be able to use the website
     US-02:
-        As a user, I want to be able to log in to my account, so I can display my game library, so I can see which games I own, and how much time I've spend playing those games
+        As a user, I want to be able to log in to my user, so I can display my game library, so I can see which games I own, and how much time I've spend playing those games
     US-03:
         As a user, I want to be able to add a game to my library, so I can start tracking my activity playing games
     US-04:
         As a user, I want to be able to display my activity in a given game, so I can keep track how many hours I've spend playing that game
     US-05:
-        As a user, I want to be able to delete my account, so that I don't have to use this service anymore
+        As a user, I want to be able to delete my user, so that I don't have to use this service anymore
     US-06:
         As an admin, I want to be able to display a given user's library, so I can check if all data is properly stored and there are no invalid game times
     US-07:
-        As an admin, I want to be able to remove an user's account, so I can remove invalid accounts
+        As an admin, I want to be able to remove an user's user, so I can remove invalid accounts
 
 ---------------------------------------------
 
@@ -147,7 +147,7 @@ Classes:
 ---------------------------------------------
 
 Minimal viable product:
-    - User can create account
-    - User can add the game to their account
+    - User can create user
+    - User can add the game to their user
     - User can get their game library
     - User can show the information of the game

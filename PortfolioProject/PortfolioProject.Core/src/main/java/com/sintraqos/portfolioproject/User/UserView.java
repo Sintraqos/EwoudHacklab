@@ -1,16 +1,16 @@
-package com.sintraqos.portfolioproject.Account;
+package com.sintraqos.portfolioproject.User;
 
 import com.sintraqos.portfolioproject.Statics.Console;
 
 /**
  * Use for displaying account data
  */
-public class AccountView {
-    static AccountView instance;
+public class UserView {
+    static UserView instance;
 
-    public static AccountView getInstance() {
+    public static UserView getInstance() {
         if (instance == null) {
-            instance = new AccountView();
+            instance = new UserView();
             instance.onNewInstance();
         }
 

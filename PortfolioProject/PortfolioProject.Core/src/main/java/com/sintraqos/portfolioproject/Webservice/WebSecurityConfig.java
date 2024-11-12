@@ -14,20 +14,17 @@ import org.springframework.security.authentication.AuthenticationManager;
 @EnableWebSecurity
 public class WebSecurityConfig {
 
-    private final AccountDetailsService accountDetailsService;
+    private final CustomUserDetailsService customUserDetailsService;
 
-    /**
-     * Configure AuthenticationManager to work with AccountDetailsService and PasswordEncoder.
-     */
-    public WebSecurityConfig(AccountDetailsService accountDetailsService) {
-        this.accountDetailsService = accountDetailsService;
+    public WebSecurityConfig(CustomUserDetailsService customUserDetailsService) {
+        this.customUserDetailsService = customUserDetailsService;
     }
 
     @Bean
     public AuthenticationManager authenticationManager(HttpSecurity http) throws Exception {
         AuthenticationManagerBuilder authenticationManagerBuilder = http.getSharedObject(AuthenticationManagerBuilder.class);
         authenticationManagerBuilder
-                .userDetailsService(accountDetailsService)  // Account details service to load user
+                .userDetailsService(customUserDetailsService)  // Account details service to load user
                 .passwordEncoder(passwordEncoder());      // Password encoder
         return authenticationManagerBuilder.build();
     }
@@ -39,6 +36,12 @@ public class WebSecurityConfig {
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
+
+    @Bean
+    public CustomUserDetailsService userDetailsService() {
+        return customUserDetailsService;
+    }
+
     /**
      * Security filter chain that configures URL access, login, and logout behavior.
      */
@@ -46,15 +49,17 @@ public class WebSecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests(requests -> requests
-                        .requestMatchers("/", "/home", "/login", "/loginAccount", "/register", "/registerAccount")
-                        .permitAll()  // Public pages
+                        .requestMatchers("/", "/home", "/login", "/register", "/registerAccount")
+                        .permitAll()
                         .requestMatchers("/account", "/settings", "/library")
-                        .authenticated()  // Protected pages
-                        .anyRequest().authenticated()  // Any other request must be authenticated
+                        .authenticated()
+                        .anyRequest().authenticated()
                 )
                 .formLogin(formLogin -> formLogin
-                        .loginPage("/login")          // Custom login page
-                        .permitAll()                  // Allow everyone to access login page
+                        .loginPage("/login")
+                        .loginProcessingUrl("/login")
+                        .defaultSuccessUrl("/account", true)
+                        .permitAll()
                 )
                 .logout(logout -> logout
                         .logoutUrl("/logout")         // Logout URL

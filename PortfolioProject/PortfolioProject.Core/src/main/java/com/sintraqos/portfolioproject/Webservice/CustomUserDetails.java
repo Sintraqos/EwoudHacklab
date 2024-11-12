@@ -1,6 +1,6 @@
 package com.sintraqos.portfolioproject.Webservice;
 
-import com.sintraqos.portfolioproject.DTO.AccountDTO;
+import com.sintraqos.portfolioproject.DTO.UserDTO;
 
 import lombok.Getter;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -11,12 +11,12 @@ import java.util.Collection;
 import java.util.List;
 
 @Getter
-public class AccountDetails  implements UserDetails {
+public class CustomUserDetails implements UserDetails {
 
-    private final AccountDTO account;  // Your custom Account object
+    private final UserDTO account;  // Your custom Account object
     private final List<GrantedAuthority> authorities;
 
-    public AccountDetails(AccountDTO account) {
+    public CustomUserDetails(UserDTO account) {
         this.account = account;
         // Assuming `account` has a method to get roles or authorities
         this.authorities = List.of(new SimpleGrantedAuthority("ROLE_USER")); // Example: Assigning ROLE_USER

@@ -1,8 +1,7 @@
-package com.sintraqos.portfolioproject.Account;
+package com.sintraqos.portfolioproject.User;
 
-import com.sintraqos.portfolioproject.DTO.AccountDTO;
-import com.sintraqos.portfolioproject.DTO.GameDTO;
-import com.sintraqos.portfolioproject.Entities.AccountEntity;
+import com.sintraqos.portfolioproject.DTO.UserDTO;
+import com.sintraqos.portfolioproject.Entities.UserEntity;
 import com.sintraqos.portfolioproject.Game.Game;
 import lombok.Getter;
 
@@ -12,39 +11,39 @@ import java.util.ArrayList;
  * Use for storing account data locally
  */
 @Getter
-public class Account {
+public class User {
     private int accountID = -1; // Default value for check if the database needs to assign a new ID
     private String username;
     private String eMail;
     private String password;
-    private AccountLibrary accountLibrary;
+    private UserLibrary userLibrary;
 
-    public Account() {
+    public User() {
     }
 
     /**
      * Create a new account object from a DTO object
      *
-     * @param accountDTO the incoming DTO object
+     * @param userDTO the incoming DTO object
      */
-    public Account(AccountDTO accountDTO){
-        this.accountID = accountDTO.getAccountID();
-        this.username = accountDTO.getUsername();
-        this.eMail = accountDTO.getEMail();
-        this.password = accountDTO.getPassword();
-        this.accountLibrary = new AccountLibrary(accountDTO.getAccountLibrary());
+    public User(UserDTO userDTO){
+        this.accountID = userDTO.getAccountID();
+        this.username = userDTO.getUsername();
+        this.eMail = userDTO.getEMail();
+        this.password = userDTO.getPassword();
+        this.userLibrary = new UserLibrary(userDTO.getAccountLibrary());
     }
 
     /**
      * Create a new account object from an Entity object
      *
-     * @param accountEntity the incoming Entity object
+     * @param userEntity the incoming Entity object
      */
-    public Account(AccountEntity accountEntity){
-        this.accountID = accountEntity.getAccountID();
-        this.username = accountEntity.getUsername();
-        this.eMail = accountEntity.getEMail();
-        this.password = accountEntity.getPasswordHash();
+    public User(UserEntity userEntity){
+        this.accountID = userEntity.getAccountID();
+        this.username = userEntity.getUsername();
+        this.eMail = userEntity.getEMail();
+        this.password = userEntity.getPasswordHash();
     }
 
     /**
@@ -53,10 +52,10 @@ public class Account {
      * @param username the userName of the account
      * @param password the password of the account
      */
-    public Account(String username, String password) {
+    public User(String username, String password) {
         this.username = username;
         this.password = password;
-        accountLibrary = new AccountLibrary();
+        userLibrary = new UserLibrary();
     }
 
     /**
@@ -66,11 +65,11 @@ public class Account {
      * @param eMail    the e-mail of the account
      * @param password the password of the account
      */
-    public Account(String username, String eMail, String password) {
+    public User(String username, String eMail, String password) {
         this.username = username;
         this.eMail = eMail;
         this.password = password;
-        this.accountLibrary = new AccountLibrary();
+        this.userLibrary = new UserLibrary();
     }
 
     /**
@@ -81,19 +80,19 @@ public class Account {
      * @param username    the userName of the account
      * @param gameLibrary library the account has stored inside the database
      */
-    public Account(int accountID, String username, ArrayList<Game> gameLibrary) {
+    public User(int accountID, String username, ArrayList<Game> gameLibrary) {
         this.accountID = accountID;
         this.username = username;
-        this.accountLibrary = new AccountLibrary(gameLibrary);
+        this.userLibrary = new UserLibrary(gameLibrary);
     }
 
-    public void setAccountLibrary(ArrayList<Game> gameLibrary) {
-        accountLibrary = new AccountLibrary(gameLibrary);
+    public void setUserLibrary(ArrayList<Game> gameLibrary) {
+        userLibrary = new UserLibrary(gameLibrary);
     }
 
     @Override
     public String toString()
     {
-        return "%s%s".formatted(username, accountLibrary);
+        return "%s%s".formatted(username, userLibrary);
     }
 }

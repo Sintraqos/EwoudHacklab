@@ -10,8 +10,8 @@
 <div th:if="${param.logout}">
   You have been logged out.
 </div>
-<!-- Get the account username and display it after the 'Account: '-->
-<h1>Account: <span th:text="${account.getUsername()}"></span></h1>
+<!-- Get the user username and display it after the 'Account: '-->
+<h1>Account: <span th:text="${user.getUsername()}"></span></h1>
 <form th:action="@{/getAccount}" method="post">
 
   <!-- Create Buttons -->

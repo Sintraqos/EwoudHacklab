@@ -1,6 +1,6 @@
 package com.sintraqos.portfolioproject.DTO;
 
-import com.sintraqos.portfolioproject.Entities.AccountLibraryEntity;
+import com.sintraqos.portfolioproject.Entities.UserLibraryEntity;
 import com.sintraqos.portfolioproject.Entities.GameEntity;
 import com.sintraqos.portfolioproject.Game.Game;
 import com.sintraqos.portfolioproject.Statics.Time;
@@ -34,7 +34,7 @@ public class GameDTO {
         this.gamePlayTime = game.getGamePlayTime();
     }
 
-    public GameDTO(AccountLibraryEntity libraryEntity, GameDTO gameDTO) {
+    public GameDTO(UserLibraryEntity libraryEntity, GameDTO gameDTO) {
         this.gameID = libraryEntity.getGameID();
         this.gameName = gameDTO.getGameName();
         this.gameDescription = gameDTO.getGameDescription();

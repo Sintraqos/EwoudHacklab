@@ -1,6 +1,6 @@
 package com.sintraqos.portfolioproject.Statics;
 
-import com.sintraqos.portfolioproject.Account.AccountManager;
+import com.sintraqos.portfolioproject.User.UserManager;
 import com.sintraqos.portfolioproject.Game.Game;
 import com.sintraqos.portfolioproject.Game.GameManager;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class CommandHandler {
     @Autowired
-    private AccountManager accountManager;
+    private UserManager userManager;
     @Autowired
     private GameManager gameManager;
 
@@ -35,7 +35,7 @@ public class CommandHandler {
                 break;
 
             case "acc":
-            case "account":
+            case "user":
                 handleAccountCommands(input);
                 break;
 
@@ -69,7 +69,7 @@ public class CommandHandler {
 
         // Switch over the input for the command
         switch (inputSplit[1]) {
-            case "account":
+            case "user":
                 Console.writeLine(displayAccount());
 
                 break;
@@ -82,7 +82,7 @@ public class CommandHandler {
     }
 
     /**
-     * Handler of all the account commands
+     * Handler of all the user commands
      *
      * @param input the input of the readline
      */
@@ -100,20 +100,20 @@ public class CommandHandler {
             case "register":
             case "create":
                 // Check if the input has the correct length
-                // Since for creating the account takes a username, e-mail and a password give a check if all are present
+                // Since for creating the user takes a username, e-mail and a password give a check if all are present
                 if (inputSplit.length < 5) {
                     Console.writeLine("""
                             Incorrect Syntax use either:
-                            account create { Username, E-Mail, Password }
+                            user create { Username, E-Mail, Password }
                             or
-                            account register { Username, E-Mail, Password }
+                            user register { Username, E-Mail, Password }
                             """);
 
                     break;
                 }
 
                 // Execute the command and write the result in the console
-                Console.writeLine(accountManager.createAccount(inputSplit[2], inputSplit[3], inputSplit[4]).getMessage());
+                Console.writeLine(userManager.createAccount(inputSplit[2], inputSplit[3], inputSplit[4]).getMessage());
 
                 break;
 
@@ -121,93 +121,93 @@ public class CommandHandler {
             case "remove":
             case "delete":
                 // Check if the input has the correct length
-                // Since for removing the account takes a username and a password give a check if both are present
+                // Since for removing the user takes a username and a password give a check if both are present
                 if (inputSplit.length < 4) {
                     Console.writeLine("""
                             Incorrect Syntax use either:
-                            account remove { Username, Password }
+                            user remove { Username, Password }
                             or
-                            account delete { Username, Password }
+                            user delete { Username, Password }
                             """);
 
                     break;
                 }
 
                 // Execute the command and write the result in the console
-                Console.writeLine(accountManager.deleteAccount(inputSplit[2], inputSplit[3]).getMessage());
+                Console.writeLine(userManager.deleteAccount(inputSplit[2], inputSplit[3]).getMessage());
 
                 break;
             case "update":
                 // Check if the input has the correct length
-                // Since for updating the account takes a username check if it is present
+                // Since for updating the user takes a username check if it is present
                 if (inputSplit.length < 3) {
                     Console.writeLine("""
                             Incorrect Syntax:
-                            account update { Username, E-Mail, Password }
+                            user update { Username, E-Mail, Password }
                             """);
 
                     break;
                 }
 
                 // Execute the command and write the result in the console
-                Console.writeLine(accountManager.updateAccount(inputSplit[2], inputSplit[3], inputSplit[4]).getMessage());
+                Console.writeLine(userManager.updateAccount(inputSplit[2], inputSplit[3], inputSplit[4]).getMessage());
 
                 break;
             case "display":
                 // Check if the input has the correct length
-                // Since for displaying the account takes a username check if it is present
+                // Since for displaying the user takes a username check if it is present
                 if (inputSplit.length < 3) {
                     Console.writeLine("""
                             Incorrect Syntax:
-                            account display { Username }
+                            user display { Username }
                             """);
 
                     break;
                 }
 
                 // Execute the command and write the result in the console
-                Console.writeLine(accountManager.displayAccount(inputSplit[2]).getMessage());
+                Console.writeLine(userManager.displayAccount(inputSplit[2]).getMessage());
 
                 break;
             case "login":
                 // Check if the input has the correct length
-                // Since for logging into the account takes a username and a password give a check if both are present
+                // Since for logging into the user takes a username and a password give a check if both are present
                 if (inputSplit.length < 4) {
                     Console.writeLine("""
                             Incorrect Syntax:
-                            account login username password
+                            user login username password
                             """);
 
                     break;
                 }
 
                 // Execute the command and write the result in the console
-                Console.writeLine(accountManager.loginAccount(inputSplit[2], inputSplit[3]).getMessage());
+                Console.writeLine(userManager.loginAccount(inputSplit[2], inputSplit[3]).getMessage());
 
                 break;
             case "logout":
                 // Check if the input has the correct length
-                // Since for  logging out of the account takes a username check if it is present
+                // Since for  logging out of the user takes a username check if it is present
                 if (inputSplit.length < 3) {
                     Console.writeLine("""
                             Incorrect Syntax:
-                            account logout { Username }
+                            user logout { Username }
                             """);
 
                     break;
                 }
 
                 // Execute the command and write the result in the console
-                Console.writeLine(accountManager.logoutAccount(inputSplit[2]).getMessage());
+                Console.writeLine(userManager.logoutAccount(inputSplit[2]).getMessage());
 
                 break;
             case "add":
                 // Check if the input has the correct length
-                // Since for adding a game to the account takes a username and a gameID give a check if both are present
+                // Since for adding a game to the user takes a username and a gameID give a check if both are present
                 if (inputSplit.length < 3) {
                     Console.writeLine("""
                             Incorrect Syntax:
-                            account add { Username GameID }
+                            user add { Username GameID }
                             """);
 
                     break;
@@ -221,7 +221,7 @@ public class CommandHandler {
                 }
 
                 // Execute the command and write the result in the console
-                Console.writeLine(accountManager.addGame(inputSplit[2], Integer.parseInt(inputSplit[3])).getMessage());
+                Console.writeLine(userManager.addGame(inputSplit[2], Integer.parseInt(inputSplit[3])).getMessage());
 
                 break;
         }
@@ -592,7 +592,7 @@ public class CommandHandler {
         return """
                 Commands:
                 help
-                account
+                user
                 game
                 """;
     }
@@ -606,9 +606,9 @@ public class CommandHandler {
         return """
                 Commands Have Sub Commands:
                 help
-                    - account
+                    - user
                     - game
-                account
+                user
                     - create
                     - remove
                     - delete
@@ -622,21 +622,21 @@ public class CommandHandler {
     }
 
     /**
-     * Display of all the account commands
+     * Display of all the user commands
      *
-     * @return A string containing all the account commands, with examples
+     * @return A string containing all the user commands, with examples
      */
     public String displayAccount() {
         return """
                 Account:
-                account create  { Username, E-Mail, Password }
-                account remove  { Username, Password }
-                account delete  { Username, Password }
-                account update  { Username }
-                account display { Username }
-                account login   { Username, Password }
-                account logout  { Username }
-                account add     { Username, GameID }
+                user create  { Username, E-Mail, Password }
+                user remove  { Username, Password }
+                user delete  { Username, Password }
+                user update  { Username }
+                user display { Username }
+                user login   { Username, Password }
+                user logout  { Username }
+                user add     { Username, GameID }
                 """;
     }
 

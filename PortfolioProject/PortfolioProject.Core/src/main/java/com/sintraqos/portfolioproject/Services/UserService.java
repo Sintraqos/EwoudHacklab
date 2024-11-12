@@ -1,21 +1,21 @@
 package com.sintraqos.portfolioproject.Services;
 
-import com.sintraqos.portfolioproject.DTO.AccountDTO;
-import com.sintraqos.portfolioproject.Messages.AccountMessage;
+import com.sintraqos.portfolioproject.DTO.UserDTO;
+import com.sintraqos.portfolioproject.Messages.UserMessage;
 import com.sintraqos.portfolioproject.Messages.Message;
-import com.sintraqos.portfolioproject.Repositories.AccountRepository;
-import com.sintraqos.portfolioproject.Entities.AccountEntity;
+import com.sintraqos.portfolioproject.Repositories.UserRepository;
+import com.sintraqos.portfolioproject.Entities.UserEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
-public class AccountService {
+public class UserService {
 
     @Autowired
-    private AccountRepository accountRepository;
+    private UserRepository userRepository;
     @Autowired
-    private AccountLibraryService accountLibraryService;
+    private UserLibraryService userLibraryService;
 
     /**
      * Create a new account
@@ -24,16 +24,16 @@ public class AccountService {
      * @param eMail    the e-mail address of the account
      * @param password the password of the account
      */
-    public AccountMessage createAccount(String username, String eMail, String password) {
+    public UserMessage createAccount(String username, String eMail, String password) {
         // Check if an account already exists
-        if (accountRepository.findByUsername(username) != null) {
-            return new AccountMessage("Account with username: '%s' already exists".formatted(username));
+        if (userRepository.findByUsername(username) != null) {
+            return new UserMessage("Account with username: '%s' already exists".formatted(username));
         }
 
         // Save the account inside the database
-        AccountEntity account = accountRepository.save(new AccountEntity(username, eMail, password));
+        UserEntity account = userRepository.save(new UserEntity(username, eMail, password));
         // Cast the accountEntity to an AccountDTO object for transfer
-        return new AccountMessage(new AccountDTO(account), "Created new account: '%s'".formatted(username));
+        return new UserMessage(new UserDTO(account), "Created new account: '%s'".formatted(username));
     }
 
     /**
@@ -44,9 +44,9 @@ public class AccountService {
      */
     public Message deleteAccount(String username, String password) {
         // Check if an account already exists
-        AccountEntity account = accountRepository.findByUsername(username);
+        UserEntity account = userRepository.findByUsername(username);
         if (account == null) {
-            return new AccountMessage("Account doesn't exist");
+            return new UserMessage("Account doesn't exist");
         }
 
         // Compare the given password to the stored password
@@ -54,10 +54,10 @@ public class AccountService {
         if (passwordCheck.isSuccessful()) {
 
             // Clear the stored library of the account
-            accountLibraryService.deleteLibrary(account.getAccountID());
+            userLibraryService.deleteLibrary(account.getAccountID());
 
             // Delete the account from the database
-            accountRepository.delete(account);
+            userRepository.delete(account);
             return new Message(true, "Successfully removed account with username: '%s'".formatted(username));
         } else {
             return passwordCheck;
@@ -80,21 +80,21 @@ public class AccountService {
      *
      * @param username the username of the account
      */
-    public AccountMessage loginAccount(String username, String password) {
+    public UserMessage loginAccount(String username, String password) {
         // Get the account
-        AccountEntity account = accountRepository.findByUsername(username);
+        UserEntity account = userRepository.findByUsername(username);
 
         if (account == null) {
-            return new AccountMessage("Could not find find user by username: '%s'".formatted(username));
+            return new UserMessage("Could not find find user by username: '%s'".formatted(username));
         }
 
         // Compare the given password to the stored password
         Message passwordCheck = comparePassword(account.getPasswordHash(), password);
         if (passwordCheck.isSuccessful()) {
             // Cast the accountEntity to an AccountDTO object for transfer
-            return new AccountMessage(new AccountDTO(account), "Successfully logged in");
+            return new UserMessage(new UserDTO(account), "Successfully logged in");
         } else {
-            return new AccountMessage(passwordCheck.getMessage());
+            return new UserMessage(passwordCheck.getMessage());
         }
     }
 
@@ -103,18 +103,18 @@ public class AccountService {
      *
      * @param accountID the ID of the account
      */
-    public AccountMessage getAccount(int accountID) {
+    public UserMessage getAccount(int accountID) {
         // Get the account
-        AccountEntity account = accountRepository.findByAccountID(accountID);
+        UserEntity account = userRepository.findByAccountID(accountID);
 
         // If the account was found return the retrieved account
         if (account != null) {
             // Cast the accountEntity to an AccountDTO object for transfer
-            return new AccountMessage(new AccountDTO(account), "Account found");
+            return new UserMessage(new UserDTO(account), "Account found");
         }
         // Otherwise return the message
         else {
-            return new AccountMessage("Failed to find user by account ID: '%s' found".formatted(accountID));
+            return new UserMessage("Failed to find user by account ID: '%s' found".formatted(accountID));
         }
     }
 
@@ -123,18 +123,18 @@ public class AccountService {
      *
      * @param username the ID of the account
      */
-    public AccountMessage getAccount(String username) {
+    public UserMessage getAccount(String username) {
         // Get the account
-        AccountEntity account = accountRepository.findByUsername(username);
+        UserEntity account = userRepository.findByUsername(username);
 
         // If the account was found return the retrieved account
         if (account != null) {
             // Cast the accountEntity to an AccountDTO object for transfer
-            return new AccountMessage(new AccountDTO(account), "Account found");
+            return new UserMessage(new UserDTO(account), "Account found");
         }
         // Otherwise return the message
         else {
-            return new AccountMessage("Could not find find user by username: '%s'".formatted(username));
+            return new UserMessage("Could not find find user by username: '%s'".formatted(username));
         }
     }
 }

@@ -1,9 +1,9 @@
 package com.sintraqos.portfolioproject.Controllers;
 
-import com.sintraqos.portfolioproject.DTO.AccountDTO;
+import com.sintraqos.portfolioproject.DTO.UserDTO;
 import com.sintraqos.portfolioproject.DTO.GameDTO;
-import com.sintraqos.portfolioproject.Entities.AccountLibraryEntity;
-import com.sintraqos.portfolioproject.Repositories.AccountLibraryRepository;
+import com.sintraqos.portfolioproject.Entities.UserLibraryEntity;
+import com.sintraqos.portfolioproject.Repositories.UserLibraryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,20 +16,20 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/api/accountLibraries")
-public class AccountLibraryController {
+public class UserLibraryController {
 
     @Autowired
-    private AccountLibraryRepository accountLibraryRepository;
+    private UserLibraryRepository userLibraryRepository;
 
     /**
      * Add new game to library
      *
-     * @param accountDTO the new account to be added
+     * @param userDTO the new account to be added
      */
     @PostMapping("/api/accountLibraries/addGame")
-    public ResponseEntity<AccountLibraryEntity> addGame(@RequestBody AccountDTO accountDTO, GameDTO gameDTO) {
-        AccountLibraryEntity accountLibrary = new AccountLibraryEntity(accountDTO.getAccountID(), gameDTO);
-        AccountLibraryEntity savedAccount = accountLibraryRepository.save(accountLibrary);
+    public ResponseEntity<UserLibraryEntity> addGame(@RequestBody UserDTO userDTO, GameDTO gameDTO) {
+        UserLibraryEntity accountLibrary = new UserLibraryEntity(userDTO.getAccountID(), gameDTO);
+        UserLibraryEntity savedAccount = userLibraryRepository.save(accountLibrary);
 
         return ResponseEntity.ok(savedAccount);
     }

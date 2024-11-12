@@ -13,7 +13,7 @@ import java.sql.Date;
 @NoArgsConstructor
 @Entity
 @Table(name = "accountlibrary")
-public class AccountLibraryEntity {
+public class UserLibraryEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int libraryID;
@@ -33,7 +33,7 @@ public class AccountLibraryEntity {
     @Column(name = "gameLastPlayed", columnDefinition = "DATE")
     private Date gameLastPlayed;
 
-    public AccountLibraryEntity(int accountID, GameDTO gameDTO) {
+    public UserLibraryEntity(int accountID, GameDTO gameDTO) {
         this.accountID = accountID;
         this.gameID = gameDTO.getGameID();
         this.gamePlayTime = gameDTO.getGamePlayTime().getTotalMinutes();
@@ -41,12 +41,12 @@ public class AccountLibraryEntity {
         this.gameLastPlayed = (Date) gameDTO.getGameLastPlayed();
     }
 
-    public AccountLibraryEntity(int accountID, GameEntity gameDTO) {
+    public UserLibraryEntity(int accountID, GameEntity gameDTO) {
         this.accountID = accountID;
         this.gameID = gameDTO.getGameID();
     }
 
-    public AccountLibraryEntity(int accountID, int gameID) {
+    public UserLibraryEntity(int accountID, int gameID) {
         this.accountID = accountID;
         this.gameID = gameID;
     }
