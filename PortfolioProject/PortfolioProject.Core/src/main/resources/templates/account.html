@@ -13,10 +13,17 @@
 <!-- Get the user username and display it after the 'Account: '-->
 <h1>Account: <span th:text="${user.getUsername()}"></span></h1>
 <form th:action="@{/getAccount}" method="post">
-
-  <!-- Create Buttons -->
-  <div><button type="submit" name="action" value="Library" th:formaction="@{/library}">Game Library</button></div>
-  <div><button type="submit" name="action" value="Settings" th:formaction="@{/settings}">Settings</button></div>
+  <!-- Links for navigation to other pages -->
+  <div>
+    <a th:href="@{/library}">
+      <button type="button">Game Library</button>
+    </a>
+  </div>
+  <div>
+    <a th:href="@{/settings}">
+      <button type="button">Settings</button>
+    </a>
+  </div>
 
 </form>
 <!-- Separate Logout Form -->

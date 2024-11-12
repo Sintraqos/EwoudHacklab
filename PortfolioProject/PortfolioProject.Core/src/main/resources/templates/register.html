@@ -11,7 +11,7 @@
     You have been logged out.
   </div>
   <h1>Register</h1>
-    <form th:action="@{/registerAccount}" method="post">
+    <form th:action="@{/register}" method="post">
       <!-- Create Input fields -->
       <div><label> User Name : <input type="text" name="username"/> </label></div>
       <div><label> E-Mail Address: <input type="eMail" name="eMail"/> </label></div>
@@ -20,7 +20,7 @@
 
       <!-- Create Buttons -->
       <div><button type="submit" name="action" value="Register">Register</button></div>
-      <div><button type="submit" name="action" value="Cancel" th:formaction="@{/returnHome}">Cancel</button></div>
+      <div><button type="submit" name="action" value="Cancel" th:formaction="@{/home}">Cancel</button></div>
   </form>
 </body>
 </html>

@@ -43,4 +43,18 @@ public class UserDTO {
         this.password = account.getPasswordHash();
         this.accountLibrary = new UserLibraryDTO();
     }
+
+    /**
+     * Create a new AccountDTO object based on AccountEntity
+     *
+     * @param account the AccountEntity object retrieved from the database
+     * @param userLibrary the Library retrieved from the database
+     */
+    public UserDTO(UserEntity account, UserLibraryDTO userLibrary) {
+        this.accountID = account.getAccountID();
+        this.username = account.getUsername();
+        this.eMail = account.getEMail();
+        this.password = account.getPasswordHash();
+        this.accountLibrary = userLibrary;
+    }
 }

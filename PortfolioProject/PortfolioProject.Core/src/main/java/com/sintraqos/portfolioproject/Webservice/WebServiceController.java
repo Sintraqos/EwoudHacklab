@@ -1,9 +1,13 @@
 package com.sintraqos.portfolioproject.Webservice;
 
+import com.sintraqos.portfolioproject.DTO.GameDTO;
+import com.sintraqos.portfolioproject.DTO.UserLibraryDTO;
 import com.sintraqos.portfolioproject.Entities.UserEntity;
+import com.sintraqos.portfolioproject.Entities.UserLibraryEntity;
+import com.sintraqos.portfolioproject.Repositories.GameRepository;
+import com.sintraqos.portfolioproject.Repositories.UserLibraryRepository;
 import com.sintraqos.portfolioproject.Repositories.UserRepository;
 import com.sintraqos.portfolioproject.DTO.UserDTO;
-import com.sintraqos.portfolioproject.Statics.Console;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -16,12 +20,18 @@ import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.ArrayList;
+
 @Controller
 @RequestMapping("/")
 public class WebServiceController implements WebMvcConfigurer {
 
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private UserLibraryRepository userLibraryRepository;
+    @Autowired
+    private GameRepository gameRepository;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -39,7 +49,7 @@ public class WebServiceController implements WebMvcConfigurer {
         return "home";
     }
 
-    @PostMapping("/returnHome")
+    @PostMapping("/home")
     public String returnHome() {
         return "redirect:/home";
     }
@@ -51,7 +61,7 @@ public class WebServiceController implements WebMvcConfigurer {
         return "register";
     }
 
-    @PostMapping("/registerAccount")
+    @PostMapping("/register")
     public String handleRegister(
             @RequestParam(required = true, name = "username") String username,
             @RequestParam(required = true, name = "eMail") String eMail,
@@ -76,7 +86,7 @@ public class WebServiceController implements WebMvcConfigurer {
         user.setEnabled(true);
         userRepository.save(user);
 
-        model.addAttribute("message", "Registration successful!");
+        model.addAttribute("message", "Registration successful");
         return "login";  // Redirect to login page after successful registration
     }
 
@@ -94,18 +104,32 @@ public class WebServiceController implements WebMvcConfigurer {
     //region Account
 
     @GetMapping("/account")
-    public String getAccountPage(Model model) {
+    public String getAccountPage(Model model, HttpSession session, RedirectAttributes redirectAttributes) {
         // Get the currently authenticated user
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String username = authentication.getName(); // This is the logged-in username
+        if (authentication == null || !authentication.isAuthenticated()) {
+            redirectAttributes.addFlashAttribute("error", "You must be logged in to access your account.");
+        }
 
         // Fetch the complete UserEntity from the database using the username
-        UserEntity userEntity = userRepository.findByUsername(username);
+        UserEntity userEntity = userRepository.findByUsername(authentication.getName());
 
-        // Pass the username to the model to be used in the Thymeleaf template
-        model.addAttribute("user", userEntity);
+        // Create the library of the user
+        ArrayList<GameDTO> gameList = new ArrayList<>();
+        for (UserLibraryEntity userLibraryEntity : userLibraryRepository.findByAccountID(userEntity.getAccountID())) {
+            gameList.add(new GameDTO(userLibraryEntity, gameRepository.findByGameID(userLibraryEntity.getGameID())));
+        }
 
-        return "account";  // Return the account.html view
+        // Create a userDTO Object for storage and transfer
+        UserDTO userDTO = new UserDTO(userEntity, new UserLibraryDTO(gameList));
+
+        // Store the UserDTO in the session
+        session.setAttribute("userDTO", userDTO);
+
+        // Pass the created UserDTO to the model to be used on the page
+        model.addAttribute("user", userDTO);
+
+        return "account";
     }
 
     //endregion
@@ -113,7 +137,7 @@ public class WebServiceController implements WebMvcConfigurer {
     //region Settings
 
     @GetMapping("/settings")
-    public String getSettingsPage() {
+    public String getSettingsPage(Model model) {
         //TODO: Get current account information, request the information from the DB and fill it in inside the settings page
         return "settings";
     }
@@ -123,20 +147,8 @@ public class WebServiceController implements WebMvcConfigurer {
     //region Library
 
     @GetMapping("/library")
-    public String getLibraryPage(HttpSession session) {
-        //TODO: Get current account information, request the library from the DB and fill it in inside the library page
-        //AccountDTO accountDTO = (AccountDTO) session.getAttribute("account");
-
-//        // Retrieve the gameLibrary of the user
-//        AccountMessage accountMessage = accountManager.getGames(username);
-
-//        // Check if the account could not be found
-//        if (!accountMessage.isSuccessful()) {
-//            // Redirect to home
-//            return "redirect:/home";
-//        }
-//
-//        model.addAttribute("account", accountMessage);
+    public String getLibraryPage(@SessionAttribute("userDTO") UserDTO userDTO, Model model) {
+        model.addAttribute("user", userDTO);
         return "library";
     }
 

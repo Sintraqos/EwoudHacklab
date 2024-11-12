@@ -54,6 +54,17 @@ public class GameDTO {
         this.gamePlayTime = new Time();
     }
 
+    public GameDTO(UserLibraryEntity libraryEntity, GameEntity gameEntity) {
+        this.gameID = libraryEntity.getGameID();
+        this.gameName = gameEntity.getGameName();
+        this.gameDescription = gameEntity.getGameDescription();
+        this.gameDeveloper = gameEntity.getGameDeveloper();
+        this.gamePublisher = gameEntity.getGamePublisher();
+        this.gameAcquired = libraryEntity.getGameAcquired();
+        this.gameLastPlayed = libraryEntity.getGameLastPlayed();
+        this.gamePlayTime = new Time(libraryEntity.getGamePlayTime());
+    }
+
     @Override
     public String toString(){
         return "%s: %s - %s".formatted(gameID, gameName, gamePlayTime);
