@@ -6,28 +6,29 @@ import com.sintraqos.portfolioproject.Messages.Message;
 import com.sintraqos.portfolioproject.Repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.security.Principal;
 import java.util.List;
 
 /**
  * Account Controller, use for communication between application and database
  */
 @RestController
-@RequestMapping("/api/accounts")
+@RequestMapping("/api/users")
 public class UserController {
-    @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    public UserController(UserRepository userRepository)    {
+        this.userRepository = userRepository;
+    }
 
     /**
      * Create new account
      *
      * @param userDTO the new account to be added
      */
-    @PostMapping("/api/accounts/createAccount")
+    @PostMapping("/api/users/register")
     public ResponseEntity<UserEntity> createAccount(@RequestBody UserDTO userDTO) {
         UserEntity account = new UserEntity(userDTO);
         UserEntity savedAccount = userRepository.save(account);
@@ -39,7 +40,7 @@ public class UserController {
      *
      * @param userDTO the account to be removed
      */
-    @DeleteMapping("/api/accounts/deleteAccount")
+    @DeleteMapping("/api/users/remove")
     public Message deleteAccount(@RequestBody UserDTO userDTO) {
 
         // Check if the account exists

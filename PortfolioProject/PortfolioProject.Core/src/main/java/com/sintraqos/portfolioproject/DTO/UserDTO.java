@@ -13,7 +13,7 @@ public class UserDTO {
     private String username;
     private String eMail;
     private String password;
-    private UserLibraryDTO accountLibrary;
+    private UserLibraryDTO userLibrary;
 
     public UserDTO() {
     }
@@ -28,7 +28,7 @@ public class UserDTO {
         this.username = user.getUsername();
         this.eMail = user.getEMail();
         this.password = user.getPassword();
-        this.accountLibrary = new UserLibraryDTO(user.getUserLibrary());
+        this.userLibrary = new UserLibraryDTO(user.getUserLibrary());
     }
 
     /**
@@ -41,7 +41,7 @@ public class UserDTO {
         this.username = account.getUsername();
         this.eMail = account.getEMail();
         this.password = account.getPasswordHash();
-        this.accountLibrary = new UserLibraryDTO();
+        this.userLibrary = new UserLibraryDTO();
     }
 
     /**
@@ -55,6 +55,6 @@ public class UserDTO {
         this.username = account.getUsername();
         this.eMail = account.getEMail();
         this.password = account.getPasswordHash();
-        this.accountLibrary = userLibrary;
+        this.userLibrary = userLibrary;
     }
 }

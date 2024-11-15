@@ -34,17 +34,6 @@ public class GameDTO {
         this.gamePlayTime = game.getGamePlayTime();
     }
 
-    public GameDTO(UserLibraryEntity libraryEntity, GameDTO gameDTO) {
-        this.gameID = libraryEntity.getGameID();
-        this.gameName = gameDTO.getGameName();
-        this.gameDescription = gameDTO.getGameDescription();
-        this.gameDeveloper = gameDTO.getGameDeveloper();
-        this.gamePublisher = gameDTO.getGamePublisher();
-        this.gameAcquired = libraryEntity.getGameAcquired();
-        this.gameLastPlayed = libraryEntity.getGameLastPlayed();
-        this.gamePlayTime = new Time(libraryEntity.getGamePlayTime());
-    }
-
     public GameDTO(GameEntity game) {
         this.gameID = game.getGameID();
         this.gameName = game.getGameName();

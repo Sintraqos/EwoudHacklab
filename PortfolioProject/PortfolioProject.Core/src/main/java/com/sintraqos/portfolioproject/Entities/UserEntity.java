@@ -37,12 +37,6 @@ public class UserEntity implements UserDetails{
     private boolean isCredentialsNonExpired;
     private boolean isEnabled;
 
-    public UserEntity(String username, String password) {
-        this.username = username;
-        this.eMail = eMail;
-        this.passwordHash = password;
-    }
-
     public UserEntity(String username, String eMail, String password) {
         this.username = username;
         this.eMail = eMail;

@@ -3,22 +3,29 @@
 <head>
   <title>Login</title>
 </head>
-  <body>
-    <div th:if="${param.error}">
-      <span style="color:red;" th:text="${param.error}"></span>
-    </div>
-    <div th:if="${param.logout}">
-      You have been logged out.
-    </div>
-    <h1>Login</h1>
-    <form th:action="@{/login}" method="post">
-      <!-- Create Input fields -->
-      <div><label> User Name : <input type="text" name="username"/> </label></div>
-      <div><label> Password: <input type="password" name="password"/> </label></div>
+<body>
+<div th:if="${param.error}">
+  <span style="color:red;" th:text="${param.error}"></span>
+</div>
+<div th:if="${param.logout}">
+  You have been logged out.
+</div>
 
-      <!-- Create Button -->
-      <div><button type="submit" name="action" value="Login">Login</button></div>
-      <div><button type="submit" name="action" value="Cancel" th:formaction="@{/home}">Cancel</button></div>
-    </form>
-  </body>
+<h1>Login</h1>
+<form th:action="@{/login}" method="post">
+  <!-- Create Input fields -->
+  <div><label> User Name : <input type="text" name="username"/> </label></div>
+  <div><label> Password: <input type="password" name="password"/> </label></div>
+
+  <!-- Create Login Button -->
+  <div><button type="submit" name="action" value="Login">Login</button></div>
+</form>
+
+<!-- Return to Home -->
+<div>
+  <a href="/home">
+    <button type="button">Return</button>
+  </a>
+</div>
+</body>
 </html>

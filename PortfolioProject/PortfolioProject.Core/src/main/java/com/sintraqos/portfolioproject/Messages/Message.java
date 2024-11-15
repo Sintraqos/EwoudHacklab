@@ -2,8 +2,6 @@ package com.sintraqos.portfolioproject.Messages;
 
 import lombok.Getter;
 
-import java.util.ArrayList;
-
 /**
  * Use for returning multiple variables at once instead of a singular one
  */

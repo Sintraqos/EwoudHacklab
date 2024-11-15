@@ -31,7 +31,7 @@ public class User {
         this.username = userDTO.getUsername();
         this.eMail = userDTO.getEMail();
         this.password = userDTO.getPassword();
-        this.userLibrary = new UserLibrary(userDTO.getAccountLibrary());
+        this.userLibrary = new UserLibrary(userDTO.getUserLibrary());
     }
 
     /**
@@ -44,6 +44,18 @@ public class User {
         this.username = userEntity.getUsername();
         this.eMail = userEntity.getEMail();
         this.password = userEntity.getPasswordHash();
+    }
+    /**
+     * Create a new account object from an Entity object
+     *
+     * @param userEntity the incoming Entity object
+     */
+    public User(UserEntity userEntity, UserLibrary userLibrary){
+        this.accountID = userEntity.getAccountID();
+        this.username = userEntity.getUsername();
+        this.eMail = userEntity.getEMail();
+        this.password = userEntity.getPasswordHash();
+        this.userLibrary = userLibrary;
     }
 
     /**

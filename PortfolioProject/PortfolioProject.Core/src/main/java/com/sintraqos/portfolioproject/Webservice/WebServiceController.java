@@ -1,14 +1,9 @@
 package com.sintraqos.portfolioproject.Webservice;
 
-import com.sintraqos.portfolioproject.DTO.GameDTO;
-import com.sintraqos.portfolioproject.DTO.UserLibraryDTO;
-import com.sintraqos.portfolioproject.Entities.UserEntity;
-import com.sintraqos.portfolioproject.Entities.UserLibraryEntity;
-import com.sintraqos.portfolioproject.Repositories.GameRepository;
-import com.sintraqos.portfolioproject.Repositories.UserLibraryRepository;
-import com.sintraqos.portfolioproject.Repositories.UserRepository;
-import com.sintraqos.portfolioproject.DTO.UserDTO;
-import jakarta.servlet.http.HttpSession;
+import com.sintraqos.portfolioproject.Messages.Message;
+import com.sintraqos.portfolioproject.Messages.UserMessage;
+import com.sintraqos.portfolioproject.User.User;
+import com.sintraqos.portfolioproject.User.UserManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -19,22 +14,22 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
-import java.util.ArrayList;
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/")
 public class WebServiceController implements WebMvcConfigurer {
 
-    @Autowired
-    private UserRepository userRepository;
-    @Autowired
-    private UserLibraryRepository userLibraryRepository;
-    @Autowired
-    private GameRepository gameRepository;
+    private UserManager userManager;
+   private PasswordEncoder passwordEncoder;
 
     @Autowired
-    private PasswordEncoder passwordEncoder;
+    public WebServiceController(UserManager userManager, PasswordEncoder passwordEncoder)
+    {
+        this.userManager = userManager;
+        this.passwordEncoder = passwordEncoder;
+    }
+
 
     public void addViewControllers(ViewControllerRegistry registry) {
         // Home page
@@ -44,9 +39,9 @@ public class WebServiceController implements WebMvcConfigurer {
         registry.addViewController("/login").setViewName("login");
     }
 
-    @GetMapping("/")
-    public String getHomePage() {
-        return "home";
+    @GetMapping({"/", "/home"})
+    public String getHome() {
+        return "home"; // Render the home page
     }
 
     @PostMapping("/home")
@@ -69,7 +64,7 @@ public class WebServiceController implements WebMvcConfigurer {
             @RequestParam(required = true, name = "passwordConfirm") String passwordConfirm,
             Model model) {
 
-        // Validate password
+        // Check if passwords match
         if (!password.equals(passwordConfirm)) {
             model.addAttribute("error", "Passwords do not match!");
             return "register";
@@ -78,13 +73,8 @@ public class WebServiceController implements WebMvcConfigurer {
         // Hash the password
         String passwordHash = passwordEncoder.encode(password);
 
-        // Create and save the new user
-        UserEntity user = new UserEntity(username, eMail, passwordHash);
-        user.setAccountNonExpired(true);
-        user.setAccountNonLocked(true);
-        user.setCredentialsNonExpired(true);
-        user.setEnabled(true);
-        userRepository.save(user);
+        // Go to the userManager to save the account
+        userManager.createAccount(username, eMail, passwordHash);
 
         model.addAttribute("message", "Registration successful");
         return "login";  // Redirect to login page after successful registration
@@ -99,8 +89,6 @@ public class WebServiceController implements WebMvcConfigurer {
         return "login";
     }
 
-    
-
     //endregion
 
     //region Account
@@ -113,23 +101,18 @@ public class WebServiceController implements WebMvcConfigurer {
             redirectAttributes.addFlashAttribute("error", "You must be logged in to access your account.");
         }
 
-        // Fetch the complete UserEntity from the database using the username
-        UserEntity userEntity = userRepository.findByUsername(authentication.getName());
-
-        // Create the library of the user
-        ArrayList<GameDTO> gameList = new ArrayList<>();
-        for (UserLibraryEntity userLibraryEntity : userLibraryRepository.findByAccountID(userEntity.getAccountID())) {
-            gameList.add(new GameDTO(userLibraryEntity, gameRepository.findByGameID(userLibraryEntity.getGameID())));
+        assert authentication != null;
+        UserMessage userMessage = userManager.getAccount(authentication.getName());
+        if (!userMessage.isSuccessful()) {
+            model.addAttribute("error", userMessage.getMessage());
+            return "account";
         }
 
-        // Create a userDTO Object for storage and transfer
-        UserDTO userDTO = new UserDTO(userEntity, new UserLibraryDTO(gameList));
-
-        // Store the UserDTO in the session
-        session.setAttribute("userDTO", userDTO);
+        // Store the User in the session
+        session.setAttribute("userObject", userMessage.getAccount());
 
         // Pass the created UserDTO to the model to be used on the page
-        model.addAttribute("user", userDTO);
+        model.addAttribute("user", userMessage.getAccount());
 
         return "account";
     }
@@ -139,8 +122,8 @@ public class WebServiceController implements WebMvcConfigurer {
     //region Settings
 
     @GetMapping("/settings")
-    public String getSettingsPage(Model model) {
-        //TODO: Get current account information, request the information from the DB and fill it in inside the settings page
+    public String getSettingsPage(@SessionAttribute("userObject") User user, Model model) {
+        model.addAttribute("user", user);
         return "settings";
     }
 
@@ -149,9 +132,44 @@ public class WebServiceController implements WebMvcConfigurer {
     //region Library
 
     @GetMapping("/library")
-    public String getLibraryPage(@SessionAttribute("userDTO") UserDTO userDTO, Model model) {
-        model.addAttribute("user", userDTO);
+    public String getLibraryPage(@SessionAttribute("userObject") User user, Model model) {
+        model.addAttribute("user", user);
         return "library";
+    }
+
+    @GetMapping("/library/addGame")
+    public String searchGameById(
+            @SessionAttribute("userObject") User user,
+            @RequestParam("gameID") String gameID,
+            RedirectAttributes redirectAttributes,
+            HttpSession session) {
+        // Check if the gameID is a valid numeric value
+        try {
+            int parsedGameID = Integer.parseInt(gameID); // Try to convert the string to an integer
+
+            // Try to add the game to the given user
+            Message addGame = userManager.addGame(user, parsedGameID);
+
+            // Add the game to the model if found
+            if (!addGame.isSuccessful()) {
+                redirectAttributes.addAttribute("error", addGame.getMessage());
+            }
+
+            // Since we updated the account we need to get it again from the database
+            UserMessage userMessage = userManager.getAccount(user.getUsername());
+            if (!userMessage.isSuccessful()) {
+                redirectAttributes.addAttribute("error", userMessage.getMessage());
+                return "redirect:/library";
+            }
+
+            session.setAttribute("userObject", userMessage.getAccount());
+
+        } catch (NumberFormatException e) {
+            // If the conversion fails, the gameID is not a valid number
+            redirectAttributes.addAttribute("error", "Value is not numeric!"); // Error message
+        }
+
+        return "redirect:/library";
     }
 
     //endregion

@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import java.sql.Date;
+import java.time.LocalDate;
 
 /**
  * Account Library Entity Object, use for creating new Database Tables, and for storing the data from the database
@@ -28,10 +29,18 @@ public class UserLibraryEntity {
     private int gamePlayTime;
 
     @Column(name = "gameAquired", columnDefinition = "DATE")
+    @Temporal(TemporalType.DATE)
     private Date gameAcquired;
 
     @Column(name = "gameLastPlayed", columnDefinition = "DATE")
     private Date gameLastPlayed;
+
+    @PrePersist
+    public void prePersist() {
+        if (gameAcquired == null) {
+            gameAcquired = Date.valueOf(LocalDate.now());
+        }
+    }
 
     public UserLibraryEntity(int accountID, GameDTO gameDTO) {
         this.accountID = accountID;
@@ -39,11 +48,6 @@ public class UserLibraryEntity {
         this.gamePlayTime = gameDTO.getGamePlayTime().getTotalMinutes();
         this.gameAcquired = (Date) gameDTO.getGameAcquired();
         this.gameLastPlayed = (Date) gameDTO.getGameLastPlayed();
-    }
-
-    public UserLibraryEntity(int accountID, GameEntity gameDTO) {
-        this.accountID = accountID;
-        this.gameID = gameDTO.getGameID();
     }
 
     public UserLibraryEntity(int accountID, int gameID) {

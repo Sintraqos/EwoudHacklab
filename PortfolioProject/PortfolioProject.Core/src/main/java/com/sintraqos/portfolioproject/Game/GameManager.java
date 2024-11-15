@@ -19,8 +19,12 @@ public class GameManager {
 
     private final ArrayList<Game> gameLibrary = new ArrayList<>();
 
-    @Autowired
     private GameService gameService;
+
+    @Autowired
+    public GameManager(GameService gameService){
+        this.gameService = gameService;
+    }
 
     /**
      * Create a new Game object using a base from the game list

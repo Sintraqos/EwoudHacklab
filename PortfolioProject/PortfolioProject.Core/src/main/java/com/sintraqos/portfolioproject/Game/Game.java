@@ -1,6 +1,7 @@
 package com.sintraqos.portfolioproject.Game;
 
 import com.sintraqos.portfolioproject.DTO.GameDTO;
+import com.sintraqos.portfolioproject.Entities.GameEntity;
 import com.sintraqos.portfolioproject.Entities.UserLibraryEntity;
 import com.sintraqos.portfolioproject.Statics.Time;
 import lombok.Getter;
@@ -57,6 +58,17 @@ public class Game {
         this.gamePlayTime = new Time(libraryEntity.getGamePlayTime());
     }
 
+    public Game(UserLibraryEntity libraryEntity, GameEntity game) {
+        this.gameID = libraryEntity.getGameID();
+        this.gameName = game.getGameName();
+        this.gameDescription = game.getGameDescription();
+        this.gameDeveloper = game.getGameDeveloper();
+        this.gamePublisher = game.getGamePublisher();
+        this.gameAcquired = libraryEntity.getGameAcquired();
+        this.gameLastPlayed = libraryEntity.getGameLastPlayed();
+        this.gamePlayTime = new Time(libraryEntity.getGamePlayTime());
+    }
+
     /**
      * Create a new Game object from incoming data from a database for example
      *
@@ -71,15 +83,5 @@ public class Game {
         this.gameDescription = gameDescription;
         this.gameDeveloper = gameDeveloper;
         this.gamePublisher = gamePublisher;
-    }
-
-    /**
-     * Add specified game time to this Game object
-     *
-     * @param gamePlayTime how much time there should be added to the current game time
-     */
-    public void addGameTime(Time gamePlayTime) {
-        //gameLastPlayed = LocalDateTime.now();
-        this.gamePlayTime.addTime(gamePlayTime);
     }
 }

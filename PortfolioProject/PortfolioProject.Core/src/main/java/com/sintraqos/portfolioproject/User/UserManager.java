@@ -25,12 +25,16 @@ public class UserManager {
     // Local storage of online accounts
     private final ArrayList<User> onlineUsers = new ArrayList<>();
 
+    private final UserService userService;
+    private final UserLibraryService userLibraryService;
+    private final GameManager gameManager;
+
     @Autowired
-    private UserService accountService;
-    @Autowired
-    private UserLibraryService userLibraryService;
-    @Autowired
-    private GameManager gameManager;
+    public UserManager(UserService userService, UserLibraryService userLibraryService, GameManager gameManager) {
+        this.userService = userService;
+        this.userLibraryService = userLibraryService;
+        this.gameManager = gameManager;
+    }
 
     /**
      * Create a new user
@@ -40,8 +44,9 @@ public class UserManager {
      * @param password the password of the new user
      */
     public Message createAccount(String username, String eMail, String password) {
+
         //Create new user
-        UserMessage message = accountService.createAccount(username, eMail, password);
+        UserMessage message = userService.createAccount(username, eMail, password);
         if (!message.isSuccessful()) {
             return new Message("Failed to create user with username: '%s', reason: '%s'".formatted(username, message.getMessage()));
         } else {
@@ -50,13 +55,13 @@ public class UserManager {
     }
 
     /**
-     * Create an user
+     * Create a user
      *
      * @param username the name of the user
      * @param password the password of the user
      */
     public Message deleteAccount(String username, String password) {
-        Message message = accountService.deleteAccount(username, password);
+        Message message = userService.deleteAccount(username, password);
 
         if (message.isSuccessful()) {
             return message;
@@ -78,7 +83,7 @@ public class UserManager {
             return new UserMessage("Failed to login with username: '%s', Reason: 'Account already online'".formatted(username));
         }
 
-        UserMessage message = accountService.loginAccount(username, password);
+        UserMessage message = userService.loginAccount(username, password);
 
         if (message.isSuccessful()) {
             // Add the user to the online list
@@ -103,7 +108,7 @@ public class UserManager {
         }
 
         // Update the library, then remove the user from the onlineAccounts list
-        updateLibrary(user.getAccountID());
+        updateLibrary(user.getUsername());
         onlineUsers.remove(user);
 
         return new Message("Successfully logged out user: '%s'".formatted(username));
@@ -112,9 +117,9 @@ public class UserManager {
     /**
      * Log in to user
      *
-     * @param accountID the user to update the library of
+     * @param username the user to update the library of
      */
-    public void updateLibrary(int accountID) {
+    public void updateLibrary(String username) {
         //AccountModel.getInstance().updateLibrary(accountID);
     }
 
@@ -132,41 +137,15 @@ public class UserManager {
     }
 
     /**
-     * Get user by ID
-     *
-     * @param accountID the ID of the user
-     */
-    public User getOnlineAccount(int accountID) {
-        return onlineUsers.stream()
-                .filter(user -> user.getAccountID() == accountID)
-                .findFirst().orElse(null);
-    }
-
-    /**
      * Get user using the username
      *
      * @param username the username of the user
      */
     public UserMessage getAccount(String username) {
-        UserMessage message = accountService.getAccount(username);
+        UserMessage message = userService.getAccount(username);
 
         if (!message.isSuccessful()) {
             return new UserMessage("Failed to retrieve user with username: '%s', reason: '%s'".formatted(username, message.getMessage()));
-        }
-
-        return message;
-    }
-
-    /**
-     * Get user using the ID
-     *
-     * @param accountID the ID of the user
-     */
-    public UserMessage getAccount(int accountID) {
-        UserMessage message = accountService.getAccount(accountID);
-
-        if (!message.isSuccessful()) {
-            return new UserMessage("Failed to retrieve user with ID: '%s', reason: '%s'".formatted(accountID, message.getMessage()));
         }
 
         return message;
@@ -193,6 +172,18 @@ public class UserManager {
     }
 
     /**
+     * Add a game using an ID
+     *
+     * @param user the user to add the game to
+     * @param gameID   the ID of the game
+     */
+    public Message addGame(User user, int gameID) {
+        UserLibraryEntityMessage libraryMessage = userLibraryService.addGame(user.getAccountID(), gameID);
+
+        return libraryMessage;
+    }
+
+    /**
      * Get a game using an ID
      *
      * @param username the name of the user
@@ -208,20 +199,6 @@ public class UserManager {
 
         return libraryMessage;
     }
-//
-//    /**
-//     * Get all games from user
-//     *
-//     * @param username the name of the user
-//     */
-//    public AccountMessage getGames(String username) {
-//        AccountMessage message = setAccount(username);
-//        if (!message.isSuccessful()) {
-//            return message;
-//        }
-//
-//        return new AccountMessage(message.getAccount(),"");
-//    }
 
     /**
      * Get all information from the given user

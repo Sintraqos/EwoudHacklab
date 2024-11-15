@@ -16,8 +16,12 @@ import java.util.List;
 @RequestMapping("/api/games")
 public class GameController {
 
+    private GameRepository gameRepository;
+
     @Autowired
-private GameRepository gameRepository;
+    public GameController(GameRepository gameRepository){
+        this.gameRepository = gameRepository;
+    }
 
     /**
      * Add a new game

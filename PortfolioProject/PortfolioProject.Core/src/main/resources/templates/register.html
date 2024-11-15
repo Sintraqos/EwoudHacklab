@@ -7,9 +7,6 @@
   <div th:if="${param.error}">
     <span style="color:red;" th:text="${param.error}"></span>
   </div>
-  <div th:if="${param.logout}">
-    You have been logged out.
-  </div>
   <h1>Register</h1>
     <form th:action="@{/register}" method="post">
       <!-- Create Input fields -->
@@ -20,7 +17,12 @@
 
       <!-- Create Buttons -->
       <div><button type="submit" name="action" value="Register">Register</button></div>
-      <div><button type="submit" name="action" value="Cancel" th:formaction="@{/home}">Cancel</button></div>
   </form>
+  <!-- Return to Home -->
+  <div>
+    <a href="/home">
+      <button type="button">Return</button>
+    </a>
+  </div>
 </body>
 </html>

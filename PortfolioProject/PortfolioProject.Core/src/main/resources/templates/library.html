@@ -4,6 +4,9 @@
   <title>Library</title>
 </head>
 <body>
+<div th:if="${param.error}">
+  <span style="color:red;" th:text="${param.error}"></span>
+</div>
 
 <h1>User Library</h1>
 
@@ -20,8 +23,8 @@
   </tr>
   </thead>
   <tbody>
-  <!-- Loop through the gameLibrary in the UserLibraryDTO object -->
-  <tr th:each="game : ${user.getAccountLibrary().getGameLibrary()}">
+  <!-- Loop through the gameLibrary in the User object -->
+  <tr th:each="game : ${user.getUserLibrary().getGameLibrary()}">
     <td th:text="${game.gameName}">Game Name</td>
     <td th:text="${game.gameDeveloper}">Developer</td>
     <td th:text="${game.gamePublisher}">Publisher</td>
@@ -31,9 +34,19 @@
   </tr>
   </tbody>
 </table>
+
+<!-- Add for a game by its ID -->
+<h3>Add a Game using its ID</h3>
+<form th:action="@{/library/addGame}" method="get">
+  <label for="gameID">Game ID:</label>
+  <input type="text" id="gameID" name="gameID" placeholder="Enter Game ID" required/>
+  <button type="submit">Add Game</button>
+</form>
+
 <!-- The form now submits a GET request to the account page -->
 <form th:action="@{/library}" method="get">
   <div><a href="#" th:href="@{/account}"><button type="button">Cancel</button></a></div>
 </form>
+
 </body>
 </html>

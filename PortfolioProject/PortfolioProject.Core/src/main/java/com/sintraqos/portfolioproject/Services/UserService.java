@@ -1,21 +1,28 @@
 package com.sintraqos.portfolioproject.Services;
 
-import com.sintraqos.portfolioproject.DTO.UserDTO;
-import com.sintraqos.portfolioproject.Messages.UserMessage;
-import com.sintraqos.portfolioproject.Messages.Message;
-import com.sintraqos.portfolioproject.Repositories.UserRepository;
-import com.sintraqos.portfolioproject.Entities.UserEntity;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.sintraqos.portfolioproject.DTO.*;
+import com.sintraqos.portfolioproject.Entities.*;
+import com.sintraqos.portfolioproject.Messages.*;
+import com.sintraqos.portfolioproject.Repositories.*;
+import org.springframework.security.core.userdetails.*;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
-public class UserService {
+public class UserService  implements UserDetailsService {
 
     @Autowired
     private UserRepository userRepository;
     @Autowired
     private UserLibraryService userLibraryService;
+    @Autowired
+    private UserLibraryRepository userLibraryRepository;
+    @Autowired
+    private GameRepository gameRepository;
 
     /**
      * Create a new account
@@ -30,10 +37,16 @@ public class UserService {
             return new UserMessage("Account with username: '%s' already exists".formatted(username));
         }
 
-        // Save the account inside the database
-        UserEntity account = userRepository.save(new UserEntity(username, eMail, password));
+        // Create and save the new user
+        UserEntity user = new UserEntity(username, eMail, password);
+        user.setAccountNonExpired(true);
+        user.setAccountNonLocked(true);
+        user.setCredentialsNonExpired(true);
+        user.setEnabled(true);
+        userRepository.save(user);
+
         // Cast the accountEntity to an AccountDTO object for transfer
-        return new UserMessage(new UserDTO(account), "Created new account: '%s'".formatted(username));
+        return new UserMessage(new UserDTO(user), "Created new account: '%s'".formatted(username));
     }
 
     /**
@@ -125,16 +138,24 @@ public class UserService {
      */
     public UserMessage getAccount(String username) {
         // Get the account
-        UserEntity account = userRepository.findByUsername(username);
+        UserEntity userEntity = userRepository.findByUsername(username);
 
-        // If the account was found return the retrieved account
-        if (account != null) {
-            // Cast the accountEntity to an AccountDTO object for transfer
-            return new UserMessage(new UserDTO(account), "Account found");
+        // Create the library of the user
+        ArrayList<GameDTO> gameList = new ArrayList<>();
+        for (UserLibraryEntity userLibraryEntity : userLibraryRepository.findByAccountID(userEntity.getAccountID())) {
+            gameList.add(new GameDTO(userLibraryEntity, gameRepository.findByGameID(userLibraryEntity.getGameID())));
         }
-        // Otherwise return the message
-        else {
-            return new UserMessage("Could not find find user by username: '%s'".formatted(username));
+
+        return new UserMessage(new UserDTO(userEntity,new UserLibraryDTO(gameList)), "Account found");
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        UserEntity userEntity = userRepository.findByUsername(username);
+        if (userEntity == null) {
+            throw new UsernameNotFoundException("User not found: " + username);
         }
+
+        return new User(userEntity.getUsername(), userEntity.getPasswordHash(), List.of());
     }
 }
