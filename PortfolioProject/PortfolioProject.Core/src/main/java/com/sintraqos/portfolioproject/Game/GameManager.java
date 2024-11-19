@@ -17,9 +17,7 @@ import java.util.ArrayList;
 @Component
 public class GameManager {
 
-    private final ArrayList<Game> gameLibrary = new ArrayList<>();
-
-    private GameService gameService;
+    private final GameService gameService;
 
     @Autowired
     public GameManager(GameService gameService){
@@ -32,8 +30,8 @@ public class GameManager {
      * @param gameID the name of the game we're looking for
      * @return the game from the library, if it isn't in the list returns null
      */
-    public GameDTO getGame(int gameID) {
-        return new GameDTO(gameService.getGame(gameID).getEntity());
+    public GameEntityMessage getGame(int gameID) {
+        return gameService.getGame(gameID);
     }
 
     /**
@@ -47,13 +45,7 @@ public class GameManager {
         GameEntityMessage message = gameService.addGame(new GameDTO(game));
         if (!message.isSuccessful()) {
             return new Message("Failed to add game with name: '%s', reason: '%s'".formatted(game.getGameName(), message.getMessage()));
-        } else {
-            gameLibrary.add(game);
-            return message;
         }
-    }
-
-    public ArrayList<Game> getGameLibrary() {
-        return new ArrayList<>();
+            return message;
     }
 }

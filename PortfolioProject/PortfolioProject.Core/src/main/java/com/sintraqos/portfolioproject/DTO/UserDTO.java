@@ -9,14 +9,11 @@ import lombok.Getter;
  */
 @Getter
 public class UserDTO {
-    private int accountID = -1; // Default value for check if the database needs to assign a new ID
-    private String username;
-    private String eMail;
-    private String password;
-    private UserLibraryDTO userLibrary;
-
-    public UserDTO() {
-    }
+    private final int accountID;
+    private final String username;
+    private final String eMail;
+    private final String password;
+    private final UserLibraryDTO userLibrary;
 
     /**
      * Create a new AccountDTO object based on Account

@@ -43,12 +43,12 @@ public class UserManager {
      * @param eMail    the e-Mail address of the new user
      * @param password the password of the new user
      */
-    public Message createAccount(String username, String eMail, String password) {
+    public UserMessage createAccount(String username, String eMail, String password) {
 
         //Create new user
         UserMessage message = userService.createAccount(username, eMail, password);
         if (!message.isSuccessful()) {
-            return new Message("Failed to create user with username: '%s', reason: '%s'".formatted(username, message.getMessage()));
+            return new UserMessage("Failed to create user with username: '%s', reason: '%s'".formatted(username, message.getMessage()));
         } else {
             return message;
         }
@@ -151,6 +151,21 @@ public class UserManager {
         return message;
     }
 
+    /**
+     * Get user using the username
+     *
+     * @param accountID the ID of the user
+     */
+    public UserMessage getAccount(int accountID) {
+        UserMessage message = userService.getAccount(accountID);
+
+        if (!message.isSuccessful()) {
+            return new UserMessage("Failed to retrieve user with ID: '%s', reason: '%s'".formatted(accountID, message.getMessage()));
+        }
+
+        return message;
+    }
+
     //endregion
 
     /**
@@ -241,7 +256,7 @@ public class UserManager {
         List<UserLibraryEntity> entityList = userLibraryService.getLibrary(message.getAccount().getAccountID());
         ArrayList<Game> games = new ArrayList<>();
         for (UserLibraryEntity entity : entityList) {
-            games.add(new Game(entity, gameManager.getGame(entity.getGameID())));
+            games.add(new Game(entity, gameManager.getGame(entity.getGameID()).getEntity()));
         }
 
         User user = new User(message.getAccount());

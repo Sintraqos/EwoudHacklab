@@ -13,14 +13,14 @@ import java.util.Date;
  */
 @Getter
 public class GameDTO {
-    private int gameID;
-    private String gameName;
-    private String gameDescription;
-    private String gameDeveloper;
-    private String gamePublisher;
+    private final int gameID;
+    private final String gameName;
+    private final String gameDescription;
+    private final String gameDeveloper;
+    private final String gamePublisher;
     private Date gameAcquired;
     private Date gameLastPlayed;
-    private Time gamePlayTime;
+    private final Time gamePlayTime;
 
     public GameDTO(Game game)
     {
