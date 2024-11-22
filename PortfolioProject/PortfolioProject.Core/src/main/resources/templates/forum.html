@@ -4,12 +4,16 @@
   <title>Forum</title>
 </head>
 <body>
+
+<!-- Display an error message if exists -->
 <div th:if="${param.error}">
   <span style="color:red;" th:text="${param.error}"></span>
 </div>
-<h1>Forum</h1>
 
-<!-- Display a list of forum posts -->
+<!-- Display the Game Name -->
+<h1>Game: <span th:text="${game.getGameName()}"></span></h1>
+
+<!-- Display the list of forum posts -->
 <table>
   <thead>
   <tr>
@@ -17,13 +21,25 @@
   </tr>
   </thead>
   <tbody>
-  <!-- Loop through the forumPosts passed from the controller -->
   <tr th:each="forumPost : ${forumPosts}">
     <td th:text="${forumPost.getAccountUsername()} + ': ' + ${forumPost.getMessage()}"></td>
   </tr>
   </tbody>
 </table>
 
+<!-- Input form for posting a new message -->
+<h3>Post a New Message</h3>
+<form th:action="@{/forum/addPost}" method="get">
+  <!-- Hidden fields to pass accountID and gameID -->
+  <input type="hidden" th:value="${game.gameID}" name="gameID"/>
+
+  <label for="message">Message:</label>
+  <textarea id="message" name="message" placeholder="Write your message here" required></textarea>
+
+  <button type="submit">Post Message</button>
+</form>
+
+<!-- Back button -->
 <div>
   <a href="#" th:href="@{/account}">
     <button type="button">Back to Account</button>

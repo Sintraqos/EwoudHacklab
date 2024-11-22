@@ -27,7 +27,6 @@ public class ForumPostEntity {
     private String message;
 
     public ForumPostEntity(int accountID, int gameID, String message) {
-        this.forumPostID = forumPostID;
         this.accountID = accountID;
         this.gameID = gameID;
         this.message = message;

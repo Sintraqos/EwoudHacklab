@@ -1,5 +1,7 @@
 package com.sintraqos.portfolioproject.Webservice;
 
+import com.sintraqos.portfolioproject.API.Review.GameReviewAPI;
+import com.sintraqos.portfolioproject.API.Review.GameReviewObject;
 import com.sintraqos.portfolioproject.DTO.ForumPostDTO;
 import com.sintraqos.portfolioproject.Entities.ForumPostEntity;
 import com.sintraqos.portfolioproject.ForumPost.ForumPostManager;
@@ -19,6 +21,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import jakarta.servlet.http.HttpSession;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Controller
@@ -29,14 +32,26 @@ public class WebServiceController implements WebMvcConfigurer {
     private final PasswordEncoder passwordEncoder;
     private final ForumPostManager forumPostManager;
     private final GameManager gameManager;
+    private final GameReviewAPI gameReviewAPI;
 
     @Autowired
-    public WebServiceController(UserManager userManager, PasswordEncoder passwordEncoder, ForumPostManager forumPostManager, GameManager gameManager) {
+    public WebServiceController(
+            UserManager userManager,
+            PasswordEncoder passwordEncoder,
+            ForumPostManager forumPostManager,
+            GameManager gameManager,
+            GameReviewAPI gameReviewAPI
+            ) {
         this.userManager = userManager;
         this.passwordEncoder = passwordEncoder;
         this.forumPostManager = forumPostManager;
         this.gameManager = gameManager;
+        this.gameReviewAPI = gameReviewAPI;
     }
+
+    //region Home
+
+    int gameReviewScore = 8;
 
     /**
      * Get the homePage URL, use for loading in the default page
@@ -44,7 +59,16 @@ public class WebServiceController implements WebMvcConfigurer {
      * @return the homePage
      */
     @GetMapping({"/", "/home"})
-    public String getHome() {
+    public String getHome(Model model) {
+        List<String> textList = Arrays.asList("Text 1", "Text 2", "Text 3", "Text 4");
+        List<String> textList = new ArrayList<>();
+        List<GameReviewObject> gameReviewObjects = gameReviewAPI.getReviewObjectsFromScore(gameReviewScore);
+        for (GameReviewObject gameReviewObject : gameReviewObjects){
+
+        }
+        
+        model.addAttribute("textList", textList); // Pass the list to the template
+
         return "home"; // Render the home page
     }
 
@@ -54,9 +78,14 @@ public class WebServiceController implements WebMvcConfigurer {
      * @return the homePage
      */
     @PostMapping("/home")
-    public String returnHome() {
+    public String returnHome(Model model) {
+        List<String> textList = Arrays.asList("Text 1", "Text 2", "Text 3", "Text 4");
+        model.addAttribute("textList", textList); // Pass the list to the template
+
         return "redirect:/home";
     }
+
+    //endregion
 
     //region Register
 
@@ -72,13 +101,13 @@ public class WebServiceController implements WebMvcConfigurer {
 
     /**
      * Get the registerPage URL, use for registering a new account
-     * @param username the username of the new account
-     * @param eMail the eMail of the new account
-     * @param password the password of the new account
-     * @param passwordConfirm the passwordConfirm is used to compare with the password
-     * @param model use for adding variables which the page can read out
-     * @param redirectAttributes use for adding variables when redirecting, IE: error messages
      *
+     * @param username           the username of the new account
+     * @param eMail              the eMail of the new account
+     * @param password           the password of the new account
+     * @param passwordConfirm    the passwordConfirm is used to compare with the password
+     * @param model              use for adding variables which the page can read out
+     * @param redirectAttributes use for adding variables when redirecting, IE: error messages
      * @return the registerPage
      */
     @PostMapping("/register")
@@ -131,10 +160,9 @@ public class WebServiceController implements WebMvcConfigurer {
     /**
      * Get the accountPage URL, use for displaying an account
      *
-     * @param model use for adding variables which the page can read out
-     * @param session use for storing variables to store whilst the session is active
+     * @param model              use for adding variables which the page can read out
+     * @param session            use for storing variables to store whilst the session is active
      * @param redirectAttributes use for adding variables when redirecting, IE: error messages
-     *
      * @return the accountPage
      */
     @GetMapping("/account")
@@ -168,9 +196,8 @@ public class WebServiceController implements WebMvcConfigurer {
     /**
      * Get the settingsPage URL, use for displaying account settings
      *
-     * @param user the user object
+     * @param user  the user object
      * @param model use for adding variables which the page can read out
-     *
      * @return the settingsPage
      */
     @GetMapping("/settings")
@@ -186,9 +213,8 @@ public class WebServiceController implements WebMvcConfigurer {
     /**
      * Get the libraryPage URL, use for displaying account library
      *
-     * @param user the user object
+     * @param user  the user object
      * @param model use for adding variables which the page can read out
-     *
      * @return the libraryPage
      */
     @GetMapping("/library")
@@ -200,11 +226,10 @@ public class WebServiceController implements WebMvcConfigurer {
     /**
      * Get the library addGame page URL, use for displaying adding a new game to the account library
      *
-     * @param user the user object
-     * @param gameID the game ID to add to the library
+     * @param user               the user object
+     * @param gameID             the game ID to add to the library
      * @param redirectAttributes use for adding variables when redirecting, IE: error messages
-     * @param session use for storing variables to store whilst the session is active
-     *
+     * @param session            use for storing variables to store whilst the session is active
      * @return the libraryPage
      */
     @GetMapping("/library/addGame")
@@ -247,40 +272,80 @@ public class WebServiceController implements WebMvcConfigurer {
     /**
      * Get the forumPage URL, use for displaying the forum page of the given game
      *
-     * @param user the user object
-     * @param forumPosts the list of forumPosts
+     * @param user       the user object
      *
      * @return the forumPage
      */
     @GetMapping("/forum")
     public String getForumPage(
+            @RequestParam("gameID") String gameID,  // Retrieve gameID from the query parameter
             @SessionAttribute("userObject") User user,
-            @SessionAttribute("forumObject") List<ForumPostDTO> forumPosts,
-            Model model) {
-        model.addAttribute("user", user);
-        model.addAttribute("forumPosts", forumPosts);
-        return "forum";
+            @SessionAttribute("forumObject") Object forumPosts, // Since spring doersn't like it if the sessionAttribute consists of a list cast it as an object
+            Model model,
+            RedirectAttributes redirectAttributes) {
+        try {
+            // Check if the forumPosts consists of a list
+            List<ForumPostDTO> posts = new ArrayList<>();
+            if (forumPosts instanceof List) {
+            posts = (List<ForumPostDTO>) forumPosts;
+        }
+            else {
+                redirectAttributes.addAttribute("error", "Invalid format");
+                return "redirect:/account";  // If error occurs, redirect to account page
+            }
+            // Convert the gameID to an integer
+            int parsedGameID = Integer.parseInt(gameID);
+
+            // Retrieve the game details using the gameID
+            GameEntityMessage gameMessage = gameManager.getGame(parsedGameID);
+            if (!gameMessage.isSuccessful()) {
+                redirectAttributes.addAttribute("error", gameMessage.getMessage());
+                return "redirect:/account";  // If error occurs, redirect to account page
+            }
+
+            // Add the game to the model, so it can be accessed in the Thymeleaf template
+            model.addAttribute("game", gameMessage.getEntity());
+
+            // Add the forum posts to the mode
+            model.addAttribute("forumPosts", posts);
+            model.addAttribute("user", user);
+
+        } catch (NumberFormatException e) {
+            redirectAttributes.addAttribute("error", "Invalid game ID.");
+            return "redirect:/account";  // If gameID is invalid, redirect to account page
+        }
+
+        return "forum";  // Return the Thymeleaf template for the forum page
     }
 
     /**
      * Get the forumPage URL, use for displaying the forum page of the given game
      *
-     * @param gameID the list of forumPosts
+     * @param gameID             the list of forumPosts
      * @param redirectAttributes use for adding variables when redirecting, IE: error messages
-     * @param session use for storing variables to store whilst the session is active
-     *
+     * @param session            use for storing variables to store whilst the session is active
      * @return the forumPage
      */
     @GetMapping("/forum/getForumPosts_Game")
     public String getForumPosts_Game(
             @RequestParam("gameID") String gameID,
             RedirectAttributes redirectAttributes,
-            HttpSession session) {
+            HttpSession session,
+            Model model) {
 
         // Check if the gameID is a valid numeric value
         try {
             // Try to convert the string to an integer
             int parsedGameID = Integer.parseInt(gameID);
+
+            // Add the Game to the model
+            GameEntityMessage getGameMessage = gameManager.getGame(parsedGameID);
+            if (!getGameMessage.isSuccessful()) {
+                redirectAttributes.addAttribute("error", getGameMessage.getMessage());
+                return "redirect:/account";
+            }
+
+            model.addAttribute("game", getGameMessage.getEntity());
 
             // Get all the posts from the given gameID
             ForumPostMessage addForumPost = forumPostManager.getForumPosts_Game(parsedGameID);
@@ -291,31 +356,32 @@ public class WebServiceController implements WebMvcConfigurer {
 
             // Convert the retrieved list to the DTO format
             List<ForumPostDTO> forumPosts = new ArrayList<>();
-            for(ForumPostEntity forumPostEntity :addForumPost.getForumPostEntities()){
+            for (ForumPostEntity forumPostEntity : addForumPost.getForumPostEntities()) {
 
                 // Try to retrieve the User
                 UserMessage userMessage = userManager.getAccount(forumPostEntity.getAccountID());
-                if(!userMessage.isSuccessful()){
+                if (!userMessage.isSuccessful()) {
                     redirectAttributes.addAttribute("error", userMessage.getMessage()); // Error message
                     return "redirect:/account";
                 }
 
                 // Try to retrieve the Game
                 GameEntityMessage gameMessage = gameManager.getGame(forumPostEntity.getGameID());
-                if(!gameMessage.isSuccessful()){
+                if (!gameMessage.isSuccessful()) {
                     redirectAttributes.addAttribute("error", gameMessage.getMessage()); // Error message
                     return "redirect:/account";
                 }
+                redirectAttributes.addAttribute("game", gameMessage.getEntity()); // Error message
 
                 // Create new ForumPostDTO Object
                 ForumPostDTO forumPost = new ForumPostDTO
                         (
-                            forumPostEntity.getForumPostID(),       // Forum Post ID
-                            forumPostEntity.getAccountID(),         // Account ID
-                            userMessage.getAccount().getUsername(), // Account Username
-                            forumPostEntity.getGameID(),            // Game ID
-                            gameMessage.getEntity().getGameName() , // Game Name
-                            forumPostEntity.getMessage()            // Forum Post Message
+                                forumPostEntity.getForumPostID(),       // Forum Post ID
+                                forumPostEntity.getAccountID(),         // Account ID
+                                userMessage.getAccount().getUsername(), // Account Username
+                                forumPostEntity.getGameID(),            // Game ID
+                                gameMessage.getEntity().getGameName(), // Game Name
+                                forumPostEntity.getMessage()            // Forum Post Message
                         );
 
                 // Add the new ForumPost to the list
@@ -324,39 +390,34 @@ public class WebServiceController implements WebMvcConfigurer {
 
             // Update the user in the session
             session.setAttribute("forumObject", forumPosts);
-            System.out.println("Forum posts added to session: " + addForumPost.getForumPostEntities().size());  // Debug line
-
         } catch (NumberFormatException e) {
             // If the conversion fails, the gameID is not a valid number
             redirectAttributes.addAttribute("error", "Value is not numeric!"); // Error message
             return "redirect:/account";
         }
 
-        return "redirect:/forum";
+        return "redirect:/forum?gameID=" + gameID;  // Retain gameID in the redirect
     }
 
     /**
      * Get the forumPage URL, use for displaying the forum page of the given account
      *
-     * @param accountID the accountID
+     * @param user               the stored user inside the session
      * @param redirectAttributes use for adding variables when redirecting, IE: error messages
-     * @param session use for storing variables to store whilst the session is active
-     *
+     * @param session            use for storing variables to store whilst the session is active
      * @return the forumPage
      */
     @GetMapping("/forum/getForumPosts_Account")
     public String getForumPosts_Account(
-            @RequestParam("accountID") String accountID,
+            @SessionAttribute("userObject") User user,
             RedirectAttributes redirectAttributes,
             HttpSession session) {
 
         // Check if the gameID is a valid numeric value
         try {
-            // Try to convert the string to an integer
-            int parsedAccountID = Integer.parseInt(accountID);
 
             // Get all the posts from the given accountID
-            ForumPostMessage addForumPost = forumPostManager.getForumPosts_Account(parsedAccountID);
+            ForumPostMessage addForumPost = forumPostManager.getForumPosts_Account(user.getAccountID());
             if (!addForumPost.isSuccessful()) {
                 redirectAttributes.addAttribute("error", addForumPost.getMessage());
                 return "redirect:/account";
@@ -374,6 +435,36 @@ public class WebServiceController implements WebMvcConfigurer {
         }
 
         return "redirect:/forum";
+    }
+
+    /**
+     * Get the forumPage URL, use for posting a new forum message to the forum itself
+     */
+    @GetMapping("/forum/addPost")
+    public String addForumPost(
+            @SessionAttribute("userObject") User user,
+            @RequestParam("gameID") String gameID,
+            @RequestParam("message") String message,
+            RedirectAttributes redirectAttributes,
+            HttpSession session
+    ) {
+        try {
+            // Convert the accountID and gameID to integers
+            int parsedGameID = Integer.parseInt(gameID);
+
+            // Add the forum post to the database
+            Message addForumPost = forumPostManager.addForumPost(user.getAccountID(), parsedGameID, message);
+            if (!addForumPost.isSuccessful()) {
+                redirectAttributes.addAttribute("error", addForumPost.getMessage());
+                return "redirect:/forum/getForumPosts_Game?gameID=" + gameID;  // Retain gameID in the redirect to reload the forum page
+            }
+        } catch (NumberFormatException e) {
+            redirectAttributes.addAttribute("error", "Value is not numeric!");
+            return "redirect:/forum?gameID=" + gameID;  // Retain gameID in the redirect
+        }
+
+        // After posting the message to the forum, redirect back to the forum with the gameID
+        return "redirect:/forum/getForumPosts_Game?gameID=" + gameID;
     }
 
     //endregion

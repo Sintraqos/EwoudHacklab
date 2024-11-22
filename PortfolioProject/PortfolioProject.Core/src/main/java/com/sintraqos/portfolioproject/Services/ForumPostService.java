@@ -49,7 +49,7 @@ public class ForumPostService {
         ForumPostEntity forumPostEntity = new ForumPostEntity(forumPostDTO.getAccountID(), forumPostDTO.getGameID(), forumPostDTO.getMessage());
         forumPostRepository.save(forumPostEntity);
 
-        return new Message("Added new message: '%s'".formatted(forumPostDTO.getMessage()));
+        return new Message(true, "Added new message: '%s'".formatted(forumPostDTO.getMessage()));
     }
 
     /**

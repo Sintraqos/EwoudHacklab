@@ -8,15 +8,29 @@ import lombok.Getter;
 @Getter
 public class ForumPostDTO {
 
-    private final int forumPostID;
+    private int forumPostID;
 
     private final int accountID;
-    private final String accountUsername;
+    private String accountUsername;
 
     private final int gameID;
-    private final String gameName;
+    private String gameName;
 
     private final String message;
+
+    /**
+     * Create new DTO
+     *
+     * @param accountID the ID of the account
+     * @param gameID the ID of the game
+     * @param message the message the user left
+     */
+    public ForumPostDTO(int accountID,int gameID, String message) {
+        this.accountID = accountID;
+        this.gameID = gameID;
+        this.message = message;
+    }
+
 
     /**
      * Create new DTO
