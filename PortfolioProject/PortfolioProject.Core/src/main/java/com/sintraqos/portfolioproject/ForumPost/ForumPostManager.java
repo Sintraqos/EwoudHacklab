@@ -8,6 +8,8 @@ import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.sql.Timestamp;
+
 /**
  * Use for user input handling for all forumPost related scripts
  */
@@ -30,7 +32,7 @@ public class ForumPostManager {
         return forumPostService.getForumPosts_Account(accountID);
     }
 
-    public Message addForumPost(int accountID, int gameID, String message) {
-        return forumPostService.addForumPost(new ForumPostDTO(accountID,gameID,message));
+    public Message addForumPost(int accountID, int gameID, String message, Timestamp postDate ) {
+        return forumPostService.addForumPost(new ForumPostDTO(accountID,gameID,message,postDate));
     }
 }

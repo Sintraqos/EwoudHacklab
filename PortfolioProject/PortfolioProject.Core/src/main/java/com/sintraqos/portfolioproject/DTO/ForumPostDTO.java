@@ -2,6 +2,8 @@ package com.sintraqos.portfolioproject.DTO;
 
 import lombok.Getter;
 
+import java.sql.Timestamp;
+
 /**
  * Forum Post DTO, use for transfer of message data
  */
@@ -17,6 +19,7 @@ public class ForumPostDTO {
     private String gameName;
 
     private final String message;
+    private Timestamp postDate;
 
     /**
      * Create new DTO
@@ -25,10 +28,11 @@ public class ForumPostDTO {
      * @param gameID the ID of the game
      * @param message the message the user left
      */
-    public ForumPostDTO(int accountID,int gameID, String message) {
+    public ForumPostDTO(int accountID,int gameID, String message, Timestamp postDate) {
         this.accountID = accountID;
         this.gameID = gameID;
         this.message = message;
+        this.postDate = postDate;
     }
 
 
@@ -49,6 +53,16 @@ public class ForumPostDTO {
         this.gameID = gameID;
         this.gameName = gameName;
         this.message = message;
+    }
+
+    public ForumPostDTO(int forumPostID, int accountID, String username, int gameID, String gameName, String message, Timestamp postDate) {
+        this.forumPostID = forumPostID;
+        this.accountID = accountID;
+        this.accountUsername = accountUsername;
+        this.gameID = gameID;
+        this.gameName = gameName;
+        this.message = message;
+        this.postDate = postDate;
     }
 
     @Override

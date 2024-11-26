@@ -26,10 +26,13 @@
       <button type="button">Settings</button>
     </a>
   </div>
-  <!-- Logout Button -->
-  <div>
-    <button type="submit">Logout</button>
-  </div>
+</form>
+
+<!-- Logout Button -->
+<form th:action="@{/logout}" method="post">
+<div>
+  <button type="submit">Logout</button>
+</div>
 </form>
 
 <!-- Form to navigate to the forum page of a specific game -->
@@ -40,6 +43,5 @@
     <button type="submit">Go to Forum</button>
   </div>
 </form>
-
 </body>
 </html>

@@ -281,11 +281,10 @@ public class WebServiceController implements WebMvcConfigurer {
             RedirectAttributes redirectAttributes) {
         try {
             // Check if the forumPosts consists of a list
-            List<ForumPostDTO> posts = new ArrayList<>();
+            List<ForumPostDTO> posts;
             if (forumPosts instanceof List) {
-            posts = (List<ForumPostDTO>) forumPosts;
-        }
-            else {
+                posts = (List<ForumPostDTO>) forumPosts;
+            } else {
                 redirectAttributes.addAttribute("error", "Invalid format");
                 return "redirect:/account";  // If error occurs, redirect to account page
             }
@@ -377,7 +376,8 @@ public class WebServiceController implements WebMvcConfigurer {
                                 userMessage.getAccount().getUsername(), // Account Username
                                 forumPostEntity.getGameID(),            // Game ID
                                 gameMessage.getEntity().getGameName(), // Game Name
-                                forumPostEntity.getMessage()            // Forum Post Message
+                                forumPostEntity.getMessage(),            // Forum Post Message
+                                forumPostEntity.getPostDate()
                         );
 
                 // Add the new ForumPost to the list

@@ -1,3 +1,2 @@
-[11:32] - Finished initializing Spring-Boot
-[11:32] - #################################
-[11:32] - Reached account page
+[11:52] - Finished initializing Spring-Boot
+[11:52] - #################################

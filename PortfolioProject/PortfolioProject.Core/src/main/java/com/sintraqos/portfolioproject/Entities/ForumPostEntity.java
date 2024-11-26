@@ -4,6 +4,9 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+
 /**
  * Message Entity Object, use for creating new Database Tables, and for storing the data from the database
  */
@@ -25,6 +28,17 @@ public class ForumPostEntity {
 
     @Column(nullable = false, length = 1024)
     private String message;
+
+    @Column(name = "postDate", columnDefinition = "TIMESTAMP")
+//    @Temporal(TemporalType.DATE)
+    private Timestamp postDate;
+
+    @PrePersist
+    public void prePersist() {
+        if (postDate == null) {
+            postDate = Timestamp.valueOf(LocalDateTime.now());
+        }
+    }
 
     public ForumPostEntity(int accountID, int gameID, String message) {
         this.accountID = accountID;
