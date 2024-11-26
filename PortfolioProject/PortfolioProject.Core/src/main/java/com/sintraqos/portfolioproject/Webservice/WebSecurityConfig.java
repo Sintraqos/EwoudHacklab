@@ -1,10 +1,6 @@
 package com.sintraqos.portfolioproject.Webservice;
 
-import com.sintraqos.portfolioproject.API.Review.GameReviewAPI;
-import com.sintraqos.portfolioproject.ForumPost.ForumPostManager;
-import com.sintraqos.portfolioproject.Game.GameManager;
 import com.sintraqos.portfolioproject.Services.UserService;
-import com.sintraqos.portfolioproject.User.UserManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,6 +10,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 
 @Configuration
 @EnableWebSecurity
@@ -36,12 +33,21 @@ public class WebSecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
+                .csrf(csrf -> csrf
+//                        .ignoringRequestMatchers("/api/**") // Disable CSRF for API endpoints
+                        .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
+                )
                 .authorizeRequests(requests -> requests
                         .requestMatchers("/", "/home", "/login", "/register", "/error")
                         .permitAll()
                         .requestMatchers("/account", "/settings", "/library", "/forum")
                         .authenticated()
                         .anyRequest().authenticated()
+
+
+//                        .requestMatchers("/", "/home", "/login", "/register", "/error","/account", "/settings", "/library", "/forum")
+//                        .permitAll()
+//                        .anyRequest().authenticated()
                 )
                 .formLogin(formLogin -> formLogin
                         .loginPage("/login")
@@ -53,9 +59,10 @@ public class WebSecurityConfig {
                         .logoutUrl("/logout")         // Logout URL
                         .logoutSuccessUrl("/home")    // Redirect after logout
                         .invalidateHttpSession(true)  // Invalidate session on logout
-                        .deleteCookies("JSESSIONID")  // Clean up session cookies
+                       .deleteCookies("JSESSIONID")  // Clean up session cookies
                 )
                 .sessionManagement(session -> session
+//                        .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
                         .maximumSessions(1)           // Limit to 1 active session per user
                         .expiredUrl("/sessionExpired")  // Redirect to session expired page
                 );
