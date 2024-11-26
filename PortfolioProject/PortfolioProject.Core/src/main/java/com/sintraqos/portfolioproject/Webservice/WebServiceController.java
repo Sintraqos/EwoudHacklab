@@ -60,14 +60,8 @@ public class WebServiceController implements WebMvcConfigurer {
      */
     @GetMapping({"/", "/home"})
     public String getHome(Model model) {
-        List<String> textList = Arrays.asList("Text 1", "Text 2", "Text 3", "Text 4");
-        List<String> textList = new ArrayList<>();
-        List<GameReviewObject> gameReviewObjects = gameReviewAPI.getReviewObjectsFromScore(gameReviewScore);
-        for (GameReviewObject gameReviewObject : gameReviewObjects){
-
-        }
-        
-        model.addAttribute("textList", textList); // Pass the list to the template
+        List<GameReviewObject> gameReviewObjects = gameReviewAPI.getReviewObjectsFromScore(8);
+        model.addAttribute("reviewList", gameReviewObjects); // Pass the list to the template
 
         return "home"; // Render the home page
     }
@@ -79,8 +73,8 @@ public class WebServiceController implements WebMvcConfigurer {
      */
     @PostMapping("/home")
     public String returnHome(Model model) {
-        List<String> textList = Arrays.asList("Text 1", "Text 2", "Text 3", "Text 4");
-        model.addAttribute("textList", textList); // Pass the list to the template
+//        List<GameReviewObject> gameReviewObjects = gameReviewAPI.getReviewObjectsFromScore(8);
+//        model.addAttribute("reviewList", gameReviewObjects); // Pass the list to the template
 
         return "redirect:/home";
     }
@@ -171,13 +165,15 @@ public class WebServiceController implements WebMvcConfigurer {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || !authentication.isAuthenticated()) {
             redirectAttributes.addFlashAttribute("error", "You must be logged in to access your account.");
+            Console.writeLine("You must be logged in to access your account.");
+            return "redirect:/login";
         }
 
-        assert authentication != null;
         UserMessage userMessage = userManager.getAccount(authentication.getName());
         if (!userMessage.isSuccessful()) {
-            model.addAttribute("error", userMessage.getMessage());
-            return "account";
+            redirectAttributes.addFlashAttribute("error", userMessage.getMessage());
+            Console.writeLine(userMessage.getMessage());
+            return "redirect:/login";
         }
 
         // Store the User in the session
