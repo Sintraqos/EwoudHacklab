@@ -30,7 +30,6 @@ public class ForumPostEntity {
     private String message;
 
     @Column(name = "postDate", columnDefinition = "TIMESTAMP")
-//    @Temporal(TemporalType.DATE)
     private Timestamp postDate;
 
     @PrePersist

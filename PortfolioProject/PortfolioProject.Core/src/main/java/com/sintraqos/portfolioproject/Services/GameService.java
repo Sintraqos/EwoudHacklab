@@ -42,7 +42,7 @@ public class GameService {
         }
         // Otherwise return the message
         else {
-            return new GameEntityMessage("Failed to find game by game ID: '%s' found".formatted(gameID));
+            return new GameEntityMessage("Failed to find game by game ID: '%s'".formatted(gameID));
         }
     }
 
@@ -61,7 +61,7 @@ public class GameService {
         }
         // Otherwise return the message
         else {
-            return new GameEntityMessage("Failed to find game by name: '%s' found".formatted(gameName));
+            return new GameEntityMessage("Failed to find game by name: '%s'".formatted(gameName));
         }
     }
 }

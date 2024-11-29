@@ -1,35 +1,30 @@
 package com.sintraqos.portfolioproject.ForumPost;
 
-import java.sql.Date;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+
+@Getter
+@AllArgsConstructor
 public class ForumPost {
 
     private final int forumPostID;
     private final int accountID;
+    private final String username;
     private final int gameID;
     private final String message;
-    private Date messageDate;
-
-    public ForumPost(int forumPostID, int accountID, int gameID, String message) {
-        this.forumPostID = forumPostID;
-        this.accountID = accountID;
-        this.gameID = gameID;
-        this.message = message;
-    }
-
-    public ForumPost(int forumPostID, int accountID, int gameID, String message, Date messageDate) {
-        this.forumPostID = forumPostID;
-        this.accountID = accountID;
-        this.gameID = gameID;
-        this.message = message;
-    }
+    private Timestamp postDate;
 
     @Override
     public String toString() {
+        // Return the string as: '[DD-MM-YYYY - HH:MM] Username: Message'
+        return "[%s] %s: %s".formatted(getTimestamp(), username, message);
+    }
 
-        //TODO: Set the date and time in format of: [DD-MM-YYYY - HH:MM] - Username: 'Message'
-
-
-        return "[%s - %s - %s]: %s".formatted(forumPostID, accountID, gameID, message);
+    public String getTimestamp() {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy - HH:mm");
+        return sdf.format(postDate);
     }
 }

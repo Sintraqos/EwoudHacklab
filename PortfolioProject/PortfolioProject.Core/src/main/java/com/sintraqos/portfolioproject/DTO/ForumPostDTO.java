@@ -3,6 +3,7 @@ package com.sintraqos.portfolioproject.DTO;
 import lombok.Getter;
 
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 
 /**
  * Forum Post DTO, use for transfer of message data
@@ -13,7 +14,7 @@ public class ForumPostDTO {
     private int forumPostID;
 
     private final int accountID;
-    private String accountUsername;
+    private String username;
 
     private final int gameID;
     private String gameName;
@@ -28,37 +29,47 @@ public class ForumPostDTO {
      * @param gameID the ID of the game
      * @param message the message the user left
      */
-    public ForumPostDTO(int accountID,int gameID, String message, Timestamp postDate) {
+    public ForumPostDTO(int accountID,int gameID, String message) {
         this.accountID = accountID;
         this.gameID = gameID;
         this.message = message;
         this.postDate = postDate;
     }
 
+    /**
+     * Create new DTO
+     *
+     * @param forumPostID the ID of the forumPost
+     * @param accountID the ID of the account
+     * @param username the username of the account
+     * @param gameID the ID of the game
+     * @param gameName the name of the game
+     * @param message the message the user left
+     */
+    public ForumPostDTO(int forumPostID, int accountID,String username, int gameID,String gameName, String message) {
+        this.forumPostID = forumPostID;
+        this.accountID = accountID;
+        this.username = username;
+        this.gameID = gameID;
+        this.gameName = gameName;
+        this.message = message;
+    }
 
     /**
      * Create new DTO
      *
      * @param forumPostID the ID of the forumPost
      * @param accountID the ID of the account
-     * @param accountUsername the username of the account
+     * @param username the username of the account
      * @param gameID the ID of the game
      * @param gameName the name of the game
      * @param message the message the user left
+     * @param postDate the date and time of the message
      */
-    public ForumPostDTO(int forumPostID, int accountID,String accountUsername, int gameID,String gameName, String message) {
-        this.forumPostID = forumPostID;
-        this.accountID = accountID;
-        this.accountUsername = accountUsername;
-        this.gameID = gameID;
-        this.gameName = gameName;
-        this.message = message;
-    }
-
     public ForumPostDTO(int forumPostID, int accountID, String username, int gameID, String gameName, String message, Timestamp postDate) {
         this.forumPostID = forumPostID;
         this.accountID = accountID;
-        this.accountUsername = accountUsername;
+        this.username = username;
         this.gameID = gameID;
         this.gameName = gameName;
         this.message = message;
@@ -67,6 +78,12 @@ public class ForumPostDTO {
 
     @Override
     public String toString() {
-        return "[%s - %s - %s]: %s".formatted(forumPostID, accountID, gameID, message);
+        // Return the string as: '[DD-MM-YYYY - HH:MM] Username: Message'
+        return "[%s] %s: %s".formatted(getTimestamp(), username, message);
+    }
+
+    public String getTimestamp() {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy - HH:mm");
+        return sdf.format(postDate);
     }
 }

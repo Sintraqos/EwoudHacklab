@@ -17,12 +17,12 @@
 <table>
   <thead>
   <tr>
-    <th>Forum Post</th>
+    <th>Message Count: <span th:text="${forumPosts.size()}"></span></th>
   </tr>
   </thead>
   <tbody>
   <tr th:each="forumPost : ${forumPosts}">
-    <td th:text="${forumPost.getAccountUsername()} + ': ' + ${forumPost.getMessage()}"></td>
+    <td th:text="'[' + ${forumPost.timestamp} + '] ' + ${forumPost.username} + ': ' + ${forumPost.message}"></td>
   </tr>
   </tbody>
 </table>

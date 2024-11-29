@@ -9,6 +9,8 @@ import com.sintraqos.portfolioproject.Game.GameManager;
 import com.sintraqos.portfolioproject.Messages.*;
 import com.sintraqos.portfolioproject.Statics.Console;
 import com.sintraqos.portfolioproject.User.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -23,6 +25,10 @@ import jakarta.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
+import java.util.stream.IntStream;
+
+import net.datafaker.Faker;
 
 @Controller
 @RequestMapping("/")
@@ -41,12 +47,15 @@ public class WebServiceController implements WebMvcConfigurer {
             ForumPostManager forumPostManager,
             GameManager gameManager,
             GameReviewAPI gameReviewAPI
-            ) {
+    ) {
         this.userManager = userManager;
         this.passwordEncoder = passwordEncoder;
         this.forumPostManager = forumPostManager;
         this.gameManager = gameManager;
         this.gameReviewAPI = gameReviewAPI;
+
+
+        TESTRegister();
     }
 
     //region Home
@@ -131,6 +140,53 @@ public class WebServiceController implements WebMvcConfigurer {
         }
         model.addAttribute("message", "Registration successful");
         return "login";  // Redirect to login page after successful registration
+    }
+
+    int newAccounts = 10;
+    int newMessages = 75;
+    boolean createAccounts = false, addMessages = false;
+
+    void TESTRegister() {
+        Faker faker = new Faker();
+        // Create random test accounts
+        if (createAccounts) {
+            for (int i = 0; i < newAccounts; i++) {
+
+                Random random = new Random();
+                String userName = switch (random.nextInt(5)) {
+                    case 0 -> faker.worldOfWarcraft().hero();
+                    case 1 -> faker.elderScrolls().firstName();
+                    case 2 -> faker.massEffect().character();
+                    case 3 -> faker.harryPotter().character();
+                    default -> faker.fallout().character();
+                };
+                String eMail = userName + "@eMail.com";
+                String passwordHash = passwordEncoder.encode(userName + "password");
+
+                UserMessage userMessage = userManager.createAccount(userName, eMail, passwordHash);
+            }
+        }
+
+        // Create random test messages
+        if (addMessages) {
+            IntStream.range(0, newMessages)  // Range from 0 to 9
+                    .parallel()   // Enables parallelism
+                    .forEach(i -> {
+                        Random random = new Random();
+                        String message = switch (random.nextInt(5)) {
+                            case 0 -> faker.worldOfWarcraft().quotes();
+                            case 1 -> faker.elderScrolls().quote();
+                            case 2 -> faker.massEffect().quote();
+                            case 3 -> faker.harryPotter().quote();
+                            default -> faker.fallout().quote();
+                        };
+
+                        Message forumPostMessage = forumPostManager.addForumPost(random.nextInt(111), random.nextInt(51), message);
+                        if (!forumPostMessage.isSuccessful()) {
+                            Console.writeLine(forumPostMessage.getMessage());
+                        }
+                    });
+        }
     }
 
     //endregion
@@ -268,34 +324,27 @@ public class WebServiceController implements WebMvcConfigurer {
     /**
      * Get the forumPage URL, use for displaying the forum page of the given game
      *
-     * @param user       the user object
-     *
+     * @param user the user object
      * @return the forumPage
      */
     @GetMapping("/forum")
     public String getForumPage(
             @RequestParam("gameID") String gameID,  // Retrieve gameID from the query parameter
             @SessionAttribute("userObject") User user,
-            @SessionAttribute("forumObject") Object forumPosts, // Since spring doersn't like it if the sessionAttribute consists of a list cast it as an object
+            @SessionAttribute("forumObject") ForumPostContainer forumPosts, // Since spring doesn't like it if the sessionAttribute consists of a list cast it as an object
             Model model,
             RedirectAttributes redirectAttributes) {
         try {
             // Check if the forumPosts consists of a list
-            List<ForumPostDTO> posts;
-            if (forumPosts instanceof List) {
-                posts = (List<ForumPostDTO>) forumPosts;
-            } else {
-                redirectAttributes.addAttribute("error", "Invalid format");
-                return "redirect:/account";  // If error occurs, redirect to account page
-            }
+            List<ForumPostDTO> posts = forumPosts.forumPosts;
+
             // Convert the gameID to an integer
             int parsedGameID = Integer.parseInt(gameID);
 
             // Retrieve the game details using the gameID
-            GameEntityMessage gameMessage = gameManager.getGame(parsedGameID);
+            GameEntityMessage gameMessage = getGame(parsedGameID, redirectAttributes);
             if (!gameMessage.isSuccessful()) {
-                redirectAttributes.addAttribute("error", gameMessage.getMessage());
-                return "redirect:/account";  // If error occurs, redirect to account page
+                return "redirect:/account";
             }
 
             // Add the game to the model, so it can be accessed in the Thymeleaf template
@@ -340,6 +389,7 @@ public class WebServiceController implements WebMvcConfigurer {
                 return "redirect:/account";
             }
 
+            // Add the current game to the model so we can gather all it's information from it
             model.addAttribute("game", getGameMessage.getEntity());
 
             // Get all the posts from the given gameID
@@ -361,31 +411,30 @@ public class WebServiceController implements WebMvcConfigurer {
                 }
 
                 // Try to retrieve the Game
-                GameEntityMessage gameMessage = gameManager.getGame(forumPostEntity.getGameID());
+                GameEntityMessage gameMessage = getGame(forumPostEntity.getGameID(), redirectAttributes);
                 if (!gameMessage.isSuccessful()) {
-                    redirectAttributes.addAttribute("error", gameMessage.getMessage()); // Error message
                     return "redirect:/account";
                 }
+
                 redirectAttributes.addAttribute("game", gameMessage.getEntity()); // Error message
 
                 // Create new ForumPostDTO Object
-                ForumPostDTO forumPost = new ForumPostDTO
-                        (
-                                forumPostEntity.getForumPostID(),       // Forum Post ID
-                                forumPostEntity.getAccountID(),         // Account ID
-                                userMessage.getAccount().getUsername(), // Account Username
-                                forumPostEntity.getGameID(),            // Game ID
-                                gameMessage.getEntity().getGameName(), // Game Name
-                                forumPostEntity.getMessage(),            // Forum Post Message
-                                forumPostEntity.getPostDate()
-                        );
+                ForumPostDTO forumPost = new ForumPostDTO(
+                        forumPostEntity.getForumPostID(),       // Forum Post ID
+                        forumPostEntity.getAccountID(),         // Account ID
+                        userMessage.getAccount().getUsername(), // Account Username
+                        forumPostEntity.getGameID(),            // Game ID
+                        gameMessage.getEntity().getGameName(), // Game Name
+                        forumPostEntity.getMessage(),            // Forum Post Message
+                        forumPostEntity.getPostDate()
+                );
 
                 // Add the new ForumPost to the list
                 forumPosts.add(forumPost);
             }
 
             // Update the user in the session
-            session.setAttribute("forumObject", forumPosts);
+            session.setAttribute("forumObject", new ForumPostContainer(forumPosts));
         } catch (NumberFormatException e) {
             // If the conversion fails, the gameID is not a valid number
             redirectAttributes.addAttribute("error", "Value is not numeric!"); // Error message
@@ -411,7 +460,6 @@ public class WebServiceController implements WebMvcConfigurer {
 
         // Check if the gameID is a valid numeric value
         try {
-
             // Get all the posts from the given accountID
             ForumPostMessage addForumPost = forumPostManager.getForumPosts_Account(user.getAccountID());
             if (!addForumPost.isSuccessful()) {
@@ -422,7 +470,28 @@ public class WebServiceController implements WebMvcConfigurer {
             // Update the user in the session
             session.setAttribute("forumObject", addForumPost.getForumPostEntities());
 
-            System.out.println("Forum posts added to session: " + addForumPost.getForumPostEntities().size());  // Debug line
+            List<ForumPostDTO> forumPosts = new ArrayList<>();
+            for (ForumPostEntity forumPostEntity : addForumPost.getForumPostEntities()) {
+                // Try to retrieve the Game
+                GameEntityMessage gameMessage = getGame(forumPostEntity.getGameID(), redirectAttributes);
+                if (!gameMessage.isSuccessful()) {
+                    return "redirect:/account";
+                }
+
+                ForumPostDTO forumPost = new ForumPostDTO(
+                        forumPostEntity.getForumPostID(),       // Forum Post ID
+                        forumPostEntity.getAccountID(),         // Account ID
+                        user.getUsername(),                     // Account Username
+                        forumPostEntity.getGameID(),            // Game ID
+                        gameMessage.getEntity().getGameName(),  // Game Name
+                        forumPostEntity.getMessage(),           // Forum Post Message
+                        forumPostEntity.getPostDate()
+                );
+
+                forumPosts.add(forumPost);
+            }
+
+            session.setAttribute("forumObject", new ForumPostContainer(forumPosts));
 
         } catch (NumberFormatException e) {
             // If the conversion fails, the accountID is not a valid number
@@ -442,8 +511,7 @@ public class WebServiceController implements WebMvcConfigurer {
             @RequestParam("gameID") String gameID,
             @RequestParam("message") String message,
             RedirectAttributes redirectAttributes,
-            HttpSession session
-    ) {
+            HttpSession session) {
         try {
             // Convert the accountID and gameID to integers
             int parsedGameID = Integer.parseInt(gameID);
@@ -464,4 +532,34 @@ public class WebServiceController implements WebMvcConfigurer {
     }
 
     //endregion
+
+    //region Shared Methods
+
+    private UserMessage getUser(int accountID, RedirectAttributes redirectAttributes) {
+        UserMessage userMessage = userManager.getAccount(accountID);
+        if (!userMessage.isSuccessful()) {
+            redirectAttributes.addAttribute("error", userMessage.getMessage()); // Error message
+            return new UserMessage(userMessage.getMessage());
+        }
+
+        return userMessage;
+    }
+
+    private GameEntityMessage getGame(int gameID, RedirectAttributes redirectAttributes) {
+        GameEntityMessage gameMessage = gameManager.getGame(gameID);
+        if (!gameMessage.isSuccessful()) {
+            redirectAttributes.addAttribute("error", gameMessage.getMessage());
+            return new GameEntityMessage(gameMessage.getMessage());
+        }
+
+        return gameMessage;
+    }
+
+    //endregion
+
+    @Getter
+    @AllArgsConstructor
+    class ForumPostContainer {
+        List<ForumPostDTO> forumPosts;
+    }
 }
