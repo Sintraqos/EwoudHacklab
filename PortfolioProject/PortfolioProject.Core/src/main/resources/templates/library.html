@@ -1,56 +1,3 @@
-<!--<!DOCTYPE html>-->
-<!--<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">-->
-<!--<head>-->
-<!--  <title>Library</title>-->
-<!--</head>-->
-<!--<body>-->
-<!--<div th:if="${param.error}">-->
-<!--  <span style="color:red;" th:text="${param.error}"></span>-->
-<!--</div>-->
-
-<!--<h1>User Library</h1>-->
-
-<!--&lt;!&ndash; Display a list of games in the library &ndash;&gt;-->
-<!--<table>-->
-<!--  <thead>-->
-<!--  <tr>-->
-<!--    <th>Game Name</th>-->
-<!--    <th>Developer</th>-->
-<!--    <th>Publisher</th>-->
-<!--    <th>Acquired</th>-->
-<!--    <th>Last Played</th>-->
-<!--    <th>Play Time</th>-->
-<!--  </tr>-->
-<!--  </thead>-->
-<!--  <tbody>-->
-<!--  &lt;!&ndash; Loop through the gameLibrary in the User object &ndash;&gt;-->
-<!--  <tr th:each="game : ${user.getUserLibrary().getGameLibrary()}">-->
-<!--    <td th:text="${game.gameName}">Game Name</td>-->
-<!--    <td th:text="${game.gameDeveloper}">Developer</td>-->
-<!--    <td th:text="${game.gamePublisher}">Publisher</td>-->
-<!--    <td th:text="${#dates.format(game.gameAcquired, 'yyyy-MM-dd')}">Acquired Date</td>-->
-<!--    <td th:text="${#dates.format(game.gameLastPlayed, 'yyyy-MM-dd')}">Last Played Date</td>-->
-<!--    <td th:text="${game.gamePlayTime}">Play Time</td>-->
-<!--  </tr>-->
-<!--  </tbody>-->
-<!--</table>-->
-
-<!--&lt;!&ndash; Add for a game by its ID &ndash;&gt;-->
-<!--<h3>Add a Game using its ID</h3>-->
-<!--<form th:action="@{/library/addGame}" method="get">-->
-<!--  <label for="gameID">Game ID:</label>-->
-<!--  <input type="text" id="gameID" name="gameID" placeholder="Enter Game ID" required/>-->
-<!--  <button type="submit">Add Game</button>-->
-<!--</form>-->
-
-<!--&lt;!&ndash; The form now submits a GET request to the account page &ndash;&gt;-->
-<!--<form th:action="@{/library}" method="get">-->
-<!--  <div><a href="#" th:href="@{/account}"><button type="button">Cancel</button></a></div>-->
-<!--</form>-->
-
-<!--</body>-->
-<!--</html>-->
-
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
 <head>
@@ -106,7 +53,7 @@
   <tr th:each="game : ${user.getUserLibrary().getGameLibrary()}">
     <td>
       <!-- Form for submitting GET request to the forum page for the specific game -->
-      <form th:action="@{/forum/getForumPosts_Game}" method="get">
+      <form th:action="@{/forum/game.gameID}" method="get">
         <!-- Include hidden input for game ID -->
         <input type="hidden" name="gameID" th:value="${game.gameID}" />
 

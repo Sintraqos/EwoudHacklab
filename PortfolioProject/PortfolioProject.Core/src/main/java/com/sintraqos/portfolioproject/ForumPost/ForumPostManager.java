@@ -6,6 +6,7 @@ import com.sintraqos.portfolioproject.Messages.Message;
 import com.sintraqos.portfolioproject.Services.ForumPostService;
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Component;
 
 /**
@@ -18,24 +19,24 @@ public class ForumPostManager {
     private final ForumPostService forumPostService;
 
     @Autowired
-    public ForumPostManager(ForumPostService forumPostService){
+    public ForumPostManager(ForumPostService forumPostService) {
         this.forumPostService = forumPostService;
     }
 
-    public ForumPostMessage getForumPosts_Game(int gameID){
-        return forumPostService.getForumPosts_Game(gameID);
+    public ForumPostMessage getForumPosts_Game(int gameID,PageRequest pageRequest) {
+        return forumPostService.getForumPosts_Game(gameID,pageRequest);
     }
 
-    public ForumPostMessage getForumPosts_Account(int accountID){
-        return forumPostService.getForumPosts_Account(accountID);
+    public ForumPostMessage getForumPosts_Account(int accountID,PageRequest pageRequest) {
+        return forumPostService.getForumPosts_Account(accountID,pageRequest);
     }
 
     public Message addForumPost(int accountID, int gameID, String message) {
 
-        if(message.isEmpty()){
+        if (message.isEmpty()) {
             return new Message("Message was empty");
         }
 
-        return forumPostService.addForumPost(new ForumPostDTO(accountID,gameID,message));
+        return forumPostService.addForumPost(new ForumPostDTO(accountID, gameID, message));
     }
 }

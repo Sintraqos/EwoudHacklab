@@ -10,17 +10,38 @@ public class Console {
         throw new IllegalStateException("Utility class");
     }
 
+    static String warningTextFormat = "Warning: %s";
+    static String errorTextFormat = "Error: %s";
+
+    /**
+     * Write a warning line to the console, and add it to the log file
+     *
+     * @param message the message it needs to write out
+     */
+    public static void writeWarning(String message){
+        writeLine(String.format(warningTextFormat, message));
+    }
+
+    /**
+     * Write a error line to the console, and add it to the log file
+     *
+     * @param message the message it needs to write out
+     */
+    public static void writeError(String message){
+        writeLine(String.format(errorTextFormat, message));
+    }
+
     /**
      * Write a new line to the console, and add it to the log file
      *
-     * @param consoleText the text it needs to write out
+     * @param message the message it needs to write out
      */
-    public static void writeLine(String consoleText) {
+    public static void writeLine(String message) {
         // Get the current time in the format of: '[12:34] - '
         // Write the text to the log file
-        writeLog(getTime() + consoleText);
+        writeLog(getTime() + message);
         // And write it out to the console
-        System.out.println(getTime() + consoleText);
+        System.out.println(getTime() + message);
     }
 
     static String getTime(){

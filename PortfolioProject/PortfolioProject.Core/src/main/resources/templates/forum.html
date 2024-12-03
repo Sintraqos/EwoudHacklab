@@ -1,7 +1,82 @@
+<!--<!DOCTYPE html>-->
+<!--<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">-->
+<!--<head>-->
+<!--  <title>Forum</title>-->
+<!--  <style>-->
+<!--    /* CSS to make the forum posts scrollable */-->
+<!--    .forum-posts-wrapper {-->
+<!--      max-height: 400px; /* Set a max height for the scrollable area */-->
+<!--      overflow-y: auto; /* Enable vertical scrolling */-->
+<!--      border: 1px solid #ccc; /* Optional: adds a border around the posts */-->
+<!--      padding: 10px;-->
+<!--    }-->
+<!--  </style>-->
+<!--</head>-->
+<!--<body>-->
+
+<!--&lt;!&ndash; Display an error message if exists &ndash;&gt;-->
+<!--<div th:if="${param.error}">-->
+<!--  <span style="color:red;" th:text="${param.error}"></span>-->
+<!--</div>-->
+
+<!--&lt;!&ndash; Display the Game Name &ndash;&gt;-->
+<!--<h1>Game: <span th:text="${game.getGameName()}"></span></h1>-->
+
+<!--&lt;!&ndash; Wrapper for scrollable forum posts &ndash;&gt;-->
+<!--<div class="forum-posts-wrapper">-->
+<!--  &lt;!&ndash; Display the list of forum posts &ndash;&gt;-->
+<!--  <table>-->
+<!--    <thead>-->
+<!--    <tr>-->
+<!--      <th>Message Count: <span th:text="${forumPosts.size()}"></span></th>-->
+<!--    </tr>-->
+<!--    </thead>-->
+<!--    <tbody>-->
+<!--    <tr th:each="forumPost : ${forumPosts}">-->
+<!--      <td th:text="'[' + ${forumPost.timestamp} + '] ' + ${forumPost.username} + ': ' + ${forumPost.message}"></td>-->
+<!--    </tr>-->
+<!--    </tbody>-->
+<!--  </table>-->
+<!--</div>-->
+
+<!--&lt;!&ndash; Input form for posting a new message &ndash;&gt;-->
+<!--<h3>Post a New Message</h3>-->
+<!--<form th:action="@{/forum/addPost}" method="get">-->
+<!--  &lt;!&ndash; Hidden fields to pass accountID and gameID &ndash;&gt;-->
+<!--  <input type="hidden" th:value="${game.gameID}" name="gameID"/>-->
+
+<!--  <label for="message">Message:</label>-->
+<!--  <textarea id="message" name="message" placeholder="Write your message here" required></textarea>-->
+
+<!--  <button type="submit">Post Message</button>-->
+<!--</form>-->
+
+<!--&lt;!&ndash; Back buttons &ndash;&gt;-->
+<!--<div>-->
+<!--  <a href="#" th:href="@{/library}">-->
+<!--    <button type="button">Back to Library</button>-->
+<!--  </a>-->
+<!--</div>-->
+<!--<div>-->
+<!--  <a href="#" th:href="@{/account}">-->
+<!--    <button type="button">Back to Account</button>-->
+<!--  </a>-->
+<!--</div>-->
+
+<!--</body>-->
+<!--</html>-->
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
 <head>
   <title>Forum</title>
+  <style>
+    .forum-posts-wrapper {
+      max-height: 400px; /* Set a max height for the scrollable area */
+      overflow-y: auto; /* Enable vertical scrolling */
+      border: 1px solid #ccc; /* Optional: adds a border around the posts */
+      padding: 10px;
+    }
+  </style>
 </head>
 <body>
 
@@ -13,33 +88,48 @@
 <!-- Display the Game Name -->
 <h1>Game: <span th:text="${game.getGameName()}"></span></h1>
 
-<!-- Display the list of forum posts -->
-<table>
-  <thead>
-  <tr>
-    <th>Message Count: <span th:text="${forumPosts.size()}"></span></th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr th:each="forumPost : ${forumPosts}">
-    <td th:text="'[' + ${forumPost.timestamp} + '] ' + ${forumPost.username} + ': ' + ${forumPost.message}"></td>
-  </tr>
-  </tbody>
-</table>
+<!-- Wrapper for scrollable forum posts -->
+<div class="forum-posts-wrapper">
+  <!-- Display the list of forum posts -->
+  <table>
+    <tbody>
+    <tr th:each="forumPost : ${forumPosts}">
+      <td th:text="'[' + ${forumPost.timestamp} + '] ' + ${forumPost.username} + ': ' + ${forumPost.message}"></td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- Page Controls -->
+<div>
+  <span th:if="${currentPage > 0}">
+    <a th:href="@{/forum/{gameID}(gameID=${game.gameID}, page=${currentPage - 1})}">
+      <button>Previous Page</button>
+    </a>
+  </span>
+  <span th:if="${currentPage < totalPages - 1}">
+    <a th:href="@{/forum/{gameID}(gameID=${game.gameID}, page=${currentPage + 1})}">
+      <button>Next Page</button>
+    </a>
+  </span>
+  <span th:if="${currentPage < (totalPages - 1)}">...</span>
+</div>
 
 <!-- Input form for posting a new message -->
 <h3>Post a New Message</h3>
 <form th:action="@{/forum/addPost}" method="get">
-  <!-- Hidden fields to pass accountID and gameID -->
   <input type="hidden" th:value="${game.gameID}" name="gameID"/>
-
   <label for="message">Message:</label>
   <textarea id="message" name="message" placeholder="Write your message here" required></textarea>
-
   <button type="submit">Post Message</button>
 </form>
 
-<!-- Back button -->
+<!-- Back buttons -->
+<div>
+  <a href="#" th:href="@{/library}">
+    <button type="button">Back to Library</button>
+  </a>
+</div>
 <div>
   <a href="#" th:href="@{/account}">
     <button type="button">Back to Account</button>

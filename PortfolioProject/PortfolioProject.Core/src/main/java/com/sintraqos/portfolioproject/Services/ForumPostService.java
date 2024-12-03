@@ -8,6 +8,9 @@ import com.sintraqos.portfolioproject.Repositories.ForumPostRepository;
 import com.sintraqos.portfolioproject.Repositories.GameRepository;
 import com.sintraqos.portfolioproject.Repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -57,11 +60,11 @@ public class ForumPostService {
      *
      * @param gameID the ID of the game
      */
-    public ForumPostMessage getForumPosts_Game(int gameID) {
-        List<ForumPostEntity> forumPostEntities = forumPostRepository.findAllByGameID(gameID);
+    public ForumPostMessage getForumPosts_Game(int gameID, PageRequest pageRequest) {
+        Page<ForumPostEntity> forumPostEntities = forumPostRepository.findAllByGameID(gameID, pageRequest);
 
         // Check if the list returned is null or empty
-        if(forumPostEntities == null) {
+        if (forumPostEntities == null) {
             return new ForumPostMessage("Failed to retrieve forum posts for game with ID: '%s'".formatted(gameID));
         }
 
@@ -73,11 +76,11 @@ public class ForumPostService {
      *
      * @param accountID the ID of the account
      */
-    public ForumPostMessage getForumPosts_Account(int accountID) {
-        List<ForumPostEntity> forumPostEntities = forumPostRepository.findAllByAccountID(accountID);
+    public ForumPostMessage getForumPosts_Account(int accountID, PageRequest pageRequest) {
+        Page<ForumPostEntity> forumPostEntities = forumPostRepository.findAllByAccountID(accountID, pageRequest);
 
         // Check if the list returned is null or empty
-        if(forumPostEntities == null) {
+        if (forumPostEntities == null) {
             return new ForumPostMessage("Failed to retrieve forum posts for account with ID: '%s'".formatted(accountID));
         }
 

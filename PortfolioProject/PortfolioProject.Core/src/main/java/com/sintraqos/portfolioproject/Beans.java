@@ -3,14 +3,16 @@ package com.sintraqos.portfolioproject;
 import com.sintraqos.portfolioproject.Services.GameService;
 import com.sintraqos.portfolioproject.Services.UserLibraryService;
 import com.sintraqos.portfolioproject.Services.UserService;
-import com.sintraqos.portfolioproject.Statics.Console;
+import org.springframework.boot.autoconfigure.cache.CacheManagerCustomizer;
+import org.springframework.cache.concurrent.ConcurrentMapCacheManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Component;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Configuration
 public class Beans {
@@ -45,5 +47,13 @@ public class Beans {
     @Bean
     public UserLibraryService userLibraryService() {
         return new UserLibraryService();
+    }
+
+    /**
+     * Service to handle storage of cache data
+     */
+    @Bean
+    public CacheManagerCustomizer<ConcurrentMapCacheManager> cacheManagerCustomizer() {
+        return (cacheManager) -> cacheManager.setAllowNullValues(false);
     }
 }
