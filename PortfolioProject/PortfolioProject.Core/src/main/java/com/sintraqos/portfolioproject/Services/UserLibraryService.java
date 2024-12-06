@@ -35,7 +35,7 @@ public class UserLibraryService {
 
         // Check if the account contains the game
         if (userLibraryRepository.findByAccountIDAndGameID(accountID, gameID) != null) {
-            return new UserLibraryEntityMessage("Game with ID: '%s' already in account with ID: '%s'".formatted(gameID, accountID));
+            return new UserLibraryEntityMessage("Game already in account");
         }
 
         UserLibraryEntity accountLibrary = new UserLibraryEntity(accountID, gameID);

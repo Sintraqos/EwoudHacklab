@@ -43,11 +43,6 @@
 
 <!-- Display a list of games in the library -->
 <table>
-  <thead>
-  <tr>
-    <th>Game</th>
-  </tr>
-  </thead>
   <tbody>
   <!-- Loop through the gameLibrary in the User object -->
   <tr th:each="game : ${user.getUserLibrary().getGameLibrary()}">
@@ -64,18 +59,51 @@
   </tbody>
 </table>
 
-<!-- Add a game by its ID -->
-<h3>Add a Game using its ID</h3>
-<form th:action="@{/library/addGame}" method="get">
-  <label for="gameID">Game ID:</label>
-  <input type="text" id="gameID" name="gameID" placeholder="Enter Game ID" required/>
-  <button type="submit">Add Game</button>
+<!--&lt;!&ndash; Add a game by its ID &ndash;&gt;-->
+<!--<h3>Add a Game using its ID</h3>-->
+<!--<form th:action="@{/library/addGame}" method="get">-->
+<!--  <label for="gameID">Game ID:</label>-->
+<!--  <input type="text" id="gameID" name="gameID" placeholder="Enter Game ID" required/>-->
+<!--  <button type="submit">Add Game</button>-->
+<!--</form>-->
+
+<h3>Lookup a game</h3>
+</form>
+<!-- Search for a game by its name -->
+<form id="gameSearchForm" th:action="@{/library/findGame}" method="get">
+  <label for="gameName">Game Name:</label>
+  <input type="text" id="gameName" name="gameName" placeholder="Find Game" required oninput="searchGame()"/>
 </form>
 
+<!-- Optionally, you can display the results here -->
+<div id="gameResults"></div>
+
+<script>
+  function searchGame() {
+    const gameName = document.getElementById('gameName').value;
+
+    // Make sure the user doesn't send an empty request
+    if (gameName.trim() === '') {
+      document.getElementById('gameResults').innerHTML = ''; // Clear results if input is empty
+      return;
+    }
+
+    // Send AJAX request to server when the user types
+    fetch(`/library/findGame?gameName=${encodeURIComponent(gameName)}`, {
+      method: 'GET',
+    })
+            .then(response => response.text()) // or response.json() if the response is JSON
+            .then(data => {
+              document.getElementById('gameResults').innerHTML = data; // Display the results in a div
+            })
+            .catch(error => console.error('Error fetching game data:', error));
+  }
+</script>
+
 <!-- The form now submits a GET request to the account page -->
-<form th:action="@{/library}" method="get">
-  <div><a href="#" th:href="@{/account}"><button type="button">Cancel</button></a></div>
-</form>
+<a href="#" th:href="@{/account}">
+  <button type="button">Return To Account</button>
+</a>
 
 </body>
 </html>

@@ -7,6 +7,8 @@ import com.sintraqos.portfolioproject.Repositories.GameRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class GameService {
 
@@ -58,6 +60,24 @@ public class GameService {
         // If the account was found return the retrieved account
         if (game != null) {
             return new GameEntityMessage(game, "Game found");
+        }
+        // Otherwise return the message
+        else {
+            return new GameEntityMessage("Failed to find game by name: '%s'".formatted(gameName));
+        }
+    }
+    /**
+     * Find a game using a name
+     *
+     * @param gameName the name of the game
+     */
+    public GameEntityMessage getGames(String gameName) {
+        // Get the account
+       List<GameEntity> games = gameRepository.findByGameNameContaining(gameName);
+
+        // If the account was found return the retrieved account
+        if (games != null) {
+            return new GameEntityMessage(games, "Games found");
         }
         // Otherwise return the message
         else {

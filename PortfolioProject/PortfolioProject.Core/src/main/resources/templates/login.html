@@ -7,6 +7,9 @@
 <div th:if="${param.error}">
   <span style="color:red;" th:text="${param.error}"></span>
 </div>
+<div th:if="${param.warning}">
+  <span style="color:orangered;" th:text="${param.warning}"></span>
+</div>
 <div th:if="${param.logout}">
   You have been logged out.
 </div>

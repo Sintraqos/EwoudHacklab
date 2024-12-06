@@ -12,6 +12,7 @@ import com.sintraqos.portfolioproject.User.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.Banner;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -164,7 +165,7 @@ public class WebServiceController implements WebMvcConfigurer {
         // Get the currently authenticated user
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || !authentication.isAuthenticated()) {
-            redirectAttributes.addAttribute("error", handleError("You must be logged in to access your account."));
+            redirectAttributes.addAttribute("warning", handleWarning("You must be logged in to access your account."));
             return "redirect:/login";
         }
 
@@ -229,7 +230,7 @@ public class WebServiceController implements WebMvcConfigurer {
      * @return the libraryPage
      */
     @GetMapping("/library/addGame")
-    public String searchGameById(
+    public String addGameById(
             @SessionAttribute("userObject") User user,
             @RequestParam("gameID") String gameID,
             RedirectAttributes redirectAttributes,
@@ -261,6 +262,22 @@ public class WebServiceController implements WebMvcConfigurer {
         }
 
         return "redirect:/library";
+    }
+
+    @GetMapping("library/findGame")
+    public String searchGameByName(
+            @RequestParam("gameName") String gameName,
+            RedirectAttributes redirectAttributes,
+            Model model){
+
+        GameEntityMessage getGames = gameManager.getGames(gameName);
+        if(!getGames.isSuccessful()){
+            redirectAttributes.addAttribute("error", handleError(getGames.getMessage()));
+            return "redirect:/library";
+        }
+
+        model.addAttribute("games", getGames.getEntities());
+        return "fragments :: gameResults";
     }
 
     //endregion
@@ -369,7 +386,6 @@ public class WebServiceController implements WebMvcConfigurer {
 
             // Add gameID as a path variable for the redirect
             redirectAttributes.addAttribute("gameID", gameID); // This will pass gameID to the redirect URL
-
         } catch (NumberFormatException e) {
             redirectAttributes.addAttribute("error", handleError("Value is not numeric!"));
         }

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Fragments</title>
+</head>
+<body>
+<!-- Fragment for displaying game results -->
+<div th:fragment="gameResults">
+    <h2>Game Results</h2>
+    <div th:each="game : ${games}">
+        <form th:action="@{/library/addGame}" method="get">
+            <input type="hidden" name="gameID" th:value="${game.gameID}" />
+            <button type="submit" class="full-width-btn"
+                    th:text="${game.gameName}">
+            </button>
+        </form>
+        <hr>
+    </div>
+</div>
+</body>
+</html>
+

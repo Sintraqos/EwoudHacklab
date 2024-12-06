@@ -48,4 +48,8 @@ public class GameManager {
         }
             return message;
     }
+
+    public GameEntityMessage getGames(String gameName) {
+        return gameService.getGames(gameName);
+    }
 }
