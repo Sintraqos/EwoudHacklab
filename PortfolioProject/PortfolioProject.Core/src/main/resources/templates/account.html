@@ -34,14 +34,5 @@
   <button type="submit">Logout</button>
 </div>
 </form>
-
-<!-- Form to navigate to the forum page of a specific game -->
-<form th:action="@{/forum/gameID}" method="get">
-  <div>
-    <label for="gameID">Enter Game ID for Forum:</label>
-    <input type="text" id="gameID" name="gameID" placeholder="Enter Game ID" required/>
-    <button type="submit">Go to Forum</button>
-  </div>
-</form>
 </body>
 </html>

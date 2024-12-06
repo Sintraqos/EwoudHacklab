@@ -93,7 +93,7 @@
   <!-- Display the list of forum posts -->
   <table>
     <tbody>
-    <tr th:each="forumPost : ${forumPosts}">
+    <tr th:each="forumPost : ${forumPosts.getForumPosts()}">
       <td th:text="'[' + ${forumPost.timestamp} + '] ' + ${forumPost.username} + ': ' + ${forumPost.message}"></td>
     </tr>
     </tbody>

@@ -61,7 +61,7 @@ public class ForumPostService {
      * @param gameID the ID of the game
      */
     public ForumPostMessage getForumPosts_Game(int gameID, PageRequest pageRequest) {
-        Page<ForumPostEntity> forumPostEntities = forumPostRepository.findAllByGameID(gameID, pageRequest);
+        Page<ForumPostEntity> forumPostEntities = forumPostRepository.findAllByGameIDOrderByPostDateDesc(gameID, pageRequest);
 
         // Check if the list returned is null or empty
         if (forumPostEntities == null) {
@@ -77,7 +77,7 @@ public class ForumPostService {
      * @param accountID the ID of the account
      */
     public ForumPostMessage getForumPosts_Account(int accountID, PageRequest pageRequest) {
-        Page<ForumPostEntity> forumPostEntities = forumPostRepository.findAllByAccountID(accountID, pageRequest);
+        Page<ForumPostEntity> forumPostEntities = forumPostRepository.findAllByAccountIDOrderByPostDateDesc(accountID, pageRequest);
 
         // Check if the list returned is null or empty
         if (forumPostEntities == null) {

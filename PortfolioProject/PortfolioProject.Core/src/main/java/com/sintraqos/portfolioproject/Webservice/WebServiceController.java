@@ -12,7 +12,6 @@ import com.sintraqos.portfolioproject.User.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -299,17 +298,16 @@ public class WebServiceController implements WebMvcConfigurer {
             model.addAttribute("game", gameMessage.getEntity());
 
             // Add the forum posts to the mode
-//           model.addAttribute("forumPosts", posts);
-            ForumPostMessage getForumPost = forumPostManager.getForumPosts_Game(parsedGameID,PageRequest.of(page, size));
+            ForumPostMessage getForumPost = forumPostManager.getForumPosts_Game(parsedGameID, PageRequest.of(page, size));
             Console.writeLine("Retrieved forum posts: " + getForumPost.getForumPostEntities().getSize() + " posts for page " + page);
             if (!getForumPost.isSuccessful()) {
                 redirectAttributes.addAttribute("error", handleError(getForumPost.getMessage()));
                 return "redirect:/account";
             }
-            // Update session with new posts
-//            session.setAttribute("forumObject", new ForumPostContainer(posts));
 
-            model.addAttribute("forumPosts", setForumPostContainer(getForumPost, user, gameMessage));
+            // Update session with new posts
+
+            model.addAttribute("forumPosts", setForumPostContainer(getForumPost, gameMessage));
             model.addAttribute("currentPage", page);
             model.addAttribute("totalPages", getForumPost.getTotalPages());
             model.addAttribute("user", user);
@@ -324,86 +322,31 @@ public class WebServiceController implements WebMvcConfigurer {
         return "forum";  // Return the Thymeleaf template for the forum page
     }
 
-    ForumPostContainer setForumPostContainer(ForumPostMessage forumPostMessage, User user, GameEntityMessage gameMessage) {
+    ForumPostContainer setForumPostContainer(ForumPostMessage forumPostMessage, GameEntityMessage gameMessage) {
         // Convert the forum post entities to DTOs
         List<ForumPostDTO> forumPosts = new ArrayList<>();
         for (ForumPostEntity forumPostEntity : forumPostMessage.getForumPostEntities()) {
+            // Retrieve the user using their accountID
+            UserMessage getUser = userManager.getAccount(forumPostEntity.getAccountID());
+
             // Create new ForumPostDTO Object
             ForumPostDTO forumPost = new ForumPostDTO(
                     forumPostEntity.getForumPostID(),
                     forumPostEntity.getAccountID(),
-                    user.getUsername(),
+                    getUser.getAccount().getUsername(),
                     forumPostEntity.getGameID(),
                     gameMessage.getEntity().getGameName(),
                     forumPostEntity.getMessage(),
                     forumPostEntity.getPostDate()
             );
+
             forumPosts.add(forumPost);
         }
+        // Reverse the created list
+        Collections.reverse(forumPosts);
 
         return new ForumPostContainer(forumPosts);
     }
-
-//    /**
-//     * Get the forumPage URL, use for displaying the forum page of the given account
-//     *
-//     * @param user               the stored user inside the session
-//     * @param redirectAttributes use for adding variables when redirecting, IE: error messages
-//     * @param session            use for storing variables to store whilst the session is active
-//     * @return the forumPage
-//     */
-//    @GetMapping("/forum/getForumPosts_Account")
-//    public String getForumPosts_Account(
-//            @SessionAttribute("userObject") User user,
-//            @RequestParam(defaultValue = "0") int page,
-//            @RequestParam(defaultValue = "10") int size,
-//            RedirectAttributes redirectAttributes,
-//            HttpSession session) {
-//
-//        // Check if the gameID is a valid numeric value
-//        try {
-//            // Get all the posts from the given accountID
-//            ForumPostMessage addForumPost = forumPostManager.getForumPosts_Account(user.getAccountID());
-//            if (!addForumPost.isSuccessful()) {
-//                redirectAttributes.addAttribute("error", addForumPost.getMessage());
-//                return "redirect:/account";
-//            }
-//
-//            // Update the user in the session
-//            session.setAttribute("forumObject", addForumPost.getForumPostEntities());
-//
-//            List<ForumPostDTO> forumPosts = new ArrayList<>();
-//            for (ForumPostEntity forumPostEntity : addForumPost.getForumPostEntities()) {
-//                // Try to retrieve the Game
-//                GameEntityMessage gameMessage = getGame(forumPostEntity.getGameID(), redirectAttributes);
-//                if (!gameMessage.isSuccessful()) {
-//                    return "redirect:/account";
-//                }
-//
-//                ForumPostDTO forumPost = new ForumPostDTO(
-//                        forumPostEntity.getForumPostID(),       // Forum Post ID
-//                        forumPostEntity.getAccountID(),         // Account ID
-//                        user.getUsername(),                     // Account Username
-//                        forumPostEntity.getGameID(),            // Game ID
-//                        gameMessage.getEntity().getGameName(),  // Game Name
-//                        forumPostEntity.getMessage(),           // Forum Post Message
-//                        forumPostEntity.getPostDate()
-//                );
-//
-//                forumPosts.add(forumPost);
-//            }
-//
-//            session.setAttribute("forumObject", new ForumPostContainer(forumPosts));
-//            Console.writeLine("Successfully retrieved the forum posts for game with username: " + user.getUsername());
-//
-//        } catch (NumberFormatException e) {
-//            // If the conversion fails, the accountID is not a valid number
-//            redirectAttributes.addAttribute("error", handleError("Value is not numeric!"));
-//            return "redirect:/account";
-//        }
-//
-//        return "redirect:/forum";
-//    }
 
     /**
      * Get the forumPage URL, use for posting a new forum message to the forum itself
@@ -422,18 +365,17 @@ public class WebServiceController implements WebMvcConfigurer {
             Message addForumPost = forumPostManager.addForumPost(user.getAccountID(), parsedGameID, message);
             if (!addForumPost.isSuccessful()) {
                 redirectAttributes.addAttribute("error", handleError(addForumPost.getMessage()));
-                return "redirect:/forum/getForumPosts_Game?gameID=" + gameID;  // Retain gameID in the redirect to reload the forum page
-            } else {
-                Console.writeLine("New message added");
             }
+
+            // Add gameID as a path variable for the redirect
+            redirectAttributes.addAttribute("gameID", gameID); // This will pass gameID to the redirect URL
+
         } catch (NumberFormatException e) {
             redirectAttributes.addAttribute("error", handleError("Value is not numeric!"));
-
-            return "redirect:/forum?gameID=" + gameID;  // Retain gameID in the redirect
         }
 
         // After posting the message to the forum, redirect back to the forum with the gameID
-        return "redirect:/forum/getForumPosts_Game?gameID=" + gameID;
+        return "redirect:/forum/{gameID}";
     }
 
     //endregion

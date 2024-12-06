@@ -45,7 +45,7 @@ public class Console {
     }
 
     static String getTime(){
-        return "[%s] - ".formatted(new SimpleDateFormat("HH:mm").format(new Date()));
+        return "[%s] - ".formatted(new SimpleDateFormat("HH:mm:ss").format(new Date()));
     }
 
     //region Write to log file

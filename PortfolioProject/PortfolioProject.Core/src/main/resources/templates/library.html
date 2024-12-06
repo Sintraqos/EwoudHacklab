@@ -53,12 +53,10 @@
   <tr th:each="game : ${user.getUserLibrary().getGameLibrary()}">
     <td>
       <!-- Form for submitting GET request to the forum page for the specific game -->
-      <form th:action="@{/forum/game.gameID}" method="get">
-        <!-- Include hidden input for game ID -->
-        <input type="hidden" name="gameID" th:value="${game.gameID}" />
-
+      <form th:action="@{/forum/{gameID}(gameID=${game.gameID})}" method="get">
         <!-- Button that takes up full width, displaying all game details -->
-        <button type="submit" class="full-width-btn" th:text="'Game: ' + ${game.gameName} + ' | Developer: ' + ${game.gameDeveloper} + ' | Publisher: ' + ${game.gamePublisher} + ' | Acquired: ' + ${#dates.format(game.gameAcquired, 'yyyy-MM-dd')} + ' | Last Played: ' + ${#dates.format(game.gameLastPlayed, 'yyyy-MM-dd')} + ' | Play Time: ' + ${game.gamePlayTime}">
+        <button type="submit" class="full-width-btn"
+                th:text="'Game: ' + ${game.gameName} + ' | Developer: ' + ${game.gameDeveloper} + ' | Publisher: ' + ${game.gamePublisher} + ' | Acquired: ' + ${#dates.format(game.gameAcquired, 'yyyy-MM-dd')} + ' | Last Played: ' + ${#dates.format(game.gameLastPlayed, 'yyyy-MM-dd')} + ' | Play Time: ' + ${game.gamePlayTime}">
         </button>
       </form>
     </td>
