@@ -71,31 +71,6 @@ public class UserManager {
     }
 
     /**
-     * Log in to user
-     *
-     * @param username the name of the new user
-     * @param password the password of the new user
-     */
-    public UserMessage loginAccount(String username, String password) {
-
-        // Check if the user is already online
-        if (getOnlineAccount(username) != null) {
-            return new UserMessage("Failed to login with username: '%s', Reason: 'Account already online'".formatted(username));
-        }
-
-        UserMessage message = userService.loginAccount(username, password);
-
-        if (message.isSuccessful()) {
-            // Add the user to the online list
-            onlineUsers.add(new User(message.getAccount()));
-
-            return message;
-        } else {
-            return new UserMessage("Failed to log in to user with username: '%s', reason: '%s'".formatted(username, message.getMessage()));
-        }
-    }
-
-    /**
      * Log out of user
      *
      * @param username the name of the user
@@ -221,7 +196,7 @@ public class UserManager {
      * @param username the name of the user
      */
     public Message displayAccount(String username) {
-        UserMessage message = setAccount(username);
+        UserMessage message = getAccount(username);
         if (!message.isSuccessful()) {
             return message;
         }

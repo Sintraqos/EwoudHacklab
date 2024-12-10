@@ -1,7 +1,6 @@
 package com.sintraqos.portfolioproject.Webservice;
 
-import com.sintraqos.portfolioproject.API.Review.GameReviewAPI;
-import com.sintraqos.portfolioproject.API.Review.GameReviewObject;
+import com.sintraqos.portfolioproject.API.Review.*;
 import com.sintraqos.portfolioproject.DTO.ForumPostDTO;
 import com.sintraqos.portfolioproject.Entities.ForumPostEntity;
 import com.sintraqos.portfolioproject.ForumPost.ForumPostManager;
@@ -12,7 +11,6 @@ import com.sintraqos.portfolioproject.User.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.Banner;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -23,7 +21,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import jakarta.servlet.http.HttpSession;
-
 import java.util.*;
 
 @Controller
@@ -63,6 +60,8 @@ public class WebServiceController implements WebMvcConfigurer {
     @GetMapping({"/", "/home"})
     public String getHome(Model model) {
         List<GameReviewObject> gameReviewObjects = gameReviewAPI.getReviewObjectsFromScore(gameReviewScore);
+
+        model.addAttribute("headerText", "Home");
         model.addAttribute("reviewList", gameReviewObjects); // Pass the list to the template
 
         return "home"; // Render the home page
@@ -129,6 +128,7 @@ public class WebServiceController implements WebMvcConfigurer {
             return "redirect:/register";
         }
 
+        model.addAttribute("headerText", "Register");
         model.addAttribute("message", "Registration successful");
         Console.writeLine("Registration successful");
         return "login";  // Redirect to login page after successful registration
@@ -144,7 +144,8 @@ public class WebServiceController implements WebMvcConfigurer {
      * @return the loginPage
      */
     @GetMapping("/login")
-    public String getLoginPage() {
+    public String getLoginPage(Model model) {
+        model.addAttribute("headerText", "Login");
         return "login";
     }
 
@@ -180,6 +181,7 @@ public class WebServiceController implements WebMvcConfigurer {
         session.setAttribute("userObject", userMessage.getAccount());
 
         // Pass the created UserDTO to the model to be used on the page
+        model.addAttribute("headerText", "Account");
         model.addAttribute("user", userMessage.getAccount());
         Console.writeLine(userMessage.getMessage());
 
@@ -199,6 +201,7 @@ public class WebServiceController implements WebMvcConfigurer {
      */
     @GetMapping("/settings")
     public String getSettingsPage(@SessionAttribute("userObject") User user, Model model) {
+        model.addAttribute("headerText", "Settings");
         model.addAttribute("user", user);
         return "settings";
     }
@@ -216,6 +219,7 @@ public class WebServiceController implements WebMvcConfigurer {
      */
     @GetMapping("/library")
     public String getLibraryPage(@SessionAttribute("userObject") User user, Model model) {
+        model.addAttribute("headerText", "Library of user: %s".formatted(user.getUsername()));
         model.addAttribute("user", user);
         return "library";
     }
@@ -268,10 +272,10 @@ public class WebServiceController implements WebMvcConfigurer {
     public String searchGameByName(
             @RequestParam("gameName") String gameName,
             RedirectAttributes redirectAttributes,
-            Model model){
+            Model model) {
 
         GameEntityMessage getGames = gameManager.getGames(gameName);
-        if(!getGames.isSuccessful()){
+        if (!getGames.isSuccessful()) {
             redirectAttributes.addAttribute("error", handleError(getGames.getMessage()));
             return "redirect:/library";
         }
@@ -298,8 +302,6 @@ public class WebServiceController implements WebMvcConfigurer {
             @SessionAttribute("userObject") User user,
             Model model,
             RedirectAttributes redirectAttributes) {
-
-        Console.writeLine("ForumPosts: Received gameID: " + gameID + ", page: " + page);
         try {
             // Convert the gameID to an integer
             int parsedGameID = Integer.parseInt(gameID);
@@ -316,14 +318,14 @@ public class WebServiceController implements WebMvcConfigurer {
 
             // Add the forum posts to the mode
             ForumPostMessage getForumPost = forumPostManager.getForumPosts_Game(parsedGameID, PageRequest.of(page, size));
-            Console.writeLine("Retrieved forum posts: " + getForumPost.getForumPostEntities().getSize() + " posts for page " + page);
+            Console.writeLine("Retrieved forum posts: " + getForumPost.getForumPostEntities().getTotalElements() + " posts for page " + page);
             if (!getForumPost.isSuccessful()) {
                 redirectAttributes.addAttribute("error", handleError(getForumPost.getMessage()));
                 return "redirect:/account";
             }
 
             // Update session with new posts
-
+            model.addAttribute("headerText", "Forum");
             model.addAttribute("forumPosts", setForumPostContainer(getForumPost, gameMessage));
             model.addAttribute("currentPage", page);
             model.addAttribute("totalPages", getForumPost.getTotalPages());
@@ -394,6 +396,37 @@ public class WebServiceController implements WebMvcConfigurer {
         return "redirect:/forum/{gameID}";
     }
 
+    @Getter
+    @AllArgsConstructor
+    static class ForumPostContainer {
+        List<ForumPostDTO> forumPosts;
+    }
+
+    //endregion
+
+    //region Admin
+
+    /**
+     * Get the admin dashboard page
+     *
+     * @return the adminDashboard page
+     */
+    @PostMapping("/adminDashboard")
+    public String getAdminDashboard(Model model) {
+        model.addAttribute("headerText", "Dashboard");
+        return "admin/adminDashboard"; // Render the home page
+    }
+
+    /**
+     * Get the user manage page
+     *
+     * @return the user manage page
+     */
+    @PostMapping("/adminManageUsers")
+    public String getAdminManageUsers(Model model) {
+        model.addAttribute("headerText", "Manage Users");
+        return "admin/adminManageUsers"; // Render the home page
+    }
     //endregion
 
     //region Shared Methods
@@ -426,10 +459,4 @@ public class WebServiceController implements WebMvcConfigurer {
     }
 
     //endregion
-
-    @Getter
-    @AllArgsConstructor
-    static class ForumPostContainer {
-        List<ForumPostDTO> forumPosts;
-    }
 }

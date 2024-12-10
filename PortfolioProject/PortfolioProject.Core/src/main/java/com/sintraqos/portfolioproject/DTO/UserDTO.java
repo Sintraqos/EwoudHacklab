@@ -1,6 +1,6 @@
 package com.sintraqos.portfolioproject.DTO;
 
-import com.sintraqos.portfolioproject.User.*;
+import com.sintraqos.portfolioproject.Statics.Enums;
 import com.sintraqos.portfolioproject.Entities.UserEntity;
 import lombok.Getter;
 
@@ -14,44 +14,34 @@ public class UserDTO {
     private final String eMail;
     private final String password;
     private final UserLibraryDTO userLibrary;
+    private Enums.Role role;
 
     /**
-     * Create a new AccountDTO object based on Account
+     * Create a new AccountDTO object based on AccountEntity
      *
-     * @param user the Account object created beforehand
+     * @param user the AccountEntity object retrieved from the database
      */
-    public UserDTO(User user) {
+    public UserDTO(UserEntity user) {
         this.accountID = user.getAccountID();
         this.username = user.getUsername();
         this.eMail = user.getEMail();
-        this.password = user.getPassword();
-        this.userLibrary = new UserLibraryDTO(user.getUserLibrary());
-    }
-
-    /**
-     * Create a new AccountDTO object based on AccountEntity
-     *
-     * @param account the AccountEntity object retrieved from the database
-     */
-    public UserDTO(UserEntity account) {
-        this.accountID = account.getAccountID();
-        this.username = account.getUsername();
-        this.eMail = account.getEMail();
-        this.password = account.getPasswordHash();
+        this.password = user.getPasswordHash();
         this.userLibrary = new UserLibraryDTO();
+        this.role = user.getRole();
     }
 
     /**
      * Create a new AccountDTO object based on AccountEntity
      *
-     * @param account the AccountEntity object retrieved from the database
+     * @param user the AccountEntity object retrieved from the database
      * @param userLibrary the Library retrieved from the database
      */
-    public UserDTO(UserEntity account, UserLibraryDTO userLibrary) {
-        this.accountID = account.getAccountID();
-        this.username = account.getUsername();
-        this.eMail = account.getEMail();
-        this.password = account.getPasswordHash();
+    public UserDTO(UserEntity user, UserLibraryDTO userLibrary) {
+        this.accountID = user.getAccountID();
+        this.username = user.getUsername();
+        this.eMail = user.getEMail();
+        this.password = user.getPasswordHash();
         this.userLibrary = userLibrary;
+        this.role = user.getRole();
     }
 }

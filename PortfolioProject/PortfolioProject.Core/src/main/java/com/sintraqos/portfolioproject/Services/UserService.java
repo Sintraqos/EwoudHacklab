@@ -4,6 +4,8 @@ import com.sintraqos.portfolioproject.DTO.*;
 import com.sintraqos.portfolioproject.Entities.*;
 import com.sintraqos.portfolioproject.Messages.*;
 import com.sintraqos.portfolioproject.Repositories.*;
+import com.sintraqos.portfolioproject.Statics.Console;
+import com.sintraqos.portfolioproject.Statics.Enums;
 import org.springframework.security.core.userdetails.*;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,20 +27,32 @@ public class UserService  implements UserDetailsService {
     private GameRepository gameRepository;
 
     /**
-     * Create a new account
-     *
-     * @param username the userName of the account
-     * @param eMail    the e-mail address of the account
-     * @param password the password of the account
-     */
+    * Create a new account without a specified role
+    *
+    * @param username  the userName of the account
+    * @param eMail     the e-mail address of the account
+    * @param password  the password of the account
+    */
     public UserMessage createAccount(String username, String eMail, String password) {
+        return createAccount(username, eMail, password, Enums.Role.USER);
+    }
+
+    /**
+     * Create a new account with specified role
+     *
+     * @param username  the userName of the account
+     * @param eMail     the e-mail address of the account
+     * @param password  the password of the account
+     * @param role      the role of the account
+     */
+    public UserMessage createAccount(String username, String eMail, String password, Enums.Role role) {
         // Check if an account already exists
         if (userRepository.findByUsername(username) != null) {
             return new UserMessage("Account with username: '%s' already exists".formatted(username));
         }
 
         // Create and save the new user
-        UserEntity user = new UserEntity(username, eMail, password);
+        UserEntity user = new UserEntity(username, eMail, password,role);
         user.setAccountNonExpired(true);
         user.setAccountNonLocked(true);
         user.setCredentialsNonExpired(true);
@@ -89,30 +103,7 @@ public class UserService  implements UserDetailsService {
     }
 
     /**
-     * Find an account using a username
-     *
-     * @param username the username of the account
-     */
-    public UserMessage loginAccount(String username, String password) {
-        // Get the account
-        UserEntity account = userRepository.findByUsername(username);
-
-        if (account == null) {
-            return new UserMessage("Could not find find user by username: '%s'".formatted(username));
-        }
-
-        // Compare the given password to the stored password
-        Message passwordCheck = comparePassword(account.getPasswordHash(), password);
-        if (passwordCheck.isSuccessful()) {
-            // Cast the accountEntity to an AccountDTO object for transfer
-            return new UserMessage(new UserDTO(account), "Successfully logged in");
-        } else {
-            return new UserMessage(passwordCheck.getMessage());
-        }
-    }
-
-    /**
-     * Find an account using a username
+     * Find an account using an ID
      *
      * @param accountID the ID of the account
      */
@@ -132,7 +123,7 @@ public class UserService  implements UserDetailsService {
     }
 
     /**
-     * Find an account using an accountID
+     * Find an account using a username
      *
      * @param username the ID of the account
      */
@@ -149,6 +140,43 @@ public class UserService  implements UserDetailsService {
         return new UserMessage(new UserDTO(userEntity,new UserLibraryDTO(gameList)), "Account found");
     }
 
+    /**
+     * Set the role of an account
+     *
+     * @param accountID the ID of the account
+     * @param role      the role which needs to be assigned to the account
+     */
+    public Message setAccountRole(int accountID, String password, int newRoleAccountID, Enums.Role role) {
+        // Retrieve the user from the database
+        UserMessage userMessage = getAccount(accountID);
+        if (!userMessage.isSuccessful()) {
+            return userMessage;
+        }
+        // Since the user needs to be an admin to update the roles of other users check if the user has a valid role
+        if(userMessage.getAccount().getRole() == Enums.Role.USER){
+            return new Message("Invalid role");
+        }
+
+        // Check if the given password is valid
+        Message passwordCheck = comparePassword(userMessage.getAccount().getPassword(), password);
+        if (!passwordCheck.isSuccessful()) {
+            return passwordCheck;
+        }
+
+        // Retrieve the user which role to update from the database
+        userMessage = getAccount(newRoleAccountID);
+        if (!userMessage.isSuccessful()) {
+            return userMessage;
+        }
+
+        // Update the role inside the userRepository
+        UserEntity user = new UserEntity(userMessage.getAccount());
+        user.setRole(role);
+        userRepository.save(user);
+
+        return new Message("Role successfully updated to: '%s' for account with ID: %s".formatted(role, accountID));
+    }
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         UserEntity userEntity = userRepository.findByUsername(username);
@@ -156,6 +184,10 @@ public class UserService  implements UserDetailsService {
             throw new UsernameNotFoundException("User not found: " + username);
         }
 
-        return new User(userEntity.getUsername(), userEntity.getPasswordHash(), List.of());
+        return new User(
+                userEntity.getUsername(),
+                userEntity.getPasswordHash(),
+                userEntity.getAuthorities()
+        );
     }
 }

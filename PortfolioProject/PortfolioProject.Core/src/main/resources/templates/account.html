@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
   <title>Account</title>
 </head>
@@ -12,7 +13,8 @@
 </div>
 
 <!-- Display the username -->
-<h1>Account: <span th:text="${user.getUsername()}"></span></h1>
+<!--<h1>Account: <span th:text="${user.getUsername()}"></span></h1>-->
+<div th:replace="~{::header}"></div>
 
 <!-- Links for navigation to other pages -->
 <form th:action="@{/getAccount}" method="post">
@@ -27,6 +29,16 @@
     </a>
   </div>
 </form>
+
+<!-- Conditionally Display Admin-Only Buttons -->
+<div sec:authorize="hasRole('ROLE_ADMIN')">
+  <form th:action="@{/adminDashboard}" method="post">
+    <button type="submit">Admin Dashboard</button>
+  </form>
+  <form th:action="@{/adminManageUsers}" method="post">
+    <button type="submit">Manage Users</button>
+  </form>
+</div>
 
 <!-- Logout Button -->
 <form th:action="@{/logout}" method="post">

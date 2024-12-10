@@ -10,7 +10,7 @@
     <div th:if="${param.logout}">
       You have been logged out.
     </div>
-    <h1>Register</h1>
+    <div th:replace="~{fragments::header}"></div>
     <form th:action="@{/registerAccount}" method="post">
 
       <!-- Create Buttons -->

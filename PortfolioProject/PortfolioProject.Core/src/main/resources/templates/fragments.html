@@ -5,6 +5,11 @@
     <title>Fragments</title>
 </head>
 <body>
+<!-- Fragment for displaying the header -->
+<div th:fragment="header">
+    <h1 th:text="${headerText}">Header</h1> <!-- The text here will be dynamically replaced -->
+</div>
+
 <!-- Fragment for displaying game results -->
 <div th:fragment="gameResults">
     <h2>Game Results</h2>
@@ -15,6 +20,14 @@
                     th:text="${game.gameName}">
             </button>
         </form>
+        <hr>
+    </div>
+</div>
+<!-- Fragment for displaying user results -->
+<div th:fragment="userResults">
+    <h2>User Results</h2>
+    <div th:each="user : ${users}">
+        th:text="${user.username}">-->
         <hr>
     </div>
 </div>

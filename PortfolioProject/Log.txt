@@ -1,4 +1,2 @@
-[11:58:31] - Finished initializing Spring-Boot
-[11:58:31] - #################################
-[11:58:35] - Account found
-[11:58:54] - Account found
+[11:56:27] - Finished initializing Spring-Boot
+[11:56:27] - #################################

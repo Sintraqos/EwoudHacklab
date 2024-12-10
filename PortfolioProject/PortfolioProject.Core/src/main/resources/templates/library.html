@@ -39,7 +39,7 @@
   <span style="color:red;" th:text="${param.error}"></span>
 </div>
 
-<h1>User Library</h1>
+<div th:replace="~{fragments::header}"></div>
 
 <!-- Display a list of games in the library -->
 <table>
@@ -59,19 +59,11 @@
   </tbody>
 </table>
 
-<!--&lt;!&ndash; Add a game by its ID &ndash;&gt;-->
-<!--<h3>Add a Game using its ID</h3>-->
-<!--<form th:action="@{/library/addGame}" method="get">-->
-<!--  <label for="gameID">Game ID:</label>-->
-<!--  <input type="text" id="gameID" name="gameID" placeholder="Enter Game ID" required/>-->
-<!--  <button type="submit">Add Game</button>-->
-<!--</form>-->
-
 <h3>Lookup a game</h3>
 </form>
 <!-- Search for a game by its name -->
 <form id="gameSearchForm" th:action="@{/library/findGame}" method="get">
-  <label for="gameName">Game Name:</label>
+<!--  <label for="gameName">Game Name:</label>-->
   <input type="text" id="gameName" name="gameName" placeholder="Find Game" required oninput="searchGame()"/>
 </form>
 

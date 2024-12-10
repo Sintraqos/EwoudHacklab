@@ -14,7 +14,7 @@
   You have been logged out.
 </div>
 
-<h1>Login</h1>
+<div th:replace="~{fragments::header}"></div>
 <form th:action="@{/login}" method="post">
   <!-- Create Input fields -->
   <div><input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/></div>

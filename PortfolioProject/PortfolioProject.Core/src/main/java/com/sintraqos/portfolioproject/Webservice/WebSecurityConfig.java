@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -21,8 +22,7 @@ public class WebSecurityConfig {
     @Autowired
     public WebSecurityConfig(
             UserService userService,
-            PasswordEncoder passwordEncoder
-    ) {
+            PasswordEncoder passwordEncoder){
         this.userService = userService;
         this.passwordEncoder = passwordEncoder;
     }
@@ -34,7 +34,6 @@ public class WebSecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .csrf(csrf -> csrf
-//                        .ignoringRequestMatchers("/api/**") // Disable CSRF for API endpoints
                         .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
                 )
                 .authorizeRequests(requests -> requests
@@ -42,12 +41,8 @@ public class WebSecurityConfig {
                         .permitAll()
                         .requestMatchers("/account", "/settings", "/library", "/forum")
                         .authenticated()
+                        .requestMatchers("/admin/**").hasRole("ADMIN")
                         .anyRequest().authenticated()
-
-
-//                        .requestMatchers("/", "/home", "/login", "/register", "/error","/account", "/settings", "/library", "/forum")
-//                        .permitAll()
-//                        .anyRequest().authenticated()
                 )
                 .formLogin(formLogin -> formLogin
                         .loginPage("/login")
@@ -70,12 +65,19 @@ public class WebSecurityConfig {
         return http.build();
     }
 
+    /**
+     * Authentication Manager which handles authentication of users when logging in to their account
+     */
     @Bean
     public AuthenticationManager authenticationManager(HttpSecurity http) throws Exception {
-        AuthenticationManagerBuilder authenticationManagerBuilder = http.getSharedObject(AuthenticationManagerBuilder.class);
+        // Create and configure the AuthenticationManagerBuilder
+        AuthenticationManagerBuilder authenticationManagerBuilder =
+                http.getSharedObject(AuthenticationManagerBuilder.class);
         authenticationManagerBuilder
-                .userDetailsService(userService)  // Account details service to load user
-                .passwordEncoder(passwordEncoder);      // Password encoder
+                .userDetailsService(userService)   // Custom user service to load user details
+                .passwordEncoder(passwordEncoder); // Custom password encoder
+
+        // Build the AuthenticationManager
         return authenticationManagerBuilder.build();
     }
 }
