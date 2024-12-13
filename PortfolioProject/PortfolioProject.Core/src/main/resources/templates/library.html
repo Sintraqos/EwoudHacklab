@@ -63,11 +63,9 @@
 </form>
 <!-- Search for a game by its name -->
 <form id="gameSearchForm" th:action="@{/library/findGame}" method="get">
-<!--  <label for="gameName">Game Name:</label>-->
   <input type="text" id="gameName" name="gameName" placeholder="Find Game" required oninput="searchGame()"/>
 </form>
 
-<!-- Optionally, you can display the results here -->
 <div id="gameResults"></div>
 
 <script>
@@ -84,18 +82,20 @@
     fetch(`/library/findGame?gameName=${encodeURIComponent(gameName)}`, {
       method: 'GET',
     })
-            .then(response => response.text()) // or response.json() if the response is JSON
+            .then(response => response.text())
             .then(data => {
-              document.getElementById('gameResults').innerHTML = data; // Display the results in a div
+              document.getElementById('gameResults').innerHTML = data;
             })
             .catch(error => console.error('Error fetching game data:', error));
   }
 </script>
 
-<!-- The form now submits a GET request to the account page -->
-<a href="#" th:href="@{/account}">
-  <button type="button">Return To Account</button>
-</a>
+<!-- Return to account -->
+<div>
+  <a href="#" th:href="@{/account}">
+    <button type="button">Back to Account</button>
+  </a>
+</div>
 
 </body>
 </html>

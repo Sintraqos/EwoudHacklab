@@ -1,15 +1,32 @@
 package com.sintraqos.portfolioproject.Messages;
 
 import com.sintraqos.portfolioproject.DTO.UserDTO;
+import com.sintraqos.portfolioproject.Entities.UserEntity;
 import lombok.Getter;
+
+import java.util.List;
 
 @Getter
 public class UserMessage extends Message {
-    private UserDTO account;
+    private UserDTO userDTO;
+    private UserEntity userEntity;
+    private List<UserEntity> entities ;
 
-    public UserMessage(UserDTO account, String message) {
+    public UserMessage(UserDTO userDTO, UserEntity userEntity, String message) {
         super(true, message);
-        this.account = account;
+        this.userEntity = userEntity;
+        this.userDTO = new UserDTO(this.userEntity);
+    }
+
+    public UserMessage(UserEntity userEntity, String message) {
+        super(true, message);
+        this.userEntity = userEntity;
+        this.userDTO = new UserDTO(userEntity);
+    }
+
+    public UserMessage(List<UserEntity> entities, String message) {
+        super(true, message);
+        this.entities = entities;
     }
 
     public UserMessage(String message) {

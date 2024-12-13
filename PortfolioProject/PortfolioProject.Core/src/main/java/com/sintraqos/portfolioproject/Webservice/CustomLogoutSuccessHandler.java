@@ -24,17 +24,6 @@ public class CustomLogoutSuccessHandler implements LogoutSuccessHandler {
     public void onLogoutSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication)
             throws IOException, ServletException {
 
-        // Get the currently authenticated username
-        String username = (String) request.getSession().getAttribute("username");
-
-        if (username != null) {
-            Message message = userManager.logoutAccount(username);
-            if (!message.isSuccessful()) {
-                // Add an error message to the redirect attributes
-                request.getSession().setAttribute("error", message.getMessage());
-            }
-        }
-
         // Clear out the session
         request.getSession().invalidate();
 

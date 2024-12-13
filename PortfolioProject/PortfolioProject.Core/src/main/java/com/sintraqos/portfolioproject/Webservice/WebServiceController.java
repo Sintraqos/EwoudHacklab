@@ -7,6 +7,7 @@ import com.sintraqos.portfolioproject.ForumPost.ForumPostManager;
 import com.sintraqos.portfolioproject.Game.GameManager;
 import com.sintraqos.portfolioproject.Messages.*;
 import com.sintraqos.portfolioproject.Statics.Console;
+import com.sintraqos.portfolioproject.Statics.Errors;
 import com.sintraqos.portfolioproject.User.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -87,7 +88,8 @@ public class WebServiceController implements WebMvcConfigurer {
      * @return the registerPage
      */
     @GetMapping("/register")
-    public String getRegisterPage() {
+    public String getRegisterPage(Model model) {
+        model.addAttribute("headerText", "Register");
         return "register";
     }
 
@@ -113,7 +115,7 @@ public class WebServiceController implements WebMvcConfigurer {
         // Check if passwords match
         if (!password.equals(passwordConfirm)) {
             redirectAttributes.addAttribute("warning", handleWarning("Passwords do not match!"));
-            return "register";
+            return "redirect:/register";
         }
 
         // Hash the password
@@ -131,7 +133,7 @@ public class WebServiceController implements WebMvcConfigurer {
         model.addAttribute("headerText", "Register");
         model.addAttribute("message", "Registration successful");
         Console.writeLine("Registration successful");
-        return "login";  // Redirect to login page after successful registration
+        return "redirect:/login";  // Redirect to login page after successful registration
     }
 
     //endregion
@@ -178,11 +180,11 @@ public class WebServiceController implements WebMvcConfigurer {
         }
 
         // Store the User in the session
-        session.setAttribute("userObject", userMessage.getAccount());
+        session.setAttribute("userObject", userMessage.getUserDTO());
 
         // Pass the created UserDTO to the model to be used on the page
         model.addAttribute("headerText", "Account");
-        model.addAttribute("user", userMessage.getAccount());
+        model.addAttribute("user", userMessage.getUserDTO());
         Console.writeLine(userMessage.getMessage());
 
         return "account";
@@ -204,6 +206,26 @@ public class WebServiceController implements WebMvcConfigurer {
         model.addAttribute("headerText", "Settings");
         model.addAttribute("user", user);
         return "settings";
+    }
+
+    @PostMapping("/settings/changeUsername")
+    public String settingsChangeUsername(
+            @RequestParam("currentusername") String currentUsername,
+            @RequestParam("newUsername") String newUsername,
+            @RequestParam("password") String password,
+            Model model,
+            RedirectAttributes redirectAttributes
+    ){
+        // Check if the current username is the same as the new one
+        if(currentUsername.equals(newUsername)){
+            redirectAttributes.addAttribute("warning", handleWarning(Errors.USERNAME_MATCH));
+            return "redirect:/settings";
+        }
+
+        String passwordHash = passwordEncoder.encode(password);
+        Message updateAccount = userManager.changeUsername(currentUsername, newUsername, passwordHash);
+
+        return "redirect:/settings";
     }
 
     //endregion
@@ -258,11 +280,11 @@ public class WebServiceController implements WebMvcConfigurer {
             }
 
             // Update the user in the session
-            session.setAttribute("userObject", userMessage.getAccount());
+            session.setAttribute("userObject", userMessage.getUserDTO());
             Console.writeLine(userMessage.getMessage());
         } catch (NumberFormatException e) {
             // If the conversion fails, the gameID is not a valid number
-            redirectAttributes.addAttribute("error", handleError("Value is not numeric!"));
+            redirectAttributes.addAttribute("error", handleError(Errors.NUMERIC_VALUE_TYPE));
         }
 
         return "redirect:/library";
@@ -334,7 +356,7 @@ public class WebServiceController implements WebMvcConfigurer {
             Console.writeLine("Successfully retrieved the forum posts for game with ID: " + parsedGameID);
 
         } catch (NumberFormatException e) {
-            redirectAttributes.addAttribute("error", handleError("Value is not numeric!"));
+            redirectAttributes.addAttribute("error", handleError(Errors.NUMERIC_VALUE_TYPE));
             return "redirect:/account";  // If gameID is invalid, redirect to account page
         }
 
@@ -352,7 +374,7 @@ public class WebServiceController implements WebMvcConfigurer {
             ForumPostDTO forumPost = new ForumPostDTO(
                     forumPostEntity.getForumPostID(),
                     forumPostEntity.getAccountID(),
-                    getUser.getAccount().getUsername(),
+                    getUser.getUserDTO().getUsername(),
                     forumPostEntity.getGameID(),
                     gameMessage.getEntity().getGameName(),
                     forumPostEntity.getMessage(),
@@ -389,7 +411,7 @@ public class WebServiceController implements WebMvcConfigurer {
             // Add gameID as a path variable for the redirect
             redirectAttributes.addAttribute("gameID", gameID); // This will pass gameID to the redirect URL
         } catch (NumberFormatException e) {
-            redirectAttributes.addAttribute("error", handleError("Value is not numeric!"));
+            redirectAttributes.addAttribute("error", handleError(Errors.NUMERIC_VALUE_TYPE));
         }
 
         // After posting the message to the forum, redirect back to the forum with the gameID
@@ -427,6 +449,40 @@ public class WebServiceController implements WebMvcConfigurer {
         model.addAttribute("headerText", "Manage Users");
         return "admin/adminManageUsers"; // Render the home page
     }
+
+    @GetMapping("admin/adminManageUsers/findUser")
+    public String searchUserByName(
+            @RequestParam("username") String username,
+            RedirectAttributes redirectAttributes,
+            Model model) {
+
+        UserMessage getAccounts = userManager.getAccounts(username);
+        if (!getAccounts.isSuccessful()) {
+            redirectAttributes.addAttribute("error", handleError(getAccounts.getMessage()));
+            return "redirect:/adminManageUsers";
+        }
+
+        model.addAttribute("users", getAccounts.getEntities());
+        return "fragments :: userResults";
+    }
+
+    @GetMapping("/adminAccountSettings")
+    public String adminAccountSettings(
+            @RequestParam("username") String username,
+            RedirectAttributes redirectAttributes,
+            Model model) {
+
+        UserMessage getAccount = userManager.getAccounts(username);
+        if (!getAccount.isSuccessful()) {
+            redirectAttributes.addAttribute("error", handleError(getAccount.getMessage()));
+            return "redirect:/adminManageUsers";
+        }
+
+        model.addAttribute("headerText", "Settings of: %s".formatted(username));
+        model.addAttribute("user", getAccount.getUserDTO());
+        return "settings";
+    }
+
     //endregion
 
     //region Shared Methods

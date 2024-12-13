@@ -23,7 +23,6 @@ import java.util.List;
 public class UserManager {
 
     // Local storage of online accounts
-    private final ArrayList<User> onlineUsers = new ArrayList<>();
 
     private final UserService userService;
     private final UserLibraryService userLibraryService;
@@ -55,7 +54,7 @@ public class UserManager {
     }
 
     /**
-     * Create a user
+     * Delete a user
      *
      * @param username the name of the user
      * @param password the password of the user
@@ -70,46 +69,7 @@ public class UserManager {
         }
     }
 
-    /**
-     * Log out of user
-     *
-     * @param username the name of the user
-     */
-    public Message logoutAccount(String username) {
-        // Check if the user is logged in
-        User user = getOnlineAccount(username);
-        if (user == null) {
-            return new Message("Failed to logout user: '%s' since they weren't online".formatted(username));
-        }
-
-        // Update the library, then remove the user from the onlineAccounts list
-        updateLibrary(user.getUsername());
-        onlineUsers.remove(user);
-
-        return new Message("Successfully logged out user: '%s'".formatted(username));
-    }
-
-    /**
-     * Log in to user
-     *
-     * @param username the user to update the library of
-     */
-    public void updateLibrary(String username) {
-        //AccountModel.getInstance().updateLibrary(accountID);
-    }
-
     //region Get Account
-
-    /**
-     * Get user by username
-     *
-     * @param username the name of the user
-     */
-    public User getOnlineAccount(String username) {
-        return onlineUsers.stream()
-                .filter(user -> user.getUsername().equalsIgnoreCase(username))
-                .findFirst().orElse(null);
-    }
 
     /**
      * Get user using the username
@@ -146,24 +106,6 @@ public class UserManager {
     /**
      * Add a game using an ID
      *
-     * @param username the name of the user
-     * @param gameID   the ID of the game
-     */
-    public Message addGame(String username, int gameID) {
-
-        UserMessage message = getAccount(username);
-        if (!message.isSuccessful()) {
-            return message;
-        }
-
-        UserLibraryEntityMessage libraryMessage = userLibraryService.addGame(message.getAccount().getAccountID(), gameID);
-
-        return libraryMessage;
-    }
-
-    /**
-     * Add a game using an ID
-     *
      * @param user the user to add the game to
      * @param gameID   the ID of the game
      */
@@ -171,50 +113,6 @@ public class UserManager {
         UserLibraryEntityMessage libraryMessage = userLibraryService.addGame(user.getAccountID(), gameID);
 
         return libraryMessage;
-    }
-
-    /**
-     * Get a game using an ID
-     *
-     * @param username the name of the user
-     * @param gameID   the ID of the game
-     */
-    public Message getGame(String username, int gameID) {
-        UserMessage message = getAccount(username);
-        if (!message.isSuccessful()) {
-            return message;
-        }
-
-        UserLibraryEntityMessage libraryMessage = userLibraryService.getGame(message.getAccount().getAccountID(), gameID);
-
-        return libraryMessage;
-    }
-
-    /**
-     * Get all information from the given user
-     *
-     * @param username the name of the user
-     */
-    public Message displayAccount(String username) {
-        UserMessage message = getAccount(username);
-        if (!message.isSuccessful()) {
-            return message;
-        }
-        User user = new User(message.getAccount());
-
-        return new Message("""
-                Account Information:
-                ID:         %s
-                Username:   %s
-                E-Mail:     %s
-                Password:   %s
-                Library:    %s
-                """.formatted(
-                user.getAccountID(),
-                user.getUsername(),
-                user.getEMail(),
-                user.getPassword(),
-                user.getUserLibrary().toString()));
     }
 
     /**
@@ -228,21 +126,23 @@ public class UserManager {
             return message;
         }
 
-        List<UserLibraryEntity> entityList = userLibraryService.getLibrary(message.getAccount().getAccountID());
+        List<UserLibraryEntity> entityList = userLibraryService.getLibrary(message.getUserDTO().getAccountID());
         ArrayList<Game> games = new ArrayList<>();
         for (UserLibraryEntity entity : entityList) {
             games.add(new Game(entity, gameManager.getGame(entity.getGameID()).getEntity()));
         }
 
-        User user = new User(message.getAccount());
+        User user = new User(message.getUserDTO());
         user.setUserLibrary(games);
 
         return message;
     }
 
-    public Message updateAccount(String username, String eMail, String password) {
-        return new Message("updateAccount");
+    public UserMessage getAccounts(String username) {
+        return userService.getAccounts(username);
+    }
 
-        //TODO: Update the user information
+    public Message changeUsername(String currentUsername, String newUsername, String password) {
+        return userService.changeUsername(currentUsername, newUsername, password);
     }
 }

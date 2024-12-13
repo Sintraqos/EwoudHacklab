@@ -1,2 +1,7 @@
-[11:56:27] - Finished initializing Spring-Boot
-[11:56:27] - #################################
+[11:23:01] - Finished initializing Spring-Boot
+[11:23:01] - #################################
+[11:23:13] - Account data retrieved
+[11:23:38] - Account data retrieved
+[11:23:44] - Error: Game already in account
+[11:23:46] - Retrieved forum posts: 2 posts for page 0
+[11:23:46] - Successfully retrieved the forum posts for game with ID: 0

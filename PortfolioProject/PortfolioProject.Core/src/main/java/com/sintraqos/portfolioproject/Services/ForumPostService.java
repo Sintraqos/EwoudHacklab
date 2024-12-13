@@ -7,13 +7,11 @@ import com.sintraqos.portfolioproject.Messages.Message;
 import com.sintraqos.portfolioproject.Repositories.ForumPostRepository;
 import com.sintraqos.portfolioproject.Repositories.GameRepository;
 import com.sintraqos.portfolioproject.Repositories.UserRepository;
+import com.sintraqos.portfolioproject.Statics.Errors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 public class ForumPostService {
@@ -41,11 +39,11 @@ public class ForumPostService {
     public Message addForumPost(ForumPostDTO forumPostDTO) {
         // Check if a user with the given ID exists
         if (userRepository.findByAccountID(forumPostDTO.getAccountID()) == null) {
-            return new Message("Account not found!");
+            return new Message(Errors.FIND_ACCOUNT_ID_FAILED.formatted(forumPostDTO.getAccountID()));
         }
         // Check if a game with the given ID exists
         if (gameRepository.findByGameID(forumPostDTO.getGameID()) == null) {
-            return new Message("Game not found!");
+            return new Message(Errors.FIND_GAME_ID_FAILED.formatted(forumPostDTO.getGameID()));
         }
 
         // Create a new ForumPostEntity object and save that in the database
@@ -65,7 +63,7 @@ public class ForumPostService {
 
         // Check if the list returned is null or empty
         if (forumPostEntities == null) {
-            return new ForumPostMessage("Failed to retrieve forum posts for game with ID: '%s'".formatted(gameID));
+            return new ForumPostMessage(Errors.FORUM_GAME_ID_FAILED.formatted(gameID));
         }
 
         return new ForumPostMessage(forumPostEntities, "Forum posts found");
@@ -81,7 +79,7 @@ public class ForumPostService {
 
         // Check if the list returned is null or empty
         if (forumPostEntities == null) {
-            return new ForumPostMessage("Failed to retrieve forum posts for account with ID: '%s'".formatted(accountID));
+            return new ForumPostMessage(Errors.FORUM_ACCOUNT_ID_FAILED.formatted(accountID));
         }
 
         return new ForumPostMessage(forumPostEntities, "Forum posts found");

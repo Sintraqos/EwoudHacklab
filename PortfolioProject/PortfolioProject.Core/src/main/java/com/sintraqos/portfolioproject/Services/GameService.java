@@ -4,6 +4,7 @@ import com.sintraqos.portfolioproject.DTO.GameDTO;
 import com.sintraqos.portfolioproject.Entities.GameEntity;
 import com.sintraqos.portfolioproject.Messages.GameEntityMessage;
 import com.sintraqos.portfolioproject.Repositories.GameRepository;
+import com.sintraqos.portfolioproject.Statics.Errors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,7 +23,7 @@ public class GameService {
     public GameEntityMessage addGame(GameDTO gameDTO) {
         // Check if a game with the given name already exists
         if (gameRepository.findByGameName(gameDTO.getGameName()) != null) {
-            return new GameEntityMessage("Game already exists");
+            return new GameEntityMessage(Errors.GAME_EXISTS.formatted(gameDTO.getGameName()));
         }
 
         GameEntity game = new GameEntity(gameDTO.getGameName(), gameDTO.getGameDescription(), gameDTO.getGameDeveloper(), gameDTO.getGamePublisher());
@@ -44,7 +45,7 @@ public class GameService {
         }
         // Otherwise return the message
         else {
-            return new GameEntityMessage("Failed to find game by game ID: '%s'".formatted(gameID));
+            return new GameEntityMessage(Errors.FIND_GAME_ID_FAILED.formatted(gameID));
         }
     }
 
@@ -63,7 +64,7 @@ public class GameService {
         }
         // Otherwise return the message
         else {
-            return new GameEntityMessage("Failed to find game by name: '%s'".formatted(gameName));
+            return new GameEntityMessage(Errors.FIND_GAME_NAME_FAILED.formatted(gameName));
         }
     }
     /**
@@ -72,16 +73,13 @@ public class GameService {
      * @param gameName the name of the game
      */
     public GameEntityMessage getGames(String gameName) {
-        // Get the account
        List<GameEntity> games = gameRepository.findByGameNameContaining(gameName);
 
-        // If the account was found return the retrieved account
         if (games != null) {
             return new GameEntityMessage(games, "Games found");
         }
-        // Otherwise return the message
         else {
-            return new GameEntityMessage("Failed to find game by name: '%s'".formatted(gameName));
+            return new GameEntityMessage(Errors.FIND_GAME_NAME_FAILED.formatted(gameName));
         }
     }
 }

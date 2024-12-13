@@ -151,3 +151,7 @@ Minimal viable product:
     - User can add the game to their user
     - User can get their game library
     - User can show the information of the game
+
+
+     Create api to check new releases every month or so
+     Add in scheduler

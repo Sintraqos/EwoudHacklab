@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="http://www.w3.org/1999/xhtml">
   <head>
     <title>Settings</title>
   </head>
@@ -11,10 +12,24 @@
       You have been logged out.
     </div>
     <div th:replace="~{fragments::header}"></div>
-    <form th:action="@{/registerAccount}" method="post">
 
-      <!-- Create Buttons -->
-      <div><button type="submit" name="action" value="Account" th:formaction="@{/account}">Account</button></div>
-    </form>
+    <!-- Admin settings page -->
+    <div sec:authorize="hasRole('ROLE_ADMIN')">
+      <h1 th:text="'Admin Page'"></h1>
+<!--      TODO: Add in buttons for changing account password, (un)banning account, setting account role, etc-->
+    </div>
+
+    <!-- User settings page -->
+    <div sec:authorize="hasRole('ROLE_USER')">
+      <h1 th:text="'User Page'"></h1>
+      <!--      TODO: Add in buttons for changing account settings, etc-->
+    </div>
+
+    <!-- Return to account -->
+    <div>
+      <a href="#" th:href="@{/account}">
+        <button type="button">Back to Account</button>
+      </a>
+    </div>
   </body>
 </html>

@@ -14,7 +14,7 @@
 
 <!-- Display the username -->
 <!--<h1>Account: <span th:text="${user.getUsername()}"></span></h1>-->
-<div th:replace="~{::header}"></div>
+<div th:replace="~{fragments::header}"></div>
 
 <!-- Links for navigation to other pages -->
 <form th:action="@{/getAccount}" method="post">

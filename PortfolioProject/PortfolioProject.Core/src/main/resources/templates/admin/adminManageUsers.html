@@ -6,10 +6,42 @@
 </head>
 <body>
 <div th:replace="~{fragments::header}"></div>
+
+<!-- Search for a game by its name -->
+<form id="userSearchForm" th:action="@{/admin/adminManageUsers/findUser}" method="get" onsubmit="return false;">
+    <input type="text" id="username" name="username" placeholder="Find User" required oninput="searchUser()" onkeydown="handleKeyDown(event)"/>
+</form>
+
+<div id="userResults"></div>
+
+<script>
+    function searchUser() {
+        const username = document.getElementById('username').value;
+
+        // Make sure the user doesn't send an empty request
+        if (username.trim() === '') {
+            document.getElementById('userResults').innerHTML = ''; // Clear results if input is empty
+            return;
+        }
+
+        // Send AJAX request to server when the user types
+        fetch(`/admin/adminManageUsers/findUser?username=${encodeURIComponent(username)}`, {
+            method: 'GET',
+        })
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('userResults').innerHTML = data; // Update the results dynamically
+            })
+            .catch(error => console.error('Error fetching user data:', error));
+    }
+</script>
+
+<!-- Return to account -->
 <div>
     <a href="#" th:href="@{/account}">
         <button type="button">Back to Account</button>
     </a>
 </div>
+
 </body>
 </html>

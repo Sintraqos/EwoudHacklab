@@ -4,8 +4,8 @@ import com.sintraqos.portfolioproject.DTO.*;
 import com.sintraqos.portfolioproject.Entities.*;
 import com.sintraqos.portfolioproject.Messages.*;
 import com.sintraqos.portfolioproject.Repositories.*;
-import com.sintraqos.portfolioproject.Statics.Console;
 import com.sintraqos.portfolioproject.Statics.Enums;
+import com.sintraqos.portfolioproject.Statics.Errors;
 import org.springframework.security.core.userdetails.*;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,12 +27,12 @@ public class UserService  implements UserDetailsService {
     private GameRepository gameRepository;
 
     /**
-    * Create a new account without a specified role
-    *
-    * @param username  the userName of the account
-    * @param eMail     the e-mail address of the account
-    * @param password  the password of the account
-    */
+     * Create a new account without a specified role
+     *
+     * @param username the userName of the account
+     * @param eMail    the e-mail address of the account
+     * @param password the password of the account
+     */
     public UserMessage createAccount(String username, String eMail, String password) {
         return createAccount(username, eMail, password, Enums.Role.USER);
     }
@@ -40,27 +40,27 @@ public class UserService  implements UserDetailsService {
     /**
      * Create a new account with specified role
      *
-     * @param username  the userName of the account
-     * @param eMail     the e-mail address of the account
-     * @param password  the password of the account
-     * @param role      the role of the account
+     * @param username the userName of the account
+     * @param eMail    the e-mail address of the account
+     * @param password the password of the account
+     * @param role     the role of the account
      */
     public UserMessage createAccount(String username, String eMail, String password, Enums.Role role) {
         // Check if an account already exists
         if (userRepository.findByUsername(username) != null) {
-            return new UserMessage("Account with username: '%s' already exists".formatted(username));
+            return new UserMessage(Errors.USERNAME_ALREADY_IN_USE.formatted(username));
         }
 
         // Create and save the new user
-        UserEntity user = new UserEntity(username, eMail, password,role);
-        user.setAccountNonExpired(true);
-        user.setAccountNonLocked(true);
-        user.setCredentialsNonExpired(true);
-        user.setEnabled(true);
-        userRepository.save(user);
+        UserEntity userEntity = new UserEntity(username, eMail, password, role);
+        userEntity.setAccountNonExpired(true);
+        userEntity.setAccountNonLocked(true);
+        userEntity.setCredentialsNonExpired(true);
+        userEntity.setEnabled(true);
+        userRepository.save(userEntity);
 
         // Cast the accountEntity to an AccountDTO object for transfer
-        return new UserMessage(new UserDTO(user), "Created new account: '%s'".formatted(username));
+        return new UserMessage(userEntity, "Created new account: '%s'".formatted(username));
     }
 
     /**
@@ -73,7 +73,7 @@ public class UserService  implements UserDetailsService {
         // Check if an account already exists
         UserEntity account = userRepository.findByUsername(username);
         if (account == null) {
-            return new UserMessage("Account doesn't exist");
+            return new UserMessage(Errors.FIND_ACCOUNT_NAME_FAILED.formatted(username));
         }
 
         // Compare the given password to the stored password
@@ -99,7 +99,7 @@ public class UserService  implements UserDetailsService {
      */
     Message comparePassword(String storedPassword, String givenPassword) {
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        return new Message(passwordEncoder.matches(givenPassword, storedPassword), "Incorrect password");
+        return new Message(passwordEncoder.matches(givenPassword, storedPassword), Errors.PASSWORD_MISMATCH);
     }
 
     /**
@@ -109,16 +109,16 @@ public class UserService  implements UserDetailsService {
      */
     public UserMessage getAccount(int accountID) {
         // Get the account
-        UserEntity account = userRepository.findByAccountID(accountID);
+        UserEntity userEntity = userRepository.findByAccountID(accountID);
 
         // If the account was found return the retrieved account
-        if (account != null) {
+        if (userEntity != null) {
             // Cast the accountEntity to an AccountDTO object for transfer
-            return new UserMessage(new UserDTO(account), "Account found");
+            return new UserMessage(userEntity, "Account found");
         }
         // Otherwise return the message
         else {
-            return new UserMessage("Failed to find user by account ID: '%s' found".formatted(accountID));
+            return new UserMessage(Errors.FIND_GAME_ID_FAILED.formatted(accountID));
         }
     }
 
@@ -137,7 +137,8 @@ public class UserService  implements UserDetailsService {
             gameList.add(new GameDTO(userLibraryEntity, gameRepository.findByGameID(userLibraryEntity.getGameID())));
         }
 
-        return new UserMessage(new UserDTO(userEntity,new UserLibraryDTO(gameList)), "Account found");
+        // Return the found user
+        return new UserMessage(new UserDTO(userEntity, new UserLibraryDTO(gameList)),userEntity, "Account data retrieved");
     }
 
     /**
@@ -153,12 +154,12 @@ public class UserService  implements UserDetailsService {
             return userMessage;
         }
         // Since the user needs to be an admin to update the roles of other users check if the user has a valid role
-        if(userMessage.getAccount().getRole() == Enums.Role.USER){
+        if (userMessage.getUserDTO().getRole() == Enums.Role.USER) {
             return new Message("Invalid role");
         }
 
         // Check if the given password is valid
-        Message passwordCheck = comparePassword(userMessage.getAccount().getPassword(), password);
+        Message passwordCheck = comparePassword(userMessage.getUserDTO().getPassword(), password);
         if (!passwordCheck.isSuccessful()) {
             return passwordCheck;
         }
@@ -170,24 +171,140 @@ public class UserService  implements UserDetailsService {
         }
 
         // Update the role inside the userRepository
-        UserEntity user = new UserEntity(userMessage.getAccount());
+        UserEntity user = new UserEntity(userMessage.getUserDTO());
         user.setRole(role);
         userRepository.save(user);
 
         return new Message("Role successfully updated to: '%s' for account with ID: %s".formatted(role, accountID));
     }
 
+    /**
+     * Ban the given account
+     *
+     * @param username
+     */
+    public Message banAccount(String username) {
+        return handleBanAccount(username, true);
+    }
+
+    /**
+     * Unban the given account
+     *
+     * @param username
+     */
+    public Message unbanAccount(String username) {
+        return handleBanAccount(username, false);
+    }
+
+    /**
+     * Handle banning / unbanning the given account
+     *
+     * @param username the username of the account
+     * @param isBanned if the account should be banned or unbanned
+     */
+    Message handleBanAccount(String username, boolean isBanned){
+        // Retrieve the account
+        UserMessage userMessage = getAccount(username);
+        if (!userMessage.isSuccessful()) {
+            return userMessage;
+        }
+
+        // Set the account banned status
+        UserEntity user = new UserEntity(userMessage.getUserDTO());
+        user.setEnabled(!isBanned); // Since if the account is banned and receives a 'true' statement it should be set to 'false'
+        user.setAccountNonLocked(!isBanned);
+        userRepository.save(user);
+
+        String returnMessage = "Successfully banned account: '%s'".formatted(username);
+        if(!isBanned)
+            returnMessage = "Successfully unbanned account: '%s'".formatted(username);
+
+        // Return the message
+        return new Message(returnMessage);
+    }
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         UserEntity userEntity = userRepository.findByUsername(username);
         if (userEntity == null) {
-            throw new UsernameNotFoundException("User not found: " + username);
+            throw new UsernameNotFoundException(Errors.FIND_ACCOUNT_NAME_FAILED.formatted(username));
         }
+
+//        if (!userEntity.isEnabled()) {
+//            throw new DisabledException("Account is banned");
+//        }
+//
+//        if (!userEntity.isAccountNonLocked()) {
+//            throw new LockedException("Account is locked");
+//        }
 
         return new User(
                 userEntity.getUsername(),
                 userEntity.getPasswordHash(),
                 userEntity.getAuthorities()
         );
+    }
+
+    public UserMessage getAccounts(String username) {
+        List<UserEntity> accounts = userRepository.findByUsernameContaining(username);
+
+        if (accounts != null) {
+            return new UserMessage(accounts, "Accounts found");
+        }
+        else {
+            return new UserMessage(Errors.FIND_ACCOUNT_NAME_FAILED.formatted(username));
+        }
+    }
+
+    public Message changeUsername(String currentUsername, String newUsername, String password) {
+        // Retrieve the account
+        UserMessage userMessage = getAccount(currentUsername);
+        if (!userMessage.isSuccessful()) {
+            return userMessage;
+        }
+
+        UserEntity user = userMessage.getUserEntity();
+        if(userRepository.findByUsername(newUsername) != null){
+            return new Message(Errors.USERNAME_ALREADY_IN_USE);
+        }
+
+        // Return the message
+        return handleUpdateAccount(user, newUsername, user.getEMail(),  user.getPassword(), user.getRole());
+    }
+
+    public Message changePassword(String userName, String password) {
+        // Retrieve the account
+        UserMessage userMessage = getAccount(userName);
+        if (!userMessage.isSuccessful()) {
+            return userMessage;
+        }
+
+        UserEntity user = userMessage.getUserEntity();
+
+        // Return the message
+        return handleUpdateAccount(user, userName, user.getEMail(), password, user.getRole());
+    }
+
+    public Message changeEMail(String userName, String eMail) {
+        // Retrieve the account
+        UserMessage userMessage = getAccount(userName);
+        if (!userMessage.isSuccessful()) {
+            return userMessage;
+        }
+
+        UserEntity user = userMessage.getUserEntity();
+
+        // Return the message
+        return handleUpdateAccount(user, userName, eMail, user.getPassword(), user.getRole());
+    }
+
+    Message handleUpdateAccount(UserEntity user, String username, String eMail, String password, Enums.Role role){
+        user.setUsername(username);
+        user.setEMail(eMail);
+        user.setPasswordHash(password);
+        user.setRole(role);
+        userRepository.save(user);
+
+        return new Message("Successfully updated account");
     }
 }
