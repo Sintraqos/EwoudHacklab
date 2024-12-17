@@ -14,8 +14,8 @@ public class UserMessage extends Message {
 
     public UserMessage(UserDTO userDTO, UserEntity userEntity, String message) {
         super(true, message);
+        this.userDTO = userDTO;
         this.userEntity = userEntity;
-        this.userDTO = new UserDTO(this.userEntity);
     }
 
     public UserMessage(UserEntity userEntity, String message) {

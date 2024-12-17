@@ -2,7 +2,10 @@ package com.sintraqos.portfolioproject.Webservice;
 
 import com.sintraqos.portfolioproject.API.Review.*;
 import com.sintraqos.portfolioproject.DTO.ForumPostDTO;
+import com.sintraqos.portfolioproject.DTO.GameDTO;
+import com.sintraqos.portfolioproject.DTO.UserDTO;
 import com.sintraqos.portfolioproject.Entities.ForumPostEntity;
+import com.sintraqos.portfolioproject.Entities.UserLibraryEntity;
 import com.sintraqos.portfolioproject.ForumPost.ForumPostManager;
 import com.sintraqos.portfolioproject.Game.GameManager;
 import com.sintraqos.portfolioproject.Messages.*;
@@ -185,7 +188,7 @@ public class WebServiceController implements WebMvcConfigurer {
         // Pass the created UserDTO to the model to be used on the page
         model.addAttribute("headerText", "Account");
         model.addAttribute("user", userMessage.getUserDTO());
-        Console.writeLine(userMessage.getMessage());
+//        Console.writeLine(userMessage.getMessage());
 
         return "account";
     }
@@ -210,20 +213,62 @@ public class WebServiceController implements WebMvcConfigurer {
 
     @PostMapping("/settings/changeUsername")
     public String settingsChangeUsername(
-            @RequestParam("currentusername") String currentUsername,
+            @RequestParam("currentUsername") String currentUsername,
             @RequestParam("newUsername") String newUsername,
             @RequestParam("password") String password,
-            Model model,
-            RedirectAttributes redirectAttributes
-    ){
+            RedirectAttributes redirectAttributes) {
         // Check if the current username is the same as the new one
-        if(currentUsername.equals(newUsername)){
+        if (currentUsername.equals(newUsername)) {
             redirectAttributes.addAttribute("warning", handleWarning(Errors.USERNAME_MATCH));
             return "redirect:/settings";
         }
 
         String passwordHash = passwordEncoder.encode(password);
+
+        // Try to update the account
         Message updateAccount = userManager.changeUsername(currentUsername, newUsername, passwordHash);
+        if (!updateAccount.isSuccessful()) {
+            redirectAttributes.addAttribute("error", handleError(updateAccount.getMessage()));
+            return "redirect:/settings";
+        }
+
+        return "redirect:/settings";
+    }
+
+    @PostMapping("/settings/changeEMail")
+    public String settingsChangeEMail(
+            @RequestParam("username") String username,
+            @RequestParam("eMail") String eMail,
+            @RequestParam("password") String password,
+            RedirectAttributes redirectAttributes) {
+        // Try to update the account
+        Message updateAccount = userManager.changeEmail(username,eMail,password);
+        if (!updateAccount.isSuccessful()) {
+            redirectAttributes.addAttribute("error", handleError(updateAccount.getMessage()));
+            return "redirect:/settings";
+        }
+
+        return "redirect:/settings";
+    }
+
+    @PostMapping("/settings/changePassword")
+    public String settingsChangePassword(
+            @RequestParam("username") String username,
+            @RequestParam("currentPassword") String currentPassword,
+            @RequestParam("newPassword") String newPassword,
+            RedirectAttributes redirectAttributes) {
+        // Check if the current username is the same as the new one
+        if (currentPassword.equals(newPassword)) {
+            redirectAttributes.addAttribute("warning", handleWarning(Errors.PASSWORD_MATCH));
+            return "redirect:/settings";
+        }
+
+        // Try to update the account
+        Message updateAccount = userManager.changePassword(username, currentPassword,newPassword);
+        if (!updateAccount.isSuccessful()) {
+            redirectAttributes.addAttribute("error", handleError(updateAccount.getMessage()));
+            return "redirect:/settings";
+        }
 
         return "redirect:/settings";
     }
@@ -240,7 +285,7 @@ public class WebServiceController implements WebMvcConfigurer {
      * @return the libraryPage
      */
     @GetMapping("/library")
-    public String getLibraryPage(@SessionAttribute("userObject") User user, Model model) {
+    public String getLibraryPage(@SessionAttribute("userObject") UserDTO user, Model model) {
         model.addAttribute("headerText", "Library of user: %s".formatted(user.getUsername()));
         model.addAttribute("user", user);
         return "library";
@@ -303,7 +348,7 @@ public class WebServiceController implements WebMvcConfigurer {
         }
 
         model.addAttribute("games", getGames.getEntities());
-        return "fragments :: gameResults";
+        return getFragments("gameResults");
     }
 
     //endregion
@@ -463,7 +508,7 @@ public class WebServiceController implements WebMvcConfigurer {
         }
 
         model.addAttribute("users", getAccounts.getEntities());
-        return "fragments :: userResults";
+        return getFragments("userResults");
     }
 
     @GetMapping("/adminAccountSettings")
@@ -481,6 +526,48 @@ public class WebServiceController implements WebMvcConfigurer {
         model.addAttribute("headerText", "Settings of: %s".formatted(username));
         model.addAttribute("user", getAccount.getUserDTO());
         return "settings";
+    }
+
+    @GetMapping("adminBanUser")
+    public String adminBanUser(
+            @RequestParam("username") String username,
+            RedirectAttributes redirectAttributes) {
+
+        // Get the account from the database
+        UserMessage getAccount = userManager.getAccounts(username);
+        if (!getAccount.isSuccessful()) {
+            redirectAttributes.addAttribute("warning", handleWarning(getAccount.getMessage()));
+            return "redirect:/settings";
+        }
+
+        // Ban the account
+        Message banAccountmessage = userManager.banAccount(username);
+        if (!banAccountmessage.isSuccessful()) {
+            redirectAttributes.addAttribute("warning", handleWarning(banAccountmessage.getMessage()));
+            return "redirect:/settings";
+        }
+        return "redirect:/settings";
+    }
+
+    @GetMapping("adminUnbanUser")
+    public String adminUnbanUser(
+            @RequestParam("username") String username,
+            RedirectAttributes redirectAttributes) {
+
+        // Get the account from the database
+        UserMessage getAccount = userManager.getAccounts(username);
+        if (!getAccount.isSuccessful()) {
+            redirectAttributes.addAttribute("warning", handleWarning(getAccount.getMessage()));
+            return "redirect:/settings";
+        }
+
+        // Unban the account
+        Message unbanAccountmessage = userManager.unbanAccount(username);
+        if (!unbanAccountmessage.isSuccessful()) {
+            redirectAttributes.addAttribute("warning", handleWarning(unbanAccountmessage.getMessage()));
+            return "redirect:/settings";
+        }
+        return "redirect:/settings";
     }
 
     //endregion
@@ -512,6 +599,10 @@ public class WebServiceController implements WebMvcConfigurer {
 
         // Return the message
         return message;
+    }
+
+    String getFragments(String fragmentsPage){
+        return "fragments :: %s".formatted(fragmentsPage);
     }
 
     //endregion

@@ -37,22 +37,6 @@ public class UserLibrary {
         this.gameLibrary = gameLibrary;
     }
 
-    /**
-     * Add a new game to the library, if the game already is in the library don't add it
-     *
-     * @param game the new game to add to the list
-     */
-    public void addGame(GameDTO game) {
-        // Check if the library already has a game
-        if (gameLibrary.contains(game)) {
-            Console.writeLine("Game: %s already in library".formatted(game.getGameName()));
-            return;
-        }
-
-        // Add the game to the library
-        gameLibrary.add(new Game(game));
-    }
-
     @Override
     public String toString()
     {

@@ -2,11 +2,8 @@ package com.sintraqos.portfolioproject;
 
 import com.sintraqos.portfolioproject.Entities.UserEntity;
 import com.sintraqos.portfolioproject.Repositories.UserRepository;
-import com.sintraqos.portfolioproject.Services.GameService;
-import com.sintraqos.portfolioproject.Services.UserLibraryService;
-import com.sintraqos.portfolioproject.Services.UserService;
-import com.sintraqos.portfolioproject.Statics.Console;
-import com.sintraqos.portfolioproject.Statics.Enums;
+import com.sintraqos.portfolioproject.Services.*;
+import com.sintraqos.portfolioproject.Statics.*;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.autoconfigure.cache.CacheManagerCustomizer;
 import org.springframework.cache.concurrent.ConcurrentMapCacheManager;
@@ -14,12 +11,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Component;
 import org.thymeleaf.extras.springsecurity6.dialect.SpringSecurityDialect;
-import org.thymeleaf.spring6.SpringTemplateEngine;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Configuration
 public class Beans {

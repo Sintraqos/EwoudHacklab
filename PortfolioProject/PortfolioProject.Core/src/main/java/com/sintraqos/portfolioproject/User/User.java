@@ -3,22 +3,44 @@ package com.sintraqos.portfolioproject.User;
 import com.sintraqos.portfolioproject.DTO.UserDTO;
 import com.sintraqos.portfolioproject.Entities.UserEntity;
 import com.sintraqos.portfolioproject.Game.Game;
+import com.sintraqos.portfolioproject.Statics.Enums;
 import lombok.Getter;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 /**
  * Use for storing account data locally
  */
 @Getter
-public class User {
+public class User implements UserDetails {
     private int accountID = -1; // Default value for check if the database needs to assign a new ID
-    private String username;
+    private final String username;
     private String eMail;
     private String password;
     private UserLibrary userLibrary;
+    private Enums.Role role= Enums.Role.USER;
+    private final boolean isAccountNonExpired= true;
+    private final boolean isAccountNonLocked= true;
+    private final boolean isCredentialsNonExpired= true;
+    private final boolean isEnabled= true;
 
-    public User() {
+    /**
+     * Create a new account object from a DTO object
+     *
+     * @param userEntity the incoming Entity object
+     */
+    public User(UserEntity userEntity){
+        this.accountID = userEntity.getAccountID();
+        this.username = userEntity.getUsername();
+        this.eMail = userEntity.getEMail();
+        this.password = userEntity.getPassword();
+        this.role = userEntity.getRole();
+        this.userLibrary = new UserLibrary();
     }
 
     /**
@@ -31,20 +53,10 @@ public class User {
         this.username = userDTO.getUsername();
         this.eMail = userDTO.getEMail();
         this.password = userDTO.getPassword();
+        this.role = userDTO.getRole();
         this.userLibrary = new UserLibrary(userDTO.getUserLibrary());
     }
 
-    /**
-     * Create a new account object from an Entity object
-     *
-     * @param userEntity the incoming Entity object
-     */
-    public User(UserEntity userEntity){
-        this.accountID = userEntity.getAccountID();
-        this.username = userEntity.getUsername();
-        this.eMail = userEntity.getEMail();
-        this.password = userEntity.getPasswordHash();
-    }
     /**
      * Create a new account object from an Entity object
      *
@@ -55,6 +67,7 @@ public class User {
         this.username = userEntity.getUsername();
         this.eMail = userEntity.getEMail();
         this.password = userEntity.getPasswordHash();
+        this.role = userEntity.getRole();
         this.userLibrary = userLibrary;
     }
 
@@ -98,8 +111,34 @@ public class User {
         this.userLibrary = new UserLibrary(gameLibrary);
     }
 
-    public void setUserLibrary(ArrayList<Game> gameLibrary) {
-        userLibrary = new UserLibrary(gameLibrary);
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of(new SimpleGrantedAuthority("ROLE_" + role.name()));
+    }
+
+    @Override
+    public String getPassword() {
+        return password;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return isAccountNonExpired;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return isAccountNonLocked;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return isCredentialsNonExpired;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return isEnabled;
     }
 
     @Override

@@ -1,19 +1,11 @@
 package com.sintraqos.portfolioproject.User;
 
-import com.sintraqos.portfolioproject.Entities.UserLibraryEntity;
-import com.sintraqos.portfolioproject.Game.Game;
-import com.sintraqos.portfolioproject.Game.GameManager;
-import com.sintraqos.portfolioproject.Messages.UserMessage;
-import com.sintraqos.portfolioproject.Messages.UserLibraryEntityMessage;
-import com.sintraqos.portfolioproject.Messages.Message;
+import com.sintraqos.portfolioproject.Messages.*;
 import com.sintraqos.portfolioproject.Services.UserLibraryService;
 import com.sintraqos.portfolioproject.Services.UserService;
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Use for user input handling for user related scripts
@@ -22,17 +14,13 @@ import java.util.List;
 @Component
 public class UserManager {
 
-    // Local storage of online accounts
-
     private final UserService userService;
     private final UserLibraryService userLibraryService;
-    private final GameManager gameManager;
 
     @Autowired
-    public UserManager(UserService userService, UserLibraryService userLibraryService, GameManager gameManager) {
+    public UserManager(UserService userService, UserLibraryService userLibraryService) {
         this.userService = userService;
         this.userLibraryService = userLibraryService;
-        this.gameManager = gameManager;
     }
 
     /**
@@ -69,7 +57,25 @@ public class UserManager {
         }
     }
 
-    //region Get Account
+    /**
+     * Ban the given account
+     *
+     * @param username the username of the user
+     */
+    public Message banAccount(String username){
+        return userService.banAccount(username);
+    }
+
+    /**
+     * Unban the given account
+     *
+     * @param username the username of the user
+     */
+    public Message unbanAccount(String username) {
+        return userService.unbanAccount(username);
+    }
+
+    //region Get User
 
     /**
      * Get user using the username
@@ -87,7 +93,7 @@ public class UserManager {
     }
 
     /**
-     * Get user using the username
+     * Get user using the accountID
      *
      * @param accountID the ID of the user
      */
@@ -101,6 +107,15 @@ public class UserManager {
         return message;
     }
 
+    /**
+     * Get all users containing the username
+     *
+     * @param username the username of the user
+     */
+    public UserMessage getAccounts(String username) {
+        return userService.getAccounts(username);
+    }
+
     //endregion
 
     /**
@@ -110,39 +125,42 @@ public class UserManager {
      * @param gameID   the ID of the game
      */
     public Message addGame(User user, int gameID) {
-        UserLibraryEntityMessage libraryMessage = userLibraryService.addGame(user.getAccountID(), gameID);
-
-        return libraryMessage;
+        return  userLibraryService.addGame(user.getAccountID(), gameID);
     }
+
+    //region Update User
 
     /**
-     * Retrieve all information from the database, and apply it to a new Account object
+     * Update the username of the given account
      *
-     * @param username the name of the user
+     * @param currentUsername the current username of the user
+     * @param newUsername the new username of the user
+     * @param password the new password of the user
      */
-    UserMessage setAccount(String username) {
-        UserMessage message = getAccount(username);
-        if (!message.isSuccessful()) {
-            return message;
-        }
-
-        List<UserLibraryEntity> entityList = userLibraryService.getLibrary(message.getUserDTO().getAccountID());
-        ArrayList<Game> games = new ArrayList<>();
-        for (UserLibraryEntity entity : entityList) {
-            games.add(new Game(entity, gameManager.getGame(entity.getGameID()).getEntity()));
-        }
-
-        User user = new User(message.getUserDTO());
-        user.setUserLibrary(games);
-
-        return message;
-    }
-
-    public UserMessage getAccounts(String username) {
-        return userService.getAccounts(username);
-    }
-
     public Message changeUsername(String currentUsername, String newUsername, String password) {
         return userService.changeUsername(currentUsername, newUsername, password);
     }
+
+    /**
+     * Update the E-Mail address of the given account
+     *
+     * @param username the username of the user
+     * @param eMail the new E-Mail address of the user
+     */
+    public Message changeEmail(String username, String eMail, String password){
+        return userService.changeEMail(username,eMail,password);
+    }
+
+    /**
+     * Update the E-Mail address of the given account
+     *
+     * @param username the username of the user
+     * @param currentPassword the current password of the user
+     * @param newPassword the new password of the user
+     */
+    public Message changePassword(String username, String currentPassword, String newPassword) {
+        return userService.changePassword(username,currentPassword,newPassword);
+    }
+
+    //endregion
 }

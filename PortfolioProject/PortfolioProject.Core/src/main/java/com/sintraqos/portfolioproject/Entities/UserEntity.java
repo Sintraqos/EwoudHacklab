@@ -7,7 +7,6 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.List;
@@ -21,7 +20,7 @@ import java.util.List;
 @AllArgsConstructor
 @Entity
 @Table(name = "accounts")
-public class UserEntity implements UserDetails {
+public class UserEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int accountID;
@@ -30,10 +29,10 @@ public class UserEntity implements UserDetails {
     private String username;
     private String eMail;
     private String passwordHash;
-    private boolean isAccountNonExpired;
-    private boolean isAccountNonLocked;
-    private boolean isCredentialsNonExpired;
-    private boolean isEnabled;
+    private boolean isAccountNonExpired= true;
+    private boolean isAccountNonLocked= true;
+    private boolean isCredentialsNonExpired= true;
+    private boolean isEnabled= true;
 
     @Setter
     @Column(nullable = false)
@@ -54,33 +53,11 @@ public class UserEntity implements UserDetails {
         this.role = userDTO.getRole();
     }
 
-    @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority("ROLE_" + role.name()));
     }
 
-    @Override
     public String getPassword() {
         return passwordHash;
-    }
-
-    @Override
-    public boolean isAccountNonExpired() {
-        return isAccountNonExpired;
-    }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return isAccountNonLocked;
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return isCredentialsNonExpired;
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return isEnabled;
     }
 }

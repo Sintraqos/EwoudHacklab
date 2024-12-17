@@ -2,11 +2,17 @@ package com.sintraqos.portfolioproject.Services;
 
 import com.sintraqos.portfolioproject.DTO.*;
 import com.sintraqos.portfolioproject.Entities.*;
+import com.sintraqos.portfolioproject.Game.Game;
 import com.sintraqos.portfolioproject.Messages.*;
 import com.sintraqos.portfolioproject.Repositories.*;
+import com.sintraqos.portfolioproject.Statics.Console;
 import com.sintraqos.portfolioproject.Statics.Enums;
 import com.sintraqos.portfolioproject.Statics.Errors;
 import org.springframework.security.core.userdetails.*;
+import com.sintraqos.portfolioproject.User.UserLibrary;
+import com.sintraqos.portfolioproject.User.User;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -230,19 +236,7 @@ public class UserService  implements UserDetailsService {
             throw new UsernameNotFoundException(Errors.FIND_ACCOUNT_NAME_FAILED.formatted(username));
         }
 
-//        if (!userEntity.isEnabled()) {
-//            throw new DisabledException("Account is banned");
-//        }
-//
-//        if (!userEntity.isAccountNonLocked()) {
-//            throw new LockedException("Account is locked");
-//        }
-
-        return new User(
-                userEntity.getUsername(),
-                userEntity.getPasswordHash(),
-                userEntity.getAuthorities()
-        );
+        return new User(userEntity);
     }
 
     public UserMessage getAccounts(String username) {
@@ -263,6 +257,11 @@ public class UserService  implements UserDetailsService {
             return userMessage;
         }
 
+        Message passwordCheck = comparePassword(userMessage.getUserEntity().getPasswordHash(), password);
+        if (passwordCheck.isSuccessful()) {
+            return new Message(Errors.PASSWORD_INCORRECT);
+        }
+
         UserEntity user = userMessage.getUserEntity();
         if(userRepository.findByUsername(newUsername) != null){
             return new Message(Errors.USERNAME_ALREADY_IN_USE);
@@ -272,24 +271,35 @@ public class UserService  implements UserDetailsService {
         return handleUpdateAccount(user, newUsername, user.getEMail(),  user.getPassword(), user.getRole());
     }
 
-    public Message changePassword(String userName, String password) {
+    public Message changePassword(String userName,  String currentPassword, String newPassword) {
+        // Retrieve the account
+        UserMessage userMessage = getAccount(userName);
+        if (!userMessage.isSuccessful()) {
+            return userMessage;
+        }
+        // Compare the password that was given to the stored password
+        Message passwordMessage = comparePassword(currentPassword, userMessage.getUserEntity().getPassword());
+        if (!passwordMessage.isSuccessful()) {
+            return passwordMessage;
+        }
+
+        // Get the entity from the message
+        UserEntity user = userMessage.getUserEntity();
+
+        // Return the message
+        return handleUpdateAccount(user, userName, user.getEMail(), newPassword, user.getRole());
+    }
+
+    public Message changeEMail(String userName, String eMail, String password) {
         // Retrieve the account
         UserMessage userMessage = getAccount(userName);
         if (!userMessage.isSuccessful()) {
             return userMessage;
         }
 
-        UserEntity user = userMessage.getUserEntity();
-
-        // Return the message
-        return handleUpdateAccount(user, userName, user.getEMail(), password, user.getRole());
-    }
-
-    public Message changeEMail(String userName, String eMail) {
-        // Retrieve the account
-        UserMessage userMessage = getAccount(userName);
-        if (!userMessage.isSuccessful()) {
-            return userMessage;
+        Message passwordCheck = comparePassword(userMessage.getUserEntity().getPasswordHash(), password);
+        if (passwordCheck.isSuccessful()) {
+            return new Message(Errors.PASSWORD_INCORRECT);
         }
 
         UserEntity user = userMessage.getUserEntity();

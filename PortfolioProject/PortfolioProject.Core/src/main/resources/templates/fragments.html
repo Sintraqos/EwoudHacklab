@@ -27,7 +27,6 @@
 <div th:fragment="userResults">
     <h2>User Results</h2>
     <div th:each="user : ${users}">
-<!--        <p th:text="${user.username}"></p>-->
         <form th:action="@{/adminAccountSettings}" method="get">
             <input type="hidden" name="username" th:value="${user.username}" />
             <button type="submit" class="full-width-btn"
@@ -36,6 +35,24 @@
         </form>
         <hr>
     </div>
+</div>
+
+<!-- Fragment for changing username of account-->
+<div th:fragment="changeUsername">
+    <h1 th:text="${headerText}">Header</h1> <!-- The text here will be dynamically replaced -->
+</div>
+<!-- Fragment for changing e-mail address of account-->
+<div th:fragment="changeEMail">
+    <h1 th:text="${headerText}">Header</h1> <!-- The text here will be dynamically replaced -->
+</div>
+<!-- Fragment for changing password of account-->
+<div th:fragment="changePassword">
+    <div><label> Current Username : <input type="text" name="username"/> </label></div>
+    <div><label> New Username : <input type="text" name="username"/> </label></div>
+    <div><label> Password: <input type="password" name="password"/> </label></div>
+
+    <!-- Create Login Button -->
+    <div><button type="submit" name="action" value="Login">Login</button></div>
 </div>
 </body>
 </html>

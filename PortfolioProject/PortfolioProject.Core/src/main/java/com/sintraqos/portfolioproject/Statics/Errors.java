@@ -13,6 +13,7 @@ public class Errors {
     public static final String PASSWORD_INVALID_LENGTH = "Password length must be between 6 and 16 characters";
     public static final String PASSWORD_MISMATCH = "Password mismatch";
     public static final String PASSWORD_INCORRECT = "Password incorrect";
+    public static final String PASSWORD_MATCH = "Password the same as the previous password";
 
     // Database
     public static final String GAME_EXISTS = "Game with name: '%s' already exists";

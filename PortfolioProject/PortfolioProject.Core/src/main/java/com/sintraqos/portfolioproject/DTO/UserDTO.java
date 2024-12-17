@@ -1,5 +1,6 @@
 package com.sintraqos.portfolioproject.DTO;
 
+import com.sintraqos.portfolioproject.Statics.Console;
 import com.sintraqos.portfolioproject.Statics.Enums;
 import com.sintraqos.portfolioproject.Entities.UserEntity;
 import lombok.Getter;

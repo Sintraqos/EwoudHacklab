@@ -9,7 +9,7 @@
 
 <!-- Search for a game by its name -->
 <form id="userSearchForm" th:action="@{/admin/adminManageUsers/findUser}" method="get" onsubmit="return false;">
-    <input type="text" id="username" name="username" placeholder="Find User" required oninput="searchUser()" onkeydown="handleKeyDown(event)"/>
+    <input type="text" id="username" name="username" placeholder="Find User" required oninput="searchUser()"/>
 </form>
 
 <div id="userResults"></div>

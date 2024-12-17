@@ -16,13 +16,23 @@
     <!-- Admin settings page -->
     <div sec:authorize="hasRole('ROLE_ADMIN')">
       <h1 th:text="'Admin Page'"></h1>
-<!--      TODO: Add in buttons for changing account password, (un)banning account, setting account role, etc-->
+    <!--      TODO: Add in buttons for changing account password, (un)banning account, setting account role, etc-->
     </div>
 
     <!-- User settings page -->
     <div sec:authorize="hasRole('ROLE_USER')">
       <h1 th:text="'User Page'"></h1>
-      <!--      TODO: Add in buttons for changing account settings, etc-->
+
+    <form th:action="@{/settings/changeUsername}" method="post">
+      <button type="submit">Change Username</button>
+    </form>
+    <form th:action="@{/settings/changeEMail}" method="post">
+      <button type="submit">Change E-Mail Address</button>
+    </form>
+    <form th:action="@{/settings/changePassword}" method="post">
+      <button type="submit">Change Password</button>
+    </form>
+
     </div>
 
     <!-- Return to account -->
