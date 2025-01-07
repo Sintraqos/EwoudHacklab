@@ -205,9 +205,14 @@ public class WebServiceController implements WebMvcConfigurer {
      * @return the settingsPage
      */
     @GetMapping("/settings")
-    public String getSettingsPage(@SessionAttribute("userObject") User user, Model model) {
+    public String getSettingsPage(
+            @SessionAttribute("userObject") User user,
+            @RequestParam(value = "showAdminPage", required = false, defaultValue = "false") boolean showAdminPage,
+            Model model) {
         model.addAttribute("headerText", "Settings");
         model.addAttribute("user", user);
+        model.addAttribute("showAdminPage", showAdminPage);
+
         return "settings";
     }
 
@@ -517,18 +522,23 @@ public class WebServiceController implements WebMvcConfigurer {
             RedirectAttributes redirectAttributes,
             Model model) {
 
-        UserMessage getAccount = userManager.getAccounts(username);
+        Console.writeLine(username);
+
+        UserMessage getAccount = userManager.getAccount(username);
         if (!getAccount.isSuccessful()) {
             redirectAttributes.addAttribute("error", handleError(getAccount.getMessage()));
             return "redirect:/adminManageUsers";
         }
 
         model.addAttribute("headerText", "Settings of: %s".formatted(username));
-        model.addAttribute("user", getAccount.getUserDTO());
-        return "settings";
+        model.addAttribute("user", new User(getAccount.getUserDTO()));
+        model.addAttribute("showAdminPage", true);
+
+        // Redirect to the settings page, add in the check for showAdminPage
+        return "/settings";
     }
 
-    @GetMapping("adminBanUser")
+    @PostMapping("admin/adminBanUser")
     public String adminBanUser(
             @RequestParam("username") String username,
             RedirectAttributes redirectAttributes) {
@@ -546,10 +556,11 @@ public class WebServiceController implements WebMvcConfigurer {
             redirectAttributes.addAttribute("warning", handleWarning(banAccountmessage.getMessage()));
             return "redirect:/settings";
         }
+
         return "redirect:/settings";
     }
 
-    @GetMapping("adminUnbanUser")
+    @PostMapping("admin/adminUnbanUser")
     public String adminUnbanUser(
             @RequestParam("username") String username,
             RedirectAttributes redirectAttributes) {
@@ -567,6 +578,21 @@ public class WebServiceController implements WebMvcConfigurer {
             redirectAttributes.addAttribute("warning", handleWarning(unbanAccountmessage.getMessage()));
             return "redirect:/settings";
         }
+        return "redirect:/settings";
+    }
+
+    @PostMapping("admin/adminSetUserRole")
+    public String adminSetUserRole(
+            @RequestParam("username") String username,
+            RedirectAttributes redirectAttributes) {
+
+        // Get the account from the database
+        UserMessage getAccount = userManager.getAccounts(username);
+        if (!getAccount.isSuccessful()) {
+            redirectAttributes.addAttribute("warning", handleWarning(getAccount.getMessage()));
+            return "redirect:/settings";
+        }
+
         return "redirect:/settings";
     }
 

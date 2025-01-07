@@ -28,9 +28,9 @@
     <h2>User Results</h2>
     <div th:each="user : ${users}">
         <form th:action="@{/adminAccountSettings}" method="get">
-            <input type="hidden" name="username" th:value="${user.username}" />
+            <input type="hidden" name="username" th:value="${user.getUsername()}" />
             <button type="submit" class="full-width-btn"
-                    th:text="${user.username}">
+                    th:text="${user.getUsername()}">
             </button>
         </form>
         <hr>

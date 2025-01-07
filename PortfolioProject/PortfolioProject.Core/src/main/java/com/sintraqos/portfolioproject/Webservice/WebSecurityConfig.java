@@ -17,13 +17,17 @@ import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 public class WebSecurityConfig {
     private final UserService userService;
     private final PasswordEncoder passwordEncoder;
+    private final CustomAuthenticationFailureHandler customAuthenticationFailureHandler;
+    private final CustomAuthenticationHandler customAuthenticationHandler;
 
     @Autowired
     public WebSecurityConfig(
             UserService userService,
-            PasswordEncoder passwordEncoder){
+            PasswordEncoder passwordEncoder, CustomAuthenticationFailureHandler customAuthenticationFailureHandler, CustomAuthenticationHandler customAuthenticationHandler){
         this.userService = userService;
         this.passwordEncoder = passwordEncoder;
+        this.customAuthenticationFailureHandler = customAuthenticationFailureHandler;
+        this.customAuthenticationHandler = customAuthenticationHandler;
     }
 
     /**
@@ -47,6 +51,7 @@ public class WebSecurityConfig {
                         .loginPage("/login")
                         .loginProcessingUrl("/login")
                         .defaultSuccessUrl("/account", true)
+                        .failureHandler(customAuthenticationFailureHandler)
                         .permitAll()
                 )
                 .logout(logout -> logout
@@ -79,4 +84,9 @@ public class WebSecurityConfig {
         // Build the AuthenticationManager
         return authenticationManagerBuilder.build();
     }
+
+//    @Bean
+//    protected AuthenticationManagerBuilder configure(AuthenticationManagerBuilder auth) throws Exception {
+//       return auth.authenticationProvider(customAuthenticationHandler);
+//    }
 }

@@ -14,13 +14,26 @@
     <div th:replace="~{fragments::header}"></div>
 
     <!-- Admin settings page -->
+    <div th:if="${showAdminPage}">
     <div sec:authorize="hasRole('ROLE_ADMIN')">
       <h1 th:text="'Admin Page'"></h1>
-    <!--      TODO: Add in buttons for changing account password, (un)banning account, setting account role, etc-->
+      <form th:action="@{/admin/adminBanUser}" method="post">
+        <input type="hidden" name="username" th:value="${user.getUsername()}" />
+        <button type="submit">Ban User</button>
+      </form>
+      <form th:action="@{/admin/adminUnbanUser}" method="post">
+        <input type="hidden" name="username" th:value="${user.getUsername()}" />
+        <button type="submit">Unban User</button>
+      </form>
+      <form th:action="@{/admin/adminSetUserRole}" method="post">
+        <input type="hidden" name="username" th:value="${user.getUsername()}" />
+        <button type="submit">Set User Role</button>
+      </form>
+    </div>
     </div>
 
-    <!-- User settings page -->
-    <div sec:authorize="hasRole('ROLE_USER')">
+    <!-- Default settings page -->
+      <div th:if="${!showAdminPage}">
       <h1 th:text="'User Page'"></h1>
 
     <form th:action="@{/settings/changeUsername}" method="post">

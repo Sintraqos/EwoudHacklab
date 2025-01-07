@@ -47,6 +47,7 @@ public class UserEntity {
     }
 
     public UserEntity(UserDTO userDTO) {
+        this.accountID = userDTO.getAccountID();
         this.username = userDTO.getUsername();
         this.eMail = userDTO.getEMail();
         this.passwordHash = userDTO.getPassword();

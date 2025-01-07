@@ -1,2 +1,3 @@
-[11:54:07] - Finished initializing Spring-Boot
-[11:54:07] - #################################
+[11:56:28] - Finished initializing Spring-Boot
+[11:56:28] - #################################
+[11:56:39] - Warning: Account with username: 'a' is banned

@@ -4,6 +4,7 @@ import com.sintraqos.portfolioproject.Entities.UserEntity;
 import com.sintraqos.portfolioproject.Repositories.UserRepository;
 import com.sintraqos.portfolioproject.Services.*;
 import com.sintraqos.portfolioproject.Statics.*;
+import com.sintraqos.portfolioproject.Webservice.CustomAuthenticationHandler;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.autoconfigure.cache.CacheManagerCustomizer;
 import org.springframework.cache.concurrent.ConcurrentMapCacheManager;
@@ -79,5 +80,10 @@ public class Beans {
     @Bean
     public SpringSecurityDialect springSecurityDialect() {
         return new SpringSecurityDialect();
+    }
+
+    @Bean
+    public CustomAuthenticationHandler springAuthenticationHandler() {
+        return new CustomAuthenticationHandler();
     }
 }

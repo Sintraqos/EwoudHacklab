@@ -2,14 +2,13 @@ package com.sintraqos.portfolioproject.Services;
 
 import com.sintraqos.portfolioproject.DTO.*;
 import com.sintraqos.portfolioproject.Entities.*;
-import com.sintraqos.portfolioproject.Game.Game;
 import com.sintraqos.portfolioproject.Messages.*;
 import com.sintraqos.portfolioproject.Repositories.*;
 import com.sintraqos.portfolioproject.Statics.Console;
 import com.sintraqos.portfolioproject.Statics.Enums;
 import com.sintraqos.portfolioproject.Statics.Errors;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.userdetails.*;
-import com.sintraqos.portfolioproject.User.UserLibrary;
 import com.sintraqos.portfolioproject.User.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -187,7 +186,7 @@ public class UserService  implements UserDetailsService {
     /**
      * Ban the given account
      *
-     * @param username
+     * @param username the username of the account
      */
     public Message banAccount(String username) {
         return handleBanAccount(username, true);
@@ -196,7 +195,7 @@ public class UserService  implements UserDetailsService {
     /**
      * Unban the given account
      *
-     * @param username
+     * @param username the username of the account
      */
     public Message unbanAccount(String username) {
         return handleBanAccount(username, false);
@@ -222,11 +221,12 @@ public class UserService  implements UserDetailsService {
         userRepository.save(user);
 
         String returnMessage = "Successfully banned account: '%s'".formatted(username);
-        if(!isBanned)
+        if(!isBanned) {
             returnMessage = "Successfully unbanned account: '%s'".formatted(username);
+        }
 
         // Return the message
-        return new Message(returnMessage);
+        return new Message(true, returnMessage);
     }
 
     @Override
@@ -234,6 +234,12 @@ public class UserService  implements UserDetailsService {
         UserEntity userEntity = userRepository.findByUsername(username);
         if (userEntity == null) {
             throw new UsernameNotFoundException(Errors.FIND_ACCOUNT_NAME_FAILED.formatted(username));
+        }
+
+        // Account is banned, so no login should occur
+        if(!userEntity.isAccountNonLocked() || !userEntity.isEnabled()){
+            // Should throw a proper exception, but this works fine as is
+            throw new BadCredentialsException(Errors.ACCOUNT_BANNED.formatted(username));
         }
 
         return new User(userEntity);
