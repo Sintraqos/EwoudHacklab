@@ -16,6 +16,7 @@ public class Errors {
     public static final String PASSWORD_MATCH = "Password the same as the previous password";
 
     // Database
+    public static final String AUTH_FAILED = "Authentication Failed";
     public static final String GAME_EXISTS = "Game with name: '%s' already exists";
     public static final String FIND_GAME_NAME_FAILED = "Couldn't find game by name: '%s'";
     public static final String FIND_GAME_ID_FAILED = "Couldn't find game by ID: '%s'";

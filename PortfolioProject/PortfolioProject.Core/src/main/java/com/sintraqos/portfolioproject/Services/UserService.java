@@ -238,7 +238,7 @@ public class UserService  implements UserDetailsService {
 
         // Account is banned, so no login should occur
         if(!userEntity.isAccountNonLocked() || !userEntity.isEnabled()){
-            // Should throw a proper exception, but this works fine as is
+            // For some reason throwing a 'BadCredentialsException' crashes the app, for now throw a UsernameNotFoundException
             throw new BadCredentialsException(Errors.ACCOUNT_BANNED.formatted(username));
         }
 

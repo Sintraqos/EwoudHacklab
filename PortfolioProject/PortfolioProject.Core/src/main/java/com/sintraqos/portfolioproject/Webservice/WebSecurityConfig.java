@@ -14,7 +14,7 @@ import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 
 @Configuration
 @EnableWebSecurity
-public class WebSecurityConfig {
+public class WebSecurityConfig  {
     private final UserService userService;
     private final PasswordEncoder passwordEncoder;
     private final CustomAuthenticationFailureHandler customAuthenticationFailureHandler;
@@ -23,7 +23,10 @@ public class WebSecurityConfig {
     @Autowired
     public WebSecurityConfig(
             UserService userService,
-            PasswordEncoder passwordEncoder, CustomAuthenticationFailureHandler customAuthenticationFailureHandler, CustomAuthenticationHandler customAuthenticationHandler){
+            PasswordEncoder passwordEncoder,
+            CustomAuthenticationFailureHandler customAuthenticationFailureHandler,
+            CustomAuthenticationHandler customAuthenticationHandler
+    ){
         this.userService = userService;
         this.passwordEncoder = passwordEncoder;
         this.customAuthenticationFailureHandler = customAuthenticationFailureHandler;
@@ -39,6 +42,7 @@ public class WebSecurityConfig {
                 .csrf(csrf -> csrf
                         .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
                 )
+                .authenticationManager(authenticationManager(http))
                 .authorizeRequests(requests -> requests
                         .requestMatchers("/", "/home", "/login", "/register", "/error")
                         .permitAll()
@@ -81,12 +85,10 @@ public class WebSecurityConfig {
                 .userDetailsService(userService)   // Custom user service to load user details
                 .passwordEncoder(passwordEncoder); // Custom password encoder
 
+        // Add the custom authentication provider
+        authenticationManagerBuilder.authenticationProvider(customAuthenticationHandler);
+
         // Build the AuthenticationManager
         return authenticationManagerBuilder.build();
     }
-
-//    @Bean
-//    protected AuthenticationManagerBuilder configure(AuthenticationManagerBuilder auth) throws Exception {
-//       return auth.authenticationProvider(customAuthenticationHandler);
-//    }
 }

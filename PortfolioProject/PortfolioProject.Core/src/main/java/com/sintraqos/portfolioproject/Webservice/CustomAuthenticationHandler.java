@@ -26,17 +26,16 @@ public class CustomAuthenticationHandler  implements AuthenticationProvider {
 
         try {
             UserDetails userDetails = userService.loadUserByUsername(username);
+
             return new UsernamePasswordAuthenticationToken(userDetails, password, userDetails.getAuthorities());
-        } catch (BadCredentialsException ex) {
-            Console.writeWarning(ex.getMessage());
-            throw ex;  // Re-throw the exception if the account is banned or credentials are incorrect
-        } catch (UsernameNotFoundException ex) {
-            Console.writeWarning(ex.getMessage());
+        } catch (UsernameNotFoundException | BadCredentialsException ex) {
+            Console.writeLine("CustomAuthenticationHandler: " + ex.getMessage());
             throw ex;  // Re-throw if user is not found
-        } catch (Exception ex) {
-            Console.writeWarning(ex.getMessage());
+        }
+        catch (Exception ex) {
+            Console.writeLine(ex.getMessage());
             // Catch any unexpected errors here
-            throw new InternalAuthenticationServiceException("Authentication failed", ex);
+            throw new InternalAuthenticationServiceException(Errors.AUTH_FAILED, ex);
         }
     }
 
