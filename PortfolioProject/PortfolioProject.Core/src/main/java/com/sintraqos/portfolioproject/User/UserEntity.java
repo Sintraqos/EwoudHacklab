@@ -1,10 +1,9 @@
-package com.sintraqos.portfolioproject.Entities;
-
-import com.sintraqos.portfolioproject.DTO.UserDTO;
+package com.sintraqos.portfolioproject.User;
 
 import com.sintraqos.portfolioproject.Statics.Enums;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
@@ -26,8 +25,11 @@ public class UserEntity {
     private int accountID;
 
     @Column(nullable = false, length = 100)
+    @NotBlank(message = "Username is mandatory.")
     private String username;
+    @NotBlank(message = "E-Mail is mandatory.")
     private String eMail;
+    @NotBlank(message = "Password is mandatory.")
     private String passwordHash;
     private boolean isAccountNonExpired= true;
     private boolean isAccountNonLocked= true;

@@ -1,9 +1,5 @@
-package com.sintraqos.portfolioproject.Services;
+package com.sintraqos.portfolioproject.Game;
 
-import com.sintraqos.portfolioproject.DTO.GameDTO;
-import com.sintraqos.portfolioproject.Entities.GameEntity;
-import com.sintraqos.portfolioproject.Messages.GameEntityMessage;
-import com.sintraqos.portfolioproject.Repositories.GameRepository;
 import com.sintraqos.portfolioproject.Statics.Errors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -20,14 +20,9 @@ public class CustomAuthenticationFailureHandler implements AuthenticationFailure
             HttpServletRequest request, HttpServletResponse response, AuthenticationException exception)
             throws IOException {
 
-        String errorMessage = exception.getMessage();
-
-        Console.writeLine("CustomAuthenticationFailureHandler: " +  errorMessage);
-        Console.writeLine("Exception type: " + exception.getClass().getName());  // Log the full exception class name
-
         // Redirect to login page with error message
         String redirectUrl = UriComponentsBuilder.fromPath("/login")
-                .queryParam("error", errorMessage)
+                .queryParam("warning", exception.getMessage())
                 .toUriString();
 
         response.sendRedirect(redirectUrl);

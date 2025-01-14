@@ -1,8 +1,5 @@
-package com.sintraqos.portfolioproject.Controllers;
+package com.sintraqos.portfolioproject.Game;
 
-import com.sintraqos.portfolioproject.DTO.GameDTO;
-import com.sintraqos.portfolioproject.Entities.GameEntity;
-import com.sintraqos.portfolioproject.Repositories.GameRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

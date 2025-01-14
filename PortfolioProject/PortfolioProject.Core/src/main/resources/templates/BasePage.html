@@ -1,0 +1,44 @@
+<!-- Basic web page from which other pages can be created -->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <title>Home</title>
+    <script th:inline="javascript">
+        let currentIndex = 0;
+
+        // Inject the list into JavaScript
+        const reviewList = /*[[${reviewList}]]*/ [];
+
+        function updateText() {
+            // Get the text element to update
+            const textElement = document.getElementById("textDisplay");
+            if (reviewList.length > 0) {
+                const review = reviewList[currentIndex];
+                // textElement.textContent = reviewList[currentIndex];
+                textElement.textContent = `${review.gameName}: ${review.gameReview} - ${review.gameScore}/10`;
+                // Update the index for the next item, and loop back to the start if necessary
+                currentIndex = (currentIndex + 1) % reviewList.length;
+            }
+        }
+
+        // Update text every 10 seconds
+        setInterval(updateText, 10000);
+
+        // Update text immediately on page load
+        window.onload = updateText;
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+<!-- Display a message if exists -->
+<div th:replace="~{fragments :: messages}"></div>
+
+<!-- Display the header of the page -->
+<div th:replace="~{fragments::header}"></div>
+
+<!-- Content of the page-->
+
+</body>
+</html>

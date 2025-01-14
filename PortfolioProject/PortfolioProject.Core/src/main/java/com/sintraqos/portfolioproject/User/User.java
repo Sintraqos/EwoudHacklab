@@ -1,9 +1,8 @@
 package com.sintraqos.portfolioproject.User;
 
-import com.sintraqos.portfolioproject.DTO.UserDTO;
-import com.sintraqos.portfolioproject.Entities.UserEntity;
 import com.sintraqos.portfolioproject.Game.Game;
 import com.sintraqos.portfolioproject.Statics.Enums;
+import com.sintraqos.portfolioproject.UserLibrary.UserLibrary;
 import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

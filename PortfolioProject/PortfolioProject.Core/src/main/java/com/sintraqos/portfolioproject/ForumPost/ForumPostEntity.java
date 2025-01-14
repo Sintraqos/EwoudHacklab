@@ -1,8 +1,9 @@
-package com.sintraqos.portfolioproject.Entities;
+package com.sintraqos.portfolioproject.ForumPost;
 
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.validator.constraints.NotBlank;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
@@ -21,12 +22,15 @@ public class ForumPostEntity {
     private int forumPostID;
 
     @Column(columnDefinition = "INT")
+    @NotBlank(message = "User ID is mandatory.")
     private int accountID;
 
     @Column(columnDefinition = "INT")
+    @NotBlank(message = "Game ID is mandatory.")
     private int gameID;
 
     @Column(nullable = false, length = 1024)
+    @NotBlank(message = "Message is mandatory.")
     private String message;
 
     @Column(name = "postDate", columnDefinition = "TIMESTAMP")

@@ -1,6 +1,6 @@
-package com.sintraqos.portfolioproject.Messages;
+package com.sintraqos.portfolioproject.Game;
 
-import com.sintraqos.portfolioproject.Entities.GameEntity;
+import com.sintraqos.portfolioproject.Messages.Message;
 import lombok.Getter;
 
 import java.util.List;

@@ -33,12 +33,15 @@
       vertical-align: top;
     }
   </style>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/css/styles.css">
 </head>
 <body>
-<div th:if="${param.error}">
-  <span style="color:red;" th:text="${param.error}"></span>
-</div>
 
+<!-- Display a message if exists -->
+<div th:replace="~{fragments :: messages}"></div>
+
+<!-- Display the header of the page -->
 <div th:replace="~{fragments::header}"></div>
 
 <!-- Display a list of games in the library -->

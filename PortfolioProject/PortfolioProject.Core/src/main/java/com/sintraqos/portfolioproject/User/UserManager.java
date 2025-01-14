@@ -1,8 +1,7 @@
 package com.sintraqos.portfolioproject.User;
 
 import com.sintraqos.portfolioproject.Messages.*;
-import com.sintraqos.portfolioproject.Services.UserLibraryService;
-import com.sintraqos.portfolioproject.Services.UserService;
+import com.sintraqos.portfolioproject.UserLibrary.UserLibraryService;
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

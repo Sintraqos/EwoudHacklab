@@ -1,8 +1,7 @@
-package com.sintraqos.portfolioproject.DTO;
+package com.sintraqos.portfolioproject.User;
 
-import com.sintraqos.portfolioproject.Statics.Console;
 import com.sintraqos.portfolioproject.Statics.Enums;
-import com.sintraqos.portfolioproject.Entities.UserEntity;
+import com.sintraqos.portfolioproject.UserLibrary.UserLibraryDTO;
 import lombok.Getter;
 
 /**

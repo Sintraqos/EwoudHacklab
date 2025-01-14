@@ -1,4 +1,4 @@
-package com.sintraqos.portfolioproject.DTO;
+package com.sintraqos.portfolioproject.ForumPost;
 
 import lombok.Getter;
 

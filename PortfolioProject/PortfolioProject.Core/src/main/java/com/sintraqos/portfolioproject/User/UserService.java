@@ -1,15 +1,16 @@
-package com.sintraqos.portfolioproject.Services;
+package com.sintraqos.portfolioproject.User;
 
-import com.sintraqos.portfolioproject.DTO.*;
-import com.sintraqos.portfolioproject.Entities.*;
+import com.sintraqos.portfolioproject.Game.GameDTO;
+import com.sintraqos.portfolioproject.Game.GameRepository;
 import com.sintraqos.portfolioproject.Messages.*;
-import com.sintraqos.portfolioproject.Repositories.*;
-import com.sintraqos.portfolioproject.Statics.Console;
 import com.sintraqos.portfolioproject.Statics.Enums;
 import com.sintraqos.portfolioproject.Statics.Errors;
+import com.sintraqos.portfolioproject.UserLibrary.UserLibraryDTO;
+import com.sintraqos.portfolioproject.UserLibrary.UserLibraryEntity;
+import com.sintraqos.portfolioproject.UserLibrary.UserLibraryRepository;
+import com.sintraqos.portfolioproject.UserLibrary.UserLibraryService;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.userdetails.*;
-import com.sintraqos.portfolioproject.User.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;

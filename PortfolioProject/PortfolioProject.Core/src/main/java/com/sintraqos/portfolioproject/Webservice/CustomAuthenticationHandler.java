@@ -1,6 +1,6 @@
 package com.sintraqos.portfolioproject.Webservice;
 
-import com.sintraqos.portfolioproject.Services.UserService;
+import com.sintraqos.portfolioproject.User.UserService;
 import com.sintraqos.portfolioproject.Statics.Console;
 import com.sintraqos.portfolioproject.Statics.Errors;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,12 +29,11 @@ public class CustomAuthenticationHandler  implements AuthenticationProvider {
 
             return new UsernamePasswordAuthenticationToken(userDetails, password, userDetails.getAuthorities());
         } catch (UsernameNotFoundException | BadCredentialsException ex) {
-            Console.writeLine("CustomAuthenticationHandler: " + ex.getMessage());
+            Console.writeWarning(ex.getMessage());
             throw ex;  // Re-throw if user is not found
         }
         catch (Exception ex) {
-            Console.writeLine(ex.getMessage());
-            // Catch any unexpected errors here
+            Console.writeWarning(ex.getMessage());
             throw new InternalAuthenticationServiceException(Errors.AUTH_FAILED, ex);
         }
     }

@@ -1,7 +1,6 @@
-package com.sintraqos.portfolioproject.Messages;
+package com.sintraqos.portfolioproject.User;
 
-import com.sintraqos.portfolioproject.DTO.UserDTO;
-import com.sintraqos.portfolioproject.Entities.UserEntity;
+import com.sintraqos.portfolioproject.Messages.Message;
 import lombok.Getter;
 
 import java.util.List;

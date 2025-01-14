@@ -1,6 +1,6 @@
-package com.sintraqos.portfolioproject.DTO;
+package com.sintraqos.portfolioproject.UserLibrary;
 
-import com.sintraqos.portfolioproject.User.UserLibrary;
+import com.sintraqos.portfolioproject.Game.GameDTO;
 import com.sintraqos.portfolioproject.Game.Game;
 import lombok.Getter;
 

@@ -1,12 +1,8 @@
-package com.sintraqos.portfolioproject.Services;
+package com.sintraqos.portfolioproject.ForumPost;
 
-import com.sintraqos.portfolioproject.DTO.ForumPostDTO;
-import com.sintraqos.portfolioproject.Entities.ForumPostEntity;
-import com.sintraqos.portfolioproject.Messages.ForumPostMessage;
 import com.sintraqos.portfolioproject.Messages.Message;
-import com.sintraqos.portfolioproject.Repositories.ForumPostRepository;
-import com.sintraqos.portfolioproject.Repositories.GameRepository;
-import com.sintraqos.portfolioproject.Repositories.UserRepository;
+import com.sintraqos.portfolioproject.Game.GameRepository;
+import com.sintraqos.portfolioproject.User.UserRepository;
 import com.sintraqos.portfolioproject.Statics.Errors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;

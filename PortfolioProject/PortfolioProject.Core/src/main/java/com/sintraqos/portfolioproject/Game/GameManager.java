@@ -1,14 +1,9 @@
 package com.sintraqos.portfolioproject.Game;
 
-import com.sintraqos.portfolioproject.DTO.GameDTO;
-import com.sintraqos.portfolioproject.Messages.GameEntityMessage;
 import com.sintraqos.portfolioproject.Messages.Message;
-import com.sintraqos.portfolioproject.Services.GameService;
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-import java.util.ArrayList;
 
 /**
  * Use for user input handling for all game related scripts

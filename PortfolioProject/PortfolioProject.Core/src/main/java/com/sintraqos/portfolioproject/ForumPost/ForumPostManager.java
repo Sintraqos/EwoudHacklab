@@ -1,9 +1,6 @@
 package com.sintraqos.portfolioproject.ForumPost;
 
-import com.sintraqos.portfolioproject.DTO.ForumPostDTO;
-import com.sintraqos.portfolioproject.Messages.ForumPostMessage;
 import com.sintraqos.portfolioproject.Messages.Message;
-import com.sintraqos.portfolioproject.Services.ForumPostService;
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;

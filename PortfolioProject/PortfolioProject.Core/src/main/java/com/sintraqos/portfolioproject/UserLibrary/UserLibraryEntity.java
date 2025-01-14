@@ -1,9 +1,11 @@
-package com.sintraqos.portfolioproject.Entities;
+package com.sintraqos.portfolioproject.UserLibrary;
 
-import com.sintraqos.portfolioproject.DTO.GameDTO;
+import com.sintraqos.portfolioproject.Game.GameDTO;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.validator.constraints.NotBlank;
+
 import java.sql.Date;
 import java.time.LocalDate;
 
@@ -20,9 +22,11 @@ public class UserLibraryEntity {
     private int libraryID;
 
     @Column(columnDefinition = "INT")
+    @NotBlank(message = "User ID is mandatory.")
     private int accountID;
 
     @Column(columnDefinition = "INT")
+    @NotBlank(message = "Game ID is mandatory.")
     private int gameID;
 
     @Column(name = "gamePlayTime", columnDefinition = "INT DEFAULT 0")

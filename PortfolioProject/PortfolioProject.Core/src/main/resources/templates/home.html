@@ -26,8 +26,15 @@
     // Update text immediately on page load
     window.onload = updateText;
   </script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/css/styles.css">
 </head>
 <body>
+
+<!-- Display a message if exists -->
+<div th:replace="~{fragments :: messages}"></div>
+
+<!-- Display the header of the page -->
 <div th:replace="~{fragments::header}"></div>
 
 <!-- Dynamic Text Display -->

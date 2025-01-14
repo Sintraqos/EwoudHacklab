@@ -1,12 +1,12 @@
 package com.sintraqos.portfolioproject.Webservice;
 
 import com.sintraqos.portfolioproject.API.Review.*;
-import com.sintraqos.portfolioproject.DTO.ForumPostDTO;
-import com.sintraqos.portfolioproject.DTO.GameDTO;
-import com.sintraqos.portfolioproject.DTO.UserDTO;
-import com.sintraqos.portfolioproject.Entities.ForumPostEntity;
-import com.sintraqos.portfolioproject.Entities.UserLibraryEntity;
+import com.sintraqos.portfolioproject.ForumPost.ForumPostDTO;
+import com.sintraqos.portfolioproject.ForumPost.ForumPostMessage;
+import com.sintraqos.portfolioproject.User.UserDTO;
+import com.sintraqos.portfolioproject.ForumPost.ForumPostEntity;
 import com.sintraqos.portfolioproject.ForumPost.ForumPostManager;
+import com.sintraqos.portfolioproject.Game.GameEntityMessage;
 import com.sintraqos.portfolioproject.Game.GameManager;
 import com.sintraqos.portfolioproject.Messages.*;
 import com.sintraqos.portfolioproject.Statics.Console;
@@ -188,7 +188,6 @@ public class WebServiceController implements WebMvcConfigurer {
         // Pass the created UserDTO to the model to be used on the page
         model.addAttribute("headerText", "Account");
         model.addAttribute("user", userMessage.getUserDTO());
-//        Console.writeLine(userMessage.getMessage());
 
         return "account";
     }
@@ -521,8 +520,6 @@ public class WebServiceController implements WebMvcConfigurer {
             @RequestParam("username") String username,
             RedirectAttributes redirectAttributes,
             Model model) {
-
-        Console.writeLine(username);
 
         UserMessage getAccount = userManager.getAccount(username);
         if (!getAccount.isSuccessful()) {

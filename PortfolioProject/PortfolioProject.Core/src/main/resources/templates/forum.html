@@ -10,15 +10,15 @@
       padding: 10px;
     }
   </style>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/css/styles.css">
 </head>
 <body>
 
-<!-- Display an error message if exists -->
-<div th:if="${param.error}">
-  <span style="color:red;" th:text="${param.error}"></span>
-</div>
+<!-- Display a message if exists -->
+<div th:replace="~{fragments :: messages}"></div>
 
-<!-- Display the Game Name -->
+<!-- Display the header of the page -->
 <div th:replace="~{fragments::header}"></div>
 
 <!-- Wrapper for scrollable forum posts -->

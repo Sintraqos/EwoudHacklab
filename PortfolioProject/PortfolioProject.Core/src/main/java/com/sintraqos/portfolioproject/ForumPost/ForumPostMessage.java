@@ -1,10 +1,8 @@
-package com.sintraqos.portfolioproject.Messages;
+package com.sintraqos.portfolioproject.ForumPost;
 
-import com.sintraqos.portfolioproject.Entities.ForumPostEntity;
+import com.sintraqos.portfolioproject.Messages.Message;
 import lombok.Getter;
 import org.springframework.data.domain.Page;
-
-import java.util.List;
 
 @Getter
 public class ForumPostMessage  extends Message {

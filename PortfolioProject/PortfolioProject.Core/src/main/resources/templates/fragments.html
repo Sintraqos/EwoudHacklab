@@ -7,7 +7,27 @@
 <body>
 <!-- Fragment for displaying the header -->
 <div th:fragment="header">
-    <h1 th:text="${headerText}">Header</h1> <!-- The text here will be dynamically replaced -->
+    <!-- Banner Image -->
+<!--    <img src="/images/Banner.jpg" alt="Banner" style="width: 100%; height: auto;">-->
+
+    <!-- Header Text -->
+    <h1 th:text="${headerText}">Header</h1>
+</div>
+
+<!-- Fragment for displaying a message -->
+<div th:fragment="messages">
+    <div th:if="${param.error}">
+        <span style="color:red;" th:text="${param.error}"></span>
+    </div>
+    <div th:if="${param.warning}">
+        <span style="color:yellow;" th:text="${param.warning}"></span>
+    </div>
+    <div th:if="${param.admin}">
+        <span style="color:green;" th:text="${param.admin}"></span>
+    </div>
+    <div th:if="${param.logout}">
+        You have been logged out.
+    </div>
 </div>
 
 <!-- Fragment for displaying game results -->
@@ -23,6 +43,7 @@
         <hr>
     </div>
 </div>
+
 <!-- Fragment for displaying user results -->
 <div th:fragment="userResults">
     <h2>User Results</h2>
@@ -41,10 +62,12 @@
 <div th:fragment="changeUsername">
     <h1 th:text="${headerText}">Header</h1> <!-- The text here will be dynamically replaced -->
 </div>
+
 <!-- Fragment for changing e-mail address of account-->
 <div th:fragment="changeEMail">
     <h1 th:text="${headerText}">Header</h1> <!-- The text here will be dynamically replaced -->
 </div>
+
 <!-- Fragment for changing password of account-->
 <div th:fragment="changePassword">
     <div><label> Current Username : <input type="text" name="username"/> </label></div>
@@ -54,6 +77,7 @@
     <!-- Create Login Button -->
     <div><button type="submit" name="action" value="Login">Login</button></div>
 </div>
+
 </body>
 </html>
 

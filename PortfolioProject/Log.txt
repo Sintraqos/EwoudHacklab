@@ -1,6 +1,11 @@
-[11:58:06] - Finished initializing Spring-Boot
-[11:58:06] - #################################
-[11:58:11] - CustomAuthenticationHandler: Account with username: 'a' is banned
-[11:58:11] - CustomAuthenticationFailureHandler: Account with username: 'a' is banned
-[11:58:11] - Exception type: org.springframework.security.authentication.InternalAuthenticationServiceException
-[11:58:11] - CustomAuthenticationFailureHandler - BadCredentialsException from cause: Account with username: 'a' is banned
+[11:51:13] - Finished initializing Spring-Boot
+[11:51:13] - #################################
+[11:52:24] - Retrieved forum posts: 2 posts for page 0
+[11:52:24] - Successfully retrieved the forum posts for game with ID: 0
+[11:53:34] - a
+[11:53:54] - a
+[11:54:04] - Warning: Account with username: 'a' is banned
+[11:55:03] - Retrieved forum posts: 2 posts for page 0
+[11:55:04] - Successfully retrieved the forum posts for game with ID: 0
+[11:55:14] - Warning: Account with username: 'a' is banned
+[11:55:27] - a

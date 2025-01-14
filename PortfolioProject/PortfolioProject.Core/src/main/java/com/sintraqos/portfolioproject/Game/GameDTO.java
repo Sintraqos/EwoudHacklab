@@ -1,8 +1,6 @@
-package com.sintraqos.portfolioproject.DTO;
+package com.sintraqos.portfolioproject.Game;
 
-import com.sintraqos.portfolioproject.Entities.UserLibraryEntity;
-import com.sintraqos.portfolioproject.Entities.GameEntity;
-import com.sintraqos.portfolioproject.Game.Game;
+import com.sintraqos.portfolioproject.UserLibrary.UserLibraryEntity;
 import com.sintraqos.portfolioproject.Statics.Time;
 import lombok.Getter;
 

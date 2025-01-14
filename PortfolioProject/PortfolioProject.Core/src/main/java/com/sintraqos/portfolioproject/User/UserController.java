@@ -1,14 +1,17 @@
-package com.sintraqos.portfolioproject.Controllers;
+package com.sintraqos.portfolioproject.User;
 
-import com.sintraqos.portfolioproject.DTO.UserDTO;
-import com.sintraqos.portfolioproject.Entities.UserEntity;
 import com.sintraqos.portfolioproject.Messages.Message;
-import com.sintraqos.portfolioproject.Repositories.UserRepository;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Account Controller, use for communication between application and database
@@ -29,7 +32,7 @@ public class UserController {
      * @param userDTO the new account to be added
      */
     @PostMapping("/api/users/register")
-    public ResponseEntity<UserEntity> createAccount(@RequestBody UserDTO userDTO) {
+    public ResponseEntity<UserEntity> createAccount(@Valid @RequestBody UserDTO userDTO) {
         UserEntity account = new UserEntity(userDTO);
         UserEntity savedAccount = userRepository.save(account);
         return ResponseEntity.ok(savedAccount);
@@ -41,7 +44,7 @@ public class UserController {
      * @param userDTO the account to be removed
      */
     @DeleteMapping("/api/users/remove")
-    public Message deleteAccount(@RequestBody UserDTO userDTO) {
+    public Message deleteAccount(@Valid @RequestBody UserDTO userDTO) {
 
         // Check if the account exists
         if (userRepository.findByUsername(userDTO.getUsername()) == null) {
@@ -107,5 +110,18 @@ public class UserController {
         } else {
             return ResponseEntity.notFound().build();
         }
+    }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public Map<String, String> handleValidationExceptions(
+            MethodArgumentNotValidException ex) {
+        Map<String, String> errors = new HashMap<>();
+        ex.getBindingResult().getAllErrors().forEach((error) -> {
+            String fieldName = ((FieldError) error).getField();
+            String errorMessage = error.getDefaultMessage();
+            errors.put(fieldName, errorMessage);
+        });
+        return errors;
     }
 }

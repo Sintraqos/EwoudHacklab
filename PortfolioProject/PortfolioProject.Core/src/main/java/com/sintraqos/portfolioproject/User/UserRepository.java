@@ -1,6 +1,5 @@
-package com.sintraqos.portfolioproject.Repositories;
+package com.sintraqos.portfolioproject.User;
 
-import com.sintraqos.portfolioproject.Entities.UserEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

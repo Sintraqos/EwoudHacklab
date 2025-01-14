@@ -1,9 +1,11 @@
 package com.sintraqos.portfolioproject;
 
-import com.sintraqos.portfolioproject.Entities.UserEntity;
-import com.sintraqos.portfolioproject.Repositories.UserRepository;
-import com.sintraqos.portfolioproject.Services.*;
+import com.sintraqos.portfolioproject.Game.GameService;
+import com.sintraqos.portfolioproject.User.UserEntity;
+import com.sintraqos.portfolioproject.UserLibrary.UserLibraryService;
+import com.sintraqos.portfolioproject.User.UserRepository;
 import com.sintraqos.portfolioproject.Statics.*;
+import com.sintraqos.portfolioproject.User.UserService;
 import com.sintraqos.portfolioproject.Webservice.CustomAuthenticationHandler;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.autoconfigure.cache.CacheManagerCustomizer;

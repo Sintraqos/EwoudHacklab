@@ -3,17 +3,14 @@
       xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
   <title>Account</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/css/styles.css">
 </head>
 <body>
-<div th:if="${param.error}">
-  <span style="color:red;" th:text="${param.error}"></span>
-</div>
-<div th:if="${param.logout}">
-  You have been logged out.
-</div>
+<!-- Display a message if exists -->
+<div th:replace="~{fragments :: messages}"></div>
 
-<!-- Display the username -->
-<!--<h1>Account: <span th:text="${user.getUsername()}"></span></h1>-->
+<!-- Display the header of the page -->
 <div th:replace="~{fragments::header}"></div>
 
 <!-- Links for navigation to other pages -->

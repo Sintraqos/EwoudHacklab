@@ -1,9 +1,6 @@
-package com.sintraqos.portfolioproject.Services;
+package com.sintraqos.portfolioproject.UserLibrary;
 
-import com.sintraqos.portfolioproject.Entities.UserLibraryEntity;
-import com.sintraqos.portfolioproject.Messages.UserLibraryEntityMessage;
-import com.sintraqos.portfolioproject.Repositories.UserLibraryRepository;
-import com.sintraqos.portfolioproject.Repositories.GameRepository;
+import com.sintraqos.portfolioproject.Game.GameRepository;
 import com.sintraqos.portfolioproject.Statics.Errors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -1,9 +1,7 @@
-package com.sintraqos.portfolioproject.User;
+package com.sintraqos.portfolioproject.UserLibrary;
 
-import com.sintraqos.portfolioproject.DTO.UserLibraryDTO;
-import com.sintraqos.portfolioproject.DTO.GameDTO;
+import com.sintraqos.portfolioproject.Game.GameDTO;
 import com.sintraqos.portfolioproject.Game.Game;
-import com.sintraqos.portfolioproject.Statics.Console;
 import lombok.Getter;
 
 import java.util.ArrayList;

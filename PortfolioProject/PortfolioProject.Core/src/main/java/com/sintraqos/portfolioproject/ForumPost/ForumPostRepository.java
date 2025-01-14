@@ -1,7 +1,6 @@
-package com.sintraqos.portfolioproject.Repositories;
+package com.sintraqos.portfolioproject.ForumPost;
 
 import com.sintraqos.portfolioproject.Caching.CacheConfig;
-import com.sintraqos.portfolioproject.Entities.ForumPostEntity;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Caching;
 import org.springframework.data.domain.Page;

@@ -1,9 +1,7 @@
-package com.sintraqos.portfolioproject.Controllers;
+package com.sintraqos.portfolioproject.UserLibrary;
 
-import com.sintraqos.portfolioproject.DTO.UserDTO;
-import com.sintraqos.portfolioproject.DTO.GameDTO;
-import com.sintraqos.portfolioproject.Entities.UserLibraryEntity;
-import com.sintraqos.portfolioproject.Repositories.UserLibraryRepository;
+import com.sintraqos.portfolioproject.Game.GameDTO;
+import com.sintraqos.portfolioproject.User.UserDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
