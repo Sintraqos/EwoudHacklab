@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/userLibraries")
 public class UserLibraryController {
 
-    private UserLibraryRepository userLibraryRepository;
+    private final UserLibraryRepository userLibraryRepository;
 
     @Autowired
     public UserLibraryController(UserLibraryRepository userLibraryRepository){

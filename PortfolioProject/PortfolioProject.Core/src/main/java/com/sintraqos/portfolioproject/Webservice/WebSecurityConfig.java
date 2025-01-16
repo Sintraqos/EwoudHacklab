@@ -55,7 +55,7 @@ public class WebSecurityConfig  implements WebMvcConfigurer {
                 )
                 .authenticationManager(authenticationManager(http))
                 .authorizeRequests(requests -> requests
-                        .requestMatchers("/", "/home", "/login", "/register", "/error")
+                        .requestMatchers("/", "/home","/login","/register", "/error")
                         .permitAll()
                         .requestMatchers("/account", "/settings", "/library", "/forum")
                         .authenticated()

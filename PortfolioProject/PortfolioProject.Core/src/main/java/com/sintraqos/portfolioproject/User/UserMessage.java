@@ -3,6 +3,7 @@ package com.sintraqos.portfolioproject.User;
 import com.sintraqos.portfolioproject.Messages.Message;
 import lombok.Getter;
 
+import java.util.Comparator;
 import java.util.List;
 
 @Getter
@@ -25,6 +26,7 @@ public class UserMessage extends Message {
 
     public UserMessage(List<UserEntity> entities, String message) {
         super(true, message);
+        entities.sort(Comparator.comparing(UserEntity::getUsername, String.CASE_INSENSITIVE_ORDER));  // Sort the incoming userEntities by their username
         this.entities = entities;
     }
 

@@ -27,6 +27,7 @@ public class Errors {
     public static final String FORUM_ACCOUNT_ID_FAILED = "Failed to retrieve forum posts for account with ID: '%s'";
 
     // Various
+    public static final String ACCOUNT_NOT_LOGGED_IN = "You must be logged in to access your account.";
     public static final String ACCOUNT_BANNED = "Account with username: '%s' is banned";
     public static final String NUMERIC_VALUE_OUT_OF_RANGE = "Invalid numeric value: '%s'";
     public static final String NUMERIC_VALUE_TYPE = "Value: '%s' not numeric";

@@ -8,16 +8,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
- * Example useCase script
+ * UseCase for handling registration of a new account
  */
 @Getter
 @Component
-public class UseCaseExample {
+public class UseCaseRegisterAccount {
     private final UserService userService;
     private final UserLibraryService userLibraryService;
 
     @Autowired
-    public UseCaseExample(UserService userService, UserLibraryService userLibraryService) {
+    public UseCaseRegisterAccount(UserService userService, UserLibraryService userLibraryService) {
         this.userService = userService;
         this.userLibraryService = userLibraryService;
     }
@@ -29,7 +29,7 @@ public class UseCaseExample {
      * @param eMail    the e-Mail address of the new user
      * @param password the password of the new user
      */
-    public UserMessage createAccount(String username, String eMail, String password) {
+    public UserMessage registerAccount(String username, String eMail, String password) {
         //Create new user
         UserMessage message = userService.createAccount(username, eMail, password);
         if (!message.isSuccessful()) {

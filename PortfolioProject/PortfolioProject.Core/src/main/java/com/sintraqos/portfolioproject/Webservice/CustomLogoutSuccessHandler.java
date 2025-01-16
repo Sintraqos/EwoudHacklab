@@ -1,7 +1,5 @@
 package com.sintraqos.portfolioproject.Webservice;
 
-import com.sintraqos.portfolioproject.User.UserManager;
-import com.sintraqos.portfolioproject.Messages.Message;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -13,12 +11,6 @@ import java.io.IOException;
 
 @Component
 public class CustomLogoutSuccessHandler implements LogoutSuccessHandler {
-
-    private final UserManager userManager;
-
-    public CustomLogoutSuccessHandler(UserManager userManager) {
-        this.userManager = userManager;
-    }
 
     @Override
     public void onLogoutSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication)

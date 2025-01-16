@@ -32,6 +32,21 @@ public class UserService  implements UserDetailsService {
     @Autowired
     private GameRepository gameRepository;
 
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        UserEntity userEntity = userRepository.findByUsername(username);
+        if (userEntity == null) {
+            throw new UsernameNotFoundException(Errors.FIND_ACCOUNT_NAME_FAILED.formatted(username));
+        }
+
+        // Account is banned, so no login should occur
+        if(!userEntity.isAccountNonLocked() || !userEntity.isEnabled()){
+            throw new BadCredentialsException(Errors.ACCOUNT_BANNED.formatted(username));
+        }
+
+        return new User(userEntity);
+    }
+
     /**
      * Create a new account without a specified role
      *
@@ -228,22 +243,6 @@ public class UserService  implements UserDetailsService {
 
         // Return the message
         return new Message(true, returnMessage);
-    }
-
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        UserEntity userEntity = userRepository.findByUsername(username);
-        if (userEntity == null) {
-            throw new UsernameNotFoundException(Errors.FIND_ACCOUNT_NAME_FAILED.formatted(username));
-        }
-
-        // Account is banned, so no login should occur
-        if(!userEntity.isAccountNonLocked() || !userEntity.isEnabled()){
-            // For some reason throwing a 'BadCredentialsException' crashes the app, for now throw a UsernameNotFoundException
-            throw new BadCredentialsException(Errors.ACCOUNT_BANNED.formatted(username));
-        }
-
-        return new User(userEntity);
     }
 
     public UserMessage getAccounts(String username) {

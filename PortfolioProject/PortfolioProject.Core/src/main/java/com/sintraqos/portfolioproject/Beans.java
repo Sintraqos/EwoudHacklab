@@ -10,6 +10,7 @@ import com.sintraqos.portfolioproject.Webservice.CustomAuthenticationHandler;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.autoconfigure.cache.CacheManagerCustomizer;
 import org.springframework.cache.concurrent.ConcurrentMapCacheManager;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -78,6 +79,17 @@ public class Beans {
             }
         };
     }
+    // Display all current loaded beans 
+//    @Bean
+//    public CommandLineRunner commandLineRunner(ApplicationContext ctx) {
+//        return args -> {
+//            Console.writeLine("Beans provided by Spring Boot:");
+//            String[] beanNames = ctx.getBeanDefinitionNames();
+//            for (String beanName : beanNames) {
+//                Console.writeLine(beanName);
+//            }
+//        };
+//    }
 
     @Bean
     public SpringSecurityDialect springSecurityDialect() {

@@ -1,31 +1,23 @@
-package com.sintraqos.portfolioproject.ForumPost;
+package com.sintraqos.portfolioproject.ForumPost.UseCase;
 
+import com.sintraqos.portfolioproject.ForumPost.ForumPostDTO;
+import com.sintraqos.portfolioproject.ForumPost.ForumPostService;
 import com.sintraqos.portfolioproject.Messages.Message;
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Component;
 
 /**
- * Use for user input handling for all forumPost related scripts
+ * UseCase for handling adding a new forumPost
  */
 @Getter
 @Component
-public class ForumPostManager {
-
+public class UseCaseAddForumPost {
     private final ForumPostService forumPostService;
 
     @Autowired
-    public ForumPostManager(ForumPostService forumPostService) {
+    public UseCaseAddForumPost(ForumPostService forumPostService) {
         this.forumPostService = forumPostService;
-    }
-
-    public ForumPostMessage getForumPosts_Game(int gameID,PageRequest pageRequest) {
-        return forumPostService.getForumPosts_Game(gameID,pageRequest);
-    }
-
-    public ForumPostMessage getForumPosts_Account(int accountID,PageRequest pageRequest) {
-        return forumPostService.getForumPosts_Account(accountID,pageRequest);
     }
 
     public Message addForumPost(int accountID, int gameID, String message) {
