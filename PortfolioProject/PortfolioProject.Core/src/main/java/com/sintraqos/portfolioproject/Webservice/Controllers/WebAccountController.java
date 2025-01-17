@@ -116,6 +116,17 @@ public class WebAccountController {
             return "redirect:/settings";
         }
 
+
+        //TODO: Update the authenticated user
+//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//        if (authentication == null || !authentication.isAuthenticated()) {
+//            Console.writeWarning(Errors.ACCOUNT_NOT_LOGGED_IN);
+//            redirectAttributes.addAttribute("warning", Errors.ACCOUNT_NOT_LOGGED_IN);
+//            return "redirect:/login";
+//        }
+//        authentication.name
+
+
         redirectAttributes.addAttribute("message", updateAccountMessage.getMessage());
         return "redirect:/settings";
     }

@@ -1,5 +1,2 @@
-[11:46:11] - Finished initializing Spring-Boot
-[11:46:11] - #################################
-[11:46:20] - Warning: Couldn't find account by name: 'a'
-[11:46:32] - Registration successful
-[11:46:36] - Warning: Invalid credentials
+[11:58:22] - Finished initializing Spring-Boot
+[11:58:22] - #################################
