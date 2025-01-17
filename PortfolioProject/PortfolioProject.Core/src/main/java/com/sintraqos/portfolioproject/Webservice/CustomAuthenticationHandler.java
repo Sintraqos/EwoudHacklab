@@ -12,12 +12,19 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 @Component
-public class CustomAuthenticationHandler  implements AuthenticationProvider {
+public class CustomAuthenticationHandler implements AuthenticationProvider {
+
     @Autowired
     private UserService userService;
+
+    // Inject PasswordEncoder to handle password encoding and matching
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
@@ -25,14 +32,22 @@ public class CustomAuthenticationHandler  implements AuthenticationProvider {
         String password = authentication.getCredentials().toString();
 
         try {
+            // Load the user details from the UserService
             UserDetails userDetails = userService.loadUserByUsername(username);
 
+            // Compare the raw password with the encoded password from the database
+            if (!passwordEncoder.matches(password, userDetails.getPassword())) {
+                // If passwords don't match, throw BadCredentialsException
+                throw new BadCredentialsException("Invalid credentials");
+            }
+
+            // Return a token with the user details and authorities if authentication is successful
             return new UsernamePasswordAuthenticationToken(userDetails, password, userDetails.getAuthorities());
+
         } catch (UsernameNotFoundException | BadCredentialsException ex) {
             Console.writeWarning(ex.getMessage());
-            throw ex;  // Re-throw if user is not found
-        }
-        catch (Exception ex) {
+            throw ex;  // Re-throw if user is not found or credentials are invalid
+        } catch (Exception ex) {
             Console.writeWarning(ex.getMessage());
             throw new InternalAuthenticationServiceException(Errors.AUTH_FAILED, ex);
         }

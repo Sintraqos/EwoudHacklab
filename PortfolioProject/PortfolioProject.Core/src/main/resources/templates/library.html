@@ -38,12 +38,14 @@
 </head>
 <body>
 
-<!-- Display a message if exists -->
-<div th:replace="~{fragments :: messages}"></div>
-
 <!-- Display the header of the page -->
 <div th:replace="~{fragments::header}"></div>
 
+<!-- Display a message if exists -->
+<div th:replace="~{fragments :: messages}"></div>
+
+<!-- Content of the page-->
+<div class="buttons-container">
 <!-- Display a list of games in the library -->
 <table>
   <tbody>
@@ -99,6 +101,6 @@
     <button type="button">Back to Account</button>
   </a>
 </div>
-
+</div>
 </body>
 </html>

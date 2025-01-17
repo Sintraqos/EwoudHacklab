@@ -2,25 +2,20 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
 <head>
   <title>Forum</title>
-  <style>
-    .forum-posts-wrapper {
-      max-height: 400px; /* Set a max height for the scrollable area */
-      overflow-y: auto; /* Enable vertical scrolling */
-      border: 1px solid #ccc; /* Optional: adds a border around the posts */
-      padding: 10px;
-    }
-  </style>
+  <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="/css/styles.css">
 </head>
 <body>
 
-<!-- Display a message if exists -->
-<div th:replace="~{fragments :: messages}"></div>
-
 <!-- Display the header of the page -->
 <div th:replace="~{fragments::header}"></div>
 
+<!-- Display a message if exists -->
+<div th:replace="~{fragments :: messages}"></div>
+
+<!-- Content of the page-->
+<div class="buttons-container">
 <!-- Wrapper for scrollable forum posts -->
 <div class="forum-posts-wrapper">
   <!-- Display the list of forum posts -->
@@ -68,6 +63,6 @@
     <button type="button">Back to Account</button>
   </a>
 </div>
-
+</div>
 </body>
 </html>

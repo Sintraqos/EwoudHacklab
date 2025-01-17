@@ -7,11 +7,17 @@
     <link rel="stylesheet" href="/css/styles.css">
 </head>
 <body>
+<!-- Display the header of the page -->
 <div th:replace="~{fragments::header}"></div>
 
+<!-- Display a message if exists -->
+<div th:replace="~{fragments :: messages}"></div>
+
+<!-- Content of the page-->
 <!-- Search for a game by its name -->
+<div class="buttons-container">
 <form id="userSearchForm" th:action="@{/admin/adminManageUsers/findUser}" method="get" onsubmit="return false;">
-    <input type="text" id="username" name="username" placeholder="Find User" required oninput="searchUser()"/>
+    <input class="base" type="text" id="username" name="username" placeholder="Find User" required oninput="searchUser()"/>
 </form>
 
 <div id="userResults"></div>
@@ -41,8 +47,9 @@
 <!-- Return to account -->
 <div>
     <a href="#" th:href="@{/account}">
-        <button type="button">Back to Account</button>
+        <button class="base" type="button">Back to Account</button>
     </a>
+</div>
 </div>
 
 </body>

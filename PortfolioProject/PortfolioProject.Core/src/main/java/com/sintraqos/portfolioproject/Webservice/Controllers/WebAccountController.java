@@ -50,14 +50,14 @@ public class WebAccountController {
         if (authentication == null || !authentication.isAuthenticated()) {
             Console.writeWarning(Errors.ACCOUNT_NOT_LOGGED_IN);
             redirectAttributes.addAttribute("warning", Errors.ACCOUNT_NOT_LOGGED_IN);
-            return "redirect:/auth/login";
+            return "redirect:/login";
         }
 
         UserMessage userMessage = getAccount.getAccount(authentication.getName());
         if (!userMessage.isSuccessful()) {
             redirectAttributes.addFlashAttribute("error", userMessage.getMessage());
             Console.writeError(userMessage.getMessage());
-            return "redirect:/auth/login";
+            return "redirect:/login";
         }
 
         // Store the User in the session
@@ -103,7 +103,7 @@ public class WebAccountController {
         if (currentUsername.equals(newUsername)) {
             Console.writeWarning(Errors.USERNAME_MATCH);
             redirectAttributes.addAttribute("warning", Errors.USERNAME_MATCH);
-            return "redirect:/account/settings";
+            return "redirect:/settings";
         }
 
         String passwordHash = passwordEncoder.encode(password);
@@ -113,32 +113,44 @@ public class WebAccountController {
         if (!updateAccountMessage.isSuccessful()) {
             Console.writeError(updateAccountMessage.getMessage());
             redirectAttributes.addAttribute("error", updateAccountMessage.getMessage());
-            return "redirect:/account/settings";
+            return "redirect:/settings";
         }
 
-        return "redirect:/account/settings";
+        redirectAttributes.addAttribute("message", updateAccountMessage.getMessage());
+        return "redirect:/settings";
+    }
+
+    @GetMapping("/settings/changeUsernameFragment")
+    public String getChangeUsernameFragment(Model model) {
+        return getFragments("changeUsername");  // Return the fragment as a view
     }
 
     @PostMapping("/settings/changeEMail")
     public String settingsChangeEMail(
-            @RequestParam("username") String username,
+            @SessionAttribute("userObject") User user,
             @RequestParam("eMail") String eMail,
             @RequestParam("password") String password,
             RedirectAttributes redirectAttributes) {
         // Try to update the account
-        Message updateAccountMessage = updateAccount.changeEmail(username, eMail, password);
+        Message updateAccountMessage = updateAccount.changeEmail(user.getUsername(), eMail, password);
         if (!updateAccountMessage.isSuccessful()) {
             Console.writeError(updateAccountMessage.getMessage());
             redirectAttributes.addAttribute("error", updateAccountMessage.getMessage());
-            return "redirect:/account/settings";
+            return "redirect:/settings";
         }
 
-        return "redirect:/account/settings";
+        redirectAttributes.addAttribute("message", updateAccountMessage.getMessage());
+        return "redirect:/settings";
+    }
+
+    @GetMapping("/settings/changeEMailFragment")
+    public String getChangeEMailFragment(Model model) {
+        return getFragments("changeEMail");  // Return the fragment as a view
     }
 
     @PostMapping("/settings/changePassword")
     public String settingsChangePassword(
-            @RequestParam("username") String username,
+            @SessionAttribute("userObject") User user,
             @RequestParam("currentPassword") String currentPassword,
             @RequestParam("newPassword") String newPassword,
             RedirectAttributes redirectAttributes) {
@@ -146,18 +158,24 @@ public class WebAccountController {
         if (currentPassword.equals(newPassword)) {
             Console.writeWarning(Errors.PASSWORD_MATCH);
             redirectAttributes.addAttribute("warning", Errors.PASSWORD_MATCH);
-            return "redirect:/account/settings";
+            return "redirect:/settings";
         }
 
         // Try to update the account
-        Message updateAccountMessage = updateAccount.changePassword(username, currentPassword, newPassword);
+        Message updateAccountMessage = updateAccount.changePassword(user.getUsername(), currentPassword, newPassword);
         if (!updateAccountMessage.isSuccessful()) {
             Console.writeWarning(updateAccountMessage.getMessage());
             redirectAttributes.addAttribute("error", updateAccountMessage.getMessage());
-            return "redirect:/account/settings";
+            return "redirect:/settings";
         }
 
-        return "redirect:/account/settings";
+        redirectAttributes.addAttribute("message", updateAccountMessage.getMessage());
+        return "redirect:/settings";
+    }
+
+    @GetMapping("/settings/changePasswordFragment")
+    public String getChangePasswordFragment(Model model) {
+        return getFragments("changePassword");  // Return the fragment as a view
     }
 
     //endregion
@@ -165,5 +183,4 @@ public class WebAccountController {
     String getFragments(String fragmentsPage) {
         return "fragments :: %s".formatted(fragmentsPage);
     }
-
 }

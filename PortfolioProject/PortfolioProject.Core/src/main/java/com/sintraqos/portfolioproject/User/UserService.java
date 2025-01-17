@@ -3,6 +3,7 @@ package com.sintraqos.portfolioproject.User;
 import com.sintraqos.portfolioproject.Game.GameDTO;
 import com.sintraqos.portfolioproject.Game.GameRepository;
 import com.sintraqos.portfolioproject.Messages.*;
+import com.sintraqos.portfolioproject.Statics.Console;
 import com.sintraqos.portfolioproject.Statics.Enums;
 import com.sintraqos.portfolioproject.Statics.Errors;
 import com.sintraqos.portfolioproject.UserLibrary.UserLibraryDTO;
@@ -15,6 +16,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -120,7 +122,11 @@ public class UserService  implements UserDetailsService {
      */
     Message comparePassword(String storedPassword, String givenPassword) {
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        return new Message(passwordEncoder.matches(givenPassword, storedPassword), Errors.PASSWORD_MISMATCH);
+        if (passwordEncoder.matches(givenPassword, storedPassword)) {
+            return new Message(true, Errors.PASSWORD_MATCH);
+        } else {
+            return new Message(Errors.PASSWORD_MISMATCH);
+        }
     }
 
     /**
@@ -283,8 +289,9 @@ public class UserService  implements UserDetailsService {
         if (!userMessage.isSuccessful()) {
             return userMessage;
         }
+
         // Compare the password that was given to the stored password
-        Message passwordMessage = comparePassword(currentPassword, userMessage.getUserEntity().getPassword());
+        Message passwordMessage = comparePassword(userMessage.getUserEntity().getPasswordHash(), currentPassword);
         if (!passwordMessage.isSuccessful()) {
             return passwordMessage;
         }
@@ -293,7 +300,7 @@ public class UserService  implements UserDetailsService {
         UserEntity user = userMessage.getUserEntity();
 
         // Return the message
-        return handleUpdateAccount(user, userName, user.getEMail(), newPassword, user.getRole());
+        return handleUpdateAccount(user, userName, user.getEMail(), new BCryptPasswordEncoder().encode(newPassword) , user.getRole());
     }
 
     public Message changeEMail(String userName, String eMail, String password) {
@@ -321,6 +328,6 @@ public class UserService  implements UserDetailsService {
         user.setRole(role);
         userRepository.save(user);
 
-        return new Message("Successfully updated account");
+        return new Message(true, "Successfully updated account");
     }
 }

@@ -2,16 +2,25 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
 <head>
     <title>Error Page</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/styles.css">
 </head>
 <body>
-<h1>Error</h1>
+
+<!--&lt;!&ndash; Display the header of the page &ndash;&gt;-->
+<!--<div th:replace="~{fragments::header}"></div>-->
+
 <!-- Display a message if exists -->
 <div th:replace="~{fragments :: messages}"></div>
 
+<!-- Content of the page-->
+<div class="buttons-container">
 <div>
     <a href="/home">
-        <button type="button">Return To Home</button>
+        <button class="base" type="button">Return To Home</button>
     </a>
+</div>
 </div>
 </body>
 </html>

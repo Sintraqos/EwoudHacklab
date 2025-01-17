@@ -7,22 +7,25 @@
   <link rel="stylesheet" href="/css/styles.css">
 </head>
 <body>
-<!-- Display a message if exists -->
-<div th:replace="~{fragments :: messages}"></div>
 
 <!-- Display the header of the page -->
 <div th:replace="~{fragments::header}"></div>
 
+<!-- Display a message if exists -->
+<div th:replace="~{fragments :: messages}"></div>
+
+<!-- Content of the page-->
 <!-- Links for navigation to other pages -->
+<div class="buttons-container">
 <form th:action="@{/getAccount}" method="post">
   <div>
     <a th:href="@{/library}">
-      <button type="button">Game Library</button>
+      <button class="base" type="button">Game Library</button>
     </a>
   </div>
   <div>
     <a th:href="@{/settings}">
-      <button type="button">Settings</button>
+      <button class="base" type="button">Settings</button>
     </a>
   </div>
 </form>
@@ -30,18 +33,19 @@
 <!-- Conditionally Display Admin-Only Buttons -->
 <div sec:authorize="hasRole('ROLE_ADMIN')">
   <form th:action="@{/adminDashboard}" method="post">
-    <button type="submit">Admin Dashboard</button>
+    <button class="base" type="submit">Admin Dashboard</button>
   </form>
   <form th:action="@{/adminManageUsers}" method="post">
-    <button type="submit">Manage Users</button>
+    <button class="base" type="submit">Manage Users</button>
   </form>
 </div>
 
 <!-- Logout Button -->
 <form th:action="@{/logout}" method="post">
 <div>
-  <button type="submit">Logout</button>
+  <button class="base" type="submit">Logout</button>
 </div>
 </form>
+</div>
 </body>
 </html>

@@ -7,27 +7,31 @@
 </head>
 <body>
 
-<!-- Display a message if exists -->
-<div th:replace="~{fragments :: messages}"></div>
-
 <!-- Display the header of the page -->
 <div th:replace="~{fragments::header}"></div>
 
-<form th:action="@{/login}" method="post">
-  <!-- Create Input fields -->
-  <div><input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/></div>
-  <div><label> User Name : <input type="text" name="username"/> </label></div>
-  <div><label> Password: <input type="password" name="password"/> </label></div>
+<!-- Display a message if exists -->
+<div th:replace="~{fragments :: messages}"></div>
 
-  <!-- Create Login Button -->
-  <div><button type="submit" name="action" value="Login">Login</button></div>
-</form>
+<!-- Content of the page-->
+<div class="buttons-container">
+  <!-- Login Form -->
+  <form th:action="@{/login}" method="post">
+    <!-- Create Input fields -->
+    <div><input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/></div>
+    <div><label> User Name : <input type="text" name="username"/> </label></div>
+    <div><label> Password: <input type="password" name="password"/> </label></div>
 
-<!-- Return to Home -->
-<div>
-  <a href="/home">
-    <button type="button">Return</button>
-  </a>
+    <!-- Create Login Button -->
+    <div><button class="base" type="submit" name="action" value="Login">Login</button></div>
+  </form>
+
+  <!-- Return to Home -->
+  <div>
+    <a href="/home">
+      <button class="base" type="button">Return</button>
+    </a>
+  </div>
 </div>
 </body>
 </html>

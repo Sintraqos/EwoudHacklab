@@ -1,58 +1,108 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
-      xmlns:sec="http://www.w3.org/1999/xhtml">
-  <head>
-    <title>Settings</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/css/styles.css">
-  </head>
-  <body>
-  <!-- Display a message if exists -->
-  <div th:replace="~{fragments :: messages}"></div>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+  <title>Settings</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/css/styles.css">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
 
-  <!-- Display the header of the page -->
-  <div th:replace="~{fragments::header}"></div>
+<!-- Display the header of the page -->
+<div th:replace="~{fragments::header}"></div>
 
-    <!-- Admin settings page -->
-    <div th:if="${showAdminPage}">
+<!-- Display a message if exists -->
+<div th:replace="~{fragments :: messages}"></div>
+
+<!-- Content of the page-->
+<div class="buttons-container">
+  <!-- Admin settings page -->
+  <div th:if="${showAdminPage}">
     <div sec:authorize="hasRole('ROLE_ADMIN')">
       <h1 th:text="'Admin Page'"></h1>
       <form th:action="@{/admin/adminBanUser}" method="post">
         <input type="hidden" name="username" th:value="${user.getUsername()}" />
-        <button type="submit">Ban User</button>
+        <button class="base" type="submit">Ban User</button>
       </form>
       <form th:action="@{/admin/adminUnbanUser}" method="post">
         <input type="hidden" name="username" th:value="${user.getUsername()}" />
-        <button type="submit">Unban User</button>
+        <button class="base" type="submit">Unban User</button>
       </form>
       <form th:action="@{/admin/adminSetUserRole}" method="post">
         <input type="hidden" name="username" th:value="${user.getUsername()}" />
-        <button type="submit">Set User Role</button>
+        <button class="base" type="submit">Set User Role</button>
       </form>
     </div>
-    </div>
+  </div>
 
-    <!-- Default settings page -->
-      <div th:if="${!showAdminPage}">
-      <h1 th:text="'User Page'"></h1>
+  <!-- Default settings page -->
+  <div th:if="${!showAdminPage}">
+    <h1 th:text="'User Page'"></h1>
 
     <form th:action="@{/settings/changeUsername}" method="post">
-      <button type="submit">Change Username</button>
+      <button class="base" type="button" id="changeUsernameBtn">Change Username</button>
     </form>
     <form th:action="@{/settings/changeEMail}" method="post">
-      <button type="submit">Change E-Mail Address</button>
+      <button class="base" type="button" id="changeEMailBtn">Change E-Mail Address</button>
     </form>
     <form th:action="@{/settings/changePassword}" method="post">
-      <button type="submit">Change Password</button>
+      <button class="base" type="button" id="changePasswordBtn">Change Password</button>
     </form>
+  </div>
 
-    </div>
+  <!-- Placeholder for dynamic fragment -->
+  <div id="dynamicContent"></div>
 
-    <!-- Return to account -->
-    <div>
-      <a href="#" th:href="@{/account}">
-        <button type="button">Back to Account</button>
-      </a>
-    </div>
-  </body>
+  <!-- Return to account -->
+  <div>
+    <a href="#" th:href="@{/account}">
+      <button class="base" type="button">Back to Account</button>
+    </a>
+  </div>
+</div>
+
+<script>
+  // When the 'Change Username' button is clicked
+  $("#changeUsernameBtn").click(function() {
+    // Load the 'changeUsername' fragment via AJAX and inject it into the #dynamicContent div
+    $.ajax({
+      url: '/settings/changeUsernameFragment', // Create a URL mapping to return the fragment
+      type: 'GET',
+      success: function(response) {
+        $('#dynamicContent').html(response); // Inject the fragment into the placeholder
+      },
+      error: function() {
+        alert("Error loading fragment.");
+      }
+    });
+  });
+  $("#changeEMailBtn").click(function() {
+    // Load the 'changeEmail' fragment via AJAX and inject it into the #dynamicContent div
+    $.ajax({
+      url: '/settings/changeEMailFragment', // Create a URL mapping to return the fragment
+      type: 'GET',
+      success: function(response) {
+        $('#dynamicContent').html(response); // Inject the fragment into the placeholder
+      },
+      error: function() {
+        alert("Error loading fragment.");
+      }
+    });
+  });
+  $("#changePasswordBtn").click(function() {
+    // Load the 'changePassword' fragment via AJAX and inject it into the #dynamicContent div
+    $.ajax({
+      url: '/settings/changePasswordFragment', // Create a URL mapping to return the fragment
+      type: 'GET',
+      success: function(response) {
+        $('#dynamicContent').html(response); // Inject the fragment into the placeholder
+      },
+      error: function() {
+        alert("Error loading fragment.");
+      }
+    });
+  });
+</script>
+
+</body>
 </html>

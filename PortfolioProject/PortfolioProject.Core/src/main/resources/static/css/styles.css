@@ -3,5 +3,36 @@ body {
     background-size: cover;
     background-position: center center;
     background-repeat: no-repeat;
+    height: 100vh;
+    margin: 0;
     color: white;
+}
+button.base {
+    box-sizing: border-box;
+    background: none;
+    background-image: url('/images/Banner.jpg');
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    border: none;
+    cursor: pointer;
+    text-align: center;
+    display: inline-block;
+    width: auto;
+    height: auto;
+    line-height: normal;
+    vertical-align: middle;
+    min-width: 150px;
+    min-height: 30px;
+}
+button.base:focus {
+     outline: none;
+ }
+.buttons-container {
+    display: flex;
+    flex-direction: column;   /* Stacks the buttons vertically */
+    justify-content: center;  /* Horizontally centers the buttons */
+    align-items: center;      /* Vertically centers the buttons */
+    gap: 20px;                /* Space between buttons, you can adjust as needed */
+    height: 100vh;
 }
