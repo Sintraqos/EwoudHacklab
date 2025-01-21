@@ -35,6 +35,37 @@
             <version>7.10.2</version>
             <scope>compile</scope>
         </dependency>
+
+        <dependency>
+            <groupId>com.sintraqos.portfolioproject</groupId>
+            <artifactId>PortfolioProject.Forum</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.sintraqos.portfolioproject</groupId>
+            <artifactId>PortfolioProject.Game</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.sintraqos.portfolioproject</groupId>
+            <artifactId>PortfolioProject.Statics</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.sintraqos.portfolioproject</groupId>
+            <artifactId>PortfolioProject.User</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.sintraqos.portfolioproject</groupId>
+            <artifactId>PortfolioProject.UserLibrary</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.sintraqos.portfolioproject</groupId>
+            <artifactId>PortfolioProject.WebService</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
     </dependencies>
     <build>
         <plugins>

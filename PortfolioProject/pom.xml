@@ -23,7 +23,13 @@
 	</developers>
     <modules>
         <module>PortfolioProject.Core</module>
-    </modules>
+        <module>PortfolioProject.User</module>
+		<module>PortfolioProject.UserLibrary</module>
+		<module>PortfolioProject.WebService</module>
+		<module>PortfolioProject.Statics</module>
+		<module>PortfolioProject.Game</module>
+		<module>PortfolioProject.Forum</module>
+	</modules>
     <scm>
 		<connection/>
 		<developerConnection/>

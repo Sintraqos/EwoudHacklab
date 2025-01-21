@@ -1,0 +1,66 @@
+package com.sintraqos.portfolioproject.userLibrary.DAL;
+
+import com.sintraqos.portfolioproject.game.DTO.GameDTO;
+import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import org.hibernate.validator.constraints.NotBlank;
+
+import java.sql.Date;
+import java.time.LocalDate;
+
+/**
+ * Account Library Entity Object, use for creating new Database Tables, and for storing the data from the database
+ */
+@Getter
+@NoArgsConstructor
+@Entity
+@Table(name = "accountlibrary")
+public class UserLibraryEntity {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int libraryID;
+
+    @Column(columnDefinition = "INT")
+    @NotBlank(message = "User ID is mandatory.")
+    private int accountID;
+
+    @Column(columnDefinition = "INT")
+    @NotBlank(message = "Game ID is mandatory.")
+    private int gameID;
+
+    @Column(name = "gamePlayTime", columnDefinition = "INT DEFAULT 0")
+    private int gamePlayTime;
+
+    @Column(name = "gameAquired", columnDefinition = "DATE")
+    @Temporal(TemporalType.DATE)
+    private Date gameAcquired;
+
+    @Column(name = "gameLastPlayed", columnDefinition = "DATE")
+    private Date gameLastPlayed;
+
+    @PrePersist
+    public void prePersist() {
+        if (gameAcquired == null) {
+            gameAcquired = Date.valueOf(LocalDate.now());
+        }
+    }
+
+    public UserLibraryEntity(int accountID, GameDTO gameDTO) {
+        this.accountID = accountID;
+        this.gameID = gameDTO.getGameID();
+        this.gamePlayTime = gameDTO.getGamePlayTime();
+        this.gameAcquired = (Date) gameDTO.getGameAcquired();
+        this.gameLastPlayed = (Date) gameDTO.getGameLastPlayed();
+    }
+
+    public UserLibraryEntity(int accountID, int gameID) {
+        this.accountID = accountID;
+        this.gameID = gameID;
+    }
+
+    @Override
+    public String toString(){
+        return "%s - %s".formatted(accountID, gameID);
+    }
+}
