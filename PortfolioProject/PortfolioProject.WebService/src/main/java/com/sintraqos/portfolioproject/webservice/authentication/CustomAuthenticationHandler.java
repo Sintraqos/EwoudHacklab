@@ -1,8 +1,9 @@
 package com.sintraqos.portfolioproject.webservice.authentication;
 
 import com.sintraqos.portfolioproject.user.service.UserService;
-import com.sintraqos.portfolioproject.statics.Console;
 import com.sintraqos.portfolioproject.statics.Errors;
+import com.sintraqos.portfolioproject.webservice.WebServiceBeans;
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -20,6 +21,9 @@ public class CustomAuthenticationHandler implements AuthenticationProvider {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private Logger logger;
 
     // Inject PasswordEncoder to handle password encoding and matching
     @Autowired
@@ -44,10 +48,10 @@ public class CustomAuthenticationHandler implements AuthenticationProvider {
             return new UsernamePasswordAuthenticationToken(userDetails, password, userDetails.getAuthorities());
 
         } catch (UsernameNotFoundException | BadCredentialsException ex) {
-            Console.writeWarning(ex.getMessage());
+            logger.warn(ex.getMessage());
             throw ex;  // Re-throw if user is not found or credentials are invalid
         } catch (Exception ex) {
-            Console.writeWarning(ex.getMessage());
+            logger.warn(ex.getMessage());
             throw new InternalAuthenticationServiceException(Errors.AUTH_FAILED, ex);
         }
     }

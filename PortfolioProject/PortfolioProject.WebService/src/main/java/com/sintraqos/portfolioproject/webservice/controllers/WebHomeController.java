@@ -1,7 +1,6 @@
 package com.sintraqos.portfolioproject.webservice.controllers;
 
-import com.sintraqos.portfolioproject.API.review.GameReviewAPI;
-import com.sintraqos.portfolioproject.API.review.GameReviewObject;
+import com.sintraqos.portfolioproject.api.review.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

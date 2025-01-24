@@ -5,6 +5,7 @@ public class Errors {
     public static final String USERNAME_ALREADY_IN_USE = "Username is already in use";
     public static final String USERNAME_INVALID_LENGTH = "Username length must be between 6 and 16 characters";
     public static final String USERNAME_MATCH = "Username the same as the previous username";
+    public static final String USERNAME_CONTAINS_BANNED_WORD = "Username contains a banned word";
 
     // E-Mail
     public static final String EMAIL_ALREADY_IN_USE = "E-Mail address is already in use";
@@ -25,6 +26,9 @@ public class Errors {
     public static final String ACCOUNT_CONTAINS_GAME = "Game with ID: '%s' already in account";
     public static final String FORUM_GAME_ID_FAILED = "Failed to retrieve forum posts for game with ID: '%s'";
     public static final String FORUM_ACCOUNT_ID_FAILED = "Failed to retrieve forum posts for account with ID: '%s'";
+
+    // Forum
+    public static final String FORUM_POST_CONTAINS_BANNED_WORD = "Message contains a banned word";
 
     // Various
     public static final String ACCOUNT_NOT_LOGGED_IN = "You must be logged in to access your account.";

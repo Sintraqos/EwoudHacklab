@@ -1,9 +1,9 @@
 package com.sintraqos.portfolioproject.webservice.controllers;
 
-import com.sintraqos.portfolioproject.statics.Message;
-import com.sintraqos.portfolioproject.statics.Console;
 import com.sintraqos.portfolioproject.statics.Errors;
+import com.sintraqos.portfolioproject.user.entities.UserMessage;
 import com.sintraqos.portfolioproject.user.useCases.UseCaseRegisterAccount;
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -15,14 +15,17 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class WebAuthController {
     private final PasswordEncoder passwordEncoder;
     private final UseCaseRegisterAccount registerAccount;
+    private final Logger logger;
 
     @Autowired
     public WebAuthController(
             PasswordEncoder passwordEncoder,
-            UseCaseRegisterAccount registerAccount
+            UseCaseRegisterAccount registerAccount,
+            Logger logger
     ) {
         this.registerAccount = registerAccount;
         this.passwordEncoder = passwordEncoder;
+        this.logger = logger;
     }
 
     /**
@@ -57,28 +60,28 @@ public class WebAuthController {
 
         // Check if passwords match
         if (!password.equals(passwordConfirm)) {
-            Console.writeWarning(Errors.PASSWORD_MISMATCH);
+            logger.warn(Errors.PASSWORD_MISMATCH);
             redirectAttributes.addAttribute("warning",Errors.PASSWORD_MISMATCH);
-            return "redirect:/auth/register";
+            return "redirect:/register";
         }
 
         // Hash the password
         String passwordHash = passwordEncoder.encode(password);
 
         // Go to the userManager to save the account
-        Message registerAccountMessage = registerAccount.registerAccount(username, eMail, passwordHash);
+        UserMessage registerAccountMessage = registerAccount.registerAccount(username, eMail, passwordHash);
 
         // If the account failed to register display the error on the page
         if (!registerAccountMessage.isSuccessful()) {
-            Console.writeWarning(registerAccountMessage.getMessage());
+            logger.warn(registerAccountMessage.getMessage());
             redirectAttributes.addAttribute("error", registerAccountMessage.getMessage());
-            return "redirect:/auth/register";
+            return "redirect:/register";
         }
 
         model.addAttribute("headerText", "Register");
         model.addAttribute("message", "Registration successful");
-        Console.writeLine("Registration successful");
-        return "redirect:/auth/login";  // Redirect to login page after successful registration
+        logger.info("Registration successful");
+        return "redirect:/login";  // Redirect to login page after successful registration
     }
 
     /**

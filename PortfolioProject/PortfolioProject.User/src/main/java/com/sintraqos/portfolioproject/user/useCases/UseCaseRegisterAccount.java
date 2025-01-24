@@ -1,5 +1,6 @@
 package com.sintraqos.portfolioproject.user.useCases;
 
+import com.sintraqos.portfolioproject.statics.Errors;
 import com.sintraqos.portfolioproject.user.entities.UserMessage;
 import com.sintraqos.portfolioproject.user.service.UserService;
 import com.sintraqos.portfolioproject.userLibrary.service.UserLibraryService;
@@ -17,7 +18,9 @@ public class UseCaseRegisterAccount {
     private final UserLibraryService userLibraryService;
 
     @Autowired
-    public UseCaseRegisterAccount(UserService userService, UserLibraryService userLibraryService) {
+    public UseCaseRegisterAccount(
+            UserService userService,
+            UserLibraryService userLibraryService) {
         this.userService = userService;
         this.userLibraryService = userLibraryService;
     }

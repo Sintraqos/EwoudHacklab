@@ -1,16 +1,16 @@
 package com.sintraqos.portfolioproject.webservice.controllers;
 
 import com.sintraqos.portfolioproject.game.entities.GameEntityMessage;
-import com.sintraqos.portfolioproject.game.useCase.UseCaseGetGame;
-import com.sintraqos.portfolioproject.statics.Message;
-import com.sintraqos.portfolioproject.statics.Console;
+import com.sintraqos.portfolioproject.userLibrary.entities.UserLibraryEntityMessage;
+import com.sintraqos.portfolioproject.userLibrary.useCases.UseCaseLibraryAddGame;
+import com.sintraqos.portfolioproject.game.useCases.UseCaseGetGame;
 import com.sintraqos.portfolioproject.statics.Errors;
 import com.sintraqos.portfolioproject.user.useCases.UseCaseGetAccount;
-import com.sintraqos.portfolioproject.user.useCases.UseCaseUpdateAccount;
 import com.sintraqos.portfolioproject.user.entities.User;
 import com.sintraqos.portfolioproject.user.DTO.UserDTO;
 import com.sintraqos.portfolioproject.user.entities.UserMessage;
 import jakarta.servlet.http.HttpSession;
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,18 +23,21 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @Controller
 public class WebLibraryController implements WebMvcConfigurer {
     private final UseCaseGetGame getGame;
-    private final UseCaseUpdateAccount updateAccount;
+    private final UseCaseLibraryAddGame addGame;
     private final UseCaseGetAccount getAccount;
+    private final Logger logger;
 
     @Autowired
     public WebLibraryController(
             UseCaseGetGame getGame,
-            UseCaseUpdateAccount updateAccount,
-            UseCaseGetAccount getAccount
+            UseCaseLibraryAddGame addGame,
+            UseCaseGetAccount getAccount,
+            Logger logger
     ) {
         this.getGame = getGame;
-        this.updateAccount = updateAccount;
+        this.addGame = addGame;
         this.getAccount = getAccount;
+        this.logger = logger;
     }
 
     /**
@@ -71,31 +74,31 @@ public class WebLibraryController implements WebMvcConfigurer {
             int parsedGameID = Integer.parseInt(gameID); // Try to convert the string to an integer
 
             // Try to add the game to the given user
-            Message updateAccountMessage = updateAccount.addGame(user, parsedGameID);
+            UserLibraryEntityMessage updateAccountMessage = addGame.addGame(user.getAccountID(), parsedGameID);
             if (!updateAccountMessage.isSuccessful()) {
-                Console.writeWarning(updateAccountMessage.getMessage());
+                logger.warn(updateAccountMessage.getMessage());
                 redirectAttributes.addAttribute("error", updateAccountMessage.getMessage());
-                return "redirect:/library/library";
+                return "redirect:/library";
             }
 
             // Since we updated the account we need to get it again from the database
             UserMessage getAccountMessage = getAccount.getAccount(user.getUsername());
             if (!getAccountMessage.isSuccessful()) {
-                Console.writeWarning(getAccountMessage.getMessage());
+                logger.warn(getAccountMessage.getMessage());
                 redirectAttributes.addAttribute("error", getAccountMessage.getMessage());
-                return "redirect:/library/library";
+                return "redirect:/library";
             }
 
             // Update the user in the session
             session.setAttribute("userObject", getAccountMessage.getUserDTO());
-            Console.writeLine(getAccountMessage.getMessage());
+            logger.info(getAccountMessage.getMessage());
         } catch (NumberFormatException e) {
             // If the conversion fails, the gameID is not a valid number
-            Console.writeError(Errors.NUMERIC_VALUE_TYPE);
+            logger.error(Errors.NUMERIC_VALUE_TYPE);
             redirectAttributes.addAttribute("error", Errors.NUMERIC_VALUE_TYPE);
         }
 
-        return "redirect:/library/library";
+        return "redirect:/library";
     }
 
     @GetMapping("library/findGame")
@@ -106,9 +109,9 @@ public class WebLibraryController implements WebMvcConfigurer {
 
         GameEntityMessage getGamesMessage = getGame.getGames(gameName);
         if (!getGamesMessage.isSuccessful()) {
-            Console.writeError(getGamesMessage.getMessage());
+            logger.error(getGamesMessage.getMessage());
             redirectAttributes.addAttribute("error", getGamesMessage.getMessage());
-            return "redirect:/library/library";
+            return "redirect:/library";
         }
 
         model.addAttribute("games", getGamesMessage.getEntities());

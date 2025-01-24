@@ -8,7 +8,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.thymeleaf.extras.springsecurity6.dialect.SpringSecurityDialect;
 
 @Configuration
-public class Beans {
+public class WebServiceBeans {
     @Bean
     public CustomAuthenticationHandler springAuthenticationHandler() {
         return new CustomAuthenticationHandler();
@@ -18,13 +18,11 @@ public class Beans {
      */
     @Bean
     public PasswordEncoder passwordEncoder() {
-        System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAa");
         return new BCryptPasswordEncoder();
     }
 
     @Bean
     public SpringSecurityDialect springSecurityDialect() {
-        System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAa");
         return new SpringSecurityDialect();
     }
 }

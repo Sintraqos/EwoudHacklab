@@ -1,11 +1,10 @@
 package com.sintraqos.portfolioproject.webservice.controllers;
 
-import com.sintraqos.portfolioproject.statics.Message;
-import com.sintraqos.portfolioproject.statics.Console;
-import com.sintraqos.portfolioproject.user.useCases.UseCaseBanAccount;
-import com.sintraqos.portfolioproject.user.useCases.UseCaseGetAccount;
 import com.sintraqos.portfolioproject.user.entities.User;
 import com.sintraqos.portfolioproject.user.entities.UserMessage;
+import com.sintraqos.portfolioproject.user.useCases.UseCaseBanAccount;
+import com.sintraqos.portfolioproject.user.useCases.UseCaseGetAccount;
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,14 +17,17 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class WebAdminController {
     private final UseCaseBanAccount banAccount;
     private final UseCaseGetAccount getAccount;
+    private final Logger logger;
 
     @Autowired
     public WebAdminController(
             UseCaseBanAccount banAccount,
-            UseCaseGetAccount getAccount
+            UseCaseGetAccount getAccount,
+            Logger logger
     ) {
         this.banAccount = banAccount;
         this.getAccount = getAccount;
+        this.logger = logger;
     }
 
     //region Admin
@@ -60,7 +62,7 @@ public class WebAdminController {
 
         UserMessage getAccounts = getAccount.getAccounts(username);
         if (!getAccounts.isSuccessful()) {
-            Console.writeError(getAccounts.getMessage());
+            logger.error(getAccounts.getMessage());
             redirectAttributes.addAttribute("error", getAccounts.getMessage());
             return "redirect:/adminManageUsers";
         }
@@ -77,7 +79,7 @@ public class WebAdminController {
 
         UserMessage getAccountMessage = getAccount.getAccount(username);
         if (!getAccountMessage.isSuccessful()) {
-            Console.writeError(getAccountMessage.getMessage());
+            logger.error(getAccountMessage.getMessage());
             redirectAttributes.addAttribute("error", getAccountMessage.getMessage());
             return "redirect:/adminManageUsers";
         }
@@ -100,15 +102,15 @@ public class WebAdminController {
         // Get the account from the database
         UserMessage getAccountMessage = getAccount.getAccounts(username);
         if (!getAccountMessage.isSuccessful()) {
-            Console.writeWarning(getAccountMessage.getMessage());
+            logger.warn(getAccountMessage.getMessage());
             redirectAttributes.addAttribute("warning", getAccountMessage.getMessage());
             return "redirect:/adminAccountSettings";
         }
 
         // Ban the account
-        Message banAccountmessage = banAccount.banAccount(username);
+        UserMessage banAccountmessage = banAccount.banAccount(username);
         if (!banAccountmessage.isSuccessful()) {
-            Console.writeWarning(banAccountmessage.getMessage());
+            logger.warn(banAccountmessage.getMessage());
             redirectAttributes.addAttribute("warning", banAccountmessage.getMessage());
             return "redirect:/adminAccountSettings";
         }
@@ -127,16 +129,16 @@ public class WebAdminController {
         // Get the account from the database
         UserMessage getAccountMessage = getAccount.getAccounts(username);
         if (!getAccountMessage.isSuccessful()) {
-            Console.writeWarning(getAccountMessage.getMessage());
+            logger.warn(getAccountMessage.getMessage());
             redirectAttributes.addAttribute("warning", getAccountMessage.getMessage());
             redirectAttributes.addAttribute("username",username);
             return "redirect:/adminAccountSettings";
         }
 
         // Unban the account
-        Message unbanAccountmessage = banAccount.unbanAccount(username);
+        UserMessage unbanAccountmessage = banAccount.unbanAccount(username);
         if (!unbanAccountmessage.isSuccessful()) {
-            Console.writeWarning(unbanAccountmessage.getMessage());
+            logger.warn(unbanAccountmessage.getMessage());
             redirectAttributes.addAttribute("warning", unbanAccountmessage.getMessage());
             return "redirect:/adminAccountSettings";
         }
@@ -154,7 +156,7 @@ public class WebAdminController {
         // Get the account from the database
         UserMessage getAccountMessage = getAccount.getAccounts(username);
         if (!getAccountMessage.isSuccessful()) {
-            Console.writeWarning(getAccountMessage.getMessage());
+            logger.warn(getAccountMessage.getMessage());
             redirectAttributes.addAttribute("warning", getAccountMessage.getMessage());
             return "redirect:/adminAccountSettings";
         }

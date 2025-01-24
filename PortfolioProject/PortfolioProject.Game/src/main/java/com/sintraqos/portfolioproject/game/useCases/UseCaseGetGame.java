@@ -1,4 +1,4 @@
-package com.sintraqos.portfolioproject.game.useCase;
+package com.sintraqos.portfolioproject.game.useCases;
 
 import com.sintraqos.portfolioproject.game.entities.GameEntityMessage;
 import com.sintraqos.portfolioproject.game.service.GameService;

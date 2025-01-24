@@ -11,12 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 @Configuration
-public class Beans {
-
-    @Bean
-    public Logger logger() {
-        return LoggerFactory.getLogger("GlobalLogger");
-    }
+public class UserBeans {
 
     /**
      * Service to handle storage of User objects inside the database

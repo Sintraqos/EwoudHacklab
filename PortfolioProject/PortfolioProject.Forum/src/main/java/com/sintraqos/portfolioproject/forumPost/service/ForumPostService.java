@@ -5,6 +5,7 @@ import com.sintraqos.portfolioproject.forumPost.DAL.ForumPostRepository;
 import com.sintraqos.portfolioproject.forumPost.DTO.ForumPostDTO;
 import com.sintraqos.portfolioproject.forumPost.entities.ForumPostMessage;
 import com.sintraqos.portfolioproject.statics.Errors;
+import com.sintraqos.portfolioproject.statics.StringService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -14,12 +15,15 @@ import org.springframework.stereotype.Service;
 public class ForumPostService {
 
     private final ForumPostRepository forumPostRepository;
+    private final StringService stringService;
 
     @Autowired
     public ForumPostService(
-            ForumPostRepository forumPostRepository
+            ForumPostRepository forumPostRepository,
+            StringService stringService
     ) {
         this.forumPostRepository = forumPostRepository;
+        this.stringService = stringService;
     }
 
     /**
@@ -29,7 +33,10 @@ public class ForumPostService {
      */
     public ForumPostMessage addForumPost(ForumPostDTO forumPostDTO) {
         // Create a new ForumPostEntity object and save that in the database
-        ForumPostEntity forumPostEntity = new ForumPostEntity(forumPostDTO.getAccountID(), forumPostDTO.getGameID(), forumPostDTO.getMessage());
+        ForumPostEntity forumPostEntity = new ForumPostEntity(
+                forumPostDTO.getAccountID(),
+                forumPostDTO.getGameID(),
+                stringService.validateString(forumPostDTO.getMessage()));
         forumPostRepository.save(forumPostEntity);
 
         return new ForumPostMessage(true, "Added new message: '%s'".formatted(forumPostDTO.getMessage()));

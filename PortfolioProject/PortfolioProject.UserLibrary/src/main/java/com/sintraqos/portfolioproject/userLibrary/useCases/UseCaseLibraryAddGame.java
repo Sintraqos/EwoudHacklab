@@ -11,11 +11,11 @@ import org.springframework.stereotype.Component;
  */
 @Getter
 @Component
-public class UseCaseAddGame {
+public class UseCaseLibraryAddGame {
     private final UserLibraryService userLibraryService;
 
     @Autowired
-    public UseCaseAddGame(UserLibraryService userLibraryService) {
+    public UseCaseLibraryAddGame(UserLibraryService userLibraryService) {
         this.userLibraryService = userLibraryService;
     }
 

@@ -22,11 +22,9 @@ public class ForumPostEntity {
     private int forumPostID;
 
     @Column(columnDefinition = "INT")
-    @NotBlank(message = "User ID is mandatory.")
     private int accountID;
 
     @Column(columnDefinition = "INT")
-    @NotBlank(message = "Game ID is mandatory.")
     private int gameID;
 
     @Column(nullable = false, length = 1024)

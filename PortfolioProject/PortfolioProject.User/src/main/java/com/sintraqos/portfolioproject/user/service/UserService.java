@@ -3,6 +3,7 @@ package com.sintraqos.portfolioproject.user.service;
 import com.sintraqos.portfolioproject.game.DTO.GameDTO;
 import com.sintraqos.portfolioproject.game.DAL.GameRepository;
 import com.sintraqos.portfolioproject.statics.Errors;
+import com.sintraqos.portfolioproject.statics.StringService;
 import com.sintraqos.portfolioproject.user.DAL.UserEntity;
 import com.sintraqos.portfolioproject.user.DAL.UserRepository;
 import com.sintraqos.portfolioproject.user.DTO.UserDTO;
@@ -35,6 +36,8 @@ public class UserService  implements UserDetailsService {
     private UserLibraryRepository userLibraryRepository;
     @Autowired
     private GameRepository gameRepository;
+    @Autowired
+    private StringService stringService;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -71,6 +74,11 @@ public class UserService  implements UserDetailsService {
      * @param role     the role of the account
      */
     public UserMessage createAccount(String username, String eMail, String password, Enums.Role role) {
+        // Check if the username contains a banned word
+        if(stringService.isBannedWord(username)){
+            return new UserMessage(Errors.USERNAME_CONTAINS_BANNED_WORD);
+        }
+
         // Check if an account already exists
         if (userRepository.findByUsername(username) != null) {
             return new UserMessage(Errors.USERNAME_ALREADY_IN_USE.formatted(username));
@@ -187,6 +195,7 @@ public class UserService  implements UserDetailsService {
         if (!userMessage.isSuccessful()) {
             return userMessage;
         }
+
         // Since the user needs to be an admin to update the roles of other users check if the user has a valid role
         if (userMessage.getUserDTO().getRole() == Enums.Role.USER) {
             return new UserMessage("Invalid role");
@@ -270,6 +279,11 @@ public class UserService  implements UserDetailsService {
     }
 
     public UserMessage changeUsername(String currentUsername, String newUsername, String password) {
+        // Check if the new username contains a banned word
+        if(stringService.isBannedWord(newUsername)){
+            return new UserMessage(Errors.USERNAME_CONTAINS_BANNED_WORD);
+        }
+
         // Retrieve the account
         UserMessage userMessage = getAccount(currentUsername);
         if (!userMessage.isSuccessful()) {

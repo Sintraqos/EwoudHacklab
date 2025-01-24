@@ -22,11 +22,9 @@ public class UserLibraryEntity {
     private int libraryID;
 
     @Column(columnDefinition = "INT")
-    @NotBlank(message = "User ID is mandatory.")
     private int accountID;
 
     @Column(columnDefinition = "INT")
-    @NotBlank(message = "Game ID is mandatory.")
     private int gameID;
 
     @Column(name = "gamePlayTime", columnDefinition = "INT DEFAULT 0")

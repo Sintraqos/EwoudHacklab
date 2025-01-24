@@ -19,13 +19,7 @@
     <dependencies>
         <dependency>
             <groupId>com.sintraqos.portfolioproject</groupId>
-            <artifactId>PortfolioProject.Core</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.sintraqos.portfolioproject</groupId>
-            <artifactId>PortfolioProject.Core</artifactId>
+            <artifactId>PortfolioProject.Game</artifactId>
             <version>0.0.1-SNAPSHOT</version>
             <scope>compile</scope>
         </dependency>

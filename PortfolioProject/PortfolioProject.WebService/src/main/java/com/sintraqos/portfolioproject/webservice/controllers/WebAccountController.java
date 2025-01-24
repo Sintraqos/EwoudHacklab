@@ -1,5 +1,9 @@
 package com.sintraqos.portfolioproject.webservice.controllers;
 
+import com.sintraqos.portfolioproject.statics.Errors;
+import com.sintraqos.portfolioproject.user.entities.UserMessage;
+import com.sintraqos.portfolioproject.user.useCases.*;
+import com.sintraqos.portfolioproject.user.entities.*;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -10,22 +14,26 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.slf4j.Logger;
 
 @Controller
 public class WebAccountController {
     private final PasswordEncoder passwordEncoder;
     private final UseCaseGetAccount getAccount;
     private final UseCaseUpdateAccount updateAccount;
+    private final Logger logger;
 
     @Autowired
     public WebAccountController(
             PasswordEncoder passwordEncoder,
             UseCaseGetAccount getAccount,
-            UseCaseUpdateAccount updateAccount
+            UseCaseUpdateAccount updateAccount,
+            Logger logger
     ) {
         this.passwordEncoder = passwordEncoder;
         this.getAccount = getAccount;
         this.updateAccount = updateAccount;
+        this.logger = logger;
     }
 
     //region Account
@@ -46,7 +54,7 @@ public class WebAccountController {
         // Get the currently authenticated user
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || !authentication.isAuthenticated()) {
-            Console.writeWarning(Errors.ACCOUNT_NOT_LOGGED_IN);
+            logger.warn(Errors.ACCOUNT_NOT_LOGGED_IN);
             redirectAttributes.addAttribute("warning", Errors.ACCOUNT_NOT_LOGGED_IN);
             return "redirect:/login";
         }
@@ -54,7 +62,7 @@ public class WebAccountController {
         UserMessage userMessage = getAccount.getAccount(authentication.getName());
         if (!userMessage.isSuccessful()) {
             redirectAttributes.addFlashAttribute("error", userMessage.getMessage());
-            Console.writeError(userMessage.getMessage());
+            logger.error(userMessage.getMessage());
             return "redirect:/login";
         }
 
@@ -100,7 +108,7 @@ public class WebAccountController {
             RedirectAttributes redirectAttributes) {
         // Check if the current username is the same as the new one
         if (currentUsername.equals(newUsername)) {
-            Console.writeWarning(Errors.USERNAME_MATCH);
+            logger.warn(Errors.USERNAME_MATCH);
             redirectAttributes.addAttribute("warning", Errors.USERNAME_MATCH);
             return "redirect:/settings";
         }
@@ -108,16 +116,16 @@ public class WebAccountController {
         String passwordHash = passwordEncoder.encode(password);
 
         // Try to update the account
-        Message updateAccountMessage = updateAccount.changeUsername(currentUsername, newUsername, passwordHash);
+        UserMessage updateAccountMessage = updateAccount.changeUsername(currentUsername, newUsername, passwordHash);
         if (!updateAccountMessage.isSuccessful()) {
-            Console.writeError(updateAccountMessage.getMessage());
+            logger.warn(updateAccountMessage.getMessage());
             redirectAttributes.addAttribute("error", updateAccountMessage.getMessage());
             return "redirect:/settings";
         }
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || !authentication.isAuthenticated()) {
-            Console.writeWarning(Errors.ACCOUNT_NOT_LOGGED_IN);
+            logger.warn(Errors.ACCOUNT_NOT_LOGGED_IN);
             redirectAttributes.addAttribute("warning", Errors.ACCOUNT_NOT_LOGGED_IN);
             return "redirect:/login";
         }
@@ -126,7 +134,7 @@ public class WebAccountController {
         UserMessage userMessage = getAccount.getAccount(newUsername);
         if (!userMessage.isSuccessful()) {
             redirectAttributes.addFlashAttribute("error", userMessage.getMessage());
-            Console.writeError(userMessage.getMessage());
+            logger.warn(userMessage.getMessage());
             return "redirect:/login";
         }
 
@@ -134,10 +142,10 @@ public class WebAccountController {
         session.setAttribute("userObject", userMessage.getUserDTO());
 
         // Update the authentication object with the new username
-        UsernamePasswordAuthenticationToken newAuth =                new UsernamePasswordAuthenticationToken(
-                        userMessage.getUserDTO(),
-                        authentication.getCredentials(),
-                        authentication.getAuthorities());
+        UsernamePasswordAuthenticationToken newAuth = new UsernamePasswordAuthenticationToken(
+                userMessage.getUserDTO(),
+                authentication.getCredentials(),
+                authentication.getAuthorities());
 
         // Set the new authentication object in the SecurityContext
         SecurityContextHolder.getContext().setAuthentication(newAuth);
@@ -160,7 +168,7 @@ public class WebAccountController {
         // Try to update the account
         UserMessage updateAccountMessage = updateAccount.changeEmail(user.getUsername(), eMail, password);
         if (!updateAccountMessage.isSuccessful()) {
-            Console.writeError(updateAccountMessage.getMessage());
+            logger.warn(updateAccountMessage.getMessage());
             redirectAttributes.addAttribute("error", updateAccountMessage.getMessage());
             return "redirect:/settings";
         }
@@ -182,7 +190,7 @@ public class WebAccountController {
             RedirectAttributes redirectAttributes) {
         // Check if the current username is the same as the new one
         if (currentPassword.equals(newPassword)) {
-            Console.writeWarning(Errors.PASSWORD_MATCH);
+            logger.warn(Errors.PASSWORD_MATCH);
             redirectAttributes.addAttribute("warning", Errors.PASSWORD_MATCH);
             return "redirect:/settings";
         }
@@ -190,7 +198,7 @@ public class WebAccountController {
         // Try to update the account
         UserMessage updateAccountMessage = updateAccount.changePassword(user.getUsername(), currentPassword, newPassword);
         if (!updateAccountMessage.isSuccessful()) {
-            Console.writeWarning(updateAccountMessage.getMessage());
+            logger.warn(updateAccountMessage.getMessage());
             redirectAttributes.addAttribute("error", updateAccountMessage.getMessage());
             return "redirect:/settings";
         }

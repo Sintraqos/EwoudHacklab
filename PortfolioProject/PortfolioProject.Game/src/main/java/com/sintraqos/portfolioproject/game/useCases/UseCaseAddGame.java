@@ -1,10 +1,9 @@
-package com.sintraqos.portfolioproject.game.useCase;
+package com.sintraqos.portfolioproject.game.useCases;
 
 import com.sintraqos.portfolioproject.game.entities.Game;
 import com.sintraqos.portfolioproject.game.DTO.GameDTO;
 import com.sintraqos.portfolioproject.game.entities.GameEntityMessage;
 import com.sintraqos.portfolioproject.game.service.GameService;
-import com.sintraqos.portfolioproject.statics.Message;
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

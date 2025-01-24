@@ -5,7 +5,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class Beans {
+public class UserLibraryBeans {
     /**
      * Service to handle storage of User objects inside the database
      */

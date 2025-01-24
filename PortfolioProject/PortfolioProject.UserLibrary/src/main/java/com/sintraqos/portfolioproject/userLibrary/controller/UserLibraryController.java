@@ -1,7 +1,6 @@
 package com.sintraqos.portfolioproject.userLibrary.controller;
 
 import com.sintraqos.portfolioproject.game.DTO.GameDTO;
-import com.sintraqos.portfolioproject.user.DTO.UserDTO;
 import com.sintraqos.portfolioproject.userLibrary.DAL.UserLibraryRepository;
 import com.sintraqos.portfolioproject.userLibrary.DAL.UserLibraryEntity;
 import org.springframework.beans.factory.annotation.Autowired;
