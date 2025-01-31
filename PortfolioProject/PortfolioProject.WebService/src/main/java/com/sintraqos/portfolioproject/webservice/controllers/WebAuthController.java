@@ -66,10 +66,10 @@ public class WebAuthController {
         }
 
         // Hash the password
-        String passwordHash = passwordEncoder.encode(password);
+//        String passwordHash = passwordEncoder.encode(password);
 
         // Go to the userManager to save the account
-        UserMessage registerAccountMessage = registerAccount.registerAccount(username, eMail, passwordHash);
+        UserMessage registerAccountMessage = registerAccount.registerAccount(username, eMail, password);
 
         // If the account failed to register display the error on the page
         if (!registerAccountMessage.isSuccessful()) {

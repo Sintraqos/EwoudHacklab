@@ -21,6 +21,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -34,6 +35,7 @@ public class UserService  implements UserDetailsService {
     private final GameRepository gameRepository;
     private final CensorService stringService;
     private final UseCaseValidateUser useCaseValidateUser;
+    private final PasswordEncoder passwordEncoder;
 
     @Autowired
     public UserService(UserRepository userRepository,
@@ -41,13 +43,15 @@ public class UserService  implements UserDetailsService {
                        UserLibraryRepository userLibraryRepository,
                        GameRepository gameRepository,
                        CensorService stringService,
-                       UseCaseValidateUser useCaseValidateUser) {
+                       UseCaseValidateUser useCaseValidateUser,
+                       PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.userLibraryService = userLibraryService;
         this.userLibraryRepository = userLibraryRepository;
         this.gameRepository = gameRepository;
         this.stringService = stringService;
         this.useCaseValidateUser = useCaseValidateUser;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
@@ -93,7 +97,7 @@ public class UserService  implements UserDetailsService {
         }
 
         // Create and save the new user
-        UserEntity userEntity = new UserEntity(username, eMail, password, role);
+        UserEntity userEntity = new UserEntity(username, eMail, passwordEncoder.encode(password), role);
         userEntity.setAccountNonExpired(true);
         userEntity.setAccountNonLocked(true);
         userEntity.setCredentialsNonExpired(true);
@@ -139,7 +143,6 @@ public class UserService  implements UserDetailsService {
      * @param givenPassword  the given password from the user
      */
     UserMessage comparePassword(String storedPassword, String givenPassword) {
-        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         if (passwordEncoder.matches(givenPassword, storedPassword)) {
             return new UserMessage(true, Errors.PASSWORD_MATCH);
         } else {
@@ -286,9 +289,10 @@ public class UserService  implements UserDetailsService {
     }
 
     public UserMessage changeUsername(String currentUsername, String newUsername, String password) {
-        // Check if the new username contains a banned word
-        if (stringService.containsBannedWord(newUsername)) {
-            return new UserMessage(Errors.USERNAME_CONTAINS_BANNED_WORD);
+        // Check if the user is valid
+        UserMessage validateUserMessage = useCaseValidateUser.validateUsername(newUsername);
+        if (!validateUserMessage.isSuccessful()) {
+            return validateUserMessage;
         }
 
         // Retrieve the account
@@ -318,6 +322,12 @@ public class UserService  implements UserDetailsService {
             return userMessage;
         }
 
+        // Check if the user is valid
+        UserMessage validateUserMessage = useCaseValidateUser.validatePassword(newPassword);
+        if (!validateUserMessage.isSuccessful()) {
+            return validateUserMessage;
+        }
+
         // Compare the password that was given to the stored password
         UserMessage passwordMessage = comparePassword(userMessage.getUserEntity().getPasswordHash(), currentPassword);
         if (!passwordMessage.isSuccessful()) {
@@ -328,7 +338,7 @@ public class UserService  implements UserDetailsService {
         UserEntity user = userMessage.getUserEntity();
 
         // Return the message
-        return handleUpdateAccount(user, userName, user.getEmail(), new BCryptPasswordEncoder().encode(newPassword), user.getRole());
+        return handleUpdateAccount(user, userName, user.getEmail(), passwordEncoder.encode(newPassword), user.getRole());
     }
 
     public UserMessage changeEMail(String userName, String eMail, String password) {
@@ -341,6 +351,12 @@ public class UserService  implements UserDetailsService {
         UserMessage passwordCheck = comparePassword(userMessage.getUserEntity().getPasswordHash(), password);
         if (!passwordCheck.isSuccessful()) {
             return new UserMessage(Errors.PASSWORD_INCORRECT);
+        }
+        
+        // Check if the user is valid
+        UserMessage validateUserMessage = useCaseValidateUser.validateEMail(eMail);
+        if (!validateUserMessage.isSuccessful()) {
+            return validateUserMessage;
         }
 
         UserEntity user = userMessage.getUserEntity();

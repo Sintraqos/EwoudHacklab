@@ -152,6 +152,20 @@ Minimal viable product:
     - User can get their game library
     - User can show the information of the game
 
+---------------------------------------------
 
+Notes:
      Create api to check new releases every month or so
-     Add in scheduler
+     Add in scheduler, check jobs
+     Check if events can be used (if it is even needed)
+     Add in notifications etc
+     Create separate Spring.Boot project for API
+        - Use separate instance of docker etc for storing games etc.
+        - Create scheduler to add in new games that have been released
+            - Create fake games with instancio
+        - Add in endpoints which can be accessed inside current project, if it is authenticated
+     Add in logger.debug functions to ease debugging on the  admins side
+     Lookup DevOps
+
+
+

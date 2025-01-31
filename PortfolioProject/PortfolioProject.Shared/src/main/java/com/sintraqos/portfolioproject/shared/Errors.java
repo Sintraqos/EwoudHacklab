@@ -3,20 +3,24 @@ package com.sintraqos.portfolioproject.shared;
 public class Errors {
 
     // Username
-    public static final String USERNAME_ALREADY_IN_USE = "Username is already in use";
+    public static final String USERNAME_ALREADY_IN_USE = "Username: '%s' is already in use";
     public static final String USERNAME_INVALID_LENGTH_SHORT = "Username is too short, it must be between %s and %s characters";
     public static final String USERNAME_INVALID_LENGTH_LONG = "Username is too long, it must be between %s and %s characters";
     public static final String USERNAME_MATCH = "Username the same as the previous username";
     public static final String USERNAME_CONTAINS_BANNED_WORD = "Username contains a banned word";
 
     // E-Mail
-    public static final String EMAIL_ALREADY_IN_USE = "E-Mail address is already in use";
+    public static final String EMAIL_ALREADY_IN_USE = "E-Mail address: '%s' is already in use";
+    public static final String EMAIL_INVALID = "E-Mail address is invalid";
 
     // Password
-    public static final String PASSWORD_INVALID_LENGTH = "Password length must be between 6 and 16 characters";
     public static final String PASSWORD_MISMATCH = "Password mismatch";
     public static final String PASSWORD_INCORRECT = "Password incorrect";
     public static final String PASSWORD_MATCH = "Password the same as the previous password";
+    public static final String PASSWORD_INVALID_LENGTH_SHORT = "Password is too short, it must be between %s and %s characters";
+    public static final String PASSWORD_INVALID_LENGTH_LONG = "Password is too long, it must be between %s and %s characters";
+    public static final String PASSWORD_INVALID_SPECIAL_CHAR = "Password requires a special character";
+    public static final String PASSWORD_INVALID_CAPITAL_CHAR = "Password requires a capitalized character";
 
     // Database
     public static final String AUTH_FAILED = "Authentication Failed";
