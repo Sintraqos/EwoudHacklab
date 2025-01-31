@@ -1,6 +1,6 @@
 package com.sintraqos.portfolioproject.webservice.controllers;
 
-import com.sintraqos.portfolioproject.statics.Errors;
+import com.sintraqos.portfolioproject.shared.Errors;
 import com.sintraqos.portfolioproject.user.entities.UserMessage;
 import com.sintraqos.portfolioproject.user.useCases.UseCaseRegisterAccount;
 import org.slf4j.Logger;

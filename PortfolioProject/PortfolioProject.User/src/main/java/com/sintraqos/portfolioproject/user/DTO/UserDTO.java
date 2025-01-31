@@ -25,7 +25,7 @@ public class UserDTO {
     public UserDTO(UserEntity user) {
         this.accountID = user.getAccountID();
         this.username = user.getUsername();
-        this.eMail = user.getEMail();
+        this.eMail = user.getEmail();
         this.password = user.getPasswordHash();
         this.userLibrary = new UserLibraryDTO();
         this.role = user.getRole();
@@ -40,7 +40,7 @@ public class UserDTO {
     public UserDTO(UserEntity user, UserLibraryDTO userLibrary) {
         this.accountID = user.getAccountID();
         this.username = user.getUsername();
-        this.eMail = user.getEMail();
+        this.eMail = user.getEmail();
         this.password = user.getPasswordHash();
         this.userLibrary = userLibrary;
         this.role = user.getRole();

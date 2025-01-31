@@ -7,7 +7,7 @@ import com.sintraqos.portfolioproject.forumPost.useCase.UseCaseAddForumPost;
 import com.sintraqos.portfolioproject.forumPost.useCase.UseCaseGetForumPost;
 import com.sintraqos.portfolioproject.game.entities.GameEntityMessage;
 import com.sintraqos.portfolioproject.game.useCases.UseCaseGetGame;
-import com.sintraqos.portfolioproject.statics.Errors;
+import com.sintraqos.portfolioproject.shared.Errors;
 import com.sintraqos.portfolioproject.user.useCases.UseCaseGetAccount;
 import com.sintraqos.portfolioproject.user.entities.User;
 import com.sintraqos.portfolioproject.user.entities.UserMessage;
@@ -145,7 +145,7 @@ public class WebForumController {
     /**
      * Get the forumPage URL, use for posting a new forum message to the forum itself
      */
-    @GetMapping("/forum/addPost")
+    @PostMapping("/forum/addPost")
     public String addForumPost(
             @SessionAttribute("userObject") User user,
             @RequestParam("gameID") String gameID,

@@ -4,7 +4,7 @@ import com.sintraqos.portfolioproject.game.entities.GameEntityMessage;
 import com.sintraqos.portfolioproject.userLibrary.entities.UserLibraryEntityMessage;
 import com.sintraqos.portfolioproject.userLibrary.useCases.UseCaseLibraryAddGame;
 import com.sintraqos.portfolioproject.game.useCases.UseCaseGetGame;
-import com.sintraqos.portfolioproject.statics.Errors;
+import com.sintraqos.portfolioproject.shared.Errors;
 import com.sintraqos.portfolioproject.user.useCases.UseCaseGetAccount;
 import com.sintraqos.portfolioproject.user.entities.User;
 import com.sintraqos.portfolioproject.user.DTO.UserDTO;

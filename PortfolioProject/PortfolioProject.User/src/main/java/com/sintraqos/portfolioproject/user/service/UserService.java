@@ -2,14 +2,15 @@ package com.sintraqos.portfolioproject.user.service;
 
 import com.sintraqos.portfolioproject.game.DTO.GameDTO;
 import com.sintraqos.portfolioproject.game.DAL.GameRepository;
-import com.sintraqos.portfolioproject.statics.Errors;
-import com.sintraqos.portfolioproject.statics.StringService;
+import com.sintraqos.portfolioproject.shared.Errors;
+import com.sintraqos.portfolioproject.shared.CensorService;
 import com.sintraqos.portfolioproject.user.DAL.UserEntity;
 import com.sintraqos.portfolioproject.user.DAL.UserRepository;
 import com.sintraqos.portfolioproject.user.DTO.UserDTO;
 import com.sintraqos.portfolioproject.user.entities.User;
 import com.sintraqos.portfolioproject.user.entities.UserMessage;
 import com.sintraqos.portfolioproject.user.statics.Enums;
+import com.sintraqos.portfolioproject.user.useCases.UseCaseValidateUser;
 import com.sintraqos.portfolioproject.userLibrary.DTO.UserLibraryDTO;
 import com.sintraqos.portfolioproject.userLibrary.DAL.UserLibraryEntity;
 import com.sintraqos.portfolioproject.userLibrary.DAL.UserLibraryRepository;
@@ -27,17 +28,27 @@ import java.util.List;
 
 @Service
 public class UserService  implements UserDetailsService {
+    private final UserRepository userRepository;
+    private final UserLibraryService userLibraryService;
+    private final UserLibraryRepository userLibraryRepository;
+    private final GameRepository gameRepository;
+    private final CensorService stringService;
+    private final UseCaseValidateUser useCaseValidateUser;
 
     @Autowired
-    private UserRepository userRepository;
-    @Autowired
-    private UserLibraryService userLibraryService;
-    @Autowired
-    private UserLibraryRepository userLibraryRepository;
-    @Autowired
-    private GameRepository gameRepository;
-    @Autowired
-    private StringService stringService;
+    public UserService(UserRepository userRepository,
+                       UserLibraryService userLibraryService,
+                       UserLibraryRepository userLibraryRepository,
+                       GameRepository gameRepository,
+                       CensorService stringService,
+                       UseCaseValidateUser useCaseValidateUser) {
+        this.userRepository = userRepository;
+        this.userLibraryService = userLibraryService;
+        this.userLibraryRepository = userLibraryRepository;
+        this.gameRepository = gameRepository;
+        this.stringService = stringService;
+        this.useCaseValidateUser = useCaseValidateUser;
+    }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -47,7 +58,7 @@ public class UserService  implements UserDetailsService {
         }
 
         // Account is banned, so no login should occur
-        if(!userEntity.isAccountNonLocked() || !userEntity.isEnabled()){
+        if (!userEntity.isAccountNonLocked() || !userEntity.isEnabled()) {
             throw new BadCredentialsException(Errors.ACCOUNT_BANNED.formatted(username));
         }
 
@@ -74,14 +85,11 @@ public class UserService  implements UserDetailsService {
      * @param role     the role of the account
      */
     public UserMessage createAccount(String username, String eMail, String password, Enums.Role role) {
-        // Check if the username contains a banned word
-        if(stringService.isBannedWord(username)){
-            return new UserMessage(Errors.USERNAME_CONTAINS_BANNED_WORD);
-        }
 
-        // Check if an account already exists
-        if (userRepository.findByUsername(username) != null) {
-            return new UserMessage(Errors.USERNAME_ALREADY_IN_USE.formatted(username));
+        // Check if the user is valid
+        UserMessage validateUserMessage = useCaseValidateUser.validateUser(username, eMail, password);
+        if (!validateUserMessage.isSuccessful()) {
+            return validateUserMessage;
         }
 
         // Create and save the new user
@@ -180,7 +188,7 @@ public class UserService  implements UserDetailsService {
         }
 
         // Return the found user
-        return new UserMessage(new UserDTO(userEntity, new UserLibraryDTO(gameList)),userEntity, "Account data retrieved");
+        return new UserMessage(new UserDTO(userEntity, new UserLibraryDTO(gameList)), userEntity, "Account data retrieved");
     }
 
     /**
@@ -245,7 +253,7 @@ public class UserService  implements UserDetailsService {
      * @param username the username of the account
      * @param isBanned if the account should be banned or unbanned
      */
-    UserMessage handleBanAccount(String username, boolean isBanned){
+    UserMessage handleBanAccount(String username, boolean isBanned) {
         // Retrieve the account
         UserMessage userMessage = getAccount(username);
         if (!userMessage.isSuccessful()) {
@@ -259,7 +267,7 @@ public class UserService  implements UserDetailsService {
         userRepository.save(user);
 
         String returnMessage = "Successfully banned account: '%s'".formatted(username);
-        if(!isBanned) {
+        if (!isBanned) {
             returnMessage = "Successfully unbanned account: '%s'".formatted(username);
         }
 
@@ -272,15 +280,14 @@ public class UserService  implements UserDetailsService {
 
         if (accounts != null) {
             return new UserMessage(accounts, "Accounts found");
-        }
-        else {
+        } else {
             return new UserMessage(Errors.FIND_ACCOUNT_NAME_FAILED.formatted(username));
         }
     }
 
     public UserMessage changeUsername(String currentUsername, String newUsername, String password) {
         // Check if the new username contains a banned word
-        if(stringService.isBannedWord(newUsername)){
+        if (stringService.containsBannedWord(newUsername)) {
             return new UserMessage(Errors.USERNAME_CONTAINS_BANNED_WORD);
         }
 
@@ -296,15 +303,15 @@ public class UserService  implements UserDetailsService {
         }
 
         UserEntity user = userMessage.getUserEntity();
-        if(userRepository.findByUsername(newUsername) != null){
+        if (userRepository.findByUsername(newUsername) != null) {
             return new UserMessage(Errors.USERNAME_ALREADY_IN_USE);
         }
 
         // Return the message
-        return handleUpdateAccount(user, newUsername, user.getEMail(),  user.getPassword(), user.getRole());
+        return handleUpdateAccount(user, newUsername, user.getEmail(), user.getPassword(), user.getRole());
     }
 
-    public UserMessage changePassword(String userName,  String currentPassword, String newPassword) {
+    public UserMessage changePassword(String userName, String currentPassword, String newPassword) {
         // Retrieve the account
         UserMessage userMessage = getAccount(userName);
         if (!userMessage.isSuccessful()) {
@@ -321,7 +328,7 @@ public class UserService  implements UserDetailsService {
         UserEntity user = userMessage.getUserEntity();
 
         // Return the message
-        return handleUpdateAccount(user, userName, user.getEMail(), new BCryptPasswordEncoder().encode(newPassword) , user.getRole());
+        return handleUpdateAccount(user, userName, user.getEmail(), new BCryptPasswordEncoder().encode(newPassword), user.getRole());
     }
 
     public UserMessage changeEMail(String userName, String eMail, String password) {
@@ -342,9 +349,9 @@ public class UserService  implements UserDetailsService {
         return handleUpdateAccount(user, userName, eMail, user.getPassword(), user.getRole());
     }
 
-    UserMessage handleUpdateAccount(UserEntity user, String username, String eMail, String password, Enums.Role role){
+    UserMessage handleUpdateAccount(UserEntity user, String username, String eMail, String password, Enums.Role role) {
         user.setUsername(username);
-        user.setEMail(eMail);
+        user.setEmail(eMail);
         user.setPasswordHash(password);
         user.setRole(role);
         userRepository.save(user);

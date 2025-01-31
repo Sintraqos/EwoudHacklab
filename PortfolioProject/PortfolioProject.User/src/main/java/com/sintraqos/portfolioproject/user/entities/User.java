@@ -38,7 +38,7 @@ public class User implements UserDetails {
     public User(UserEntity userEntity){
         this.accountID = userEntity.getAccountID();
         this.username = userEntity.getUsername();
-        this.eMail = userEntity.getEMail();
+        this.eMail = userEntity.getEmail();
         this.password = userEntity.getPassword();
         this.role = userEntity.getRole();
         this.userLibrary = new UserLibrary();
@@ -66,7 +66,7 @@ public class User implements UserDetails {
     public User(UserEntity userEntity, UserLibrary userLibrary){
         this.accountID = userEntity.getAccountID();
         this.username = userEntity.getUsername();
-        this.eMail = userEntity.getEMail();
+        this.eMail = userEntity.getEmail();
         this.password = userEntity.getPasswordHash();
         this.role = userEntity.getRole();
         this.userLibrary = userLibrary;

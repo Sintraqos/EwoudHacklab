@@ -1,4 +1,4 @@
-package com.sintraqos.portfolioproject.statics;
+package com.sintraqos.portfolioproject.shared;
 
 import lombok.Getter;
 

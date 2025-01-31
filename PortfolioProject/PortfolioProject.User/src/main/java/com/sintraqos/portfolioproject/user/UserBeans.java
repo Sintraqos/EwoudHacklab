@@ -14,14 +14,6 @@ import org.slf4j.LoggerFactory;
 public class UserBeans {
 
     /**
-     * Service to handle storage of User objects inside the database
-     */
-    @Bean
-    public UserService userService() {
-        return new UserService();
-    }
-
-    /**
      * Create default account
      */
     @Bean

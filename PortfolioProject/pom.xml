@@ -26,7 +26,7 @@
         <module>PortfolioProject.User</module>
 		<module>PortfolioProject.UserLibrary</module>
 		<module>PortfolioProject.WebService</module>
-		<module>PortfolioProject.Statics</module>
+		<module>PortfolioProject.Shared</module>
 		<module>PortfolioProject.Game</module>
 		<module>PortfolioProject.Forum</module>
 		<module>PortfolioProject.API</module>

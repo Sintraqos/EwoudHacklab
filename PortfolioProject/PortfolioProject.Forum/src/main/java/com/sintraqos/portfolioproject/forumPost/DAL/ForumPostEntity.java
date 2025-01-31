@@ -27,7 +27,7 @@ public class ForumPostEntity {
     @Column(columnDefinition = "INT")
     private int gameID;
 
-    @Column(nullable = false, length = 1024)
+    @Column(nullable = false, length = 8192)
     @NotBlank(message = "Message is mandatory.")
     private String message;
 

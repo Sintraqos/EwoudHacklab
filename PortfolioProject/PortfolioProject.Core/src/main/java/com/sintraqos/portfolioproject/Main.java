@@ -1,9 +1,11 @@
 package com.sintraqos.portfolioproject;
 
+import com.sintraqos.portfolioproject.shared.SettingsHandler;
 import com.sintraqos.portfolioproject.webservice.WebServiceConfig;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Import;
 import org.springframework.context.event.EventListener;
@@ -11,6 +13,7 @@ import org.springframework.context.event.EventListener;
 @SpringBootApplication(scanBasePackages = "com.sintraqos.portfolioproject")
 @Import(WebServiceConfig.class)  // Import the WebServiceConfig class
 @EnableCaching
+@EnableConfigurationProperties(SettingsHandler.class)
 public class Main {
 
     public static void main(String[] args) {

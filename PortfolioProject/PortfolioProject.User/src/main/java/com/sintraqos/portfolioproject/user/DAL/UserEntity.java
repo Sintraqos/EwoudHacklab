@@ -29,7 +29,7 @@ public class UserEntity {
     @NotBlank(message = "Username is mandatory.")
     private String username;
     @NotBlank(message = "E-Mail is mandatory.")
-    private String eMail;
+    private String email;
     @NotBlank(message = "Password is mandatory.")
     private String passwordHash;
     private boolean isAccountNonExpired= true;
@@ -42,9 +42,9 @@ public class UserEntity {
     @Enumerated(EnumType.STRING)
     private Enums.Role role;
 
-    public UserEntity(String username, String eMail, String password, Enums.Role role) {
+    public UserEntity(String username, String email, String password, Enums.Role role) {
         this.username = username;
-        this.eMail = eMail;
+        this.email = email;
         this.passwordHash = password;
         this.role = role;
     }
@@ -52,7 +52,7 @@ public class UserEntity {
     public UserEntity(UserDTO userDTO) {
         this.accountID = userDTO.getAccountID();
         this.username = userDTO.getUsername();
-        this.eMail = userDTO.getEMail();
+        this.email = userDTO.getEMail();
         this.passwordHash = userDTO.getPassword();
         this.role = userDTO.getRole();
     }

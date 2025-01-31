@@ -1,7 +1,7 @@
 package com.sintraqos.portfolioproject.userLibrary.service;
 
 import com.sintraqos.portfolioproject.game.DAL.GameRepository;
-import com.sintraqos.portfolioproject.statics.Errors;
+import com.sintraqos.portfolioproject.shared.Errors;
 import com.sintraqos.portfolioproject.userLibrary.DAL.UserLibraryEntity;
 import com.sintraqos.portfolioproject.userLibrary.DAL.UserLibraryRepository;
 import com.sintraqos.portfolioproject.userLibrary.entities.UserLibraryEntityMessage;

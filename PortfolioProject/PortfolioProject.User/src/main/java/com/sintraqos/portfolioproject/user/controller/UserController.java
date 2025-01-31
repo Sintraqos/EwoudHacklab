@@ -92,7 +92,7 @@ public class UserController {
         return userRepository.findById(id)
                 .map(account -> {
                     account.setUsername(userDTO.getUsername());
-                    account.setEMail(userDTO.getEMail());
+                    account.setEmail(userDTO.getEMail());
                     // Ideally, hash the new password and set it
                     account.setPasswordHash(userDTO.getPassword());
                     return ResponseEntity.ok(userRepository.save(account));

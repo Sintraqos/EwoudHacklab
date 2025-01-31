@@ -1,4 +1,4 @@
-package com.sintraqos.portfolioproject.statics;
+package com.sintraqos.portfolioproject.shared;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;

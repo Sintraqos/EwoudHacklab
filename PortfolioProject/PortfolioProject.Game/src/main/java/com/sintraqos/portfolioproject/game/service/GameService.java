@@ -4,7 +4,7 @@ import com.sintraqos.portfolioproject.game.DAL.GameEntity;
 import com.sintraqos.portfolioproject.game.DAL.GameRepository;
 import com.sintraqos.portfolioproject.game.DTO.GameDTO;
 import com.sintraqos.portfolioproject.game.entities.GameEntityMessage;
-import com.sintraqos.portfolioproject.statics.Errors;
+import com.sintraqos.portfolioproject.shared.Errors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -1,8 +1,7 @@
 package com.sintraqos.portfolioproject.webservice.authentication;
 
 import com.sintraqos.portfolioproject.user.service.UserService;
-import com.sintraqos.portfolioproject.statics.Errors;
-import com.sintraqos.portfolioproject.webservice.WebServiceBeans;
+import com.sintraqos.portfolioproject.shared.Errors;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
