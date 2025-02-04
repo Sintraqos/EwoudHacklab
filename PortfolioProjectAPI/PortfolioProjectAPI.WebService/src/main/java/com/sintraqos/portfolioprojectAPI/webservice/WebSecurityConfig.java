@@ -1,9 +1,8 @@
 package com.sintraqos.portfolioprojectAPI.webservice;
 
+import com.sintraqos.portfolioprojectAPI.user.service.UserService;
 import com.sintraqos.portfolioprojectAPI.webservice.authentication.CustomAuthenticationFailureHandler;
 import com.sintraqos.portfolioprojectAPI.webservice.authentication.CustomAuthenticationHandler;
-import com.sintraqos.portfolioprojectAPI.user.*;
-import com.sintraqos.portfolioprojectAPI.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -29,16 +28,19 @@ import org.springframework.web.servlet.resource.PathResourceResolver;
 @EnableWebSecurity
 public class WebSecurityConfig  implements WebMvcConfigurer {
 
+    private final UserService userService;
     private final PasswordEncoder passwordEncoder;
     private final CustomAuthenticationFailureHandler customAuthenticationFailureHandler;
     private final CustomAuthenticationHandler customAuthenticationHandler;
 
     @Autowired
     public WebSecurityConfig(
+            UserService userService,
             PasswordEncoder passwordEncoder,
             CustomAuthenticationFailureHandler customAuthenticationFailureHandler,
             CustomAuthenticationHandler customAuthenticationHandler
     ){
+        this.userService = userService;
         this.passwordEncoder = passwordEncoder;
         this.customAuthenticationFailureHandler = customAuthenticationFailureHandler;
         this.customAuthenticationHandler = customAuthenticationHandler;

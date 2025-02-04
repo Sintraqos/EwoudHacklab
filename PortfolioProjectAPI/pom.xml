@@ -8,7 +8,7 @@
 		<version>3.3.3</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.sintraqos.portfolioproject</groupId>
+	<groupId>com.sintraqos.portfolioprojectAPI</groupId>
 	<artifactId>spring</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
@@ -25,7 +25,8 @@
         <module>PortfolioProjectAPI.Core</module>
 		<module>PortfolioProjectAPI.WebService</module>
 		<module>PortfolioProjectAPI.User</module>
-	</modules>
+        <module>PortfolioProjectAPI.Shared</module>
+    </modules>
     <scm>
 		<connection/>
 		<developerConnection/>

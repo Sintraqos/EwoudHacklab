@@ -48,11 +48,6 @@
         </dependency>
         <dependency>
             <groupId>com.sintraqos.portfolioproject</groupId>
-            <artifactId>Shared</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>com.sintraqos.portfolioproject</groupId>
             <artifactId>PortfolioProject.User</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
@@ -65,6 +60,12 @@
             <groupId>com.sintraqos.portfolioproject</groupId>
             <artifactId>PortfolioProject.WebService</artifactId>
             <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.sintraqos.portfolioproject</groupId>
+            <artifactId>PortfolioProject.Shared</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+            <scope>compile</scope>
         </dependency>
     </dependencies>
     <build>
