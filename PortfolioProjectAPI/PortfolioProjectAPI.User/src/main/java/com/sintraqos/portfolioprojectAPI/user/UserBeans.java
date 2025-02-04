@@ -1,13 +1,11 @@
-package com.sintraqos.portfolioproject.user;
+package com.sintraqos.portfolioprojectAPI.user;
 
-import com.sintraqos.portfolioproject.user.DAL.*;
-import com.sintraqos.portfolioproject.user.statics.Enums;
+import com.sintraqos.portfolioprojectAPI.user.DAL.*;
+import com.sintraqos.portfolioprojectAPI.user.statics.Enums;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 @Configuration
 public class UserBeans {
