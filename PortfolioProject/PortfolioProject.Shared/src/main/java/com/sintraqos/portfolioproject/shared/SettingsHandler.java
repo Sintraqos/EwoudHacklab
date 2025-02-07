@@ -23,4 +23,7 @@ public class SettingsHandler {
     // Forum
     private int messageMinLength;
     private int messageMaxLength;
+
+    // Schedule
+    private String scheduleTimeCron;
 }

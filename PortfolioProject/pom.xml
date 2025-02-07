@@ -30,7 +30,8 @@
 		<module>PortfolioProject.Game</module>
 		<module>PortfolioProject.Forum</module>
 		<module>PortfolioProject.API</module>
-	</modules>
+        <module>PortfolioProject.Scheduler</module>
+    </modules>
     <scm>
 		<connection/>
 		<developerConnection/>

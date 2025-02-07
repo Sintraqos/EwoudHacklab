@@ -4,7 +4,8 @@ public class Enums {
     //region User
 
     public enum Role {
-        USER, ADMIN;
+        USER,
+        ADMIN;
     }
 
     //endregion

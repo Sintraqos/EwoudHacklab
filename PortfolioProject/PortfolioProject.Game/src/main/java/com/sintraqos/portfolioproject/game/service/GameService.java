@@ -3,9 +3,15 @@ package com.sintraqos.portfolioproject.game.service;
 import com.sintraqos.portfolioproject.game.DAL.GameEntity;
 import com.sintraqos.portfolioproject.game.DAL.GameRepository;
 import com.sintraqos.portfolioproject.game.DTO.GameDTO;
+import com.sintraqos.portfolioproject.game.entities.Game;
 import com.sintraqos.portfolioproject.game.entities.GameEntityMessage;
+import com.sintraqos.portfolioproject.game.useCases.UseCaseAddGame;
+import com.sintraqos.portfolioproject.scheduler.ScheduleEventHandler;
 import com.sintraqos.portfolioproject.shared.Errors;
+import org.instancio.Instancio;
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,6 +21,7 @@ public class GameService {
 
     @Autowired
     private GameRepository gameRepository;
+    private Logger logger;
 
     /**
      * Add a new game to the database
@@ -67,6 +74,7 @@ public class GameService {
             return new GameEntityMessage(Errors.FIND_GAME_NAME_FAILED.formatted(gameName));
         }
     }
+
     /**
      * Find a game using a name
      *
@@ -80,6 +88,28 @@ public class GameService {
         }
         else {
             return new GameEntityMessage(Errors.FIND_GAME_NAME_FAILED.formatted(gameName));
+        }
+    }
+
+    /**
+     * Add the given list to the database
+     */
+    public GameEntityMessage addGames(List<Game> games) {
+        GameEntityMessage returnMessage;
+        StringBuilder returnString = new StringBuilder();
+
+        for (Game game : games) {
+            GameEntityMessage message = addGame(new GameDTO(game));
+
+            if (!message.isSuccessful()) {
+                returnString.append("\n").append(message.getMessage());
+            }
+        }
+
+        if (!returnString.isEmpty()) {
+            return new GameEntityMessage(returnString.toString());
+        } else {
+            return new GameEntityMessage(true, "Added all games successfully");
         }
     }
 }
