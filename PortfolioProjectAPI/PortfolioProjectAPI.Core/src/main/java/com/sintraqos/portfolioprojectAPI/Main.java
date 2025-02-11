@@ -1,12 +1,16 @@
 package com.sintraqos.portfolioprojectAPI;
 
+import com.sintraqos.portfolioprojectAPI.game.service.GameService;
+import com.sintraqos.portfolioprojectAPI.webservice.WebServiceBeans;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.event.EventListener;
 
-@SpringBootApplication(scanBasePackages = "com.sintraqos.portfolioprojectAPI")
+import java.util.List;
+
+@SpringBootApplication(scanBasePackages = {"com.sintraqos.portfolioprojectAPI"})
 @EnableCaching
 public class Main {
 
@@ -19,6 +23,5 @@ public class Main {
      */
     @EventListener(ApplicationReadyEvent.class)
     public void onApplicationReady() {
-        System.out.println("Application ready");
     }
 }

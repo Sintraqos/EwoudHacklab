@@ -1,8 +1,8 @@
 package com.sintraqos.portfolioproject;
 
-import com.sintraqos.portfolioproject.scheduler.ScheduleEventHandler;
 import com.sintraqos.portfolioproject.shared.SettingsHandler;
 import com.sintraqos.portfolioproject.webservice.WebServiceConfig;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
@@ -18,6 +18,12 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @EnableScheduling
 @EnableConfigurationProperties(SettingsHandler.class)
 public class Main {
+    private final SettingsHandler settingsHandler;
+
+    @Autowired
+    public Main(SettingsHandler settingsHandler) {
+        this.settingsHandler = settingsHandler;
+    }
 
     public static void main(String[] args) {
         SpringApplication.run(Main.class, args);
@@ -28,6 +34,8 @@ public class Main {
      */
     @EventListener(ApplicationReadyEvent.class)
     public void onApplicationReady() {
+        // log the settings after application has finished
+        settingsHandler.logSettings();
     }
 }
 

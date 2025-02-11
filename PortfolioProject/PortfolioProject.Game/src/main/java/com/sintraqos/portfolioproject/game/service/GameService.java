@@ -1,17 +1,13 @@
 package com.sintraqos.portfolioproject.game.service;
 
+import com.sintraqos.portfolioproject.game.entities.Game;
 import com.sintraqos.portfolioproject.game.DAL.GameEntity;
 import com.sintraqos.portfolioproject.game.DAL.GameRepository;
 import com.sintraqos.portfolioproject.game.DTO.GameDTO;
-import com.sintraqos.portfolioproject.game.entities.Game;
 import com.sintraqos.portfolioproject.game.entities.GameEntityMessage;
-import com.sintraqos.portfolioproject.game.useCases.UseCaseAddGame;
-import com.sintraqos.portfolioproject.scheduler.ScheduleEventHandler;
 import com.sintraqos.portfolioproject.shared.Errors;
-import org.instancio.Instancio;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

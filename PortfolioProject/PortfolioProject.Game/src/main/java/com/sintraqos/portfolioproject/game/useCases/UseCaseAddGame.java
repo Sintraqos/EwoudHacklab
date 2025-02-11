@@ -1,9 +1,9 @@
 package com.sintraqos.portfolioproject.game.useCases;
 
-import com.sintraqos.portfolioproject.game.entities.Game;
 import com.sintraqos.portfolioproject.game.DTO.GameDTO;
-import com.sintraqos.portfolioproject.game.entities.GameEntityMessage;
+import com.sintraqos.portfolioproject.game.entities.Game;
 import com.sintraqos.portfolioproject.game.service.GameService;
+import com.sintraqos.portfolioproject.game.entities.GameEntityMessage;
 import com.sintraqos.portfolioproject.scheduler.ScheduleEventHandler;
 import lombok.Getter;
 import net.datafaker.Faker;
@@ -57,10 +57,10 @@ public class UseCaseAddGame {
     public void handleScheduleTickEvent(ScheduleEventHandler event) {
         logger.info("Handling ScheduleTickEvent");
         // TODO: Retrieve game information from the API, then add those games.
-        List<Game> list = Instancio.ofList(Game.class).size(10).create();
-        GameEntityMessage addGameMessage = gameService.addGames(list);
-        if(!addGameMessage.isSuccessful()){
-            logger.warn("Warning: {}", addGameMessage.getMessage());
-        }
+//        List<Game> list = Instancio.ofList(Game.class).size(10).create();
+//        GameEntityMessage addGameMessage = gameService.addGames(list);
+//        if(!addGameMessage.isSuccessful()){
+//            logger.warn("Warning: {}", addGameMessage.getMessage());
+//        }
     }
 }

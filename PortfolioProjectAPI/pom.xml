@@ -24,8 +24,8 @@
     <modules>
         <module>PortfolioProjectAPI.Core</module>
 		<module>PortfolioProjectAPI.WebService</module>
-		<module>PortfolioProjectAPI.User</module>
         <module>PortfolioProjectAPI.Shared</module>
+        <module>PortfolioProjectAPI.Game</module>
     </modules>
     <scm>
 		<connection/>

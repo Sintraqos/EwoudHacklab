@@ -1,10 +1,10 @@
 package com.sintraqos.portfolioproject.webservice.controllers;
 
-import com.sintraqos.portfolioproject.forumPost.DTO.ForumPostDTO;
-import com.sintraqos.portfolioproject.forumPost.DAL.ForumPostEntity;
-import com.sintraqos.portfolioproject.forumPost.entities.ForumPostMessage;
-import com.sintraqos.portfolioproject.forumPost.useCase.UseCaseAddForumPost;
-import com.sintraqos.portfolioproject.forumPost.useCase.UseCaseGetForumPost;
+import com.sintraqos.portfolioproject.forum.forumPost.DTO.ForumPostDTO;
+import com.sintraqos.portfolioproject.forum.forumPost.DAL.ForumPostEntity;
+import com.sintraqos.portfolioproject.forum.forumPost.entities.ForumPostMessage;
+import com.sintraqos.portfolioproject.forum.forumPost.useCase.UseCaseAddForumPost;
+import com.sintraqos.portfolioproject.forum.forumPost.useCase.UseCaseGetForumPost;
 import com.sintraqos.portfolioproject.game.entities.GameEntityMessage;
 import com.sintraqos.portfolioproject.game.useCases.UseCaseGetGame;
 import com.sintraqos.portfolioproject.shared.Errors;

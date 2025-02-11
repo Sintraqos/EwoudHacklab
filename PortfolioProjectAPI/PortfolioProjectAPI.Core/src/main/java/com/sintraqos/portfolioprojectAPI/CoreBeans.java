@@ -1,5 +1,10 @@
 package com.sintraqos.portfolioprojectAPI;
 
+import com.sintraqos.portfolioprojectAPI.game.GameBeans;
+import com.sintraqos.portfolioprojectAPI.webservice.WebServiceBeans;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
@@ -16,4 +21,14 @@ public class CoreBeans {
 //            }
 //        };
 //    }
+
+    @Bean
+    GameBeans gameBeans() {
+        return new GameBeans();
+    }
+
+    @Bean
+    WebServiceBeans webServiceBeans() {
+        return new WebServiceBeans();
+    }
 }

@@ -4,7 +4,6 @@ import com.sintraqos.portfolioproject.game.DTO.GameDTO;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.hibernate.validator.constraints.NotBlank;
 
 import java.sql.Date;
 import java.time.LocalDate;

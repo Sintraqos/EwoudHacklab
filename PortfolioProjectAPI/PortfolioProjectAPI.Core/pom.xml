@@ -35,6 +35,18 @@
             <version>7.10.2</version>
             <scope>compile</scope>
         </dependency>
+        <dependency>
+            <groupId>com.sintraqos.portfolioprojectAPI</groupId>
+            <artifactId>PortfolioProjectAPI.Game</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.sintraqos.portfolioprojectAPI</groupId>
+            <artifactId>PortfolioProjectAPI.WebService</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
     </dependencies>
     <build>
         <plugins>

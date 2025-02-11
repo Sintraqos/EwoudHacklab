@@ -1,7 +1,7 @@
 package com.sintraqos.portfolioproject.game.DTO;
 
-import com.sintraqos.portfolioproject.game.DAL.GameEntity;
 import com.sintraqos.portfolioproject.game.entities.Game;
+import com.sintraqos.portfolioproject.game.DAL.GameEntity;
 import lombok.Getter;
 
 import java.util.Date;
