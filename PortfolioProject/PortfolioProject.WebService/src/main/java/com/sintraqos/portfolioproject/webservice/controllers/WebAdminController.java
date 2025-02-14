@@ -2,8 +2,7 @@ package com.sintraqos.portfolioproject.webservice.controllers;
 
 import com.sintraqos.portfolioproject.user.entities.User;
 import com.sintraqos.portfolioproject.user.entities.UserMessage;
-import com.sintraqos.portfolioproject.user.useCases.UseCaseBanAccount;
-import com.sintraqos.portfolioproject.user.useCases.UseCaseGetAccount;
+import com.sintraqos.portfolioproject.user.service.UserService;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,18 +14,15 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 public class WebAdminController {
-    private final UseCaseBanAccount banAccount;
-    private final UseCaseGetAccount getAccount;
+    private final UserService userService;
     private final Logger logger;
 
     @Autowired
     public WebAdminController(
-            UseCaseBanAccount banAccount,
-            UseCaseGetAccount getAccount,
+            UserService userService,
             Logger logger
     ) {
-        this.banAccount = banAccount;
-        this.getAccount = getAccount;
+        this.userService = userService;
         this.logger = logger;
     }
 
@@ -60,7 +56,7 @@ public class WebAdminController {
             RedirectAttributes redirectAttributes,
             Model model) {
 
-        UserMessage getAccounts = getAccount.getAccounts(username);
+        UserMessage getAccounts = userService.getAccounts(username);
         if (!getAccounts.isSuccessful()) {
             logger.error(getAccounts.getMessage());
             redirectAttributes.addAttribute("error", getAccounts.getMessage());
@@ -77,7 +73,7 @@ public class WebAdminController {
             RedirectAttributes redirectAttributes,
             Model model) {
 
-        UserMessage getAccountMessage = getAccount.getAccount(username);
+        UserMessage getAccountMessage = userService.getAccount(username);
         if (!getAccountMessage.isSuccessful()) {
             logger.error(getAccountMessage.getMessage());
             redirectAttributes.addAttribute("error", getAccountMessage.getMessage());
@@ -100,7 +96,7 @@ public class WebAdminController {
         redirectAttributes.addAttribute("username",username);
 
         // Get the account from the database
-        UserMessage getAccountMessage = getAccount.getAccounts(username);
+        UserMessage getAccountMessage = userService.getAccounts(username);
         if (!getAccountMessage.isSuccessful()) {
             logger.warn(getAccountMessage.getMessage());
             redirectAttributes.addAttribute("warning", getAccountMessage.getMessage());
@@ -108,7 +104,7 @@ public class WebAdminController {
         }
 
         // Ban the account
-        UserMessage banAccountmessage = banAccount.banAccount(username);
+        UserMessage banAccountmessage = userService.banAccount(username);
         if (!banAccountmessage.isSuccessful()) {
             logger.warn(banAccountmessage.getMessage());
             redirectAttributes.addAttribute("warning", banAccountmessage.getMessage());
@@ -127,7 +123,7 @@ public class WebAdminController {
         redirectAttributes.addAttribute("username",username);
 
         // Get the account from the database
-        UserMessage getAccountMessage = getAccount.getAccounts(username);
+        UserMessage getAccountMessage = userService.getAccounts(username);
         if (!getAccountMessage.isSuccessful()) {
             logger.warn(getAccountMessage.getMessage());
             redirectAttributes.addAttribute("warning", getAccountMessage.getMessage());
@@ -136,7 +132,7 @@ public class WebAdminController {
         }
 
         // Unban the account
-        UserMessage unbanAccountmessage = banAccount.unbanAccount(username);
+        UserMessage unbanAccountmessage = userService.unbanAccount(username);
         if (!unbanAccountmessage.isSuccessful()) {
             logger.warn(unbanAccountmessage.getMessage());
             redirectAttributes.addAttribute("warning", unbanAccountmessage.getMessage());
@@ -154,7 +150,7 @@ public class WebAdminController {
         redirectAttributes.addAttribute("username",username);
 
         // Get the account from the database
-        UserMessage getAccountMessage = getAccount.getAccounts(username);
+        UserMessage getAccountMessage = userService.getAccounts(username);
         if (!getAccountMessage.isSuccessful()) {
             logger.warn(getAccountMessage.getMessage());
             redirectAttributes.addAttribute("warning", getAccountMessage.getMessage());

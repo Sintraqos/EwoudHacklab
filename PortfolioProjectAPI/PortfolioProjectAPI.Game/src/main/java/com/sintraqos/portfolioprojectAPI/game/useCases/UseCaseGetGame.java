@@ -1,6 +1,7 @@
 package com.sintraqos.portfolioprojectAPI.game.useCases;
 
 import com.sintraqos.portfolioprojectAPI.game.DAL.GameEntity;
+import com.sintraqos.portfolioprojectAPI.game.DAL.GameRepository;
 import com.sintraqos.portfolioprojectAPI.game.DTO.GameDTO;
 import com.sintraqos.portfolioprojectAPI.game.service.GameService;
 import lombok.Getter;
@@ -16,47 +17,37 @@ import java.util.List;
 @Getter
 @Component
 public class UseCaseGetGame {
-    private final GameService gameService;
+    private final GameRepository gameRepository;
 
     @Autowired
-    public UseCaseGetGame(GameService gameService) {
-        this.gameService = gameService;
+    public UseCaseGetGame(GameRepository gameRepository) {
+        this.gameRepository = gameRepository;
     }
 
     /**
-     * Get a game using its ID
+     * Find a game using an ID
      *
-     * @param gameID the ID of the game we're looking for
-     * @return the game from the library, if it isn't in the list returns null
+     * @param gameID the ID of the account
      */
-    public GameDTO getGame(int gameID) {
-        return new GameDTO(gameService.getGame(gameID));
+    public GameEntity getGame(int gameID) {
+        return gameRepository.findByGameID(gameID);
     }
 
     /**
-     * Get all games containing the given name
+     * Find a game using a name
      *
-     * @param gameName the name of the game we're looking for
-     * @return the game from the library, if it isn't in the list returns null
+     * @param gameName the name of the game
      */
-    public List<GameDTO> getGames(String gameName) {
-        List<GameDTO> gameList = new ArrayList<>();
-        // TODO: Get all new releases
-        for(GameEntity game : gameService.getGames(gameName)){
-            gameList.add(new GameDTO(game));
-        }
-
-        return  gameList;
+    public GameEntity getGame(String gameName) {
+        return gameRepository.findByGameName(gameName);
     }
 
-    public List<GameDTO> getRecentlyAddedGames(){
-        List<GameDTO> gameList = new ArrayList<>();
-        // TODO: Get all new releases
-        for(GameEntity game : gameService.getGames("")){
-            gameList.add(new GameDTO(game));
-        }
-
-
-        return gameList;
+    /**
+     * Find a game using a name
+     *
+     * @param gameName the name of the game
+     */
+    public List<GameEntity> getGames(String gameName) {
+        return gameRepository.findByGameNameContaining(gameName);
     }
 }

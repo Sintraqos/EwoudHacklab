@@ -2,6 +2,7 @@ package com.sintraqos.portfolioproject.webservice.controllers;
 
 import com.sintraqos.portfolioproject.shared.Errors;
 import com.sintraqos.portfolioproject.user.entities.UserMessage;
+import com.sintraqos.portfolioproject.user.service.UserService;
 import com.sintraqos.portfolioproject.user.useCases.UseCaseRegisterAccount;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,18 +14,15 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 public class WebAuthController {
-    private final PasswordEncoder passwordEncoder;
-    private final UseCaseRegisterAccount registerAccount;
+    private final UserService userService;
     private final Logger logger;
 
     @Autowired
     public WebAuthController(
-            PasswordEncoder passwordEncoder,
-            UseCaseRegisterAccount registerAccount,
+            UserService userService,
             Logger logger
     ) {
-        this.registerAccount = registerAccount;
-        this.passwordEncoder = passwordEncoder;
+        this.userService = userService;
         this.logger = logger;
     }
 
@@ -69,7 +67,7 @@ public class WebAuthController {
 //        String passwordHash = passwordEncoder.encode(password);
 
         // Go to the userManager to save the account
-        UserMessage registerAccountMessage = registerAccount.registerAccount(username, eMail, password);
+        UserMessage registerAccountMessage = userService.registerAccount(username, eMail, password);
 
         // If the account failed to register display the error on the page
         if (!registerAccountMessage.isSuccessful()) {

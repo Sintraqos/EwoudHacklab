@@ -4,73 +4,84 @@ import com.sintraqos.portfolioprojectAPI.game.DAL.GameEntity;
 import com.sintraqos.portfolioprojectAPI.game.DAL.GameRepository;
 import com.sintraqos.portfolioprojectAPI.game.DTO.GameDTO;
 import com.sintraqos.portfolioprojectAPI.game.entities.Game;
+import com.sintraqos.portfolioprojectAPI.game.useCases.UseCaseAddGame;
+import com.sintraqos.portfolioprojectAPI.game.useCases.UseCaseGetGame;
 import org.instancio.Instancio;
-import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class GameService {
 
     private final GameRepository gameRepository;
+    private final UseCaseAddGame addGame;
+    private final UseCaseGetGame getGame;
 
     @Autowired
-    public GameService(GameRepository gameRepository){
+    public GameService(GameRepository gameRepository,
+                       UseCaseGetGame getGame,
+                       UseCaseAddGame addGame) {
         this.gameRepository = gameRepository;
+        this.getGame = getGame;
+        this.addGame = addGame;
     }
 
     @EventListener(ApplicationReadyEvent.class)
     public void onApplicationReady() {
         // Add a list of new games when the application is ready
-        List<Game> list = Instancio.ofList(Game.class).size(10).create();
+        List<Game> list = Instancio.ofList(Game.class).size(100).create();
         addGames(list);
     }
 
     /**
-     * Find a game using an ID
+     * Get a game using its ID
      *
-     * @param gameID the ID of the account
+     * @param gameID the ID of the game we're looking for
+     * @return the game from the library, if it isn't in the list returns null
      */
-    public GameEntity getGame(int gameID) {
-        return gameRepository.findByGameID(gameID);
+    public GameDTO getGame(int gameID) {
+        return new GameDTO(getGame.getGame(gameID));
     }
 
     /**
-     * Find a game using a name
+     * Get all games containing the given name
      *
-     * @param gameName the name of the game
+     * @param gameName the name of the game we're looking for
+     * @return the game from the library, if it isn't in the list returns null
      */
-    public GameEntity getGame(String gameName) {
-        return gameRepository.findByGameName(gameName);
+    public List<GameDTO> getGames(String gameName) {
+        List<GameDTO> gameList = new ArrayList<>();
+        // TODO: Get all new releases
+        for(GameEntity game : getGame.getGames(gameName)){
+            gameList.add(new GameDTO(game));
+        }
+
+        return  gameList;
     }
 
-    /**
-     * Find a game using a name
-     *
-     * @param gameName the name of the game
-     */
-    public List<GameEntity> getGames(String gameName) {
-       return gameRepository.findByGameNameContaining(gameName);
+    public List<GameDTO> getRecentlyAddedGames(){
+        List<GameDTO> gameList = new ArrayList<>();
+        // TODO: Get all new releases
+        for(GameEntity game : getGame.getGames("")){
+            gameList.add(new GameDTO(game));
+        }
+
+
+        return gameList;
     }
 
     /**
      * Add a new game to the database
+     *
      * @param gameDTO the game to be added
      */
     public boolean addGame(GameDTO gameDTO) {
-        // Check if a game with the given name already exists
-        if (gameRepository.findByGameName(gameDTO.getGameName()) != null) {
-            return false;
-        }
-
-        GameEntity game = new GameEntity(gameDTO.getGameName(), gameDTO.getGameDescription(), gameDTO.getGameDeveloper(), gameDTO.getGamePublisher());
-        gameRepository.save(game);
-        return true;
-
+        return addGame.addGame(new Game(gameDTO));
     }
 
     /**
@@ -78,7 +89,7 @@ public class GameService {
      */
     public void addGames(List<Game> games) {
         for (Game game : games) {
-            addGame(new GameDTO(game));
+            addGame.addGame(game);
         }
     }
 }

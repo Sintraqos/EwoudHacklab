@@ -4,10 +4,11 @@ import com.sintraqos.portfolioproject.forum.forumPost.DAL.ForumPostEntity;
 import com.sintraqos.portfolioproject.forum.forumPost.DAL.ForumPostRepository;
 import com.sintraqos.portfolioproject.forum.forumPost.DTO.ForumPostDTO;
 import com.sintraqos.portfolioproject.forum.forumPost.entities.ForumPostMessage;
+import com.sintraqos.portfolioproject.forum.forumPost.useCase.UseCaseAddForumPost;
+import com.sintraqos.portfolioproject.forum.forumPost.useCase.UseCaseGetForumPost;
 import com.sintraqos.portfolioproject.shared.Errors;
 import com.sintraqos.portfolioproject.shared.CensorService;
 import com.sintraqos.portfolioproject.shared.SettingsHandler;
-import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -15,51 +16,30 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class ForumPostService {
-
-    private final ForumPostRepository forumPostRepository;
-    private final CensorService censorService;
-    private final SettingsHandler settingsHandler;
-    private final Logger logger;
+    private final UseCaseAddForumPost addForumPost;
+    private final UseCaseGetForumPost getForumPost;
 
     @Autowired
     public ForumPostService(
-            ForumPostRepository forumPostRepository,
-            CensorService censorService,
-            SettingsHandler settingsHandler,
-            Logger logger) {
-        this.forumPostRepository = forumPostRepository;
-        this.censorService = censorService;
-        this.settingsHandler = settingsHandler;
-        this.logger = logger;
+            UseCaseAddForumPost addForumPost,
+            UseCaseGetForumPost getForumPost) {
+        this.addForumPost = addForumPost;
+        this.getForumPost = getForumPost;
     }
 
     /**
      * Add a new game to the database
      *
-     * @param forumPostDTO the forumPost to be added
+     * @param accountID the ID of the account which sent the post
+     * @param gameID    the ID of the game under which the post was sent
+     * @param message   the message of the post
      */
-    public ForumPostMessage addForumPost(ForumPostDTO forumPostDTO) {
-        // Check if the message is a valid length
-        int messageLength = forumPostDTO.getMessage().length();
-        // Message too short
-        if (messageLength < settingsHandler.getUsernameMinLength()) {
-            return new ForumPostMessage(Errors.FORUM_INVALID_LENGTH_SHORT.formatted(settingsHandler.getUsernameMinLength(), settingsHandler.getMessageMaxLength()));
-        }
-        // Message too long
-        if (messageLength > settingsHandler.getMessageMaxLength()) {
-            return new ForumPostMessage(Errors.FORUM_INVALID_LENGTH_LONG.formatted(settingsHandler.getUsernameMinLength(), settingsHandler.getMessageMaxLength()));
+    public ForumPostMessage addForumPost(int accountID, int gameID, String message) {
+        if (message.isEmpty()) {
+            return new ForumPostMessage("Message was empty");
         }
 
-        // Create a new ForumPostEntity object and save that in the database
-        ForumPostEntity forumPostEntity = new ForumPostEntity(
-                forumPostDTO.getAccountID(),
-                forumPostDTO.getGameID(),
-                censorService.validateString(forumPostDTO.getMessage()));
-        forumPostRepository.save(forumPostEntity);
-
-        logger.info("New message added");
-
-        return new ForumPostMessage(true, "Added new message: '%s'".formatted(forumPostDTO.getMessage()));
+        return addForumPost.addForumPost(new ForumPostDTO(accountID, gameID, message));
     }
 
     /**
@@ -68,14 +48,7 @@ public class ForumPostService {
      * @param gameID the ID of the game
      */
     public ForumPostMessage getForumPosts_Game(int gameID, PageRequest pageRequest) {
-        Page<ForumPostEntity> forumPostEntities = forumPostRepository.findAllByGameIDOrderByPostDateDesc(gameID, pageRequest);
-
-        // Check if the list returned is null or empty
-        if (forumPostEntities == null) {
-            return new ForumPostMessage(Errors.FORUM_GAME_ID_FAILED.formatted(gameID));
-        }
-
-        return new ForumPostMessage(forumPostEntities, "Forum posts found");
+        return getForumPost.getForumPosts_Game(gameID, pageRequest);
     }
 
     /**
@@ -84,13 +57,6 @@ public class ForumPostService {
      * @param accountID the ID of the account
      */
     public ForumPostMessage getForumPosts_Account(int accountID, PageRequest pageRequest) {
-        Page<ForumPostEntity> forumPostEntities = forumPostRepository.findAllByAccountIDOrderByPostDateDesc(accountID, pageRequest);
-
-        // Check if the list returned is null or empty
-        if (forumPostEntities == null) {
-            return new ForumPostMessage(Errors.FORUM_ACCOUNT_ID_FAILED.formatted(accountID));
-        }
-
-        return new ForumPostMessage(forumPostEntities, "Forum posts found");
+        return getForumPost.getForumPosts_Account(accountID, pageRequest);
     }
 }

@@ -1,5 +1,6 @@
 package com.sintraqos.portfolioproject.game.DAL;
 
+import com.sintraqos.portfolioproject.game.entities.Game;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -39,5 +40,12 @@ public class GameEntity {
         this.gameDescription = gameDescription;
         this.gameDeveloper = gameDeveloper;
         this.gamePublisher = gamePublisher;
+    }
+
+    public GameEntity(Game game) {
+        this.gameName = game.getGameName();
+        this.gameDescription = game.getGameDescription();
+        this.gameDeveloper = game.getGameDeveloper();
+        this.gamePublisher = game.getGamePublisher();
     }
 }

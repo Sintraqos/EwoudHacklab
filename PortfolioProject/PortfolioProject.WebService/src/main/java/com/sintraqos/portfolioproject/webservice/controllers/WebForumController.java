@@ -3,10 +3,11 @@ package com.sintraqos.portfolioproject.webservice.controllers;
 import com.sintraqos.portfolioproject.forum.forumPost.DTO.ForumPostDTO;
 import com.sintraqos.portfolioproject.forum.forumPost.DAL.ForumPostEntity;
 import com.sintraqos.portfolioproject.forum.forumPost.entities.ForumPostMessage;
+import com.sintraqos.portfolioproject.forum.forumPost.service.ForumPostService;
 import com.sintraqos.portfolioproject.forum.forumPost.useCase.UseCaseAddForumPost;
 import com.sintraqos.portfolioproject.forum.forumPost.useCase.UseCaseGetForumPost;
 import com.sintraqos.portfolioproject.game.entities.GameEntityMessage;
-import com.sintraqos.portfolioproject.game.useCases.UseCaseGetGame;
+import com.sintraqos.portfolioproject.game.service.GameService;
 import com.sintraqos.portfolioproject.shared.Errors;
 import com.sintraqos.portfolioproject.user.useCases.UseCaseGetAccount;
 import com.sintraqos.portfolioproject.user.entities.User;
@@ -28,29 +29,26 @@ import java.util.List;
 @Controller
 public class WebForumController {
     private final UseCaseGetAccount getAccount;
-    private final UseCaseGetGame getGame;
-    private final UseCaseGetForumPost getForumPost;
-    private final UseCaseAddForumPost addForumPost;
+    private final GameService gameService;
+    private final ForumPostService forumPostService;
     private final Logger logger;
 
     @Autowired
     public WebForumController(
             UseCaseGetAccount getAccount,
-            UseCaseGetGame getGame,
-            UseCaseGetForumPost getForumPost,
-            UseCaseAddForumPost addForumPost,
+            GameService gameService,
+            ForumPostService forumPostService,
             Logger logger
     ) {
         this.getAccount = getAccount;
-        this.getGame = getGame;
-        this.getForumPost = getForumPost;
-        this.addForumPost = addForumPost;
+        this.gameService = gameService;
+        this.forumPostService = forumPostService;
         this.logger = logger;
     }
 
     //region Forum
     private GameEntityMessage getGame(int gameID, RedirectAttributes redirectAttributes) {
-        GameEntityMessage getGameMessage = getGame.getGame(gameID);
+        GameEntityMessage getGameMessage = gameService.getGame(gameID);
         if (!getGameMessage.isSuccessful()) {
             logger.error(getGameMessage.getMessage());
             redirectAttributes.addAttribute("error", getGameMessage.getMessage());
@@ -90,7 +88,7 @@ public class WebForumController {
             model.addAttribute("game", gameMessage.getEntity());
 
             // Add the forum posts to the mode
-            ForumPostMessage getForumPostMessage = getForumPost.getForumPosts_Game(parsedGameID, PageRequest.of(page, size));
+            ForumPostMessage getForumPostMessage = forumPostService.getForumPosts_Game(parsedGameID, PageRequest.of(page, size));
             logger.info("Retrieved forum posts: %s posts for page %s".formatted(getForumPostMessage.getForumPostEntities().getTotalElements(),page));
             if (!getForumPostMessage.isSuccessful()) {
                 logger.error(getForumPostMessage.getMessage());
@@ -156,7 +154,7 @@ public class WebForumController {
             int parsedGameID = Integer.parseInt(gameID);
 
             // Add the forum post to the database
-            ForumPostMessage addForumPostMessage = addForumPost.addForumPost(user.getAccountID(), parsedGameID, message);
+            ForumPostMessage addForumPostMessage = forumPostService.addForumPost(user.getAccountID(), parsedGameID, message);
             if (!addForumPostMessage.isSuccessful()) {
                 logger.error(addForumPostMessage.getMessage());
                 redirectAttributes.addAttribute("error", addForumPostMessage.getMessage());

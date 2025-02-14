@@ -1,5 +1,7 @@
 package com.sintraqos.portfolioproject.user.useCases;
 
+import com.sintraqos.portfolioproject.user.DAL.UserEntity;
+import com.sintraqos.portfolioproject.user.DAL.UserRepository;
 import com.sintraqos.portfolioproject.user.entities.UserMessage;
 import com.sintraqos.portfolioproject.user.service.UserService;
 import lombok.Getter;
@@ -12,11 +14,14 @@ import org.springframework.stereotype.Component;
 @Getter
 @Component
 public class UseCaseBanAccount {
-    private final UserService userService;
+    private final UseCaseGetAccount getAccount;
+    private final UserRepository userRepository;
 
     @Autowired
-    public UseCaseBanAccount(UserService userService ) {
-        this.userService = userService;
+    public UseCaseBanAccount(UseCaseGetAccount getAccount,
+                             UserRepository userRepository) {
+        this.getAccount = getAccount;
+        this.userRepository = userRepository;
     }
 
     /**
@@ -25,7 +30,7 @@ public class UseCaseBanAccount {
      * @param username the username of the user
      */
     public UserMessage banAccount(String username){
-        return userService.banAccount(username);
+        return handleBanAccount(username, true);
     }
 
     /**
@@ -34,6 +39,35 @@ public class UseCaseBanAccount {
      * @param username the username of the user
      */
     public UserMessage unbanAccount(String username) {
-        return userService.unbanAccount(username);
+        return handleBanAccount(username, false);
     }
+
+    /**
+     * Handle banning / unbanning the given account
+     *
+     * @param username the username of the account
+     * @param isBanned if the account should be banned or unbanned
+     */
+    UserMessage handleBanAccount(String username, boolean isBanned) {
+        // Retrieve the account
+        UserMessage userMessage = getAccount.getAccount(username);
+        if (!userMessage.isSuccessful()) {
+            return userMessage;
+        }
+
+        // Set the account banned status
+        UserEntity user = new UserEntity(userMessage.getUserDTO());
+        user.setEnabled(!isBanned); // Since if the account is banned and receives a 'true' statement it should be set to 'false'
+        user.setAccountNonLocked(!isBanned);
+        userRepository.save(user);
+
+        String returnMessage = "Successfully banned account: '%s'".formatted(username);
+        if (!isBanned) {
+            returnMessage = "Successfully unbanned account: '%s'".formatted(username);
+        }
+
+        // Return the message
+        return new UserMessage(true, returnMessage);
+    }
+
 }

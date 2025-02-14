@@ -1,10 +1,12 @@
 package com.sintraqos.portfolioproject.userLibrary.service;
 
 import com.sintraqos.portfolioproject.game.DAL.GameRepository;
-import com.sintraqos.portfolioproject.shared.Errors;
 import com.sintraqos.portfolioproject.userLibrary.DAL.UserLibraryEntity;
 import com.sintraqos.portfolioproject.userLibrary.DAL.UserLibraryRepository;
 import com.sintraqos.portfolioproject.userLibrary.entities.UserLibraryEntityMessage;
+import com.sintraqos.portfolioproject.userLibrary.useCases.UseCaseLibraryAddGame;
+import com.sintraqos.portfolioproject.userLibrary.useCases.UseCaseLibraryDeleteGame;
+import com.sintraqos.portfolioproject.userLibrary.useCases.UseCaseLibraryGetGame;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,11 +14,25 @@ import java.util.List;
 
 @Service
 public class UserLibraryService {
+    private final UserLibraryRepository userLibraryRepository;
+    private final GameRepository gameRepository;
+    private final UseCaseLibraryAddGame addGame;
+    private final UseCaseLibraryDeleteGame deleteGame;
+    private final UseCaseLibraryGetGame getGame;
 
     @Autowired
-    private UserLibraryRepository userLibraryRepository;
-    @Autowired
-    private GameRepository gameRepository;
+    public UserLibraryService(UserLibraryRepository userLibraryRepository,
+                              GameRepository gameRepository,
+                              UseCaseLibraryAddGame addGame,
+                              UseCaseLibraryDeleteGame deleteGame,
+                              UseCaseLibraryGetGame getGame) {
+        this.userLibraryRepository = userLibraryRepository;
+        this.gameRepository = gameRepository;
+        this.addGame = addGame;
+        this.deleteGame = deleteGame;
+        this.getGame = getGame;
+    }
+
 
     public List<UserLibraryEntity> getLibrary(int accountID) {
         return userLibraryRepository.findByAccountID(accountID);
@@ -29,19 +45,7 @@ public class UserLibraryService {
      * @param gameID    the ID of the game
      */
     public UserLibraryEntityMessage addGame(int accountID, int gameID) {
-        // Check if the gameID is valid
-        if (gameRepository.findByGameID(gameID) == null) {
-            return new UserLibraryEntityMessage(Errors.FIND_GAME_ID_FAILED.formatted(gameID));
-        }
-
-        // Check if the account contains the game
-        if (userLibraryRepository.findByAccountIDAndGameID(accountID, gameID) != null) {
-            return new UserLibraryEntityMessage(Errors.ACCOUNT_CONTAINS_GAME.formatted(gameID));
-        }
-
-        UserLibraryEntity accountLibrary = new UserLibraryEntity(accountID, gameID);
-        return new UserLibraryEntityMessage(userLibraryRepository.save(accountLibrary),
-                "Added game with ID: '%s' to account account with ID: '%s'".formatted(gameID, accountID));
+        return addGame.addGame(accountID, gameID);
     }
 
     /**
@@ -50,16 +54,10 @@ public class UserLibraryService {
      * @param accountID the ID of the account
      */
     public UserLibraryEntityMessage deleteLibrary(int accountID) {
-        // Get the list of the entries and delete them
-        List<UserLibraryEntity> accountLibraryEntities = userLibraryRepository.findByAccountID(accountID);
-        userLibraryRepository.deleteAll(accountLibraryEntities);
-
-        // Return a message with the success
-        return new UserLibraryEntityMessage("Removed all games from account with ID: '%s'".formatted(accountID));
+        return deleteGame.deleteLibrary(accountID);
     }
 
     public UserLibraryEntityMessage getGame(int accountID, int gameID) {
-        UserLibraryEntity userLibraryEntity =  userLibraryRepository.findByAccountIDAndGameID(accountID, gameID);
-        return new UserLibraryEntityMessage(userLibraryEntity,"Retrieved game with ID: '%s'".formatted(gameID));
+        return getGame.getGame(accountID, gameID);
     }
 }

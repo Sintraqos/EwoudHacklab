@@ -7,6 +7,7 @@ import com.sintraqos.portfolioproject.user.DAL.UserRepository;
 import com.sintraqos.portfolioproject.user.entities.UserMessage;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.util.regex.Pattern;
@@ -18,6 +19,7 @@ public class UseCaseValidateUser {
     private final SettingsHandler settingsHandler;
     private final CensorService censorService;
     private final Logger logger;
+    private final PasswordEncoder passwordEncoder;
 
     String specialCharRegex = "[!@#$%^&*()\\-_=+\\[\\]{}]";
     String capitalRegex = "[A-Z]";
@@ -27,11 +29,13 @@ public class UseCaseValidateUser {
     public UseCaseValidateUser(UserRepository userRepository,
                                SettingsHandler settingsHandler,
                                CensorService censorService,
-                               Logger logger) {
+                               Logger logger,
+                               PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.settingsHandler = settingsHandler;
         this.censorService = censorService;
         this.logger = logger;
+        this.passwordEncoder = passwordEncoder;
     }
 
     public UserMessage validateUser(String username, String eMail, String password) {
@@ -134,4 +138,19 @@ public class UseCaseValidateUser {
 
         return new UserMessage(true, "Password Validated");
     }
+
+    /**
+     * Compare the password that was stored with the given password
+     *
+     * @param storedPassword the stored password from inside the database
+     * @param givenPassword  the given password from the user
+     */
+    UserMessage comparePassword(String storedPassword, String givenPassword) {
+        if (passwordEncoder.matches(givenPassword, storedPassword)) {
+            return new UserMessage(true, Errors.PASSWORD_MATCH);
+        } else {
+            return new UserMessage(Errors.PASSWORD_MISMATCH);
+        }
+    }
+
 }

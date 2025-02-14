@@ -1,10 +1,14 @@
 package com.sintraqos.portfolioproject.user.useCases;
 
+import com.sintraqos.portfolioproject.user.DAL.UserEntity;
+import com.sintraqos.portfolioproject.user.DAL.UserRepository;
 import com.sintraqos.portfolioproject.user.entities.UserMessage;
 import com.sintraqos.portfolioproject.user.service.UserService;
+import com.sintraqos.portfolioproject.user.statics.Enums;
 import com.sintraqos.portfolioproject.userLibrary.service.UserLibraryService;
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 /**
@@ -13,15 +17,21 @@ import org.springframework.stereotype.Component;
 @Getter
 @Component
 public class UseCaseRegisterAccount {
-    private final UserService userService;
+    private final UseCaseValidateUser validateUser;
     private final UserLibraryService userLibraryService;
+    private final PasswordEncoder passwordEncoder;
+    private final UserRepository userRepository;
 
     @Autowired
     public UseCaseRegisterAccount(
-            UserService userService,
-            UserLibraryService userLibraryService) {
-        this.userService = userService;
+            UseCaseValidateUser validateUser,
+            UserLibraryService userLibraryService,
+            PasswordEncoder passwordEncoder,
+            UserRepository userRepository) {
+        this.validateUser = validateUser;
         this.userLibraryService = userLibraryService;
+        this.passwordEncoder = passwordEncoder;
+        this.userRepository = userRepository;
     }
 
     /**
@@ -32,12 +42,21 @@ public class UseCaseRegisterAccount {
      * @param password the password of the new user
      */
     public UserMessage registerAccount(String username, String eMail, String password) {
-        //Create new user
-        UserMessage message = userService.createAccount(username, eMail, password);
-        if (!message.isSuccessful()) {
-            return new UserMessage("Failed to create user with username: '%s', reason: '%s'".formatted(username, message.getMessage()));
-        } else {
-            return message;
+        // Check if the user is valid
+        UserMessage validateUserMessage = validateUser.validateUser(username, eMail, password);
+        if (!validateUserMessage.isSuccessful()) {
+            return validateUserMessage;
         }
+
+        // Create and save the new user
+        UserEntity userEntity = new UserEntity(username, eMail, passwordEncoder.encode(password), Enums.Role.USER);
+        userEntity.setAccountNonExpired(true);
+        userEntity.setAccountNonLocked(true);
+        userEntity.setCredentialsNonExpired(true);
+        userEntity.setEnabled(true);
+        userRepository.save(userEntity);
+
+        // Cast the accountEntity to an AccountDTO object for transfer
+        return new UserMessage(userEntity, "Created new account: '%s'".formatted(username));
     }
 }

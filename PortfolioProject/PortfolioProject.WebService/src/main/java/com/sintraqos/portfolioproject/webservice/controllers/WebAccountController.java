@@ -2,6 +2,7 @@ package com.sintraqos.portfolioproject.webservice.controllers;
 
 import com.sintraqos.portfolioproject.shared.Errors;
 import com.sintraqos.portfolioproject.user.entities.UserMessage;
+import com.sintraqos.portfolioproject.user.service.UserService;
 import com.sintraqos.portfolioproject.user.useCases.*;
 import com.sintraqos.portfolioproject.user.entities.*;
 import jakarta.servlet.http.HttpSession;
@@ -19,20 +20,17 @@ import org.slf4j.Logger;
 @Controller
 public class WebAccountController {
     private final PasswordEncoder passwordEncoder;
-    private final UseCaseGetAccount getAccount;
-    private final UseCaseUpdateAccount updateAccount;
+    private final UserService userService;
     private final Logger logger;
 
     @Autowired
     public WebAccountController(
             PasswordEncoder passwordEncoder,
-            UseCaseGetAccount getAccount,
-            UseCaseUpdateAccount updateAccount,
+            UserService userService,
             Logger logger
     ) {
         this.passwordEncoder = passwordEncoder;
-        this.getAccount = getAccount;
-        this.updateAccount = updateAccount;
+        this.userService = userService;
         this.logger = logger;
     }
 
@@ -59,7 +57,7 @@ public class WebAccountController {
             return "redirect:/login";
         }
 
-        UserMessage userMessage = getAccount.getAccount(authentication.getName());
+        UserMessage userMessage = userService.getAccount(authentication.getName());
         if (!userMessage.isSuccessful()) {
             redirectAttributes.addFlashAttribute("error", userMessage.getMessage());
             logger.error(userMessage.getMessage());
@@ -116,7 +114,7 @@ public class WebAccountController {
         String passwordHash = passwordEncoder.encode(password);
 
         // Try to update the account
-        UserMessage updateAccountMessage = updateAccount.changeUsername(currentUsername, newUsername, passwordHash);
+        UserMessage updateAccountMessage = userService.changeUsername(currentUsername, newUsername, passwordHash);
         if (!updateAccountMessage.isSuccessful()) {
             logger.warn(updateAccountMessage.getMessage());
             redirectAttributes.addAttribute("error", updateAccountMessage.getMessage());
@@ -131,7 +129,7 @@ public class WebAccountController {
         }
 
         // Fetch the updated account with the new username
-        UserMessage userMessage = getAccount.getAccount(newUsername);
+        UserMessage userMessage = userService.getAccount(newUsername);
         if (!userMessage.isSuccessful()) {
             redirectAttributes.addFlashAttribute("error", userMessage.getMessage());
             logger.warn(userMessage.getMessage());
@@ -166,7 +164,7 @@ public class WebAccountController {
             @RequestParam("password") String password,
             RedirectAttributes redirectAttributes) {
         // Try to update the account
-        UserMessage updateAccountMessage = updateAccount.changeEmail(user.getUsername(), eMail, password);
+        UserMessage updateAccountMessage = userService.changeEMail(user.getUsername(), eMail, password);
         if (!updateAccountMessage.isSuccessful()) {
             logger.warn(updateAccountMessage.getMessage());
             redirectAttributes.addAttribute("error", updateAccountMessage.getMessage());
@@ -196,7 +194,7 @@ public class WebAccountController {
         }
 
         // Try to update the account
-        UserMessage updateAccountMessage = updateAccount.changePassword(user.getUsername(), currentPassword, newPassword);
+        UserMessage updateAccountMessage = userService.changePassword(user.getUsername(), currentPassword, newPassword);
         if (!updateAccountMessage.isSuccessful()) {
             logger.warn(updateAccountMessage.getMessage());
             redirectAttributes.addAttribute("error", updateAccountMessage.getMessage());

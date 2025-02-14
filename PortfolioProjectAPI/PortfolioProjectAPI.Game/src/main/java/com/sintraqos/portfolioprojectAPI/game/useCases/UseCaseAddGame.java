@@ -1,5 +1,7 @@
 package com.sintraqos.portfolioprojectAPI.game.useCases;
 
+import com.sintraqos.portfolioprojectAPI.game.DAL.GameEntity;
+import com.sintraqos.portfolioprojectAPI.game.DAL.GameRepository;
 import com.sintraqos.portfolioprojectAPI.game.DTO.GameDTO;
 import com.sintraqos.portfolioprojectAPI.game.entities.Game;
 import com.sintraqos.portfolioprojectAPI.game.service.GameService;
@@ -15,16 +17,16 @@ import org.springframework.stereotype.Component;
 @Getter
 @Component
 public class UseCaseAddGame {
-    private final GameService gameService;
+    private final GameRepository gameRepository;
     private final Logger logger;
     private final Faker faker;
 
     @Autowired
     public UseCaseAddGame(
-            GameService gameService,
+            GameRepository gameRepository,
             Logger logger
     ) {
-        this.gameService = gameService;
+        this.gameRepository = gameRepository;
         this.logger = logger;
         faker = new Faker();
     }
@@ -35,6 +37,13 @@ public class UseCaseAddGame {
      * @param game the game Object to be added to the list
      */
     public boolean addGame(Game game) {
-        return gameService.addGame(new GameDTO(game));
+        // Check if a game with the given name already exists
+        if (gameRepository.findByGameName(game.getGameName()) != null) {
+            return false;
+        }
+
+        GameEntity gameEntity = new GameEntity(game.getGameName(), game.getGameDescription(), game.getGameDeveloper(), game.getGamePublisher());
+        gameRepository.save(gameEntity);
+        return true;
     }
 }

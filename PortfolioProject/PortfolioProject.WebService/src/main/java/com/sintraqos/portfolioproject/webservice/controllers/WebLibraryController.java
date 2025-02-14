@@ -1,9 +1,9 @@
 package com.sintraqos.portfolioproject.webservice.controllers;
 
 import com.sintraqos.portfolioproject.game.entities.GameEntityMessage;
+import com.sintraqos.portfolioproject.game.service.GameService;
 import com.sintraqos.portfolioproject.userLibrary.entities.UserLibraryEntityMessage;
 import com.sintraqos.portfolioproject.userLibrary.useCases.UseCaseLibraryAddGame;
-import com.sintraqos.portfolioproject.game.useCases.UseCaseGetGame;
 import com.sintraqos.portfolioproject.shared.Errors;
 import com.sintraqos.portfolioproject.user.useCases.UseCaseGetAccount;
 import com.sintraqos.portfolioproject.user.entities.User;
@@ -22,19 +22,19 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 public class WebLibraryController implements WebMvcConfigurer {
-    private final UseCaseGetGame getGame;
+    private final GameService gameService;
     private final UseCaseLibraryAddGame addGame;
     private final UseCaseGetAccount getAccount;
     private final Logger logger;
 
     @Autowired
     public WebLibraryController(
-            UseCaseGetGame getGame,
+            GameService gameService,
             UseCaseLibraryAddGame addGame,
             UseCaseGetAccount getAccount,
             Logger logger
     ) {
-        this.getGame = getGame;
+        this.gameService = gameService;
         this.addGame = addGame;
         this.getAccount = getAccount;
         this.logger = logger;
@@ -107,7 +107,7 @@ public class WebLibraryController implements WebMvcConfigurer {
             RedirectAttributes redirectAttributes,
             Model model) {
 
-        GameEntityMessage getGamesMessage = getGame.getGames(gameName);
+        GameEntityMessage getGamesMessage = gameService.getGames(gameName);
         if (!getGamesMessage.isSuccessful()) {
             logger.error(getGamesMessage.getMessage());
             redirectAttributes.addAttribute("error", getGamesMessage.getMessage());
