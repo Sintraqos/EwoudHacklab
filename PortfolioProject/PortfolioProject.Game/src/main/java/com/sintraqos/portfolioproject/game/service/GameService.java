@@ -17,6 +17,7 @@ public class GameService {
 
     @Autowired
     private GameRepository gameRepository;
+    @Autowired
     private Logger logger;
 
     /**
@@ -87,15 +88,11 @@ public class GameService {
         }
     }
 
-    /**
-     * Add the given list to the database
-     */
-    public GameEntityMessage addGames(List<Game> games) {
-        GameEntityMessage returnMessage;
+    public GameEntityMessage addGames(List<GameDTO> games){
         StringBuilder returnString = new StringBuilder();
 
-        for (Game game : games) {
-            GameEntityMessage message = addGame(new GameDTO(game));
+        for (GameDTO game : games) {
+            GameEntityMessage message = addGame(game);
 
             if (!message.isSuccessful()) {
                 returnString.append("\n").append(message.getMessage());

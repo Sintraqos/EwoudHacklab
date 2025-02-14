@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/games")
+@RequestMapping("/")
 public class WebGameController {
 
     private final UseCaseGetGame useCaseGetGame;
@@ -24,11 +24,7 @@ public class WebGameController {
     }
 
     @GetMapping
-    public List<GameDTO> getGames(@RequestParam(required = false) String gameName) {
-        if (gameName == null) {
-            return useCaseGetGame.getRecentlyAddedGames();
-        }
-
-        return useCaseGetGame.getGames(gameName);
+    public List<GameDTO> getGames() {
+        return useCaseGetGame.getRecentlyAddedGames();
     }
 }

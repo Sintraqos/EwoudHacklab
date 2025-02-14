@@ -20,6 +20,17 @@ public class GameDTO {
     private Date gameLastPlayed;
     private final int gamePlayTime;
 
+    public GameDTO(){
+        this.gameID = 0;
+        this.gameName = "";
+        this.gameDescription = "";
+        this.gameDeveloper = "";
+        this.gamePublisher = "";
+        this.gameAcquired = null;
+        this.gameLastPlayed = null;
+        this.gamePlayTime = 0;
+    }
+
     public GameDTO(Game game)
     {
         this.gameID = game.getGameID();
