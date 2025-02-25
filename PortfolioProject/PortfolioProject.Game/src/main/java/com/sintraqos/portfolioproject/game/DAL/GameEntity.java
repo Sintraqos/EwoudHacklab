@@ -20,19 +20,15 @@ public class GameEntity {
     private int gameID;
 
     @Column(nullable = false, length = 100)
-    @NotBlank(message = "Game name is mandatory.")
     private String gameName;
 
     @Column()
-    @NotBlank(message = "Game description is mandatory.")
     private String gameDescription;
 
     @Column()
-    @NotBlank(message = "Game developer is mandatory.")
     private String gameDeveloper;
 
     @Column()
-    @NotBlank(message = "Game publisher is mandatory.")
     private String gamePublisher;
 
     public GameEntity(String gameName, String gameDescription, String gameDeveloper, String gamePublisher) {

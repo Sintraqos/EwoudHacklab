@@ -3,7 +3,6 @@ package com.sintraqos.portfolioproject.webservice.service;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sintraqos.portfolioproject.game.DTO.GameDTO;
-import com.sintraqos.portfolioproject.game.entities.GameEntityMessage;
 import com.sintraqos.portfolioproject.game.service.GameService;
 import com.sintraqos.portfolioproject.scheduler.ScheduleEventHandler;
 import com.sintraqos.portfolioproject.shared.Errors;
@@ -12,7 +11,6 @@ import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
@@ -60,8 +58,8 @@ public class GameServiceClient {
     }
 
     public GameDTO getGameById(int gameID) {
-            String url = apiURL + "/" + gameID;
-            return restTemplate.getForObject(url, GameDTO.class);
+        String url = apiURL + "/" + gameID;
+        return restTemplate.getForObject(url, GameDTO.class);
     }
 
     public List<GameDTO> getRecentlyAddedGames() {
@@ -86,10 +84,7 @@ public class GameServiceClient {
      */
     @EventListener
     public void handleScheduleTickEvent(ScheduleEventHandler event) {
-        List<GameDTO> list = getRecentlyAddedGames();
-        GameEntityMessage addGameMessage = gameService.addGames(list);
-        if(!addGameMessage.isSuccessful()){
-            logger.warn("Warning: {}", addGameMessage.getMessage());
-        }
+        // Add the games recently added by the API
+        gameService.addGames(getRecentlyAddedGames());
     }
 }

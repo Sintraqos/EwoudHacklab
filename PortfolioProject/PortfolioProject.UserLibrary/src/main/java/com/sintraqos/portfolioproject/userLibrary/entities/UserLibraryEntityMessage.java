@@ -16,17 +16,6 @@ public class UserLibraryEntityMessage {
     /**
      * Create a new Message object
      *
-     * @param isSuccessful if the action was successful
-     * @param message the message the sender wishes to send back
-     */
-    public UserLibraryEntityMessage(boolean isSuccessful, String message) {
-        this.isSuccessful = isSuccessful;
-        this.message = message;
-    }
-
-    /**
-     * Create a new Message object
-     *
      * @param message the message the sender wishes to send back
      */
     public UserLibraryEntityMessage(String message) {
@@ -37,11 +26,5 @@ public class UserLibraryEntityMessage {
         isSuccessful = true;
         this.message = message;
         this.entity = entity;
-    }
-
-    public UserLibraryEntityMessage(List<UserLibraryEntity> entities) {
-        isSuccessful = true;
-        this.message = "";
-        this.entities = entities;
     }
 }

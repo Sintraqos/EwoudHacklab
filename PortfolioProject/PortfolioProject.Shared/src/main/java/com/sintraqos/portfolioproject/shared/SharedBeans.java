@@ -7,8 +7,11 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class SharedBeans {
+
+    // This will be used for any class needing a logger
     @Bean
     public Logger logger() {
-        return LoggerFactory.getLogger("GlobalLogger");
+        // Use the logger for the specific class or package
+        return LoggerFactory.getLogger("com.sintraqos.portfolioproject");
     }
 }

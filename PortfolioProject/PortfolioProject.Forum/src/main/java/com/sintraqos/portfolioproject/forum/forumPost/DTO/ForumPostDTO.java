@@ -45,28 +45,15 @@ public class ForumPostDTO {
      * @param gameID the ID of the game
      * @param gameName the name of the game
      * @param message the message the user left
-     */
-    public ForumPostDTO(int forumPostID, int accountID,String username, int gameID,String gameName, String message) {
-        this.forumPostID = forumPostID;
-        this.accountID = accountID;
-        this.username = username;
-        this.gameID = gameID;
-        this.gameName = gameName;
-        this.message = message;
-    }
-
-    /**
-     * Create new DTO
-     *
-     * @param forumPostID the ID of the forumPost
-     * @param accountID the ID of the account
-     * @param username the username of the account
-     * @param gameID the ID of the game
-     * @param gameName the name of the game
-     * @param message the message the user left
      * @param postDate the date and time of the message
      */
-    public ForumPostDTO(int forumPostID, int accountID, String username, int gameID, String gameName, String message, Timestamp postDate) {
+    public ForumPostDTO(int forumPostID,
+                        int accountID,
+                        String username,
+                        int gameID,
+                        String gameName,
+                        String message,
+                        Timestamp postDate) {
         this.forumPostID = forumPostID;
         this.accountID = accountID;
         this.username = username;

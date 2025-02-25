@@ -4,6 +4,7 @@ import com.sintraqos.portfolioproject.userLibrary.DAL.UserLibraryEntity;
 import com.sintraqos.portfolioproject.userLibrary.DAL.UserLibraryRepository;
 import com.sintraqos.portfolioproject.userLibrary.entities.UserLibraryEntityMessage;
 import lombok.Getter;
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -15,12 +16,13 @@ import java.util.List;
 @Getter
 @Component
 public class UseCaseLibraryDeleteGame {
-
     private final UserLibraryRepository libraryRepository;
+    private final Logger logger;
 
     @Autowired
-    public UseCaseLibraryDeleteGame(UserLibraryRepository libraryRepository) {
+    public UseCaseLibraryDeleteGame(UserLibraryRepository libraryRepository,Logger logger) {
         this.libraryRepository = libraryRepository;
+        this.logger = logger;
     }
 
     /**
@@ -34,6 +36,9 @@ public class UseCaseLibraryDeleteGame {
         libraryRepository.deleteAll(accountLibraryEntities);
 
         // Return a message with the success
-        return new UserLibraryEntityMessage("Removed all games from account with ID: '%s'".formatted(accountID));
+        String message ="Removed all games from account with ID: '%s'".formatted(accountID);
+        logger.debug(message);
+
+        return new UserLibraryEntityMessage(message);
     }
 }

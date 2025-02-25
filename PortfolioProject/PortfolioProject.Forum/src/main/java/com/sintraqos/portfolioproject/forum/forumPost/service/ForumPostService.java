@@ -1,16 +1,11 @@
 package com.sintraqos.portfolioproject.forum.forumPost.service;
 
-import com.sintraqos.portfolioproject.forum.forumPost.DAL.ForumPostEntity;
-import com.sintraqos.portfolioproject.forum.forumPost.DAL.ForumPostRepository;
 import com.sintraqos.portfolioproject.forum.forumPost.DTO.ForumPostDTO;
 import com.sintraqos.portfolioproject.forum.forumPost.entities.ForumPostMessage;
 import com.sintraqos.portfolioproject.forum.forumPost.useCase.UseCaseAddForumPost;
 import com.sintraqos.portfolioproject.forum.forumPost.useCase.UseCaseGetForumPost;
-import com.sintraqos.portfolioproject.shared.Errors;
-import com.sintraqos.portfolioproject.shared.CensorService;
-import com.sintraqos.portfolioproject.shared.SettingsHandler;
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
@@ -18,13 +13,16 @@ import org.springframework.stereotype.Service;
 public class ForumPostService {
     private final UseCaseAddForumPost addForumPost;
     private final UseCaseGetForumPost getForumPost;
+    private final Logger logger;
 
     @Autowired
     public ForumPostService(
             UseCaseAddForumPost addForumPost,
-            UseCaseGetForumPost getForumPost) {
+            UseCaseGetForumPost getForumPost,
+            Logger logger) {
         this.addForumPost = addForumPost;
         this.getForumPost = getForumPost;
+        this.logger = logger;
     }
 
     /**
@@ -38,8 +36,7 @@ public class ForumPostService {
         if (message.isEmpty()) {
             return new ForumPostMessage("Message was empty");
         }
-
-        return addForumPost.addForumPost(new ForumPostDTO(accountID, gameID, message));
+        return  addForumPost.addForumPost(new ForumPostDTO(accountID, gameID, message));
     }
 
     /**

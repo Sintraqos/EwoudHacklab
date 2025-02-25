@@ -4,6 +4,7 @@ import com.sintraqos.portfolioproject.userLibrary.DAL.UserLibraryEntity;
 import com.sintraqos.portfolioproject.userLibrary.DAL.UserLibraryRepository;
 import com.sintraqos.portfolioproject.userLibrary.entities.UserLibraryEntityMessage;
 import lombok.Getter;
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -13,15 +14,21 @@ import org.springframework.stereotype.Component;
 @Getter
 @Component
 public class UseCaseLibraryGetGame {
-
     private final UserLibraryRepository libraryRepository;
-@Autowired
-    public UseCaseLibraryGetGame(UserLibraryRepository libraryRepository){
-this.libraryRepository = libraryRepository;
+    private final Logger logger;
+
+    @Autowired
+    public UseCaseLibraryGetGame(UserLibraryRepository libraryRepository, Logger logger) {
+        this.libraryRepository = libraryRepository;
+        this.logger = logger;
     }
 
     public UserLibraryEntityMessage getGame(int accountID, int gameID) {
-        UserLibraryEntity userLibraryEntity =  libraryRepository.findByAccountIDAndGameID(accountID, gameID);
-        return new UserLibraryEntityMessage(userLibraryEntity,"Retrieved game with ID: '%s'".formatted(gameID));
+        UserLibraryEntity userLibraryEntity = libraryRepository.findByAccountIDAndGameID(accountID, gameID);
+
+        String message = "Retrieved game with ID: '%s'".formatted(gameID);
+        logger.debug(message);
+
+        return new UserLibraryEntityMessage(userLibraryEntity, message);
     }
 }

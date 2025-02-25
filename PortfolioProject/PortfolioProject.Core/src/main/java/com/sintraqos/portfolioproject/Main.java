@@ -2,6 +2,7 @@ package com.sintraqos.portfolioproject;
 
 import com.sintraqos.portfolioproject.shared.SettingsHandler;
 import com.sintraqos.portfolioproject.webservice.WebServiceConfig;
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.SpringApplication;
@@ -19,10 +20,12 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @EnableConfigurationProperties(SettingsHandler.class)
 public class Main {
     private final SettingsHandler settingsHandler;
+    private final Logger logger;
 
     @Autowired
-    public Main(SettingsHandler settingsHandler) {
+    public Main(SettingsHandler settingsHandler, Logger logger) {
         this.settingsHandler = settingsHandler;
+        this.logger = logger;
     }
 
     public static void main(String[] args) {
@@ -34,8 +37,8 @@ public class Main {
      */
     @EventListener(ApplicationReadyEvent.class)
     public void onApplicationReady() {
+        logger.info("Application Finished Startup");
         // log the settings after application has finished
         settingsHandler.logSettings();
     }
 }
-

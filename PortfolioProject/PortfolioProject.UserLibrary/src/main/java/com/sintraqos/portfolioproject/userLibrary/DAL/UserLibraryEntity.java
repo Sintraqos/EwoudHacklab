@@ -43,14 +43,6 @@ public class UserLibraryEntity {
         }
     }
 
-    public UserLibraryEntity(int accountID, GameDTO gameDTO) {
-        this.accountID = accountID;
-        this.gameID = gameDTO.getGameID();
-        this.gamePlayTime = gameDTO.getGamePlayTime();
-        this.gameAcquired = (Date) gameDTO.getGameAcquired();
-        this.gameLastPlayed = (Date) gameDTO.getGameLastPlayed();
-    }
-
     public UserLibraryEntity(int accountID, int gameID) {
         this.accountID = accountID;
         this.gameID = gameID;

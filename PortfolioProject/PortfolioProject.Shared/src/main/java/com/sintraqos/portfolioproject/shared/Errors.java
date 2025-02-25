@@ -28,6 +28,7 @@ public class Errors {
     public static final String FIND_GAME_NAME_FAILED = "Couldn't find game by name: '%s'";
     public static final String FIND_GAME_ID_FAILED = "Couldn't find game by ID: '%s'";
     public static final String FIND_ACCOUNT_NAME_FAILED = "Couldn't find account by name: '%s'";
+    public static final String FIND_ACCOUNT_ID_FAILED = "Couldn't find account by name: '%s'";
     public static final String API_CONNECTION_FAILED = "Failed to connect to the external database: '%s'";
 
     // Account

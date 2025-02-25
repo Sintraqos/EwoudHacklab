@@ -46,11 +46,4 @@ public class ForumPostEntity {
         this.gameID = gameID;
         this.message = message;
     }
-    
-    public ForumPostEntity(int forumPostID, int accountID, int gameID, String message) {
-        this.forumPostID = forumPostID;
-        this.accountID = accountID;
-        this.gameID = gameID;
-        this.message = message;
-    }
 }

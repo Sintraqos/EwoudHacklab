@@ -1,11 +1,13 @@
 package com.sintraqos.portfolioproject.user.service;
 
+import com.sintraqos.portfolioproject.scheduler.ScheduleEventHandler;
 import com.sintraqos.portfolioproject.shared.Errors;
 import com.sintraqos.portfolioproject.user.DAL.UserEntity;
 import com.sintraqos.portfolioproject.user.entities.User;
 import com.sintraqos.portfolioproject.user.entities.UserMessage;
 import com.sintraqos.portfolioproject.user.statics.Enums;
 import com.sintraqos.portfolioproject.user.useCases.*;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.userdetails.*;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -69,7 +71,7 @@ public class UserService  implements UserDetailsService {
      * @param role     the role of the account
      */
     public UserMessage registerAccount(String username, String eMail, String password, Enums.Role role) {
-        UserMessage message = registerAccount.registerAccount(username, eMail, password);
+        UserMessage message = registerAccount.registerAccount(username, eMail, password,role);
         if (!message.isSuccessful()) {
             return new UserMessage("Failed to create user with username: '%s', reason: '%s'".formatted(username, message.getMessage()));
         } else {

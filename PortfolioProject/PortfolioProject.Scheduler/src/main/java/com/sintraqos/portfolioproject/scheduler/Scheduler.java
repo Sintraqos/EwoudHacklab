@@ -23,13 +23,9 @@ public class Scheduler {
         this.eventPublisher = eventPublisher;
     }
 
-    final long fixedRate = 5; // Write in seconds the  delay
-
     @Scheduled(cron = "#{@settingsHandler.scheduleTimeCron}") // Run every time on the time set in the application.properties
-    @Scheduled(fixedRate= fixedRate * 1000) // Run every given time in seconds. The * 1000 is to convert the given seconds to miliseconds
     public void runTask() {
         ScheduleEventHandler event = new ScheduleEventHandler(this);
         eventPublisher.publishEvent(event);
     }
-
 }

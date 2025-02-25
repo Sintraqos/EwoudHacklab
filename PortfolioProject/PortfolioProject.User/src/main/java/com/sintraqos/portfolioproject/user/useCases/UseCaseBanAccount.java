@@ -5,6 +5,7 @@ import com.sintraqos.portfolioproject.user.DAL.UserRepository;
 import com.sintraqos.portfolioproject.user.entities.UserMessage;
 import com.sintraqos.portfolioproject.user.service.UserService;
 import lombok.Getter;
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -16,12 +17,15 @@ import org.springframework.stereotype.Component;
 public class UseCaseBanAccount {
     private final UseCaseGetAccount getAccount;
     private final UserRepository userRepository;
+    private final Logger logger;
 
     @Autowired
     public UseCaseBanAccount(UseCaseGetAccount getAccount,
-                             UserRepository userRepository) {
+                             UserRepository userRepository,
+                             Logger logger) {
         this.getAccount = getAccount;
         this.userRepository = userRepository;
+        this.logger = logger;
     }
 
     /**
@@ -29,7 +33,8 @@ public class UseCaseBanAccount {
      *
      * @param username the username of the user
      */
-    public UserMessage banAccount(String username){
+    public UserMessage banAccount(String username) {
+        logger.debug("Attempting to ban account: '%s'".formatted(username));
         return handleBanAccount(username, true);
     }
 
@@ -39,6 +44,7 @@ public class UseCaseBanAccount {
      * @param username the username of the user
      */
     public UserMessage unbanAccount(String username) {
+        logger.debug("Attempting to unban account: '%s'".formatted(username));
         return handleBanAccount(username, false);
     }
 
@@ -52,6 +58,7 @@ public class UseCaseBanAccount {
         // Retrieve the account
         UserMessage userMessage = getAccount.getAccount(username);
         if (!userMessage.isSuccessful()) {
+            logger.debug(userMessage.getMessage());
             return userMessage;
         }
 
@@ -65,9 +72,9 @@ public class UseCaseBanAccount {
         if (!isBanned) {
             returnMessage = "Successfully unbanned account: '%s'".formatted(username);
         }
+        logger.debug(returnMessage);
 
         // Return the message
         return new UserMessage(true, returnMessage);
     }
-
 }

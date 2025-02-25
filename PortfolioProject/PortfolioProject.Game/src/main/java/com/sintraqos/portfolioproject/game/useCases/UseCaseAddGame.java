@@ -40,13 +40,17 @@ public class UseCaseAddGame {
      * @param game the game Object to be added to the list
      */
     public GameEntityMessage addGame(Game game) {
+        logger.debug("Attempting to add new game: '%s'".formatted(game.getGameName()));
+
         // Check if a game with the given name already exists
         if (getGame.getGames(game.getGameName()).isSuccessful()) {
+            logger.debug(Errors.GAME_EXISTS.formatted(game.getGameName()));
             return new GameEntityMessage(Errors.GAME_EXISTS.formatted(game.getGameName()));
         }
 
         // Add new game
         GameEntity gameEntity = new GameEntity(game);
+        logger.debug("Added new game: '%s'".formatted(game.getGameName()));
         return new GameEntityMessage(gameRepository.save(gameEntity), "Added new game: '%s'".formatted(game.getGameName()));
     }
 
@@ -57,6 +61,7 @@ public class UseCaseAddGame {
             GameEntityMessage message = addGame(new Game(game));
 
             if (!message.isSuccessful()) {
+                logger.debug("Failed to add new game: '%s'".formatted(message.getMessage()));
                 returnString.append("\n").append(message.getMessage());
             }
         }
@@ -64,6 +69,7 @@ public class UseCaseAddGame {
         if (!returnString.isEmpty()) {
             return new GameEntityMessage(returnString.toString());
         } else {
+            logger.debug("Added all games successfully");
             return new GameEntityMessage(true, "Added all games successfully");
         }
     }

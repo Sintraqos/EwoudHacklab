@@ -33,21 +33,6 @@ public class UserLibraryService {
         this.getGame = getGame;
     }
 
-
-    public List<UserLibraryEntity> getLibrary(int accountID) {
-        return userLibraryRepository.findByAccountID(accountID);
-    }
-
-    /**
-     * Add a game to the library
-     *
-     * @param accountID the ID of the account
-     * @param gameID    the ID of the game
-     */
-    public UserLibraryEntityMessage addGame(int accountID, int gameID) {
-        return addGame.addGame(accountID, gameID);
-    }
-
     /**
      * Delete the entire library of the given accountID
      *
@@ -55,9 +40,5 @@ public class UserLibraryService {
      */
     public UserLibraryEntityMessage deleteLibrary(int accountID) {
         return deleteGame.deleteLibrary(accountID);
-    }
-
-    public UserLibraryEntityMessage getGame(int accountID, int gameID) {
-        return getGame.getGame(accountID, gameID);
     }
 }

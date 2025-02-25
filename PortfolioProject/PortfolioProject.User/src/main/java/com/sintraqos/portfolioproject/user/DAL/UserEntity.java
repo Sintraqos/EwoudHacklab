@@ -26,11 +26,8 @@ public class UserEntity {
     private int accountID;
 
     @Column(nullable = false, length = 100)
-    @NotBlank(message = "Username is mandatory.")
     private String username;
-    @NotBlank(message = "E-Mail is mandatory.")
     private String email;
-    @NotBlank(message = "Password is mandatory.")
     private String passwordHash;
     private boolean isAccountNonExpired= true;
     private boolean isAccountNonLocked= true;

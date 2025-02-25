@@ -20,6 +20,9 @@ public class GameDTO {
     private Date gameLastPlayed;
     private final int gamePlayTime;
 
+    /**
+     * Use as default. This is for filling in the message received from the API
+     */
     public GameDTO(){
         this.gameID = 0;
         this.gameName = "";
@@ -41,15 +44,6 @@ public class GameDTO {
         this.gameAcquired = game.getGameAcquired();
         this.gameLastPlayed = game.getGameLastPlayed();
         this.gamePlayTime = game.getGamePlayTime();
-    }
-
-    public GameDTO(GameEntity game) {
-        this.gameID = game.getGameID();
-        this.gameName = game.getGameName();
-        this.gameDescription = game.getGameDescription();
-        this.gameDeveloper = game.getGameDeveloper();
-        this.gamePublisher = game.getGamePublisher();
-        this.gamePlayTime = 0;
     }
 
     public GameDTO(

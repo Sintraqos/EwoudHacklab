@@ -12,10 +12,10 @@ import java.util.Date;
 @Getter
 public class Game {
     private int gameID;
-    private String gameName;
-    private String gameDescription;
-    private String gameDeveloper;
-    private String gamePublisher;
+    private final String gameName;
+    private final String gameDescription;
+    private final String gameDeveloper;
+    private final String gamePublisher;
     private Date gameAcquired;
     private Date gameLastPlayed;
     private int gamePlayTime;
