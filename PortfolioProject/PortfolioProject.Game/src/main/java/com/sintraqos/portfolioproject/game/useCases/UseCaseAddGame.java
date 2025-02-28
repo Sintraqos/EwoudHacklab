@@ -43,7 +43,7 @@ public class UseCaseAddGame {
         logger.debug("Attempting to add new game: '%s'".formatted(game.getGameName()));
 
         // Check if a game with the given name already exists
-        if (getGame.getGames(game.getGameName()).isSuccessful()) {
+        if (getGame.getGame(game.getGameName()).isSuccessful()) {
             logger.debug(Errors.GAME_EXISTS.formatted(game.getGameName()));
             return new GameEntityMessage(Errors.GAME_EXISTS.formatted(game.getGameName()));
         }

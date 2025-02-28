@@ -51,7 +51,7 @@ public class UseCaseGetGame {
             String message =Errors.FIND_GAME_ID_FAILED.formatted(gameID);
             logger.debug(message);
 
-            return new GameEntityMessage(message);
+            return new GameEntityMessage(false, message);
         }
     }
 
@@ -79,7 +79,7 @@ public class UseCaseGetGame {
             String message =Errors.FIND_GAME_NAME_FAILED.formatted(gameName);
             logger.debug(message);
 
-            return new GameEntityMessage(message);
+            return new GameEntityMessage(false, message);
         }
     }
 
@@ -101,7 +101,7 @@ public class UseCaseGetGame {
             String message =Errors.FIND_GAME_NAME_FAILED.formatted(gameName);
             logger.debug(message);
 
-            return new GameEntityMessage(message);
+            return new GameEntityMessage(false, message);
         }
     }
 }

@@ -69,6 +69,7 @@ public class GameServiceClient {
         }
 
         try {
+            logger.debug("Retrieving games from: '%s'".formatted(apiURL));
             String jsonString = restTemplate.getForObject(apiURL, String.class);    // Retrieve the JSON as a string
             ObjectMapper objectMapper = new ObjectMapper();
 
@@ -84,6 +85,11 @@ public class GameServiceClient {
      */
     @EventListener
     public void handleScheduleTickEvent(ScheduleEventHandler event) {
+
+        // Retrieve the new games from the API
+        List<GameDTO> newGames = getRecentlyAddedGames();
+        logger.debug("Received: '%s' new games".formatted(newGames.size()));
+
         // Add the games recently added by the API
         gameService.addGames(getRecentlyAddedGames());
     }
