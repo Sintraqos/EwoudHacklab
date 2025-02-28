@@ -3,7 +3,6 @@ package com.sintraqos.portfolioproject.webservice.controllers;
 import com.sintraqos.portfolioproject.shared.Errors;
 import com.sintraqos.portfolioproject.user.entities.UserMessage;
 import com.sintraqos.portfolioproject.user.service.UserService;
-import com.sintraqos.portfolioproject.user.useCases.*;
 import com.sintraqos.portfolioproject.user.entities.*;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,8 +51,8 @@ public class WebAccountController {
         // Get the currently authenticated user
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || !authentication.isAuthenticated()) {
-            logger.warn(Errors.ACCOUNT_NOT_LOGGED_IN);
-            redirectAttributes.addAttribute("warning", Errors.ACCOUNT_NOT_LOGGED_IN);
+            logger.warn(Errors.USER_NOT_LOGGED_IN);
+            redirectAttributes.addAttribute("warning", Errors.USER_NOT_LOGGED_IN);
             return "redirect:/login";
         }
 
@@ -123,8 +122,8 @@ public class WebAccountController {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || !authentication.isAuthenticated()) {
-            logger.warn(Errors.ACCOUNT_NOT_LOGGED_IN);
-            redirectAttributes.addAttribute("warning", Errors.ACCOUNT_NOT_LOGGED_IN);
+            logger.warn(Errors.USER_NOT_LOGGED_IN);
+            redirectAttributes.addAttribute("warning", Errors.USER_NOT_LOGGED_IN);
             return "redirect:/login";
         }
 

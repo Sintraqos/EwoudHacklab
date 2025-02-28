@@ -4,7 +4,6 @@ import com.sintraqos.portfolioproject.shared.Errors;
 import com.sintraqos.portfolioproject.user.DAL.UserEntity;
 import com.sintraqos.portfolioproject.user.DAL.UserRepository;
 import com.sintraqos.portfolioproject.user.entities.UserMessage;
-import com.sintraqos.portfolioproject.user.service.UserService;
 import com.sintraqos.portfolioproject.userLibrary.service.UserLibraryService;
 import lombok.Getter;
 import org.slf4j.Logger;
@@ -44,7 +43,7 @@ public class UseCaseDeleteAccount {
         // Check if an account already exists
         UserEntity account = userRepository.findByUsername(username);
         if (account == null) {
-            String message = Errors.FIND_ACCOUNT_NAME_FAILED.formatted(username);
+            String message = Errors.FIND_USER_NAME_FAILED.formatted(username);
             logger.debug(message);
 
             return new UserMessage(message);

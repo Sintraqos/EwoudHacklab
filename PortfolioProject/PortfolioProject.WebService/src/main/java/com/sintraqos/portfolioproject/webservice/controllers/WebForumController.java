@@ -121,18 +121,20 @@ public class WebForumController {
             // Retrieve the user using their accountID
             UserMessage getAccountMessage = getAccount.getAccount(forumPostEntity.getAccountID());
 
-            // Create new ForumPostDTO Object
-            ForumPostDTO forumPost = new ForumPostDTO(
-                    forumPostEntity.getForumPostID(),
-                    forumPostEntity.getAccountID(),
-                    getAccountMessage.getUserDTO().getUsername(),
-                    forumPostEntity.getGameID(),
-                    gameMessage.getEntity().getGameName(),
-                    forumPostEntity.getMessage(),
-                    forumPostEntity.getPostDate()
-            );
+            if (getAccountMessage.getUserDTO() != null && gameMessage.getEntity() != null) {
+                // Create new ForumPostDTO Object
+                ForumPostDTO forumPost = new ForumPostDTO(
+                        forumPostEntity.getForumPostID(),
+                        forumPostEntity.getAccountID(),
+                        getAccountMessage.getUserDTO().getUsername(),
+                        forumPostEntity.getGameID(),
+                        gameMessage.getEntity().getGameName(),
+                        forumPostEntity.getMessage(),
+                        forumPostEntity.getPostDate()
+                );
 
-            forumPosts.add(forumPost);
+                forumPosts.add(forumPost);
+            }
         }
         // Reverse the created list
         Collections.reverse(forumPosts);

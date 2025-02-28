@@ -5,7 +5,6 @@ import com.sintraqos.portfolioproject.shared.Errors;
 import com.sintraqos.portfolioproject.userLibrary.DAL.UserLibraryEntity;
 import com.sintraqos.portfolioproject.userLibrary.DAL.UserLibraryRepository;
 import com.sintraqos.portfolioproject.userLibrary.entities.UserLibraryEntityMessage;
-import com.sintraqos.portfolioproject.userLibrary.service.UserLibraryService;
 import lombok.Getter;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,8 +46,8 @@ public class UseCaseLibraryAddGame {
 
         // Check if the account contains the game
         if (libraryRepository.findByAccountIDAndGameID(accountID, gameID) != null) {
-            logger.debug(Errors.ACCOUNT_CONTAINS_GAME.formatted(gameID));
-            return new UserLibraryEntityMessage(Errors.ACCOUNT_CONTAINS_GAME.formatted(gameID));
+            logger.debug(Errors.USER_CONTAINS_GAME.formatted(gameID));
+            return new UserLibraryEntityMessage(Errors.USER_CONTAINS_GAME.formatted(gameID));
         }
 
         String message = "Added game with ID: '%s' to account account with ID: '%s'".formatted(gameID, accountID);

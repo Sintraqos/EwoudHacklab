@@ -1,13 +1,11 @@
 package com.sintraqos.portfolioproject.user.service;
 
-import com.sintraqos.portfolioproject.scheduler.ScheduleEventHandler;
 import com.sintraqos.portfolioproject.shared.Errors;
 import com.sintraqos.portfolioproject.user.DAL.UserEntity;
 import com.sintraqos.portfolioproject.user.entities.User;
 import com.sintraqos.portfolioproject.user.entities.UserMessage;
 import com.sintraqos.portfolioproject.user.statics.Enums;
 import com.sintraqos.portfolioproject.user.useCases.*;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.userdetails.*;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -40,12 +38,12 @@ public class UserService  implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         UserEntity userEntity = getAccount.getAccount(username).getUserEntity();
         if (userEntity == null) {
-            throw new UsernameNotFoundException(Errors.FIND_ACCOUNT_NAME_FAILED.formatted(username));
+            throw new UsernameNotFoundException(Errors.FIND_USER_NAME_FAILED.formatted(username));
         }
 
         // Account is banned, so no login should occur
         if (!userEntity.isAccountNonLocked() || !userEntity.isEnabled()) {
-            throw new BadCredentialsException(Errors.ACCOUNT_BANNED.formatted(username));
+            throw new BadCredentialsException(Errors.USER_BANNED.formatted(username));
         }
 
         return new User(userEntity);

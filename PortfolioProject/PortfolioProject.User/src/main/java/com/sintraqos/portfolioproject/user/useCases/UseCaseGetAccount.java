@@ -7,7 +7,6 @@ import com.sintraqos.portfolioproject.user.DAL.UserEntity;
 import com.sintraqos.portfolioproject.user.DAL.UserRepository;
 import com.sintraqos.portfolioproject.user.DTO.UserDTO;
 import com.sintraqos.portfolioproject.user.entities.UserMessage;
-import com.sintraqos.portfolioproject.user.service.UserService;
 import com.sintraqos.portfolioproject.userLibrary.DAL.UserLibraryEntity;
 import com.sintraqos.portfolioproject.userLibrary.DAL.UserLibraryRepository;
 import com.sintraqos.portfolioproject.userLibrary.DTO.UserLibraryDTO;
@@ -88,7 +87,7 @@ public class UseCaseGetAccount {
         }
         // Otherwise return the message
         else {
-            String message = Errors.FIND_ACCOUNT_ID_FAILED.formatted(accountID);
+            String message = Errors.FIND_USER_ID_FAILED.formatted(accountID);
             logger.debug(message);
 
             return new UserMessage(message);
@@ -110,10 +109,10 @@ public class UseCaseGetAccount {
 
             return new UserMessage(accounts, message);
         } else {
-            String message = Errors.FIND_ACCOUNT_NAME_FAILED.formatted(username);
+            String message = Errors.FIND_USER_NAME_FAILED.formatted(username);
             logger.debug(message);
 
-            return new UserMessage(Errors.FIND_ACCOUNT_NAME_FAILED.formatted(username));
+            return new UserMessage(Errors.FIND_USER_NAME_FAILED.formatted(username));
         }
     }
 }

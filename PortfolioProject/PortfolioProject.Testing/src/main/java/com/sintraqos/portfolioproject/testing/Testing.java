@@ -2,7 +2,6 @@ package com.sintraqos.portfolioproject.testing;
 
 import com.sintraqos.portfolioproject.forum.forumPost.entities.ForumPost;
 import com.sintraqos.portfolioproject.forum.forumPost.service.ForumPostService;
-import com.sintraqos.portfolioproject.game.service.GameService;
 import com.sintraqos.portfolioproject.testing.schedule.TestScheduleEventHandler;
 import com.sintraqos.portfolioproject.testing.schedule.TestScheduler;
 import com.sintraqos.portfolioproject.user.entities.User;
@@ -39,22 +38,22 @@ public class Testing {
     void createAccounts() {
         List<User> list = Instancio.ofList(User.class).size(10).create();
         for (User user : list) {
-            userService.registerAccount(user.getUsername(), user.getEMail(), user.getPassword());
+            userService.registerAccount(user.getUsername(), user.getUsername() + "@mail.com", user.getPassword());
         }
     }
 
     void postMessages() {
         Random rand = new Random();
 
-        List<ForumPost> list = Instancio.ofList(ForumPost.class).size(10).create();
+        List<ForumPost> list = Instancio.ofList(ForumPost.class).size(rand.nextInt(1 , 1500)).create();
         for (ForumPost forumPost : list) {
-            forumService.addForumPost(rand.nextInt(0 , 20) , rand.nextInt(0 , 20) , forumPost.getMessage());
+            forumService.addForumPost(rand.nextInt(0 , 200) , rand.nextInt(0 , 200) , forumPost.getMessage());
         }
     }
 
     @EventListener
     public void handleScheduleTickEvent(TestScheduleEventHandler event) {
 //        createAccounts();
-//        postMessages();
+        postMessages();
     }
 }

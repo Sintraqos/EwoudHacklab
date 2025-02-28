@@ -50,7 +50,7 @@ public class UseCaseGetForumPost {
 
         // Check if the list returned is null or empty
         if (forumPostEntities == null) {
-            String message = Errors.FORUM_ACCOUNT_ID_FAILED.formatted(accountID);
+            String message = Errors.FORUM_USER_ID_FAILED.formatted(accountID);
             logger.debug(message);
 
             return new ForumPostMessage(message);
