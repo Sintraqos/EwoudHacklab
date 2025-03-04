@@ -152,7 +152,7 @@ public class WebAccountController {
     }
 
     @GetMapping("/settings/changeUsernameFragment")
-    public String getChangeUsernameFragment(Model model) {
+    public String getChangeUsernameFragment() {
         return getFragments("changeUsername");  // Return the fragment as a view
     }
 
@@ -175,7 +175,7 @@ public class WebAccountController {
     }
 
     @GetMapping("/settings/changeEMailFragment")
-    public String getChangeEMailFragment(Model model) {
+    public String getChangeEMailFragment() {
         return getFragments("changeEMail");  // Return the fragment as a view
     }
 
@@ -205,7 +205,7 @@ public class WebAccountController {
     }
 
     @GetMapping("/settings/changePasswordFragment")
-    public String getChangePasswordFragment(Model model) {
+    public String getChangePasswordFragment() {
         return getFragments("changePassword");  // Return the fragment as a view
     }
 

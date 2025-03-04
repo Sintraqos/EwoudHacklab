@@ -150,22 +150,6 @@ public class GameReviewAPI {
         return review;
     }
 
-    public List<GameReviewObject> getGamesList() {
-        return gamesList;
-    }
-
-    public GameReviewObject getRandomReviewObject(){
-        Random random = new Random();
-        int gameIndex = random.nextInt(gamesList.size() + 1);
-        return gamesList.get(gameIndex);
-    }
-
-    public List<GameReviewObject> getReviewObjectsWithScore(int gameScore) {
-        return gamesList.stream()
-                .filter(reviewObject -> reviewObject.getGameScore() == gameScore)
-                .collect(Collectors.toList());
-    }
-
     public List<GameReviewObject> getReviewObjectsFromScore(int gameScore) {
         return gamesList.stream()
                 .filter(reviewObject -> reviewObject.getGameScore() >= gameScore)

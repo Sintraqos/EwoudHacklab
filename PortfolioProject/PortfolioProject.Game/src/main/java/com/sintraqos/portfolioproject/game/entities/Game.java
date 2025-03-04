@@ -76,7 +76,6 @@ public class Game {
      * @param gamePublisher   who has published the game
      */
     public Game(String gameName, String gameDescription, String gameDeveloper, String gamePublisher) {
-        this.gameID = gameID;
         this.gameName = gameName;
         this.gameDescription = gameDescription;
         this.gameDeveloper = gameDeveloper;

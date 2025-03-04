@@ -4,7 +4,6 @@ import com.sintraqos.portfolioproject.game.entities.Game;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.hibernate.validator.constraints.NotBlank;
 
 /**
  * Game Entity Object, use for creating new Database Tables, and for storing the data from the database

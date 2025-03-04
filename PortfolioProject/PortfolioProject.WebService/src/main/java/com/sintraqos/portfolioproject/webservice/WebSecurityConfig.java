@@ -1,6 +1,5 @@
 package com.sintraqos.portfolioproject.webservice;
 
-import com.sintraqos.portfolioproject.user.*;
 import com.sintraqos.portfolioproject.user.service.UserService;
 import com.sintraqos.portfolioproject.webservice.authentication.CustomAuthenticationFailureHandler;
 import com.sintraqos.portfolioproject.webservice.authentication.CustomAuthenticationHandler;

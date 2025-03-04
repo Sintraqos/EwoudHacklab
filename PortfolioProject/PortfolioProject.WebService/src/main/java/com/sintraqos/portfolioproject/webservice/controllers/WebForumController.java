@@ -175,8 +175,4 @@ public class WebForumController {
     static class ForumPostContainer {
         List<ForumPostDTO> forumPosts;
     }
-
-    String getFragments(String fragmentsPage){
-        return "fragments :: %s".formatted(fragmentsPage);
-    }
 }

@@ -3,7 +3,6 @@ package com.sintraqos.portfolioproject.testing;
 import com.sintraqos.portfolioproject.forum.forumPost.entities.ForumPost;
 import com.sintraqos.portfolioproject.forum.forumPost.service.ForumPostService;
 import com.sintraqos.portfolioproject.testing.schedule.TestScheduleEventHandler;
-import com.sintraqos.portfolioproject.testing.schedule.TestScheduler;
 import com.sintraqos.portfolioproject.user.entities.User;
 import com.sintraqos.portfolioproject.user.service.UserService;
 import org.instancio.Instancio;
@@ -22,13 +21,11 @@ import java.util.Random;
 public class Testing {
     private final UserService userService;
     private final ForumPostService forumService;
-    private final TestScheduler testScheduler;
 
     @Autowired
-    public Testing(UserService userService, ForumPostService forumService, TestScheduler testScheduler) {
+    public Testing(UserService userService, ForumPostService forumService) {
         this.userService = userService;
         this.forumService = forumService;
-        this.testScheduler = testScheduler;
     }
 
     /**

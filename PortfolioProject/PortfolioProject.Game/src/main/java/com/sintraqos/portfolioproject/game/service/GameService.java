@@ -44,15 +44,6 @@ public class GameService {
      *
      * @param gameName the name of the game
      */
-    public GameEntityMessage getGame(String gameName) {
-        return getGame.getGame(gameName);
-    }
-
-    /**
-     * Find a game using a name
-     *
-     * @param gameName the name of the game
-     */
     public GameEntityMessage getGames(String gameName) {
         return getGame.getGames(gameName);
     }

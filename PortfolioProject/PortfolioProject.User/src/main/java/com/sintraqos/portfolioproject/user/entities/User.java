@@ -23,7 +23,7 @@ public class User implements UserDetails {
     private final String username;
     private String eMail;
     private String password;
-    private UserLibrary userLibrary;
+    private final UserLibrary userLibrary;
     private Enums.Role role= Enums.Role.USER;
     private final boolean isAccountNonExpired= true;
     private final boolean isAccountNonLocked= true;

@@ -16,8 +16,8 @@ public class GameDTO {
     private final String gameDescription;
     private final String gameDeveloper;
     private final String gamePublisher;
-    private Date gameAcquired;
-    private Date gameLastPlayed;
+    private final Date gameAcquired;
+    private final Date gameLastPlayed;
     private final int gamePlayTime;
 
     /**

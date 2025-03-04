@@ -1,6 +1,5 @@
 package com.sintraqos.portfolioproject.userLibrary.DAL;
 
-import com.sintraqos.portfolioproject.game.DTO.GameDTO;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

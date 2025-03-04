@@ -13,16 +13,13 @@ import org.springframework.stereotype.Service;
 public class ForumPostService {
     private final UseCaseAddForumPost addForumPost;
     private final UseCaseGetForumPost getForumPost;
-    private final Logger logger;
 
     @Autowired
     public ForumPostService(
             UseCaseAddForumPost addForumPost,
-            UseCaseGetForumPost getForumPost,
-            Logger logger) {
+            UseCaseGetForumPost getForumPost) {
         this.addForumPost = addForumPost;
         this.getForumPost = getForumPost;
-        this.logger = logger;
     }
 
     /**

@@ -1,11 +1,9 @@
 package com.sintraqos.portfolioproject.userLibrary.DTO;
 
 import com.sintraqos.portfolioproject.game.DTO.GameDTO;
-import com.sintraqos.portfolioproject.game.entities.Game;
-import com.sintraqos.portfolioproject.userLibrary.entities.UserLibrary;
 import lombok.Getter;
-
 import java.util.ArrayList;
+
 /**
  * AccountLibrary DTO, use for transfer of accountLibrary data
  */

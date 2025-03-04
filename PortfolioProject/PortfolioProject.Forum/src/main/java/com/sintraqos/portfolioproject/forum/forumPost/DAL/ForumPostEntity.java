@@ -28,7 +28,6 @@ public class ForumPostEntity {
     private int gameID;
 
     @Column(nullable = false, length = 8192)
-    @NotBlank(message = "Message is mandatory.")
     private String message;
 
     @Column(name = "postDate", columnDefinition = "TIMESTAMP")

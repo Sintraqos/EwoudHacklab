@@ -15,7 +15,7 @@ public class CustomErrorHandler implements ErrorController {
         Object status = request.getAttribute("javax.servlet.error.status_code");
 
         if (status != null) {
-            int statusCode = Integer.valueOf(status.toString());
+            int statusCode = Integer.parseInt(status.toString());
 
             // You can add different messages based on the error status code
             if (statusCode == 403) {

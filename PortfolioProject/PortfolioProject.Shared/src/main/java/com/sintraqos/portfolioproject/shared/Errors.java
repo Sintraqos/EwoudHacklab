@@ -65,7 +65,7 @@ public class Errors {
      * Formatted String: E-Mail address
      */
     public static final String EMAIL_ALREADY_IN_USE = "E-Mail address: '%s' is already in use";
-    public static final String EMAIL_INVALID = "E-Mail address is invalid";
+    public static final String EMAIL_INVALID = "E-Mail address: '%s' is invalid";
 
     // Password
     public static final String PASSWORD_MISMATCH = "Password mismatch";

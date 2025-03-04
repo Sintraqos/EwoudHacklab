@@ -3,7 +3,6 @@ package com.sintraqos.portfolioproject.user.useCases;
 import com.sintraqos.portfolioproject.user.DAL.UserEntity;
 import com.sintraqos.portfolioproject.user.DAL.UserRepository;
 import com.sintraqos.portfolioproject.user.entities.UserMessage;
-import com.sintraqos.portfolioproject.user.service.UserService;
 import lombok.Getter;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -68,10 +67,8 @@ public class UseCaseBanAccount {
         user.setAccountNonLocked(!isBanned);
         userRepository.save(user);
 
-        String returnMessage = "Successfully banned account: '%s'".formatted(username);
-        if (!isBanned) {
-            returnMessage = "Successfully unbanned account: '%s'".formatted(username);
-        }
+        String returnMessage = (isBanned ? "Successfully banned account: '%s'".formatted(username) :"Successfully unbanned account: '%s'".formatted(username)) ;
+
         logger.debug(returnMessage);
 
         // Return the message

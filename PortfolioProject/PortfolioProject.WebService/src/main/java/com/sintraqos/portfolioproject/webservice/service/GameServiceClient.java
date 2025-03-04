@@ -21,7 +21,6 @@ import java.util.List;
 public class GameServiceClient {
 
     private final RestTemplate restTemplate;
-    private final SettingsHandler settingsHandler;
     private final GameService gameService;
     private final Logger logger;
     String apiURL;
@@ -29,7 +28,6 @@ public class GameServiceClient {
     @Autowired
     public GameServiceClient(RestTemplate restTemplate, SettingsHandler settingsHandler, GameService gameService, Logger logger) {
         this.restTemplate = restTemplate;
-        this.settingsHandler = settingsHandler;
         this.gameService = gameService;
         this.logger = logger;
 
@@ -85,7 +83,6 @@ public class GameServiceClient {
      */
     @EventListener
     public void handleScheduleTickEvent(ScheduleEventHandler event) {
-
         // Retrieve the new games from the API
         List<GameDTO> newGames = getRecentlyAddedGames();
         logger.debug("Received: '%s' new games".formatted(newGames.size()));

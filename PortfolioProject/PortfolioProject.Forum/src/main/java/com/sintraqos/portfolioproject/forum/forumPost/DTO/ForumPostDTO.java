@@ -33,7 +33,6 @@ public class ForumPostDTO {
         this.accountID = accountID;
         this.gameID = gameID;
         this.message = message;
-        this.postDate = postDate;
     }
 
     /**
