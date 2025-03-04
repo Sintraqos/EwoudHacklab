@@ -17,9 +17,3 @@ public class CacheConfig {
         return new ConcurrentMapCacheManager(FORUM_CACHE);
     }
 }
-
-
-
-// Lookup profiles for testing shizzle
-// For disabling stuff when testing out
-

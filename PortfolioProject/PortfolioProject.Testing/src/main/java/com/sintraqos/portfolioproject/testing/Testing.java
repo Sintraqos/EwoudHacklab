@@ -15,6 +15,9 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 import java.util.Random;
 
+/**
+ * For testing purposes, IE: Creating new accounts and messages etc. in bulk.
+ */
 @Component
 public class Testing {
     private final UserService userService;
@@ -36,7 +39,8 @@ public class Testing {
     }
 
     void createAccounts() {
-        List<User> list = Instancio.ofList(User.class).size(10).create();
+        Random rand = new Random();
+        List<User> list = Instancio.ofList(User.class).size(rand.nextInt(1, 15)).create();
         for (User user : list) {
             userService.registerAccount(user.getUsername(), user.getUsername() + "@mail.com", user.getPassword());
         }
@@ -45,15 +49,15 @@ public class Testing {
     void postMessages() {
         Random rand = new Random();
 
-        List<ForumPost> list = Instancio.ofList(ForumPost.class).size(rand.nextInt(1 , 1500)).create();
+        List<ForumPost> list = Instancio.ofList(ForumPost.class).size(rand.nextInt(1, 1500)).create();
         for (ForumPost forumPost : list) {
-            forumService.addForumPost(rand.nextInt(0 , 200) , rand.nextInt(0 , 200) , forumPost.getMessage());
+            forumService.addForumPost(rand.nextInt(0, 200), rand.nextInt(0, 200), forumPost.getMessage());
         }
     }
 
     @EventListener
     public void handleScheduleTickEvent(TestScheduleEventHandler event) {
-//        createAccounts();
+        createAccounts();
         postMessages();
     }
 }

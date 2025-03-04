@@ -4,14 +4,12 @@ import com.sintraqos.portfolioproject.forum.forumPost.DTO.ForumPostDTO;
 import com.sintraqos.portfolioproject.forum.forumPost.DAL.ForumPostEntity;
 import com.sintraqos.portfolioproject.forum.forumPost.entities.ForumPostMessage;
 import com.sintraqos.portfolioproject.forum.forumPost.service.ForumPostService;
-import com.sintraqos.portfolioproject.forum.forumPost.useCase.UseCaseAddForumPost;
-import com.sintraqos.portfolioproject.forum.forumPost.useCase.UseCaseGetForumPost;
 import com.sintraqos.portfolioproject.game.entities.GameEntityMessage;
 import com.sintraqos.portfolioproject.game.service.GameService;
 import com.sintraqos.portfolioproject.shared.Errors;
-import com.sintraqos.portfolioproject.user.useCases.UseCaseGetAccount;
 import com.sintraqos.portfolioproject.user.entities.User;
 import com.sintraqos.portfolioproject.user.entities.UserMessage;
+import com.sintraqos.portfolioproject.user.service.UserService;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.slf4j.Logger;
@@ -28,25 +26,24 @@ import java.util.List;
 
 @Controller
 public class WebForumController {
-    private final UseCaseGetAccount getAccount;
+    private final UserService userService;
     private final GameService gameService;
     private final ForumPostService forumPostService;
     private final Logger logger;
 
     @Autowired
     public WebForumController(
-            UseCaseGetAccount getAccount,
+            UserService userService,
             GameService gameService,
             ForumPostService forumPostService,
             Logger logger
     ) {
-        this.getAccount = getAccount;
+        this.userService = userService;
         this.gameService = gameService;
         this.forumPostService = forumPostService;
         this.logger = logger;
     }
 
-    //region Forum
     private GameEntityMessage getGame(int gameID, RedirectAttributes redirectAttributes) {
         GameEntityMessage getGameMessage = gameService.getGame(gameID);
         if (!getGameMessage.isSuccessful()) {
@@ -89,7 +86,7 @@ public class WebForumController {
 
             // Add the forum posts to the mode
             ForumPostMessage getForumPostMessage = forumPostService.getForumPosts_Game(parsedGameID, PageRequest.of(page, size));
-            logger.info("Retrieved forum posts: %s posts for page %s".formatted(getForumPostMessage.getForumPostEntities().getTotalElements(),page));
+            logger.debug("Retrieved forum posts: %s posts for page %s".formatted(getForumPostMessage.getForumPostEntities().getTotalElements(),page));
             if (!getForumPostMessage.isSuccessful()) {
                 logger.error(getForumPostMessage.getMessage());
                 redirectAttributes.addAttribute("error", getForumPostMessage.getMessage());
@@ -103,7 +100,7 @@ public class WebForumController {
             model.addAttribute("totalPages", getForumPostMessage.getTotalPages());
             model.addAttribute("user", user);
 
-            logger.info("Successfully retrieved the forum posts for game with ID: %s".formatted(parsedGameID));
+            logger.debug("Successfully retrieved the forum posts for game with ID: %s".formatted(parsedGameID));
 
         } catch (NumberFormatException e) {
             logger.error(Errors.NUMERIC_VALUE_TYPE);
@@ -119,7 +116,7 @@ public class WebForumController {
         List<ForumPostDTO> forumPosts = new ArrayList<>();
         for (ForumPostEntity forumPostEntity : forumPostMessage.getForumPostEntities()) {
             // Retrieve the user using their accountID
-            UserMessage getAccountMessage = getAccount.getAccount(forumPostEntity.getAccountID());
+            UserMessage getAccountMessage = userService.getAccount(forumPostEntity.getAccountID());
 
             if (getAccountMessage.getUserDTO() != null && gameMessage.getEntity() != null) {
                 // Create new ForumPostDTO Object
@@ -178,8 +175,6 @@ public class WebForumController {
     static class ForumPostContainer {
         List<ForumPostDTO> forumPosts;
     }
-
-    //endregion
 
     String getFragments(String fragmentsPage){
         return "fragments :: %s".formatted(fragmentsPage);
