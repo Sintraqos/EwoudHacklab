@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+<head>
+  <title>Register</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+
+<!-- Display the header of the page -->
+<div th:replace="~{fragments::header}"></div>
+
+<!-- Display a message if exists -->
+<div th:replace="~{fragments :: messages}"></div>
+
+<!-- Content of the page-->
+<div class="buttons-container">
+    <form th:action="@{/register}" method="post">
+          <!-- Create Input fields -->
+          <div><label> User Name : <input type="text" name="username"/> </label></div>
+          <div><label> E-Mail Address: <input type="eMail" name="eMail"/> </label></div>
+          <div><label> Password: <input type="password" name="password"/> </label></div>
+          <div><label> Confirm Password: <input type="password" name="passwordConfirm"/> </label></div>
+
+          <!-- Create Buttons -->
+          <div><button type="submit" name="action" value="Register">Register</button></div>
+      </form>
+      <!-- Return to Home -->
+      <div>
+        <a href="/home">
+          <button type="button">Return</button>
+        </a>
+      </div>
+  </div>
+</body>
+</html>

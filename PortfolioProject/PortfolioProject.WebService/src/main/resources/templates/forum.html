@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+<head>
+  <title>Forum</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+
+<!-- Display the header of the page -->
+<div th:replace="~{fragments::header}"></div>
+
+<!-- Display a message if exists -->
+<div th:replace="~{fragments :: messages}"></div>
+
+<!-- Content of the page-->
+<div class="buttons-container">
+<!-- Wrapper for scrollable forum posts -->
+<div class="forum-posts-wrapper">
+  <!-- Display the list of forum posts -->
+  <table>
+    <tbody>
+    <tr th:each="forumPost : ${forumPosts.getForumPosts()}">
+      <td th:text="'[' + ${forumPost.timestamp} + '] ' + ${forumPost.username} + ': ' + ${forumPost.message}"></td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- Page Controls -->
+<div>
+  <span th:if="${currentPage > 0}">
+    <a th:href="@{/forum/{gameID}(gameID=${game.gameID}, page=${currentPage - 1})}">
+      <button>Previous Page</button>
+    </a>
+  </span>
+  <span th:if="${currentPage < totalPages - 1}">
+    <a th:href="@{/forum/{gameID}(gameID=${game.gameID}, page=${currentPage + 1})}">
+      <button>Next Page</button>
+    </a>
+  </span>
+  <span th:if="${currentPage < (totalPages - 1)}">...</span>
+</div>
+
+<!-- Input form for posting a new message -->
+  <h3>Post a New Message</h3>
+  <form th:action="@{/forum/addPost}" method="post">
+    <input type="hidden" th:value="${game.gameID}" name="gameID"/>
+    <label for="message">Message:</label>
+    <textarea id="message" name="message" placeholder="Write your message here" required></textarea>
+    <button type="submit">Post Message</button>
+  </form>
+
+<!-- Back buttons -->
+<div>
+  <a href="#" th:href="@{/library}">
+    <button type="button">Back to Library</button>
+  </a>
+</div>
+<div>
+  <a href="#" th:href="@{/account}">
+    <button type="button">Back to Account</button>
+  </a>
+</div>
+</div>
+</body>
+</html>
