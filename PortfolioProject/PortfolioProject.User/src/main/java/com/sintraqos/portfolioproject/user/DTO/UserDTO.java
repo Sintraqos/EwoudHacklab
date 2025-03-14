@@ -15,7 +15,17 @@ public class UserDTO {
     private final String eMail;
     private final String password;
     private final UserLibraryDTO userLibrary;
-    private Enums.Role role;
+    private final Enums.Role role;
+
+    public UserDTO()
+    {
+        this.accountID = 0;
+        this.username = "";
+        this.eMail = "";
+        this.password = "";
+        userLibrary = new UserLibraryDTO();
+        role = Enums.Role.USER;
+    }
 
     /**
      * Create a new AccountDTO object based on AccountEntity

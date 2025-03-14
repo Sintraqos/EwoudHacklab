@@ -40,15 +40,15 @@ public class UseCaseAddForumPost {
         String baseMessage = "Failed to add message from user with ID: '%s'. Reason: %s";
 
         // Message too short
-        if (messageLength < settingsHandler.getUsernameMinLength()) {
-            String message = Errors.FORUM_INVALID_LENGTH_SHORT.formatted(settingsHandler.getUsernameMinLength(), settingsHandler.getMessageMaxLength());
+        if (messageLength < settingsHandler.getMessageMinLength()) {
+            String message = Errors.FORUM_INVALID_LENGTH_SHORT.formatted(settingsHandler.getMessageMinLength(), settingsHandler.getMessageMaxLength());
             logger.warn(baseMessage.formatted(forumPost.getAccountID(), message));
 
             return new ForumPostMessage(message);
         }
         // Message too long
         if (messageLength > settingsHandler.getMessageMaxLength()) {
-            String message = Errors.FORUM_INVALID_LENGTH_LONG.formatted(settingsHandler.getUsernameMinLength(), settingsHandler.getMessageMaxLength());
+            String message = Errors.FORUM_INVALID_LENGTH_LONG.formatted(settingsHandler.getMessageMinLength(), settingsHandler.getMessageMaxLength());
             logger.warn(baseMessage.formatted(forumPost.getAccountID(), message));
 
             return new ForumPostMessage(message);
