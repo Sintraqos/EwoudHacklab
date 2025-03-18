@@ -54,7 +54,7 @@ public class Testing {
 
     @EventListener
     public void handleScheduleTickEvent(TestScheduleEventHandler event) {
-        createAccounts();
-        postMessages();
+//        createAccounts();
+//        postMessages();
     }
 }

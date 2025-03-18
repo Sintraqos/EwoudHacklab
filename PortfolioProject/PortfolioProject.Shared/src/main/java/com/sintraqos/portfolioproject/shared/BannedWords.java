@@ -8,7 +8,6 @@ import java.util.List;
 @Getter
 public class BannedWords {
 
-    // Getters and setters
     @JsonProperty("bannedWords")
     private List<String> bannedWords;
 }

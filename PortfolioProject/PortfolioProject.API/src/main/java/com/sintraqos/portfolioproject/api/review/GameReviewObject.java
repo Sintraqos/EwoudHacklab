@@ -15,6 +15,8 @@ public class GameReviewObject {
     private int gameScore;
     private String gameReview;
 
+    public GameReviewObject() {
+    }
     @Override
     public String toString(){
         return "%s: %s".formatted(gameName, "%s/10".formatted(gameScore));
