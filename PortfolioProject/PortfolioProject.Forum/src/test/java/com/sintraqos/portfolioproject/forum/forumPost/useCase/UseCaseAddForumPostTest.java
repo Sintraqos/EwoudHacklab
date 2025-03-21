@@ -1,24 +1,16 @@
 package com.sintraqos.portfolioproject.forum.forumPost.useCase;
 
-import com.sintraqos.portfolioproject.forum.forumPost.DAL.ForumPostEntity;
 import com.sintraqos.portfolioproject.forum.forumPost.DAL.ForumPostRepository;
 import com.sintraqos.portfolioproject.forum.forumPost.DTO.ForumPostDTO;
 import com.sintraqos.portfolioproject.forum.forumPost.entities.ForumPostMessage;
-import com.sintraqos.portfolioproject.shared.CensorService;
-import com.sintraqos.portfolioproject.shared.Errors;
-import org.instancio.Instancio;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import com.sintraqos.portfolioproject.shared.*;
+import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
+import org.mockito.*;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.mockito.junit.jupiter.MockitoSettings;
-import org.springframework.stereotype.Component;
+import org.slf4j.Logger;
 
-import java.util.Random;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class UseCaseAddForumPostTest {
@@ -29,48 +21,80 @@ class UseCaseAddForumPostTest {
     @Mock
     CensorService censorService;
 
+    @Mock
+    private SettingsHandler settingsHandler;
+
+    @Mock
+    private Logger logger;
+
+    UseCaseAddForumPost useCaseAddForumPost;
+
     @BeforeEach
     void setUp() {
         // Initialize mocks before each test
         MockitoAnnotations.openMocks(this);
+        useCaseAddForumPost = new UseCaseAddForumPost(forumPostRepository, censorService, settingsHandler, logger);
     }
 
-    int minLength = 2;  // Min length of a string
-    int maxLength = 32; // Max length of a string
+    int minLength = 8;  // Min length of the message
+    int maxLength = 16; // Max length of the message
 
     @Test
-    void addForumPost() {
-        ForumPostDTO forumPost = Instancio.create(ForumPostDTO.class);
+    void addForumPost_TooShort() {
+        // Create new DTO containing a message that is too short
+        String message = "Hi";
+        ForumPostDTO forumPostDTO = new ForumPostDTO(1, 1, message);
 
-        // Check if the message is a valid length
-        int messageLength = forumPost.getMessage().length();
+        // Handle the min/max length of a message
+        when(settingsHandler.getMessageMinLength()).thenReturn(minLength);
+        when(settingsHandler.getMessageMaxLength()).thenReturn(maxLength);
 
-        String baseMessage = "Failed to add message from user with ID: '%s'. Reason: %s";
+        // Post the message using the base class
+        ForumPostMessage result = useCaseAddForumPost.addForumPost(forumPostDTO);
 
-        // Message too short
-        if (messageLength < minLength) {
-            String message = Errors.FORUM_INVALID_LENGTH_SHORT.formatted(minLength, maxLength);
-            System.out.printf((baseMessage) + "%n", forumPost.getAccountID(), message);
+        // Assert
+        Assertions.assertFalse(result.isSuccessful());
+        Assertions.assertEquals(Errors.FORUM_INVALID_LENGTH_SHORT.formatted(settingsHandler.getMessageMinLength(), settingsHandler.getMessageMaxLength()), result.getMessage());
+        verify(logger).warn(anyString());
+    }
 
-            return;
-        }
-        // Message too long
-        if (messageLength > maxLength) {
-            String message = Errors.FORUM_INVALID_LENGTH_LONG.formatted(minLength, maxLength);
-            System.out.printf((baseMessage) + "%n", forumPost.getAccountID(), message);
+    @Test
+    void addForumPost_TooLong() {
+        // Create new DTO containing a message that is too short
+        String message = "This message is way too long to be posted";
+        ForumPostDTO forumPostDTO = new ForumPostDTO(1, 1, message);
 
-            return;
-        }
+        // Handle the min/max length of a message
+        when(settingsHandler.getMessageMinLength()).thenReturn(minLength);
+        when(settingsHandler.getMessageMaxLength()).thenReturn(maxLength);
 
-        // Create a new ForumPostEntity object and save that in the database
-        ForumPostEntity forumPostEntity = new ForumPostEntity(
-                forumPost.getAccountID(),
-                forumPost.getGameID(),
-                censorService.validateString(forumPost.getMessage()));
-        forumPostRepository.save(forumPostEntity);
+        // Post the message using the base class
+        ForumPostMessage result = useCaseAddForumPost.addForumPost(forumPostDTO);
 
-        System.out.printf("Added new message: '%s'%n", forumPost.getMessage());
+        // Assert
+        Assertions.assertFalse(result.isSuccessful());
+        Assertions.assertEquals(Errors.FORUM_INVALID_LENGTH_LONG.formatted(settingsHandler.getMessageMinLength(), settingsHandler.getMessageMaxLength()), result.getMessage());
+        verify(logger).warn(anyString());
+    }
 
-        Assertions.assertTrue(true);
+    @Test
+    void addForumPost_Successful() {
+        // Create new DTO containing a message that is too short
+        String message = "Valid message";
+        ForumPostDTO forumPostDTO = new ForumPostDTO(1, 1, message);
+
+        // Handle the min/max length of a message
+        when(settingsHandler.getMessageMinLength()).thenReturn(minLength);
+        when(settingsHandler.getMessageMaxLength()).thenReturn(maxLength);
+        when(censorService.validateString(message)).thenReturn(message);
+
+        // Post the message using the base class
+        ForumPostMessage result = useCaseAddForumPost.addForumPost(forumPostDTO);
+
+        // Assert
+        Assertions.assertTrue(result.isSuccessful());
+        Assertions.assertEquals("Added new message: '%s'".formatted(message), result.getMessage());
+        verify(forumPostRepository).save(any());
+        verify(logger).debug(anyString());
     }
 }

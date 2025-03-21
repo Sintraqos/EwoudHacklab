@@ -5,79 +5,108 @@ import com.sintraqos.portfolioproject.forum.forumPost.DAL.ForumPostRepository;
 import com.sintraqos.portfolioproject.forum.forumPost.entities.ForumPostMessage;
 import com.sintraqos.portfolioproject.shared.Errors;
 import lombok.Getter;
-import org.instancio.Instancio;
-import org.junit.Assert;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
+import org.slf4j.Logger;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Component;
-import org.testcontainers.shaded.org.checkerframework.common.reflection.qual.MethodVal;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import static org.mockito.Mockito.when;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.*;
 
 @Getter
 @Component
 class UseCaseGetForumPostTest {
 
-    int gameID = 0;
-    int accountID = 0;
-
     @Mock
     ForumPostRepository forumPostRepository;
+
+    @Mock
+    private Logger logger;
+
+    UseCaseGetForumPost useCaseGetForumPost;
 
     @BeforeEach
     void setUp() {
         // Initialize mocks before each test
         MockitoAnnotations.openMocks(this);
+        useCaseGetForumPost = new UseCaseGetForumPost(forumPostRepository, logger);
+    }
+
+    int gameID = 0;     // ID of the game which forum posts we wish to retrieve
+    int accountID = 0;  // ID of the account which forum posts we wish to retrieve
+    PageRequest pageRequest = PageRequest.of(0, 10);
+
+    @Test
+    void getForumPostsGame_Fail() {
+        when(forumPostRepository.findAllByGameIDOrderByPostDateDesc(gameID, pageRequest)).thenReturn(null);
+        ForumPostMessage result = useCaseGetForumPost.getForumPosts_Game(gameID, pageRequest);
+
+        Assertions.assertFalse(result.isSuccessful());
+        Assertions.assertEquals(Errors.FORUM_GAME_ID_FAILED.formatted(gameID), result.getMessage());
+
+        // Verify results;
+        verify(logger, times(2)).debug(anyString());
     }
 
     @Test
-    public void getForumPosts_Game() {
-        System.out.println("Attempting to get all forum posts from game");
-        Page<ForumPostEntity> forumPostEntities = new PageImpl<ForumPostEntity>(Instancio.createList(ForumPostEntity.class));
-        when(forumPostRepository.findAllByGameIDOrderByPostDateDesc(gameID,  PageRequest.of(0,10))).thenReturn(forumPostEntities);
-         forumPostEntities = forumPostRepository.findAllByGameIDOrderByPostDateDesc(gameID,  PageRequest.of(0,10));
-        // Check if the list returned is null or empty
-        if (forumPostEntities == null) {
-            String message = Errors.FORUM_GAME_ID_FAILED.formatted(gameID);
-            System.out.println(message);
+    void getForumPostsGame_Success() {
+        // Generate a mock Page<ForumPostEntity>
+        Page<ForumPostEntity> mockedPage = new PageImpl<>(
+                List.of(new ForumPostEntity(), new ForumPostEntity()),
+                Pageable.ofSize(10),
+                10
+        );
 
-            return;
-        }
+        when(forumPostRepository.findAllByGameIDOrderByPostDateDesc(gameID, pageRequest)).thenReturn(mockedPage);
+        ForumPostMessage result = useCaseGetForumPost.getForumPosts_Game(gameID, pageRequest);
 
-        String message="Game's forum posts found";
-        System.out.println(message);
+        // Assert
+        Assertions.assertTrue(result.isSuccessful());
+        Assertions.assertEquals("Game's forum posts found", result.getMessage());
 
-        Assertions.assertTrue(true);
+        // Verify
+        verify(forumPostRepository).findAllByGameIDOrderByPostDateDesc(gameID, pageRequest);
+        verify(logger, times(2)).debug(anyString());
     }
 
     @Test
-    public void getForumPosts_Account() {
-        System.out.println("Attempting to get all forum posts from account");
+    void getForumPostsAccount_Fail() {
+        when(forumPostRepository.findAllByAccountIDOrderByPostDateDesc(accountID, pageRequest)).thenReturn(null);
+        ForumPostMessage result = useCaseGetForumPost.getForumPosts_Account(accountID, pageRequest);
 
-        Page<ForumPostEntity> forumPostEntities = new PageImpl<ForumPostEntity>(Instancio.createList(ForumPostEntity.class));
-        when(forumPostRepository.findAllByAccountIDOrderByPostDateDesc(accountID,  PageRequest.of(0,10))).thenReturn(forumPostEntities);
-        forumPostEntities = forumPostRepository.findAllByAccountIDOrderByPostDateDesc(accountID,  PageRequest.of(0,10));
+        Assertions.assertFalse(result.isSuccessful());
+        Assertions.assertEquals(Errors.FORUM_USER_ID_FAILED.formatted(accountID), result.getMessage());
 
-        // Check if the list returned is null or empty
-        if (forumPostEntities == null) {
-            String message = Errors.FORUM_USER_ID_FAILED.formatted(accountID);
-            System.out.println(message);
-
-            return;
-        }
-
-        String message="Account's forum posts found";
-        System.out.println(message);
-
-        Assertions.assertTrue(true);
+        // Verify results
+        verify(logger, times(2)).debug(anyString());
     }
+
+    @Test
+    void getForumPostsAccount_Success() {
+        // Generate a mock Page<ForumPostEntity>
+        Page<ForumPostEntity> mockedPage = new PageImpl<>(
+                List.of(new ForumPostEntity(), new ForumPostEntity()),
+                Pageable.ofSize(10),
+                10
+        );
+
+        when(forumPostRepository.findAllByAccountIDOrderByPostDateDesc(accountID, pageRequest)).thenReturn(mockedPage);
+        ForumPostMessage result = useCaseGetForumPost.getForumPosts_Account(accountID, pageRequest);
+
+        Assertions.assertTrue(result.isSuccessful());
+        Assertions.assertEquals("Account's forum posts found", result.getMessage());
+
+        // Verify results;
+        verify(forumPostRepository).findAllByAccountIDOrderByPostDateDesc(accountID, pageRequest);
+        verify(logger, times(2)).debug(anyString());
+    }
+
+
 }

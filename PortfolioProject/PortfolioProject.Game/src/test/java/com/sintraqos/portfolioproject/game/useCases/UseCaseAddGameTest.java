@@ -6,18 +6,17 @@ import com.sintraqos.portfolioproject.game.entities.Game;
 import com.sintraqos.portfolioproject.game.entities.GameEntityMessage;
 import com.sintraqos.portfolioproject.shared.Errors;
 import org.instancio.Instancio;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.springframework.stereotype.Component;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.slf4j.Logger;
 
-import java.util.List;
+import static org.mockito.ArgumentMatchers.*;
+import static org.mockito.Mockito.*;
 
-import static org.mockito.Mockito.when;
-
-@Component
+@ExtendWith(MockitoExtension.class)
 class UseCaseAddGameTest {
 
     @Mock
@@ -26,63 +25,52 @@ class UseCaseAddGameTest {
     @Mock
     UseCaseGetGame getGame;
 
+    @Mock
+    Logger logger;
+
+    UseCaseAddGame useCaseAddGame;
+
     @BeforeEach
     void setUp() {
         // Initialize mocks before each test
         MockitoAnnotations.openMocks(this);
+        useCaseAddGame = new UseCaseAddGame(getGame, gameRepository, logger);
     }
 
     @Test
-    void addGame() {
+    void addGame_Fail() {
+        // Create Game object
         Game game = Instancio.create(Game.class);
-        addGame(game);
 
-        Assertions.assertTrue(true);
+        GameEntityMessage existingGameMessage = new GameEntityMessage(Instancio.create(GameEntity.class), Errors.GAME_EXISTS.formatted(game.getGameName()));
+        when(getGame.getGame(game.getGameName())).thenReturn(existingGameMessage);  // Mock the correct method call
+
+        // Post the message using the base class
+        GameEntityMessage result = useCaseAddGame.addGame(game);
+
+        // Assert
+        Assertions.assertEquals(Errors.GAME_EXISTS.formatted(game.getGameName()), result.getMessage());
+        verify(logger, times(2)).debug(anyString());
     }
 
     @Test
-    void addGames() {
-        StringBuilder returnString = new StringBuilder();
+    void addGame_Success() {
+        // Create Game object
+        Game game = Instancio.create(Game.class);
 
-        List<Game> games = Instancio.ofList(Game.class).size(15).create();
+        // Handle the retrieving of the game
+        GameEntityMessage existingGameMessage = new GameEntityMessage(false, "");
+        when(getGame.getGame(game.getGameName())).thenReturn(existingGameMessage);  // Mock the correct method call
 
-        for (Game game : games) {
-            GameEntityMessage message = addGame(game);
+        // Post the message using the base class
+        GameEntityMessage result = useCaseAddGame.addGame(game);
 
-            if (!message.isSuccessful()) {
-                System.out.printf("Failed to add new game: '%s'%n", message.getMessage());
-                returnString.append("\n").append(message.getMessage());
-            }
-        }
+        // Assert
+        Assertions.assertTrue(result.isSuccessful());
+        Assertions.assertEquals("Added new game: '%s'".formatted(game.getGameName()), result.getMessage());
 
-        if (!returnString.isEmpty()) {
-            System.out.println(returnString);
-            return;
-        } else {
-            System.out.println("Added all games successfully");
-        }
-
-        Assertions.assertTrue(true);
-    }
-
-    // The function which will actually store the new game into the repository
-    GameEntityMessage addGame(Game game) {
-        System.out.printf("Attempting to add new game: '%s'%n", game.getGameName());
-
-//        GameEntityMessage getGameMessage = new GameEntityMessage(true, "Game already exists");
-        GameEntityMessage getGameMessage = new GameEntityMessage(false, "Game doesn't exist");
-
-        when(getGame.getGame(game.getGameName())).thenReturn(getGameMessage);
-
-        // Check if a game with the given name already exists
-        if (getGame.getGame(game.getGameName()).isSuccessful()) {
-            System.out.printf((Errors.GAME_EXISTS) + "%n", game.getGameName());
-            return new GameEntityMessage(Errors.GAME_EXISTS.formatted(game.getGameName()));
-        }
-
-        // Add new game
-        GameEntity gameEntity = new GameEntity(game);
-        System.out.printf("Added new game: '%s'%n", game.getGameName());
-        return new GameEntityMessage(gameRepository.save(gameEntity), "Added new game: '%s'".formatted(game.getGameName()));
+        // Verify
+        verify(gameRepository).save(any());
+        verify(logger, times(2)).debug(anyString());
     }
 }

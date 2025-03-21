@@ -2,89 +2,110 @@ package com.sintraqos.portfolioproject.game.useCases;
 
 import com.sintraqos.portfolioproject.game.DAL.GameEntity;
 import com.sintraqos.portfolioproject.game.DAL.GameRepository;
+import com.sintraqos.portfolioproject.game.entities.GameEntityMessage;
 import com.sintraqos.portfolioproject.shared.Errors;
 import org.instancio.Instancio;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.slf4j.Logger;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
-import static org.mockito.Mockito.when;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.*;
 
+@ExtendWith(MockitoExtension.class)
 class UseCaseGetGameTest {
 
     @Mock
     GameRepository gameRepository;
 
+    @Mock
+    Logger logger;
+
+    UseCaseGetGame useCaseGetGame;
+
     @BeforeEach
     void setUp() {
         // Initialize mocks before each test
         MockitoAnnotations.openMocks(this);
+        useCaseGetGame = new UseCaseGetGame(gameRepository,logger);
     }
 
     String gameName = "Game Name";
     int gameID = 0;
 
     @Test
-    void getGame_ID() {
-        System.out.printf("Attempting to get game with ID: '%s'%n", gameID);
+    void getGameID_Fail() {
+        when(gameRepository.findByGameID(gameID)).thenReturn(null);
+        GameEntityMessage result = useCaseGetGame.getGame(gameID);
 
-//        when(gameRepository.findByGameID(gameID)).thenReturn(null);
-        when(gameRepository.findByGameID(gameID)).thenReturn(new GameEntity());
+        // Assert
+        Assertions.assertFalse(result.isSuccessful());
+        Assertions.assertEquals(Errors.FIND_GAME_ID_FAILED.formatted(gameID), result.getMessage());
 
-        GameEntity game = gameRepository.findByGameID(gameID);
-
-        // If the account was found return the retrieved account
-        String message;
-        if (game != null) {
-            message = "Game with ID: '%s' found".formatted(gameID);
-        }
-        // Otherwise return the message
-        else {
-            message = Errors.FIND_GAME_ID_FAILED.formatted(gameID);
-        }
-
-        System.out.println(message);
+        // Verify results;
+        verify(gameRepository).findByGameID(gameID);
+        verify(logger, times(2)).debug(anyString());
     }
 
     @Test
-    void getGame_Name() {
-        System.out.printf("Attempting to get game with name: '%s'%n", gameName);
+    void getGameID_Success() {
+        when(gameRepository.findByGameID(gameID)).thenReturn(Instancio.create(GameEntity.class));
+        GameEntityMessage result = useCaseGetGame.getGame(gameID);
 
-//        when(gameRepository.findByGameName(gameName)).thenReturn(null);
-        when(gameRepository.findByGameName(gameName)).thenReturn(new GameEntity());
+        // Assert
+        Assertions.assertTrue(result.isSuccessful());
+        Assertions.assertEquals("Game with ID: '%s' found".formatted(gameID), result.getMessage());
 
-        // Get the account
-        GameEntity game = gameRepository.findByGameName(gameName);
-
-        // If the account was found return the retrieved account
-        String message;
-        if (game != null) {
-            message = "Game with name: '%s' found".formatted(gameName);
-        }
-        // Otherwise return the message
-        else {
-            message = Errors.FIND_GAME_NAME_FAILED.formatted(gameName);
-        }
-        System.out.println(message);
+        // Verify results;
+        verify(gameRepository).findByGameID(gameID);
+        verify(logger, times(2)).debug(anyString());
     }
 
     @Test
-    void getGames() {
-        System.out.printf("Attempting to get games containing name: '%s'%n", gameName);
+    void getGameName_Fail() {
+        when(gameRepository.findByGameName(gameName)).thenReturn(null);
+        GameEntityMessage result = useCaseGetGame.getGame(gameName);
 
-//        when(gameRepository.findByGameNameContaining(gameName)).thenReturn(null);
-        when(gameRepository.findByGameNameContaining(gameName)).thenReturn(Instancio.createList(GameEntity.class));
+        // Assert
+        Assertions.assertFalse(result.isSuccessful());
+        Assertions.assertEquals(Errors.FIND_GAME_NAME_FAILED.formatted(gameName), result.getMessage());
 
-        List<GameEntity> games = gameRepository.findByGameNameContaining(gameName);
-        String message;
-        if (games != null) {
-             message ="Games containing: '%s' found".formatted(gameName);
-        } else {
-             message =Errors.FIND_GAME_NAME_FAILED.formatted(gameName);
-        }
-        System.out.println(message);
+        // Verify results;
+        verify(gameRepository).findByGameName(gameName);
+        verify(logger, times(2)).debug(anyString());
+    }
+
+    @Test
+    void getGameName_Success() {
+        when(gameRepository.findByGameName(gameName)).thenReturn(Instancio.create(GameEntity.class));
+        GameEntityMessage result = useCaseGetGame.getGame(gameName);
+
+        // Assert
+        Assertions.assertTrue(result.isSuccessful());
+        Assertions.assertEquals("Game with name: '%s' found".formatted(gameName), result.getMessage());
+
+        // Verify results;
+        verify(gameRepository).findByGameName(gameName);
+        verify(logger, times(2)).debug(anyString());
+    }
+
+    @Test
+    void getGames_Fail() {
+
+    }
+
+    @Test
+    void getGames_Success() {
+
     }
 }

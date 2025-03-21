@@ -50,8 +50,9 @@ public class UseCaseAddGame {
 
         // Add new game
         GameEntity gameEntity = new GameEntity(game);
-        logger.debug("Added new game: '%s'".formatted(game.getGameName()));
-        return new GameEntityMessage(gameRepository.save(gameEntity), "Added new game: '%s'".formatted(game.getGameName()));
+        String message = "Added new game: '%s'".formatted(game.getGameName());
+        logger.debug(message);
+        return new GameEntityMessage(gameRepository.save(gameEntity), message);
     }
 
     public GameEntityMessage addGames(List<GameDTO> games){
