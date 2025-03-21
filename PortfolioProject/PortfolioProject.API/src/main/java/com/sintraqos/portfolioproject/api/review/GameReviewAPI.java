@@ -32,10 +32,6 @@ public class GameReviewAPI {
         } catch (IOException e) {
             logger.error(e.getMessage());
         }
-
-        for(GameReviewObject object : gamesList){
-            logger.info(object.toString());
-        }
     }
 
     public List<GameReviewObject> getReviewObjectsFromScore(int gameScore) {

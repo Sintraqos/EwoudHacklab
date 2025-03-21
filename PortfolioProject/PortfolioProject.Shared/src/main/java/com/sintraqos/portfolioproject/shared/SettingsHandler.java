@@ -36,7 +36,7 @@ public class SettingsHandler {
                         - Min Length: %s
                         - Max Length: %s
                     Schedule:
-                        - Schedule Time: %s
+                        - Retrieve Game Time: %s
                     API:
                         - URL: %s
                     """.formatted(
@@ -52,7 +52,7 @@ public class SettingsHandler {
                     messageMinLength,
                     messageMaxLength,
                     // Schedule
-                    scheduleTimeCron,
+                    retrieveGameTime,
                     // API
                     apiURl
             ));
@@ -75,7 +75,7 @@ public class SettingsHandler {
     private int messageMaxLength;
 
     // Schedule
-    private String scheduleTimeCron;
+    private String retrieveGameTime;
 
     // API
     private String apiURl;

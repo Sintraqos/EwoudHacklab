@@ -4,7 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sintraqos.portfolioproject.game.DTO.GameDTO;
 import com.sintraqos.portfolioproject.game.service.GameService;
-import com.sintraqos.portfolioproject.scheduler.ScheduleEventHandler;
+import com.sintraqos.portfolioproject.scheduler.events.RetrieveGameEventHandler;
 import com.sintraqos.portfolioproject.shared.Errors;
 import com.sintraqos.portfolioproject.shared.SettingsHandler;
 import org.slf4j.Logger;
@@ -35,22 +35,26 @@ public class GameServiceClient {
     }
 
     boolean attemptConnection() {
+        // Check if the template exists
         if (restTemplate == null) {
             logger.error("RestTemplate is null");
             return false;
         }
 
+        // Check if the url isn't tempy or null
         if (apiURL == null || apiURL.isEmpty()) {
             logger.error("API URL is not set or is empty");
             return false;
         }
 
+        // Attempt a simple HTTP GET request to check connectivity.
         try {
-            // Attempt a simple HTTP GET request to check connectivity.
+            // If the connection can be made return true
             restTemplate.getForObject(apiURL, String.class);
             return true;
         } catch (Exception e) {
-            logger.error(Errors.API_CONNECTION_FAILED.formatted(e.getMessage()));
+            // Otherwise log the received exception and return false
+            logger.warn(Errors.API_CONNECTION_FAILED.formatted(e.getMessage()));
             return false;
         }
     }
@@ -63,16 +67,19 @@ public class GameServiceClient {
     public List<GameDTO> getRecentlyAddedGames() {
         // Check if the connection can be made to the API
         if (!attemptConnection()) {
-            return new ArrayList<>();
+            return new ArrayList<>(); // Since we don't want to stop the program when there isn't a connection to the API, return an empty list instead
         }
 
+        // Attempt to retrieve and parse the data from the API
         try {
             logger.debug("Retrieving games from: '%s'".formatted(apiURL));
             String jsonString = restTemplate.getForObject(apiURL, String.class);    // Retrieve the JSON as a string
             ObjectMapper objectMapper = new ObjectMapper();
 
+            // Return the parsed jason as a new list of GameDTO
             return Arrays.stream(objectMapper.readValue(jsonString, GameDTO[].class)).toList(); // Parse the string into a GameDTO List
         } catch (JsonProcessingException e) {
+            // If the parsing failed, log the exception and return an empty list
             logger.warn(e.getMessage());
             return new ArrayList<>();
         }
@@ -82,7 +89,7 @@ public class GameServiceClient {
      * When a schedule event gets invoked, retrieve games from the API
      */
     @EventListener
-    public void handleScheduleTickEvent(ScheduleEventHandler event) {
+    public void handleScheduleTickEvent(RetrieveGameEventHandler event) {
         // Retrieve the new games from the API
         List<GameDTO> newGames = getRecentlyAddedGames();
         logger.debug("Received: '%s' new games".formatted(newGames.size()));

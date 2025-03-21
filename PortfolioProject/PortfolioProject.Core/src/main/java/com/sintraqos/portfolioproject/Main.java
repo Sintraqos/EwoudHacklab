@@ -15,7 +15,6 @@ import org.springframework.context.event.EventListener;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
 @SpringBootApplication(scanBasePackages = "com.sintraqos.portfolioproject")
-@Import({WebServiceConfig.class, Testing.class})  // Import the WebServiceConfig class
 @EnableCaching
 @EnableScheduling
 @EnableConfigurationProperties(SettingsHandler.class)
