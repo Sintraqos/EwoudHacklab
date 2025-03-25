@@ -1,22 +1,25 @@
 package com.sintraqos.portfolioproject.user.useCases;
 
+import com.sintraqos.portfolioproject.shared.Errors;
 import com.sintraqos.portfolioproject.user.DAL.UserEntity;
 import com.sintraqos.portfolioproject.user.DAL.UserRepository;
-import com.sintraqos.portfolioproject.user.DTO.UserDTO;
 import com.sintraqos.portfolioproject.user.entities.UserMessage;
 import com.sintraqos.portfolioproject.userLibrary.service.UserLibraryService;
 import org.instancio.Instancio;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.slf4j.Logger;
 
-import static org.mockito.Mockito.when;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.*;
 
+@ExtendWith(MockitoExtension.class)
 class UseCaseDeleteAccountTest {
-
-    @Mock
-    UseCaseGetAccount getAccount;
 
     @Mock
     UserLibraryService libraryService;
@@ -27,37 +30,72 @@ class UseCaseDeleteAccountTest {
     @Mock
     UseCaseValidateUser validateUser;
 
-    String username = "TEST Username";
-    String password = "TEST Password";
+    @Mock
+    Logger logger;
+
+    UseCaseDeleteAccount useCaseDeleteAccount;
 
     @BeforeEach
     void setUp() {
         // Initialize mocks before each test
         MockitoAnnotations.openMocks(this);
+        useCaseDeleteAccount = new UseCaseDeleteAccount(userRepository, validateUser, libraryService, logger);
+    }
+
+    String username = "TEST Username";
+    String password = "TEST Password";
+
+    @Test
+    public void deleteAccount_Fail_UserDoesNotExist() {
+        // Mock the correct method calls
+        when(userRepository.findByUsername(username)).thenReturn(null);
+
+        // Post the message using the base class
+        UserMessage result = useCaseDeleteAccount.deleteAccount(username,password);
+
+        // Assert
+        Assertions.assertEquals(Errors.FIND_USER_NAME_FAILED.formatted(username), result.getMessage());
+
+        // Verify
+        verify(logger, times(2)).debug(anyString());
     }
 
     @Test
-    public void deleteAccount() {
-        UserDTO account = Instancio.create(UserDTO.class);
+    public void deleteAccount_Fail_Validation() {
+        // Create UserEntity object
+        UserEntity userEntity = Instancio.create(UserEntity.class);
 
-        // Mock the behavior of getAccount() to return a successful UserMessage
-        UserMessage mockUserMessage = new UserMessage(account, "Account found for deletion");
-        when(getAccount.getAccount(username)).thenReturn(mockUserMessage);
+        // Mock the correct method calls
+        when(userRepository.findByUsername(username)).thenReturn(userEntity);
+        when(validateUser.comparePassword(userEntity.getPasswordHash(), password)).thenReturn(new UserMessage(Errors.PASSWORD_MISMATCH));
 
-        // Mock the behavior of validateUser() to return a successful UserMessage
-        UserMessage passwordCheck = new UserMessage(account, "Password validated");
-        when(validateUser.comparePassword(account.getPassword(), password)).thenReturn(passwordCheck);
+        // Post the message using the base class
+        UserMessage result = useCaseDeleteAccount.deleteAccount(username, password);
 
-        // Clear the stored library of the account
-        System.out.printf("Deleting library from account: '%s'%n", account.getAccountID());
-        libraryService.deleteLibrary(account.getAccountID());
+        // Assert
+        Assertions.assertEquals(Errors.PASSWORD_MISMATCH, result.getMessage());
 
-        // Delete the account from the database
-        System.out.printf("Deleting account: '%s'%n", account.getAccountID());
-        userRepository.delete(new UserEntity(account));
+        // Verify
+        verify(logger, times(2)).debug(anyString());
+    }
 
-        // Finalize account removal
-        String message = "Successfully removed account with username: '%s'".formatted(username);
-        System.out.println(message);
+    @Test
+    public void deleteAccount_Success() {
+        // Create UserEntity object
+        UserEntity userEntity = Instancio.create(UserEntity.class);
+
+        // Mock the correct method calls
+        when(userRepository.findByUsername(username)).thenReturn(userEntity);
+        when(validateUser.comparePassword(userEntity.getPasswordHash(), password)).thenReturn(new UserMessage(true, "User successfully validated"));
+
+        // Post the message using the base class
+        UserMessage result = useCaseDeleteAccount.deleteAccount(username, password);
+
+        // Assert
+        Assertions.assertTrue(result.isSuccessful());
+        Assertions.assertEquals("Successfully removed account with username: '%s'".formatted(username), result.getMessage());
+
+        // Verify
+        verify(logger, times(4)).debug(anyString());
     }
 }

@@ -41,11 +41,11 @@ class UseCaseAddForumPostTest {
 
     @Test
     void addForumPost_TooShort() {
-        // Create new DTO containing a message that is too short
+        // Create ForumPost object
         String message = "Hi";
         ForumPostDTO forumPostDTO = new ForumPostDTO(1, 1, message);
 
-        // Handle the min/max length of a message
+        // Mock the correct method calls
         when(settingsHandler.getMessageMinLength()).thenReturn(minLength);
         when(settingsHandler.getMessageMaxLength()).thenReturn(maxLength);
 
@@ -55,16 +55,18 @@ class UseCaseAddForumPostTest {
         // Assert
         Assertions.assertFalse(result.isSuccessful());
         Assertions.assertEquals(Errors.FORUM_INVALID_LENGTH_SHORT.formatted(settingsHandler.getMessageMinLength(), settingsHandler.getMessageMaxLength()), result.getMessage());
+
+        // Verify
         verify(logger).warn(anyString());
     }
 
     @Test
     void addForumPost_TooLong() {
-        // Create new DTO containing a message that is too short
+        // Create ForumPost object
         String message = "This message is way too long to be posted";
         ForumPostDTO forumPostDTO = new ForumPostDTO(1, 1, message);
 
-        // Handle the min/max length of a message
+        // Mock the correct method calls
         when(settingsHandler.getMessageMinLength()).thenReturn(minLength);
         when(settingsHandler.getMessageMaxLength()).thenReturn(maxLength);
 
@@ -74,16 +76,18 @@ class UseCaseAddForumPostTest {
         // Assert
         Assertions.assertFalse(result.isSuccessful());
         Assertions.assertEquals(Errors.FORUM_INVALID_LENGTH_LONG.formatted(settingsHandler.getMessageMinLength(), settingsHandler.getMessageMaxLength()), result.getMessage());
+
+        // Verify
         verify(logger).warn(anyString());
     }
 
     @Test
     void addForumPost_Successful() {
-        // Create new DTO containing a message that is too short
+        // Create ForumPost object
         String message = "Valid message";
         ForumPostDTO forumPostDTO = new ForumPostDTO(1, 1, message);
 
-        // Handle the min/max length of a message
+        // Mock the correct method calls
         when(settingsHandler.getMessageMinLength()).thenReturn(minLength);
         when(settingsHandler.getMessageMaxLength()).thenReturn(maxLength);
         when(censorService.validateString(message)).thenReturn(message);
@@ -94,6 +98,8 @@ class UseCaseAddForumPostTest {
         // Assert
         Assertions.assertTrue(result.isSuccessful());
         Assertions.assertEquals("Added new message: '%s'".formatted(message), result.getMessage());
+
+        // Verify
         verify(forumPostRepository).save(any());
         verify(logger).debug(anyString());
     }

@@ -3,18 +3,25 @@ package com.sintraqos.portfolioproject.user.useCases;
 import com.sintraqos.portfolioproject.shared.Errors;
 import com.sintraqos.portfolioproject.user.DAL.UserEntity;
 import com.sintraqos.portfolioproject.user.DAL.UserRepository;
+import com.sintraqos.portfolioproject.user.DTO.UserDTO;
+import com.sintraqos.portfolioproject.user.entities.User;
 import com.sintraqos.portfolioproject.user.entities.UserMessage;
 import com.sintraqos.portfolioproject.user.statics.Enums;
 import org.instancio.Instancio;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.slf4j.Logger;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import static org.mockito.Mockito.when;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.*;
 
+@ExtendWith(MockitoExtension.class)
 class UseCaseUpdateAccountTest {
     @Mock
     UserRepository userRepository;
@@ -28,10 +35,17 @@ class UseCaseUpdateAccountTest {
     @Mock
     PasswordEncoder passwordEncoder;
 
+    @Mock
+    Logger logger;
+
+    UseCaseUpdateAccount useCaseUpdateAccount;
+
+
     @BeforeEach
     void setUp() {
         // Initialize mocks before each test
         MockitoAnnotations.openMocks(this);
+        useCaseUpdateAccount = new UseCaseUpdateAccount(userRepository, getAccount, validateUser, passwordEncoder, logger);
     }
 
     int accountID = 0;
@@ -40,185 +54,169 @@ class UseCaseUpdateAccountTest {
     String currentPassword = "Password";
     String newPassword = " Password";
     String currentEMail = "TEST Current E-Mail";
+    String newEMail = "TEST New E-Mail";
     Enums.Role accountRole = Enums.Role.USER;
 
+    //region Username
+
     @Test
-    void changeUsername() {
-        System.out.printf("Attempting to change the username of account: '%s'%n", currentUsername);
+    void testChangeUsername_Fail_Validation() {
+        // Mock the correct method calls
+        when(validateUser.validateUsername(newUsername)).thenReturn(new UserMessage(Errors.USERNAME_CONTAINS_BANNED_WORD));
 
-        // Mock the behavior of getAccount() to return a successful UserMessage
-        UserMessage userMessage = new UserMessage(Instancio.create(UserEntity.class), "Account validated");
+        // Update the user using the base class
+        UserMessage result = useCaseUpdateAccount.changeUsername(currentUsername, newUsername, currentPassword);
 
-        // Check if the user is valid
-        when(validateUser.validateUser(currentUsername, currentEMail, passwordEncoder.encode(currentPassword))).thenReturn(userMessage);
-        if (!userMessage.isSuccessful()) {
-            System.out.println(userMessage.getMessage());
+        // Assert
+        Assertions.assertEquals(Errors.USERNAME_CONTAINS_BANNED_WORD, result.getMessage());
 
-            Assertions.fail();
-            return;
-        }
+        // Verify
+        verify(logger, times(2)).debug(anyString());
+    }
 
-        // Retrieve the account
-        when(getAccount.getAccount(currentUsername)).thenReturn(userMessage);
-        if (!userMessage.isSuccessful()) {
-            System.out.println(userMessage.getMessage());
+    @Test
+    void testChangeUsername_Fail_UserDoesNotExist() {
+        // Mock the correct method calls
+        when(validateUser.validateUsername(newUsername)).thenReturn(new UserMessage(true, "User valid"));
+        when(getAccount.getAccount(currentUsername)).thenReturn(new UserMessage(Errors.FIND_USER_NAME_FAILED.formatted(currentUsername)));
 
-            Assertions.fail();
-            return;
-        }
+        // Update the user using the base class
+        UserMessage result = useCaseUpdateAccount.changeUsername(currentUsername, newUsername, currentPassword);
 
-        UserEntity user = userMessage.getUserEntity();
+        // Assert
+        Assertions.assertEquals(Errors.FIND_USER_NAME_FAILED.formatted(currentUsername), result.getMessage());
+
+        // Verify
+        verify(logger, times(2)).debug(anyString());
+    }
+
+    @Test
+    void testChangeUsername_Fail_Password() {
+        // Create UserEntity object
+        UserEntity userEntity = Instancio.create(UserEntity.class);
+
+        // Mock the correct method calls
+        when(validateUser.validateUsername(newUsername)).thenReturn(new UserMessage(true, "User valid"));
+        when(getAccount.getAccount(currentUsername)).thenReturn(new UserMessage(new UserDTO(userEntity), userEntity, "User found"));
+        when(validateUser.comparePassword(userEntity.getPasswordHash(), currentPassword)).thenReturn(new UserMessage(true, Errors.PASSWORD_MATCH));
+
+        // Update the user using the base class
+        UserMessage result = useCaseUpdateAccount.changeUsername(currentUsername, newUsername, currentPassword);
+
+        // Assert
+        Assertions.assertEquals(Errors.PASSWORD_INCORRECT, result.getMessage());
+
+        // Verify
+        verify(logger, times(2)).debug(anyString());
+    }
+
+    @Test
+    void testChangeUsername_Fail_UsernameUsed() {
+        // Create UserEntity object
+        UserEntity userEntity = Instancio.create(UserEntity.class);
+
+        // Mock the correct method calls
+        when(validateUser.validateUsername(newUsername)).thenReturn(new UserMessage(true, "User valid"));
+        when(getAccount.getAccount(currentUsername)).thenReturn(new UserMessage(new UserDTO(userEntity), userEntity, "User found"));
+        when(validateUser.comparePassword(userEntity.getPasswordHash(), currentPassword)).thenReturn(new UserMessage(true,Errors.PASSWORD_MATCH));
+        when(userRepository.findByUsername(newUsername)).thenReturn(Instancio.create(UserEntity.class));
+
+        // Update the user using the base class
+        UserMessage result = useCaseUpdateAccount.changeUsername(currentUsername, newUsername, currentPassword);
+
+        // Assert
+        Assertions.assertEquals("Username: '%s' is already in use".formatted(newUsername), result.getMessage());
+
+        // Verify
+        verify(logger, times(2)).debug(anyString());
+    }
+
+    @Test
+    void testChangeUsername_Success() {
+        // Create UserEntity object
+        UserEntity userEntity = Instancio.create(UserEntity.class);
+
+        // Mock the correct method calls
+        when(validateUser.validateUsername(newUsername)).thenReturn(new UserMessage(true, "User valid"));
+        when(getAccount.getAccount(currentUsername)).thenReturn(new UserMessage(new UserDTO(userEntity), userEntity, "User found"));
+        when(validateUser.comparePassword(userEntity.getPasswordHash(), currentPassword)).thenReturn(new UserMessage(true,Errors.PASSWORD_MATCH));
         when(userRepository.findByUsername(newUsername)).thenReturn(null);
-        if (userRepository.findByUsername(newUsername) != null) {
-            System.out.printf((Errors.USERNAME_ALREADY_IN_USE) + "%n", newUsername);
 
-            Assertions.fail();
-            return;
-        }
+        // Update the user using the base class
+        UserMessage result = useCaseUpdateAccount.changeUsername(currentUsername, newUsername, currentPassword);
 
-        // Return the message
-        UserMessage updateAccount = handleUpdateAccount(user, newUsername, user.getEmail(), user.getPassword(), user.getRole());
-        System.out.println(updateAccount.getMessage());
+        // Assert
+        Assertions.assertTrue(result.isSuccessful());
+        Assertions.assertEquals("Successfully updated account", result.getMessage());
 
-        Assertions.assertTrue(updateAccount.isSuccessful());
+        // Verify
+        verify(userRepository).save(any());
+        verify(logger, times(2)).debug(anyString());
+    }
+
+    //endregion
+
+    //region E-Mail
+
+    @Test
+    void testChangeEmail_Fail_UserDoesNotExist(){
+        // Mock the correct method calls
+        when(getAccount.getAccount(currentUsername)).thenReturn(new UserMessage(Errors.FIND_USER_NAME_FAILED.formatted(currentUsername)));
+
+        // Update the user using the base class
+        UserMessage result = useCaseUpdateAccount.changeEMail(currentUsername, newEMail, currentPassword);
+
+        // Assert
+        Assertions.assertEquals(Errors.FIND_USER_NAME_FAILED.formatted(currentUsername), result.getMessage());
+
+        // Verify
+        verify(logger, times(2)).debug(anyString());
     }
 
     @Test
-    void changeEMail() {
-        System.out.printf("Attempting to change the E-Mail of account: '%s'%n", currentUsername);
+    void testChangeEmail_Fail_Password() {
+        // Create UserEntity object
+        UserEntity userEntity = Instancio.create(UserEntity.class);
 
-        // Mock the behavior of getAccount() to return a successful UserMessage
-        UserMessage userMessage = new UserMessage(Instancio.create(UserEntity.class), "Account validated");
+        // Mock the correct method calls
+        when(getAccount.getAccount(currentUsername)).thenReturn(new UserMessage(new UserDTO(userEntity), userEntity, "User found"));
+        when(validateUser.comparePassword(userEntity.getPasswordHash(), currentPassword)).thenReturn(new UserMessage(Errors.PASSWORD_INCORRECT));
 
-        // Retrieve the account
-        when(getAccount.getAccount(currentUsername)).thenReturn(userMessage);
-        if (!userMessage.isSuccessful()) {
-            System.out.println(userMessage.getMessage());
+        // Update the user using the base class
+        UserMessage result = useCaseUpdateAccount.changeEMail(currentUsername, newEMail, currentPassword);
 
-            Assertions.fail();
-            return;
-        }
+        // Assert
+        Assertions.assertEquals(Errors.PASSWORD_INCORRECT, result.getMessage());
 
-        when(validateUser.comparePassword(passwordEncoder.encode(currentPassword), passwordEncoder.encode(newPassword))).thenReturn(userMessage);
-        if (!userMessage.isSuccessful()) {
-            System.out.println(userMessage.getMessage());
-
-            Assertions.fail();
-            return;
-        }
-
-        // Check if the user is valid
-        when(validateUser.validateEMail(currentEMail)).thenReturn(userMessage);
-        if (!userMessage.isSuccessful()) {
-            System.out.println(userMessage.getMessage());
-
-            Assertions.fail();
-            return;
-        }
-
-        UserEntity user = userMessage.getUserEntity();
-
-        // Return the message
-        UserMessage updateAccount = handleUpdateAccount(user, currentUsername, currentEMail, user.getPassword(), user.getRole());
-        System.out.println(updateAccount.getMessage());
-
-        Assertions.assertTrue(updateAccount.isSuccessful());
+        // Verify
+        verify(logger, times(2)).debug(anyString());
     }
 
     @Test
-    void changePassword() {
-        System.out.printf("Attempting to change the password of account: '%s'%n", currentUsername);
+    void testChangeEmail_Fail_Validation() {
+        // Create UserEntity object
+        UserEntity userEntity = Instancio.create(UserEntity.class);
 
-        // Mock the behavior of getAccount() to return a successful UserMessage
-        UserMessage userMessage = new UserMessage(Instancio.create(UserEntity.class), "Account validated");
+        // Mock the correct method calls
+        when(getAccount.getAccount(currentUsername)).thenReturn(new UserMessage(new UserDTO(userEntity), userEntity, "User found"));
+        when(validateUser.comparePassword(userEntity.getPasswordHash(), currentPassword)).thenReturn(new UserMessage(true,Errors.PASSWORD_MATCH));
+        when(validateUser.validateEMail(newEMail)).thenReturn(new UserMessage(Errors.EMAIL_ALREADY_IN_USE));
 
-        // Retrieve the account
-        when(getAccount.getAccount(currentUsername)).thenReturn(userMessage);
-        if (!userMessage.isSuccessful()) {
-            System.out.println(userMessage.getMessage());
+        // Update the user using the base class
+        UserMessage result = useCaseUpdateAccount.changeEMail(currentUsername, newEMail, currentPassword);
 
-            return;
-        }
+        // Assert
+        Assertions.assertEquals(Errors.EMAIL_ALREADY_IN_USE, result.getMessage());
 
-        // Check if the user is valid
-        when(validateUser.validatePassword(newPassword)).thenReturn(userMessage);
-        if (!userMessage.isSuccessful()) {
-            System.out.println(userMessage.getMessage());
-
-            return;
-        }
-
-        // Compare the password that was given to the stored password
-        when(validateUser.comparePassword(passwordEncoder.encode(currentPassword), passwordEncoder.encode(newPassword))).thenReturn(userMessage);
-        if (!userMessage.isSuccessful()) {
-            System.out.println(userMessage.getMessage());
-
-            return;
-        }
-
-        // Get the entity from the message
-        UserEntity user = userMessage.getUserEntity();
-
-        // Return the message
-        UserMessage updateAccount =  handleUpdateAccount(user, currentUsername, user.getEmail(), newPassword, user.getRole());
-        System.out.println(updateAccount.getMessage());
-
-        Assertions.assertTrue(updateAccount.isSuccessful());
+        // Verify
+        verify(logger, times(2)).debug(anyString());
     }
 
-    @Test
-    void changeRole() {
-        System.out.printf("Attempting to change the role of account with ID: '%s'%n", accountID);
-        // Retrieve the user from the database
-        UserMessage userMessage = getAccount.getAccount(accountID);
-        if (!userMessage.isSuccessful()) {
-            System.out.println(userMessage.getMessage());
+    //endregion
 
-            return;
-        }
+    //region Password
+    //endregion
 
-        // Since the user needs to be an admin to update the roles of other users check if the user has a valid role
-        if (userMessage.getUserDTO().getRole() == Enums.Role.USER) {
-            String message = "Invalid role";
-            System.out.println(message);
-
-            return;
-        }
-
-        // Check if the given password is valid
-        UserMessage passwordCheck = validateUser.comparePassword(userMessage.getUserDTO().getPassword(), currentPassword);
-        if (!passwordCheck.isSuccessful()) {
-            System.out.println(passwordCheck.getMessage());
-
-            return;
-        }
-
-        // Retrieve the user which role to update from the database
-        userMessage = getAccount.getAccount(accountID);
-        if (!userMessage.isSuccessful()) {
-            System.out.println(userMessage.getMessage());
-
-            return;
-        }
-
-        // Update the role inside the userRepository
-        UserEntity user = new UserEntity(userMessage.getUserDTO());
-        user.setRole(accountRole);
-        userRepository.save(user);
-
-        UserMessage updateMessage = new UserMessage("Role successfully updated to: '%s' for account with ID: %s".formatted(accountRole, accountID));
-        System.out.println(updateMessage.getMessage());
-
-        Assertions.assertTrue(updateMessage.isSuccessful());
-    }
-
-    UserMessage handleUpdateAccount(UserEntity user, String username, String eMail, String password, Enums.Role role) {
-        user.setUsername(username);
-        user.setEmail(eMail);
-        user.setPasswordHash(password);
-        user.setRole(role);
-        userRepository.save(user);
-
-        return new UserMessage(true, "Successfully updated account");
-    }
+    //region Role
+    //endregion
 }

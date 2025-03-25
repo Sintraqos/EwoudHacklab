@@ -13,11 +13,6 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.slf4j.Logger;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.Pageable;
-
-import java.util.List;
 
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
@@ -37,7 +32,7 @@ class UseCaseGetGameTest {
     void setUp() {
         // Initialize mocks before each test
         MockitoAnnotations.openMocks(this);
-        useCaseGetGame = new UseCaseGetGame(gameRepository,logger);
+        useCaseGetGame = new UseCaseGetGame(gameRepository, logger);
     }
 
     String gameName = "Game Name";
@@ -45,6 +40,7 @@ class UseCaseGetGameTest {
 
     @Test
     void getGameID_Fail() {
+        // Mock the correct method calls
         when(gameRepository.findByGameID(gameID)).thenReturn(null);
         GameEntityMessage result = useCaseGetGame.getGame(gameID);
 
@@ -59,6 +55,7 @@ class UseCaseGetGameTest {
 
     @Test
     void getGameID_Success() {
+        // Mock the correct method calls
         when(gameRepository.findByGameID(gameID)).thenReturn(Instancio.create(GameEntity.class));
         GameEntityMessage result = useCaseGetGame.getGame(gameID);
 
@@ -66,13 +63,14 @@ class UseCaseGetGameTest {
         Assertions.assertTrue(result.isSuccessful());
         Assertions.assertEquals("Game with ID: '%s' found".formatted(gameID), result.getMessage());
 
-        // Verify results;
+        // Verify
         verify(gameRepository).findByGameID(gameID);
         verify(logger, times(2)).debug(anyString());
     }
 
     @Test
     void getGameName_Fail() {
+        // Mock the correct method calls
         when(gameRepository.findByGameName(gameName)).thenReturn(null);
         GameEntityMessage result = useCaseGetGame.getGame(gameName);
 
@@ -80,13 +78,14 @@ class UseCaseGetGameTest {
         Assertions.assertFalse(result.isSuccessful());
         Assertions.assertEquals(Errors.FIND_GAME_NAME_FAILED.formatted(gameName), result.getMessage());
 
-        // Verify results;
+        // Verify
         verify(gameRepository).findByGameName(gameName);
         verify(logger, times(2)).debug(anyString());
     }
 
     @Test
     void getGameName_Success() {
+        // Mock the correct method calls
         when(gameRepository.findByGameName(gameName)).thenReturn(Instancio.create(GameEntity.class));
         GameEntityMessage result = useCaseGetGame.getGame(gameName);
 
@@ -94,18 +93,38 @@ class UseCaseGetGameTest {
         Assertions.assertTrue(result.isSuccessful());
         Assertions.assertEquals("Game with name: '%s' found".formatted(gameName), result.getMessage());
 
-        // Verify results;
+        // Verify
         verify(gameRepository).findByGameName(gameName);
         verify(logger, times(2)).debug(anyString());
     }
 
     @Test
     void getGames_Fail() {
+        // Mock the correct method calls
+        when(gameRepository.findByGameNameContaining(gameName)).thenReturn(null);
+        GameEntityMessage result = useCaseGetGame.getGames(gameName);
 
+        // Assert
+        Assertions.assertFalse(result.isSuccessful());
+        Assertions.assertEquals(Errors.FIND_GAME_NAME_FAILED.formatted(gameName), result.getMessage());
+
+        // Verify
+        verify(gameRepository).findByGameNameContaining(gameName);
+        verify(logger).debug(anyString());
     }
 
     @Test
     void getGames_Success() {
+        // Mock the correct method calls
+        when(gameRepository.findByGameNameContaining(gameName)).thenReturn(Instancio.createList(GameEntity.class));
+        GameEntityMessage result = useCaseGetGame.getGames(gameName);
 
+        // Assert
+        Assertions.assertTrue(result.isSuccessful());
+        Assertions.assertEquals("Games containing: '%s' found".formatted(gameName), result.getMessage());
+
+        // Verify
+        verify(gameRepository).findByGameNameContaining(gameName);
+        verify(logger).debug(anyString());
     }
 }

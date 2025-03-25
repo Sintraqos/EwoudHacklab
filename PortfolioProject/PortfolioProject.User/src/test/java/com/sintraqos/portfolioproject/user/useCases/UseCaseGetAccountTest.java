@@ -1,12 +1,10 @@
 package com.sintraqos.portfolioproject.user.useCases;
 
-import com.sintraqos.portfolioproject.game.DAL.GameEntity;
 import com.sintraqos.portfolioproject.game.DAL.GameRepository;
-import com.sintraqos.portfolioproject.game.DTO.GameDTO;
 import com.sintraqos.portfolioproject.shared.Errors;
 import com.sintraqos.portfolioproject.user.DAL.UserEntity;
 import com.sintraqos.portfolioproject.user.DAL.UserRepository;
-import com.sintraqos.portfolioproject.userLibrary.DAL.UserLibraryEntity;
+import com.sintraqos.portfolioproject.user.entities.UserMessage;
 import com.sintraqos.portfolioproject.userLibrary.DAL.UserLibraryRepository;
 import org.instancio.Instancio;
 import org.junit.jupiter.api.Assertions;
@@ -14,11 +12,10 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.slf4j.Logger;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import static org.mockito.Mockito.when;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.*;
 
 class UseCaseGetAccountTest {
 
@@ -31,6 +28,11 @@ class UseCaseGetAccountTest {
     @Mock
     GameRepository gameRepository;
 
+    @Mock
+    Logger logger;
+
+    UseCaseGetAccount useCaseGetAccount;
+
     String username = "TEST Username";
     int accountID = 0;
 
@@ -38,69 +40,96 @@ class UseCaseGetAccountTest {
     void setUp() {
         // Initialize mocks before each test
         MockitoAnnotations.openMocks(this);
+        useCaseGetAccount = new UseCaseGetAccount(userRepository, libraryRepository, gameRepository, logger);
     }
 
     @Test
-    void testGetAccount_Username() {
-        System.out.printf("Attempting to get account with username: '%s'%n", username);
-        // Get the account
-        UserEntity userEntity = new UserEntity();
-        when(userRepository.findByUsername(username)).thenReturn(userEntity);
+    void testGetAccount_Username_Fail() {
+        // Mock the correct method calls
+        when(userRepository.findByUsername(username)).thenReturn(null);
 
-        // Create the library of the user
-        ArrayList<GameDTO> gameList = new ArrayList<>();
-        System.out.println("Creating new library for account");
+        // Post the message using the base class
+        UserMessage result = useCaseGetAccount.getAccount(username);
 
-        List<UserLibraryEntity> userLibraryEntities = new ArrayList<>();
-        when(libraryRepository.findByAccountID(userEntity.getAccountID())).thenReturn(userLibraryEntities);
+        // Assert
+        Assertions.assertEquals(Errors.FIND_USER_NAME_FAILED.formatted(username), result.getMessage());
 
-        for (UserLibraryEntity userLibraryEntity : userLibraryEntities) {
-            System.out.printf("Adding game with ID: '%s' to user library%n", userLibraryEntity.getGameID());
-            GameEntity game = Instancio.create(GameEntity.class);
-            when(gameRepository.findByGameID(0)).thenReturn(game);
-            gameList.add(new GameDTO(
-                    game,
-                    userLibraryEntity.getGameAcquired(),
-                    userLibraryEntity.getGameLastPlayed(),
-                    userLibraryEntity.getGamePlayTime()));
-        }
-
-        // Return the found user
-        System.out.println("Created user successfully");
-        System.out.printf("Added: %s games to their library%n", gameList.size());
+        // Verify
+        verify(logger, times(2)).debug(anyString());
     }
 
     @Test
-    void testGetAccount_AccountID() {
-        System.out.printf("Attempting to get account with ID: '%s'%n", accountID);
-        // Get the account
-        UserEntity userEntity = userRepository.findByAccountID(accountID);
+    void testGetAccount_Username_Success() {
+        // Mock the correct method calls
+        when(userRepository.findByUsername(username)).thenReturn(Instancio.create(UserEntity.class));
 
-        // If the account was found return the retrieved account
-        String message;
-        if (userEntity != null) {
-            message = "Account found with ID";
-        }
-        // Otherwise return the message
-        else {
-            message = Errors.FIND_USER_ID_FAILED.formatted(accountID);
-        }
+        // Post the message using the base class
+        UserMessage result = useCaseGetAccount.getAccount(username);
 
-        System.out.println(message);
+        // Assert
+        Assertions.assertEquals("Account data retrieved", result.getMessage());
+
+        // Verify
+        verify(logger, times(3)).debug(anyString());
     }
 
     @Test
-    void getAccounts() {
-        System.out.printf("Attempting to get accounts containing: '%s'%n", username);
-        List<UserEntity> accounts = userRepository.findByUsernameContaining(username);
+    void testGetAccount_AccountID_Fail() {
+        // Mock the correct method calls
+        when(userRepository.findByAccountID(accountID)).thenReturn(null);
 
-        String message;
-        if (accounts != null) {
-            message = "Account found with username";
-        } else {
-            message = Errors.FIND_USER_NAME_FAILED.formatted(username);
-        }
+        // Post the message using the base class
+        UserMessage result = useCaseGetAccount.getAccount(accountID);
 
-        System.out.println(message);
+        // Assert
+        Assertions.assertEquals(Errors.FIND_USER_ID_FAILED.formatted(accountID), result.getMessage());
+
+        // Verify
+        verify(logger, times(2)).debug(anyString());
+    }
+
+    @Test
+    void testGetAccount_AccountID_Success() {
+        // Mock the correct method calls
+        when(userRepository.findByAccountID(accountID)).thenReturn(Instancio.create(UserEntity.class));
+
+        // Post the message using the base class
+        UserMessage result = useCaseGetAccount.getAccount(accountID);
+
+        // Assert
+        Assertions.assertEquals("Account data retrieved", result.getMessage());
+
+        // Verify
+        verify(logger, times(2)).debug(anyString());
+    }
+
+    @Test
+    void testGetAccounts_Fail() {
+        // Mock the correct method calls
+        when(userRepository.findByUsernameContaining(username)).thenReturn(null);
+
+        // Post the message using the base class
+        UserMessage result = useCaseGetAccount.getAccounts(username);
+
+        // Assert
+        Assertions.assertEquals(Errors.FIND_USER_NAME_FAILED.formatted(username), result.getMessage());
+
+        // Verify
+        verify(logger, times(2)).debug(anyString());
+    }
+
+    @Test
+    void testGetAccounts_Success() {
+        // Mock the correct method calls
+        when(userRepository.findByUsernameContaining(username)).thenReturn(Instancio.createList(UserEntity.class));
+
+        // Post the message using the base class
+        UserMessage result = useCaseGetAccount.getAccounts(username);
+
+        // Assert
+        Assertions.assertEquals("Accounts found containing: '%s'".formatted(username), result.getMessage());
+
+        // Verify
+        verify(logger, times(2)).debug(anyString());
     }
 }

@@ -16,7 +16,6 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
 
@@ -45,9 +44,13 @@ class UseCaseGetForumPostTest {
 
     @Test
     void getForumPostsGame_Fail() {
+        // Mock the correct method calls
         when(forumPostRepository.findAllByGameIDOrderByPostDateDesc(gameID, pageRequest)).thenReturn(null);
+
+        // Retrieve the message using the base class
         ForumPostMessage result = useCaseGetForumPost.getForumPosts_Game(gameID, pageRequest);
 
+        // Assert
         Assertions.assertFalse(result.isSuccessful());
         Assertions.assertEquals(Errors.FORUM_GAME_ID_FAILED.formatted(gameID), result.getMessage());
 
@@ -64,7 +67,10 @@ class UseCaseGetForumPostTest {
                 10
         );
 
+        // Mock the correct method calls
         when(forumPostRepository.findAllByGameIDOrderByPostDateDesc(gameID, pageRequest)).thenReturn(mockedPage);
+
+        // Retrieve the message using the base class
         ForumPostMessage result = useCaseGetForumPost.getForumPosts_Game(gameID, pageRequest);
 
         // Assert
@@ -78,9 +84,13 @@ class UseCaseGetForumPostTest {
 
     @Test
     void getForumPostsAccount_Fail() {
+        // Mock the correct method calls
         when(forumPostRepository.findAllByAccountIDOrderByPostDateDesc(accountID, pageRequest)).thenReturn(null);
+
+        // Retrieve the message using the base class
         ForumPostMessage result = useCaseGetForumPost.getForumPosts_Account(accountID, pageRequest);
 
+        // Assert
         Assertions.assertFalse(result.isSuccessful());
         Assertions.assertEquals(Errors.FORUM_USER_ID_FAILED.formatted(accountID), result.getMessage());
 
@@ -97,9 +107,13 @@ class UseCaseGetForumPostTest {
                 10
         );
 
+        // Mock the correct method calls
         when(forumPostRepository.findAllByAccountIDOrderByPostDateDesc(accountID, pageRequest)).thenReturn(mockedPage);
+
+        // Retrieve the message using the base class
         ForumPostMessage result = useCaseGetForumPost.getForumPosts_Account(accountID, pageRequest);
 
+        // Assert
         Assertions.assertTrue(result.isSuccessful());
         Assertions.assertEquals("Account's forum posts found", result.getMessage());
 
@@ -107,6 +121,4 @@ class UseCaseGetForumPostTest {
         verify(forumPostRepository).findAllByAccountIDOrderByPostDateDesc(accountID, pageRequest);
         verify(logger, times(2)).debug(anyString());
     }
-
-
 }

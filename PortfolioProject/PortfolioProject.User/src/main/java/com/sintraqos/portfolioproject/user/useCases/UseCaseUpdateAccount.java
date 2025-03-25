@@ -53,7 +53,7 @@ public class UseCaseUpdateAccount {
         }
 
         // Retrieve the account
-        UserMessage userMessage = getAccount. getAccount(currentUsername);
+        UserMessage userMessage = getAccount.getAccount(currentUsername);
         if (!userMessage.isSuccessful()) {
             logger.debug(userMessage.getMessage());
             return userMessage;
@@ -67,8 +67,8 @@ public class UseCaseUpdateAccount {
 
         UserEntity user = userMessage.getUserEntity();
         if (userRepository.findByUsername(newUsername) != null) {
-            logger.debug(Errors.USERNAME_ALREADY_IN_USE);
-            return new UserMessage(Errors.USERNAME_ALREADY_IN_USE);
+            logger.debug(Errors.USERNAME_ALREADY_IN_USE.formatted(newUsername));
+            return new UserMessage(Errors.USERNAME_ALREADY_IN_USE.formatted(newUsername));
         }
 
         // Return the message

@@ -1,17 +1,23 @@
 package com.sintraqos.portfolioproject.user.useCases;
 
-import com.sintraqos.portfolioproject.user.DAL.UserEntity;
+import com.sintraqos.portfolioproject.shared.Errors;
 import com.sintraqos.portfolioproject.user.DAL.UserRepository;
 import com.sintraqos.portfolioproject.user.DTO.UserDTO;
+import com.sintraqos.portfolioproject.user.entities.User;
 import com.sintraqos.portfolioproject.user.entities.UserMessage;
+import org.instancio.Instancio;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.slf4j.Logger;
 
 import static org.mockito.Mockito.*;
-import static org.junit.jupiter.api.Assertions.*;
 
+@ExtendWith(MockitoExtension.class)
 class UseCaseBanAccountTest {
 
     @Mock
@@ -20,64 +26,91 @@ class UseCaseBanAccountTest {
     @Mock
     UserRepository userRepository;
 
+    @Mock
+    Logger logger;
+
+    UseCaseBanAccount useCaseBanAccount;
+
     @BeforeEach
     void setUp() {
         // Initialize mocks before each test
         MockitoAnnotations.openMocks(this);
+        useCaseBanAccount = new UseCaseBanAccount(getAccount, userRepository, logger);
     }
 
     @Test
-    void banAccount() {
-        // Mock the behavior of getAccount() to return a successful UserMessage
-        UserMessage mockUserMessage = new UserMessage(new UserDTO(), "Account found for username Ban" );
-        when(getAccount.getAccount("username Ban")).thenReturn(mockUserMessage);
+    void banAccount_Fail() {
+        // Create Game object
+        User user = Instancio.create(User.class);
 
-        System.out.printf("Attempting to ban account: '%s'%n", "username Ban");
+        // Mock the correct method calls
+        when(getAccount.getAccount(user.getUsername())).thenReturn(new UserMessage(Errors.USER_BANNED.formatted(user.getUsername()))); // Mock the correct method call
 
-        // Simulate the banning of an account
-        UserMessage result = handleBanAccount("username Ban", true);
+        // Ban the user using the base class
+        UserMessage result = useCaseBanAccount.banAccount(user.getUsername());
 
-        // Check that the result is successful
-        assertTrue(result.isSuccessful());
-        System.out.println("Successfully banned account");
+        // Assert
+        Assertions.assertEquals(Errors.USER_BANNED.formatted(user.getUsername()), result.getMessage());
+
+        // Verify
+        verify(logger, times(2)).debug(anyString());
     }
 
     @Test
-    void unbanAccount() {
-        // Mock the behavior of getAccount() to return a successful UserMessage
-        UserMessage mockUserMessage = new UserMessage(new UserDTO(),"Account found for username Unban");
-        when(getAccount.getAccount("username Unban")).thenReturn(mockUserMessage);
+    void banAccount_Success() {
+        // Create User object
+        User user = Instancio.create(User.class);
 
-        System.out.printf("Attempting to unban account: '%s'%n", "username Unban");
+        // Mock the correct method calls
+        when(getAccount.getAccount(user.getUsername())).thenReturn(new UserMessage(Instancio.create(UserDTO.class),"Account data retrieved")); // Mock the correct method call
 
-        // Simulate the unbanning of an account
-        UserMessage result = handleBanAccount("username Unban", false);
+        // Ban the user using the base class
+        UserMessage result = useCaseBanAccount.banAccount(user.getUsername());
 
-        // Check that the result is successful
-        assertTrue(result.isSuccessful());
-        System.out.println("Successfully unbanned account");
+        // Assert
+        Assertions.assertTrue(result.isSuccessful());
+        Assertions.assertEquals("Successfully banned account: '%s'".formatted(user.getUsername()), result.getMessage());
+
+        // Verify
+        verify(userRepository).save(any());
+        verify(logger, times(2)).debug(anyString());
     }
 
-    UserMessage handleBanAccount(String username, boolean isBanned) {
-        // Retrieve the account
-        UserMessage userMessage = getAccount.getAccount(username);
+    @Test
+    void unbanAccount_Fail() {
+        // Create User object
+        User user = Instancio.create(User.class);
 
-        // Check if retrieving the account was successful
-        if (!userMessage.isSuccessful()) {
-            System.out.println(userMessage.getMessage());
-            return userMessage;
-        }
+        // Mock the correct method calls
+        when(getAccount.getAccount(user.getUsername())).thenReturn(new UserMessage(Errors.USER_BANNED.formatted(user.getUsername()))); // Mock the correct method call
 
-        // Set the account banned status
-        UserEntity user = new UserEntity(userMessage.getUserDTO());
-        user.setEnabled(!isBanned); // If banning, set 'enabled' to false
-        user.setAccountNonLocked(!isBanned); // If banning, set 'locked' to true
-        userRepository.save(user); // Save the updated user
+        // Ban the user using the base class
+        UserMessage result = useCaseBanAccount.unbanAccount(user.getUsername());
 
-        // Print a message depending on whether the account was banned or unbanned
-        String returnMessage = (isBanned ? "Successfully banned account: '%s'" : "Successfully unbanned account: '%s'").formatted(username);
+        // Assert
+        Assertions.assertEquals(Errors.USER_BANNED.formatted(user.getUsername()), result.getMessage());
 
-        // Return a successful message indicating the action was performed
-        return new UserMessage(true, returnMessage);
+        // Verify
+        verify(logger, times(2)).debug(anyString());
+    }
+
+    @Test
+    void unbanAccount_Success() {
+        // Create User object
+        User user = Instancio.create(User.class);
+
+        // Mock the correct method calls
+        when(getAccount.getAccount(user.getUsername())).thenReturn(new UserMessage(Instancio.create(UserDTO.class),"Account data retrieved")); // Mock the correct method call
+
+        // Ban the user using the base class
+        UserMessage result = useCaseBanAccount.unbanAccount(user.getUsername());
+
+        // Assert
+        Assertions.assertTrue(result.isSuccessful());
+        Assertions.assertEquals("Successfully unbanned account: '%s'".formatted(user.getUsername()), result.getMessage());
+
+        // Verify
+        verify(userRepository).save(any());
+        verify(logger, times(2)).debug(anyString());
     }
 }

@@ -42,14 +42,17 @@ class UseCaseAddGameTest {
         // Create Game object
         Game game = Instancio.create(Game.class);
 
+        // Mock the correct method calls
         GameEntityMessage existingGameMessage = new GameEntityMessage(Instancio.create(GameEntity.class), Errors.GAME_EXISTS.formatted(game.getGameName()));
         when(getGame.getGame(game.getGameName())).thenReturn(existingGameMessage);  // Mock the correct method call
 
-        // Post the message using the base class
+        // Add the game using the base class
         GameEntityMessage result = useCaseAddGame.addGame(game);
 
         // Assert
         Assertions.assertEquals(Errors.GAME_EXISTS.formatted(game.getGameName()), result.getMessage());
+
+        // Verify
         verify(logger, times(2)).debug(anyString());
     }
 
@@ -58,11 +61,11 @@ class UseCaseAddGameTest {
         // Create Game object
         Game game = Instancio.create(Game.class);
 
-        // Handle the retrieving of the game
+        // Mock the correct method calls
         GameEntityMessage existingGameMessage = new GameEntityMessage(false, "");
         when(getGame.getGame(game.getGameName())).thenReturn(existingGameMessage);  // Mock the correct method call
 
-        // Post the message using the base class
+        // Add the game using the base class
         GameEntityMessage result = useCaseAddGame.addGame(game);
 
         // Assert

@@ -50,22 +50,27 @@ public class UseCaseGetAccount {
         // Get the account
         UserEntity userEntity = userRepository.findByUsername(username);
 
-        // Create the library of the user
-        ArrayList<GameDTO> gameList = new ArrayList<>();
-        logger.debug("Creating new library for account");
-        for (UserLibraryEntity userLibraryEntity : libraryRepository.findByAccountID(userEntity.getAccountID())) {
-            logger.debug("Adding game with ID: '%s' to user library".formatted(userLibraryEntity.getGameID()));
-            gameList.add(new GameDTO(
-                    gameRepository.findByGameID(userLibraryEntity.getGameID()
-                    ),
-                    userLibraryEntity.getGameAcquired(),
-                    userLibraryEntity.getGameLastPlayed(),
-                    userLibraryEntity.getGamePlayTime()));
-        }
+        if (userEntity != null) {
+            // Create the library of the user
+            ArrayList<GameDTO> gameList = new ArrayList<>();
+            logger.debug("Creating new library for account");
+            for (UserLibraryEntity userLibraryEntity : libraryRepository.findByAccountID(userEntity.getAccountID())) {
+                logger.debug("Adding game with ID: '%s' to user library".formatted(userLibraryEntity.getGameID()));
+                gameList.add(new GameDTO(
+                        gameRepository.findByGameID(userLibraryEntity.getGameID()
+                        ),
+                        userLibraryEntity.getGameAcquired(),
+                        userLibraryEntity.getGameLastPlayed(),
+                        userLibraryEntity.getGamePlayTime()));
+            }
 
-        // Return the found user
-        logger.debug("Created user successfully");
-        return new UserMessage(new UserDTO(userEntity, new UserLibraryDTO(gameList)), userEntity, "Account data retrieved");
+            // Return the found user
+            logger.debug("Retrieved user successfully");
+            return new UserMessage(new UserDTO(userEntity, new UserLibraryDTO(gameList)), userEntity, "Account data retrieved");
+        } else {
+            logger.debug(Errors.FIND_USER_NAME_FAILED.formatted(username));
+            return new UserMessage(Errors.FIND_USER_NAME_FAILED.formatted(username));
+        }
     }
 
     /**
@@ -80,7 +85,7 @@ public class UseCaseGetAccount {
 
         // If the account was found return the retrieved account
         if (userEntity != null) {
-            String message = "Account found with ID";
+            String message = "Account data retrieved";
             logger.debug(message);
 
             return new UserMessage(userEntity, message);
@@ -104,7 +109,7 @@ public class UseCaseGetAccount {
         List<UserEntity> accounts = userRepository.findByUsernameContaining(username);
 
         if (accounts != null) {
-            String message = "Account found with username";
+            String message = "Accounts found containing: '%s'".formatted(username);
             logger.debug(message);
 
             return new UserMessage(accounts, message);
