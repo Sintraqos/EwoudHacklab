@@ -1,7 +1,6 @@
 package com.sintraqos.portfolioproject;
 
 import com.sintraqos.portfolioproject.shared.SettingsHandler;
-import com.sintraqos.portfolioproject.testing.Testing;
 import com.sintraqos.portfolioproject.webservice.WebServiceConfig;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;

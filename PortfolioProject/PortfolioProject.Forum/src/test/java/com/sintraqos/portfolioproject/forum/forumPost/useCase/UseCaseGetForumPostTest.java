@@ -43,7 +43,7 @@ class UseCaseGetForumPostTest {
     PageRequest pageRequest = PageRequest.of(0, 10);
 
     @Test
-    void getForumPostsGame_Fail() {
+    void testGetForumPostsGame_Fail_GameDoesNotExist() {
         // Mock the correct method calls
         when(forumPostRepository.findAllByGameIDOrderByPostDateDesc(gameID, pageRequest)).thenReturn(null);
 
@@ -59,7 +59,7 @@ class UseCaseGetForumPostTest {
     }
 
     @Test
-    void getForumPostsGame_Success() {
+    void testGetForumPostsGame_Success() {
         // Generate a mock Page<ForumPostEntity>
         Page<ForumPostEntity> mockedPage = new PageImpl<>(
                 List.of(new ForumPostEntity(), new ForumPostEntity()),
@@ -83,7 +83,7 @@ class UseCaseGetForumPostTest {
     }
 
     @Test
-    void getForumPostsAccount_Fail() {
+    void testGetForumPostsAccount_Fail_UserDoesNotExist() {
         // Mock the correct method calls
         when(forumPostRepository.findAllByAccountIDOrderByPostDateDesc(accountID, pageRequest)).thenReturn(null);
 
@@ -99,7 +99,7 @@ class UseCaseGetForumPostTest {
     }
 
     @Test
-    void getForumPostsAccount_Success() {
+    void testGetForumPostsAccount_Success() {
         // Generate a mock Page<ForumPostEntity>
         Page<ForumPostEntity> mockedPage = new PageImpl<>(
                 List.of(new ForumPostEntity(), new ForumPostEntity()),

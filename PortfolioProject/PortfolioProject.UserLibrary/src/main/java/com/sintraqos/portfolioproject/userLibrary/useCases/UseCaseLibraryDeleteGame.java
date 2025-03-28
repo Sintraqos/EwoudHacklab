@@ -1,5 +1,6 @@
 package com.sintraqos.portfolioproject.userLibrary.useCases;
 
+import com.sintraqos.portfolioproject.shared.Errors;
 import com.sintraqos.portfolioproject.userLibrary.DAL.UserLibraryEntity;
 import com.sintraqos.portfolioproject.userLibrary.DAL.UserLibraryRepository;
 import com.sintraqos.portfolioproject.userLibrary.entities.UserLibraryEntityMessage;
@@ -33,12 +34,16 @@ public class UseCaseLibraryDeleteGame {
     public UserLibraryEntityMessage deleteLibrary(int accountID) {
         // Get the list of the entries and delete them
         List<UserLibraryEntity> accountLibraryEntities = libraryRepository.findByAccountID(accountID);
+        if(accountLibraryEntities == null || accountLibraryEntities.isEmpty()) {
+            return new UserLibraryEntityMessage(Errors.LIBRARY_CLEAR.formatted(accountID));
+        }
+
         libraryRepository.deleteAll(accountLibraryEntities);
 
         // Return a message with the success
         String message ="Removed all games from account with ID: '%s'".formatted(accountID);
         logger.debug(message);
 
-        return new UserLibraryEntityMessage(message);
+        return new UserLibraryEntityMessage(true, message);
     }
 }

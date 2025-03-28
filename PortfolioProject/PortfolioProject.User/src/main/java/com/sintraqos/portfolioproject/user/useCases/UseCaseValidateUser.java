@@ -125,11 +125,6 @@ public class UseCaseValidateUser {
         // Check if the password is a valid length
         int passwordLength = password.length();
 
-        logger.debug("Incoming Password: %s".formatted(password));
-        logger.debug("Password Length: %s".formatted(passwordLength));
-        logger.debug("Password Min Length: %s".formatted(settingsHandler.getPasswordMinLength()));
-        logger.debug("Password Max Length: %s".formatted(settingsHandler.getPasswordMaxLength()));
-
         // Password is too short
         if (passwordLength < settingsHandler.getPasswordMinLength()) {
             String message = Errors.PASSWORD_INVALID_LENGTH_SHORT.formatted(settingsHandler.getPasswordMinLength(), settingsHandler.getPasswordMaxLength());

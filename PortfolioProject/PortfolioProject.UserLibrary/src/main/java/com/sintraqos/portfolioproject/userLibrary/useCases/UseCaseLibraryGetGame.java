@@ -1,5 +1,6 @@
 package com.sintraqos.portfolioproject.userLibrary.useCases;
 
+import com.sintraqos.portfolioproject.shared.Errors;
 import com.sintraqos.portfolioproject.userLibrary.DAL.UserLibraryEntity;
 import com.sintraqos.portfolioproject.userLibrary.DAL.UserLibraryRepository;
 import com.sintraqos.portfolioproject.userLibrary.entities.UserLibraryEntityMessage;
@@ -25,6 +26,10 @@ public class UseCaseLibraryGetGame {
 
     public UserLibraryEntityMessage getGame(int accountID, int gameID) {
         UserLibraryEntity userLibraryEntity = libraryRepository.findByAccountIDAndGameID(accountID, gameID);
+
+        if(userLibraryEntity == null) {
+            return new UserLibraryEntityMessage(Errors.FIND_LIBRARY_FAILED.formatted(accountID, gameID));
+        }
 
         String message = "Retrieved game with ID: '%s'".formatted(gameID);
         logger.debug(message);

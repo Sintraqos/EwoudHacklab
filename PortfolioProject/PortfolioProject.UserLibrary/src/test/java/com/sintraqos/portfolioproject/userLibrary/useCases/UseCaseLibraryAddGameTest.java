@@ -5,14 +5,20 @@ import com.sintraqos.portfolioproject.game.service.GameService;
 import com.sintraqos.portfolioproject.shared.Errors;
 import com.sintraqos.portfolioproject.userLibrary.DAL.UserLibraryEntity;
 import com.sintraqos.portfolioproject.userLibrary.DAL.UserLibraryRepository;
+import com.sintraqos.portfolioproject.userLibrary.entities.UserLibraryEntityMessage;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.slf4j.Logger;
 
-import static org.mockito.Mockito.when;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.*;
 
+@ExtendWith(MockitoExtension.class)
 class UseCaseLibraryAddGameTest {
 
     @Mock
@@ -21,41 +27,69 @@ class UseCaseLibraryAddGameTest {
     @Mock
     UserLibraryRepository libraryRepository;
 
-    int gameID;
-    int accountID;
+    @Mock
+    Logger logger;
+
+    UseCaseLibraryAddGame useCaseLibraryAddGame;
 
     @BeforeEach
     void setUp() {
         // Initialize mocks before each test
         MockitoAnnotations.openMocks(this);
+        useCaseLibraryAddGame = new UseCaseLibraryAddGame(libraryRepository,gameService,logger);
+    }
+
+    int gameID;
+    int accountID;
+
+    @Test
+    void testAddGame_Fail_GameDoesNotExist() {
+        // Mock the correct method calls
+        when(gameService.getGame(gameID)).thenReturn(new GameEntityMessage("Game not found"));
+
+        // Post the message using the base class
+        UserLibraryEntityMessage result = useCaseLibraryAddGame.addGame(accountID,gameID);
+
+        // Assert
+        Assertions.assertFalse(result.isSuccessful());
+        Assertions.assertEquals(Errors.FIND_GAME_ID_FAILED.formatted(gameID), result.getMessage());
+
+        // Verify
+        verify(logger, times(2)).debug(anyString());
     }
 
     @Test
-    void addGame() {
-       System.out.printf("Attempting to add new game to library of user: '%s'%n", accountID);
+    void testAddGame_Fail_UserHasGame() {
+        // Mock the correct method calls
+        when(gameService.getGame(gameID)).thenReturn(new GameEntityMessage(true,"Game found"));
+        when(libraryRepository.findByAccountIDAndGameID(accountID, gameID)).thenReturn(new UserLibraryEntity());
 
-        // Check if the gameID is valid
-        GameEntityMessage getGame = new GameEntityMessage(true, "Game found");
-//        GameEntityMessage getGame = new GameEntityMessage(false, "Game not found");
-        when(gameService.getGame(gameID)).thenReturn(getGame);
-        if (!gameService.getGame(gameID).isSuccessful()) {
-            System.out.printf((Errors.FIND_GAME_ID_FAILED) + "%n", gameID);
+        // Post the message using the base class
+        UserLibraryEntityMessage result = useCaseLibraryAddGame.addGame(accountID,gameID);
 
-            return;
-        }
+        // Assert
+        Assertions.assertFalse(result.isSuccessful());
+        Assertions.assertEquals(Errors.USER_CONTAINS_GAME.formatted(gameID), result.getMessage());
 
-        // Check if the account contains the game
-        UserLibraryEntity getLibraryEntity = new UserLibraryEntity(accountID, gameID );
-        when(libraryRepository.findByAccountIDAndGameID(accountID, gameID)).thenReturn(getLibraryEntity);
-        if (libraryRepository.findByAccountIDAndGameID(accountID, gameID) != null) {
-            System.out.printf((Errors.USER_CONTAINS_GAME) + "%n", gameID);
+        // Verify
+        verify(logger, times(2)).debug(anyString());
+    }
 
-            return;
-        }
+    @Test
+    void testAddGame_Success(){
+        // Mock the correct method calls
+        when(gameService.getGame(gameID)).thenReturn(new GameEntityMessage(true,"Game found"));
+        when(libraryRepository.findByAccountIDAndGameID(accountID, gameID)).thenReturn(null);
 
-        String message = "Added game with ID: '%s' to account account with ID: '%s'".formatted(gameID, accountID);
-        System.out.println(message);
+        // Post the message using the base class
+        UserLibraryEntityMessage result = useCaseLibraryAddGame.addGame(accountID,gameID);
 
-        Assertions.assertTrue(true);
+        // Assert
+        Assertions.assertTrue(result.isSuccessful());
+        Assertions.assertEquals("Added game with ID: '%s' to account account with ID: '%s'".formatted(gameID, accountID), result.getMessage());
+
+        // Verify
+        verify(libraryRepository).save(any());
+        verify(logger, times(2)).debug(anyString());
     }
 }

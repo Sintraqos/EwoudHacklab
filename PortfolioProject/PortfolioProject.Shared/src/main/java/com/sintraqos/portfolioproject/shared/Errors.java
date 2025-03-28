@@ -20,7 +20,10 @@ public class Errors {
     /**
      * Formatted String: username
      */
-    public static final String FIND_USER_NAME_FAILED = "Couldn't find account by name: '%s'";
+    public static final String FIND_USER_NAME_FAILED = "Couldn't find account by name: '%s'";    /**
+     * Formatted String: Game ID
+     */
+    public static final String FIND_LIBRARY_FAILED = "Couldn't find library entries for user with ID: '%s' and game with ID: '%s'";
     /**
      * Formatted String: user ID
      */
@@ -43,6 +46,10 @@ public class Errors {
      * Formatted String: Game ID
      */
     public static final String USER_CONTAINS_GAME = "Game with ID: '%s' already in account";
+    /**
+     * Formatted String: Required Role
+     */
+    public static final String USER_INVALID_ROLE = "You don't have permission to use this function, you need to be a(n): '%s' to use this";
 
     // Username
     /**
@@ -108,6 +115,7 @@ public class Errors {
     //region Various
 
     public static final String NUMERIC_VALUE_TYPE = "Value: '%s' not numeric";
+    public static final String LIBRARY_CLEAR = "Failed to remove the library from account with ID: '%s'";
 
     //endregion
 }

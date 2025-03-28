@@ -40,7 +40,7 @@ class UseCaseAddForumPostTest {
     int maxLength = 16; // Max length of the message
 
     @Test
-    void addForumPost_TooShort() {
+    void testAddForumPost_Fail_TooShort() {
         // Create ForumPost object
         String message = "Hi";
         ForumPostDTO forumPostDTO = new ForumPostDTO(1, 1, message);
@@ -61,7 +61,7 @@ class UseCaseAddForumPostTest {
     }
 
     @Test
-    void addForumPost_TooLong() {
+    void testAddForumPost_Fail_TooLong() {
         // Create ForumPost object
         String message = "This message is way too long to be posted";
         ForumPostDTO forumPostDTO = new ForumPostDTO(1, 1, message);
@@ -78,11 +78,11 @@ class UseCaseAddForumPostTest {
         Assertions.assertEquals(Errors.FORUM_INVALID_LENGTH_LONG.formatted(settingsHandler.getMessageMinLength(), settingsHandler.getMessageMaxLength()), result.getMessage());
 
         // Verify
-        verify(logger).warn(anyString());
+        verify(logger).debug(anyString());
     }
 
     @Test
-    void addForumPost_Successful() {
+    void testAddForumPost_Success() {
         // Create ForumPost object
         String message = "Valid message";
         ForumPostDTO forumPostDTO = new ForumPostDTO(1, 1, message);

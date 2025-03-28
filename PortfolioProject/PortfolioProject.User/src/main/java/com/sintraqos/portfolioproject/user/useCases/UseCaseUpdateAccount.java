@@ -60,7 +60,7 @@ public class UseCaseUpdateAccount {
         }
 
         UserMessage passwordCheck = validateUser.comparePassword(userMessage.getUserEntity().getPasswordHash(), password);
-        if (passwordCheck.isSuccessful()) {
+        if (!passwordCheck.isSuccessful()) {
             logger.debug(Errors.PASSWORD_INCORRECT);
             return new UserMessage(Errors.PASSWORD_INCORRECT);
         }
@@ -131,7 +131,7 @@ public class UseCaseUpdateAccount {
         logger.debug("Attempting to change the password of account: '%s'".formatted(username));
 
         // Retrieve the account
-        UserMessage userMessage =getAccount. getAccount(username);
+        UserMessage userMessage = getAccount.getAccount(username);
         if (!userMessage.isSuccessful()) {
             String message = userMessage.getMessage();
             logger.debug(message);
@@ -139,7 +139,7 @@ public class UseCaseUpdateAccount {
             return userMessage;
         }
 
-        // Check if the user is valid
+        // Check if the new password is valid
         UserMessage validateUserMessage = validateUser.validatePassword(newPassword);
         if (!validateUserMessage.isSuccessful()) {
             String message = validateUserMessage.getMessage();
@@ -149,7 +149,7 @@ public class UseCaseUpdateAccount {
         }
 
         // Compare the password that was given to the stored password
-        UserMessage passwordMessage =validateUser.comparePassword(userMessage.getUserEntity().getPasswordHash(), currentPassword);
+        UserMessage passwordMessage = validateUser.comparePassword(userMessage.getUserEntity().getPasswordHash(), currentPassword);
         if (!passwordMessage.isSuccessful()) {
             String message = passwordMessage.getMessage();
             logger.debug(message);
@@ -161,7 +161,7 @@ public class UseCaseUpdateAccount {
         UserEntity user = userMessage.getUserEntity();
 
         // Return the message
-        UserMessage updateAccount =  handleUpdateAccount(user, username, user.getEmail(), passwordEncoder.encode(newPassword), user.getRole());
+        UserMessage updateAccount = handleUpdateAccount(user, username, user.getEmail(), passwordEncoder.encode(newPassword), user.getRole());
         logger.debug(updateAccount.getMessage());
 
         return updateAccount;
@@ -170,21 +170,21 @@ public class UseCaseUpdateAccount {
     /**
      * Set the role of an account
      *
-     * @param accountID the ID of the account, needs to be an admin to update this
-     * @param newRoleAccountID the ID of the account
-     * @param role      the role which needs to be assigned to the account
+     * @param adminAccountID the ID of the account, needs to be an admin to update this
+     * @param accountID      the ID of the account
+     * @param role           the role which needs to be assigned to the account
      */
-    public UserMessage changeRole(int accountID, String password, int newRoleAccountID, Enums.Role role) {
-        logger.debug("Attempting to change the role of account with ID: '%s'".formatted(accountID));
+    public UserMessage changeRole(int adminAccountID, String password, int accountID, Enums.Role role) {
+        logger.debug("Attempting to change the role of account with ID: '%s'".formatted(adminAccountID));
         // Retrieve the user from the database
-        UserMessage userMessage = getAccount.getAccount(accountID);
+        UserMessage userMessage = getAccount.getAccount(adminAccountID);
         if (!userMessage.isSuccessful()) {
             return userMessage;
         }
 
         // Since the user needs to be an admin to update the roles of other users check if the user has a valid role
         if (userMessage.getUserDTO().getRole() == Enums.Role.USER) {
-            String message = "Invalid role";
+            String message = Errors.USER_INVALID_ROLE.formatted(Enums.Role.ADMIN.toString());
             logger.debug(message);
 
             return new UserMessage(message);
@@ -198,7 +198,7 @@ public class UseCaseUpdateAccount {
         }
 
         // Retrieve the user which role to update from the database
-        userMessage = getAccount.getAccount(newRoleAccountID);
+        userMessage = getAccount.getAccount(accountID);
         if (!userMessage.isSuccessful()) {
             logger.debug(userMessage.getMessage());
             return userMessage;
@@ -209,7 +209,7 @@ public class UseCaseUpdateAccount {
         user.setRole(role);
         userRepository.save(user);
 
-        UserMessage updateMessage = new UserMessage("Role successfully updated to: '%s' for account with ID: %s".formatted(role, accountID));
+        UserMessage updateMessage = new UserMessage(true, "Role successfully updated to: '%s' for account with ID: %s".formatted(role, adminAccountID));
         logger.debug(updateMessage.getMessage());
 
         return updateMessage;

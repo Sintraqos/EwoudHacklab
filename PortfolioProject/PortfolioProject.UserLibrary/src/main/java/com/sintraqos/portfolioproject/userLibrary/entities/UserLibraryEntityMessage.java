@@ -19,6 +19,12 @@ public class UserLibraryEntityMessage {
         isSuccessful = false;
         this.message = message;
     }
+
+    public UserLibraryEntityMessage(boolean isSuccessful, String message){
+        this.isSuccessful = isSuccessful;
+        this.message = message;
+    }
+
     public UserLibraryEntityMessage(UserLibraryEntity entity, String message) {
         isSuccessful = true;
         this.message = message;
