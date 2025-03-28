@@ -50,4 +50,13 @@ public class UseCaseGetGame {
     public List<GameEntity> getGames(String gameName) {
         return gameRepository.findByGameNameContaining(gameName);
     }
+
+    /**
+     * Find all recently added games
+     * *
+     * @return for now return all the games stored inside the database
+     */
+    public List<GameEntity> getRecentlyAddedGames(){
+        return gameRepository.findByGameNameContaining("");
+    }
 }

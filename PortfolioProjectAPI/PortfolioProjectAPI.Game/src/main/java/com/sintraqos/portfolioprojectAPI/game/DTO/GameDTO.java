@@ -15,8 +15,7 @@ public class GameDTO {
     private final String gameDeveloper;
     private final String gamePublisher;
 
-    public GameDTO(Game game)
-    {
+    public GameDTO(Game game) {
         this.gameID = game.getGameID();
         this.gameName = game.getGameName();
         this.gameDescription = game.getGameDescription();
@@ -25,23 +24,15 @@ public class GameDTO {
     }
 
     public GameDTO(GameEntity game) {
-        if (game == null) {
-            this.gameID = -1;
-            this.gameName = "";
-            this.gameDescription = "";
-            this.gameDeveloper = "";
-            this.gamePublisher = "";
-        } else {
-            this.gameID = game.getGameID();
-            this.gameName = game.getGameName();
-            this.gameDescription = game.getGameDescription();
-            this.gameDeveloper = game.getGameDeveloper();
-            this.gamePublisher = game.getGamePublisher();
-        }
+        this.gameID = game.getGameID();
+        this.gameName = game.getGameName();
+        this.gameDescription = game.getGameDescription();
+        this.gameDeveloper = game.getGameDeveloper();
+        this.gamePublisher = game.getGamePublisher();
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         return "%s: %s".formatted(gameID, gameName);
     }
 }

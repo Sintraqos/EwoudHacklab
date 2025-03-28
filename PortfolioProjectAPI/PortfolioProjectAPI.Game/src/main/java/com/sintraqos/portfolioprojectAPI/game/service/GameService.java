@@ -18,15 +18,12 @@ import java.util.List;
 @Service
 public class GameService {
 
-    private final GameRepository gameRepository;
     private final UseCaseAddGame addGame;
     private final UseCaseGetGame getGame;
 
     @Autowired
-    public GameService(GameRepository gameRepository,
-                       UseCaseGetGame getGame,
+    public GameService(UseCaseGetGame getGame,
                        UseCaseAddGame addGame) {
-        this.gameRepository = gameRepository;
         this.getGame = getGame;
         this.addGame = addGame;
     }
@@ -66,8 +63,7 @@ public class GameService {
 
     public List<GameDTO> getRecentlyAddedGames(){
         List<GameDTO> gameList = new ArrayList<>();
-        // TODO: Get all new releases
-        for(GameEntity game : getGame.getGames("")){
+        for(GameEntity game : getGame.getRecentlyAddedGames()){
             gameList.add(new GameDTO(game));
         }
 
