@@ -26,8 +26,7 @@ public class WebAccountController {
     public WebAccountController(
             PasswordEncoder passwordEncoder,
             UserService userService,
-            Logger logger
-    ) {
+            Logger logger) {
         this.passwordEncoder = passwordEncoder;
         this.userService = userService;
         this.logger = logger;
@@ -185,7 +184,7 @@ public class WebAccountController {
             @RequestParam("currentPassword") String currentPassword,
             @RequestParam("newPassword") String newPassword,
             RedirectAttributes redirectAttributes) {
-        // Check if the current username is the same as the new one
+        // Check if the current password is the same as the new one
         if (currentPassword.equals(newPassword)) {
             logger.warn(Errors.PASSWORD_MATCH);
             redirectAttributes.addAttribute("warning", Errors.PASSWORD_MATCH);
@@ -207,6 +206,36 @@ public class WebAccountController {
     @GetMapping("/settings/changePasswordFragment")
     public String getChangePasswordFragment() {
         return getFragments("changePassword");  // Return the fragment as a view
+    }
+
+    @PostMapping("/settings/deleteAccount")
+            public String settingsDeleteAccount(
+            @SessionAttribute("userObject") User user,
+            @RequestParam("password") String password,
+            @RequestParam("passwordConfirm") String passwordConfirm,
+            RedirectAttributes redirectAttributes){
+
+        // Check if the current passwords match
+        if (!password.equals(passwordConfirm)) {
+            logger.warn(Errors.PASSWORD_MISMATCH);
+            redirectAttributes.addAttribute("warning", Errors.PASSWORD_MISMATCH);
+            return "redirect:/settings";
+        }
+
+        // Try to delete the account
+        UserMessage updateAccountMessage = userService.deleteAccount(user.getUsername(), password);
+        if (!updateAccountMessage.isSuccessful()) {
+            logger.warn(updateAccountMessage.getMessage());
+            redirectAttributes.addAttribute("error", updateAccountMessage.getMessage());
+            return "redirect:/settings";
+        }
+
+        return "redirect:/home";
+    }
+
+    @GetMapping("/settings/deleteAccountFragment")
+    public String getDeleteAccountFragment() {
+        return getFragments("deleteAccount");  // Return the fragment as a view
     }
 
     //endregion

@@ -13,6 +13,7 @@ public class WebServiceBeans {
     public CustomAuthenticationHandler springAuthenticationHandler() {
         return new CustomAuthenticationHandler();
     }
+
     /**
      * Password encoder used for secure password storage
      */

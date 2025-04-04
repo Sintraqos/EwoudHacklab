@@ -1,4 +1,4 @@
-package com.sintraqos.portfolioproject.forum.caching;
+package com.sintraqos.portfolioproject.caching;
 
 import org.springframework.boot.autoconfigure.cache.CacheManagerCustomizer;
 import org.springframework.cache.concurrent.ConcurrentMapCacheManager;
@@ -12,6 +12,6 @@ public class CacheCustomizer
 
     @Override
     public void customize(ConcurrentMapCacheManager cacheManager) {
-        cacheManager.setCacheNames(List.of("forumPosts"));
+        cacheManager.setCacheNames(List.of(CacheConfig.FORUM_CACHE, CacheConfig.USER_CACHE, CacheConfig.GAME_CACHE));
     }
 }

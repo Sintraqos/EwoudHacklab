@@ -1,6 +1,7 @@
 package com.sintraqos.portfolioproject.webservice.controllers;
 
 import com.sintraqos.portfolioproject.api.review.*;
+import com.sintraqos.portfolioproject.shared.SettingsHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,14 +15,14 @@ import java.util.List;
 @RequestMapping("/")
 public class WebHomeController {
 
-    private final GameReviewAPI gameReviewAPI;
+    private final GameReviewManager gameReviewAPI;
+    private final SettingsHandler settingsHandler;
 
     @Autowired
-    public WebHomeController(GameReviewAPI gameReviewAPI) {
+    public WebHomeController(GameReviewManager gameReviewAPI,SettingsHandler settingsHandler) {
         this.gameReviewAPI = gameReviewAPI;
+        this.settingsHandler = settingsHandler;
     }
-
-    int gameReviewScore = 8;
 
     /**
      * Get the homePage URL, use for loading in the default page
@@ -30,7 +31,7 @@ public class WebHomeController {
      */
     @GetMapping({"/", "/home"})
     public String getHome(Model model) {
-        List<GameReviewObject> gameReviewObjects = gameReviewAPI.getReviewObjectsFromScore(gameReviewScore);
+        List<GameReviewObject> gameReviewObjects = gameReviewAPI.getReviewObjectsFromScore(settingsHandler.getGameReviewScore());
 
         model.addAttribute("headerText", "Home");
         model.addAttribute("reviewList", gameReviewObjects); // Pass the list to the template

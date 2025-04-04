@@ -20,8 +20,7 @@ public class WebAdminController {
     @Autowired
     public WebAdminController(
             UserService userService,
-            Logger logger
-    ) {
+            Logger logger) {
         this.userService = userService;
         this.logger = logger;
     }

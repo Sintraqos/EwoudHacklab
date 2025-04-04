@@ -25,6 +25,7 @@
 		<module>PortfolioProject.Forum</module>
 		<module>PortfolioProject.API</module>
         <module>PortfolioProject.Scheduler</module>
+        <module>PortfolioProject.Caching</module>
     </modules>
     <scm>
 		<connection/>

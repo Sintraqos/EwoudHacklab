@@ -34,6 +34,7 @@ public class UserMessage {    boolean isSuccessful;
         this.isSuccessful = false;
         this.message = message;
     }
+
     public UserMessage(UserDTO userDTO, String message) {
         this.isSuccessful = true;
         this.message = message;

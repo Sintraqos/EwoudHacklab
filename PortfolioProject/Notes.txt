@@ -155,7 +155,7 @@ Minimal viable product:
 ---------------------------------------------
 
 Notes:
-     Lookup DevOps
+     Lookup theme for the front end, and how to implement that into the current project's pages
 
 
 

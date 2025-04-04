@@ -14,11 +14,11 @@ import org.springframework.stereotype.Service;
 
 @Service
 @Getter
-public class GameReviewAPI {
+public class GameReviewManager {
 
     private List<GameReviewObject> gamesList = new ArrayList<>();
 
-    public GameReviewAPI(Logger logger) {
+    public GameReviewManager(Logger logger) {
         ObjectMapper objectMapper = new ObjectMapper();
         try {
             // Assuming the file is placed inside the resources folder

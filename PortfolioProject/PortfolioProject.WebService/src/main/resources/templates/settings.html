@@ -48,12 +48,15 @@
     <form th:action="@{/settings/changePassword}" method="post">
       <button class="base" type="button" id="changePasswordBtn">Change Password</button>
     </form>
+    <form th:action="@{/settings/deleteAccount}" method="post">
+      <button class="base" type="button" id="deleteAccountBtn">Delete Account</button>
+    </form>
   </div>
 
   <!-- Placeholder for dynamic fragment -->
   <div id="dynamicContent"></div>
 
-  <!-- Return to account -->
+  <!-- Return to account page -->
   <div>
     <a href="#" th:href="@{/account}">
       <button class="base" type="button">Back to Account</button>
@@ -61,8 +64,8 @@
   </div>
 </div>
 
+<!-- Scripts that the various buttons are linked to -->
 <script>
-  // When the 'Change Username' button is clicked
   $("#changeUsernameBtn").click(function() {
     // Load the 'changeUsername' fragment via AJAX and inject it into the #dynamicContent div
     $.ajax({
@@ -102,7 +105,23 @@
       }
     });
   });
+  $("#deleteAccountBtn").click(function() {
+    // Load the 'deleteAccount' fragment via AJAX and inject it into the #dynamicContent div
+    $.ajax({
+      url: '/settings/deleteAccountFragment', // Create a URL mapping to return the fragment
+      type: 'GET',
+      success: function(response) {
+        $('#dynamicContent').html(response); // Inject the fragment into the placeholder
+      },
+      error: function() {
+        alert("Error loading fragment.");
+      }
+    });
+  });
 </script>
+
+<!-- Display the footer of the page -->
+<div th:replace="~{fragments::footer}"></div>
 
 </body>
 </html>

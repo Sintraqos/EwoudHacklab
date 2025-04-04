@@ -3,7 +3,6 @@ package com.sintraqos.portfolioproject.forum.forumPost.DAL;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.hibernate.validator.constraints.NotBlank;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;

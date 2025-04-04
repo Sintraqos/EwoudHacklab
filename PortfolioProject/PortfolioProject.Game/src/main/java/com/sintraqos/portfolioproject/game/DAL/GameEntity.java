@@ -30,13 +30,6 @@ public class GameEntity {
     @Column()
     private String gamePublisher;
 
-    public GameEntity(String gameName, String gameDescription, String gameDeveloper, String gamePublisher) {
-        this.gameName = gameName;
-        this.gameDescription = gameDescription;
-        this.gameDeveloper = gameDeveloper;
-        this.gamePublisher = gamePublisher;
-    }
-
     public GameEntity(Game game) {
         this.gameName = game.getGameName();
         this.gameDescription = game.getGameDescription();

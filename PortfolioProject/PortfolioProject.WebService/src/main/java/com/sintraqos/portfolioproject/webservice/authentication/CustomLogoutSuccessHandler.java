@@ -1,6 +1,5 @@
 package com.sintraqos.portfolioproject.webservice.authentication;
 
-import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
@@ -14,7 +13,7 @@ public class CustomLogoutSuccessHandler implements LogoutSuccessHandler {
 
     @Override
     public void onLogoutSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication)
-            throws IOException, ServletException {
+            throws IOException {
 
         // Clear out the session
         request.getSession().invalidate();

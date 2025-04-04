@@ -1,4 +1,4 @@
-package com.sintraqos.portfolioproject.webservice.service;
+package com.sintraqos.portfolioproject.api.review.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;

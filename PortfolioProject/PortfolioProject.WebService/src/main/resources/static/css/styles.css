@@ -1,12 +1,51 @@
 body {
     background-image: url('/images/Background.jpg');
+    background-size: auto;
+    background-position: center;
+    background-repeat: repeat;
+    color: white;
+    height: 100%; /* Ensure the body takes full height */
+    min-height: 100vh;  /* Ensure the body takes at least the full height of the screen */
+    margin: 0; /* Remove any default margin */
+    display: flex; /* Make the body a flex container */
+    flex-direction: column; /* Stack children vertically */
+}
+
+/* Content section that will take available space */
+.content {
+    flex-grow: 1;  /* Ensure content grows to take available space */
+    padding: 20px;
+}
+
+footer {
+    background-image: url('/images/Banner.jpg');
     background-size: cover;
     background-position: center center;
     background-repeat: no-repeat;
-    height: 100vh;
-    margin: 0;
     color: white;
+    text-align: left;
+    margin-top: auto; /* This pushes the footer to the bottom */
 }
+
+footer.footer-content {
+    padding: 10px 5px;
+}
+
+footer a {
+    color: cyan; /* Styling for the footer link */
+    text-decoration: none;
+}
+
+/* Buttons and other content inside the .buttons-container */
+.buttons-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    flex-grow: 1;  /* Allows the buttons container to grow vertically */
+}
+
 button.base {
     box-sizing: border-box;
     background: none;
@@ -18,21 +57,11 @@ button.base {
     cursor: pointer;
     text-align: center;
     display: inline-block;
-    width: auto;
-    height: auto;
-    line-height: normal;
-    vertical-align: middle;
     min-width: 150px;
     min-height: 30px;
+    padding: 10px 20px;
 }
+
 button.base:focus {
-     outline: none;
- }
-.buttons-container {
-    display: flex;
-    flex-direction: column;   /* Stacks the buttons vertically */
-    justify-content: center;  /* Horizontally centers the buttons */
-    align-items: center;      /* Vertically centers the buttons */
-    gap: 20px;                /* Space between buttons, you can adjust as needed */
-    height: 100vh;
+    outline: none;
 }

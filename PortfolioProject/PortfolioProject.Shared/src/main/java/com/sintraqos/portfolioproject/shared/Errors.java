@@ -20,7 +20,8 @@ public class Errors {
     /**
      * Formatted String: username
      */
-    public static final String FIND_USER_NAME_FAILED = "Couldn't find account by name: '%s'";    /**
+    public static final String FIND_USER_NAME_FAILED = "Couldn't find account by name: '%s'";
+    /**
      * Formatted String: Game ID
      */
     public static final String FIND_LIBRARY_FAILED = "Couldn't find library entries for user with ID: '%s' and game with ID: '%s'";
@@ -52,6 +53,7 @@ public class Errors {
     public static final String USER_INVALID_ROLE = "You don't have permission to use this function, you need to be a(n): '%s' to use this";
 
     // Username
+
     /**
      * Formatted String: username
      */
@@ -72,6 +74,9 @@ public class Errors {
      * Formatted String: E-Mail address
      */
     public static final String EMAIL_ALREADY_IN_USE = "E-Mail address: '%s' is already in use";
+    /**
+     * Formatted String: E-Mail address
+     */
     public static final String EMAIL_INVALID = "E-Mail address: '%s' is invalid";
 
     // Password
@@ -114,7 +119,13 @@ public class Errors {
 
     //region Various
 
+    /**
+     * Formatted String: Given value
+     */
     public static final String NUMERIC_VALUE_TYPE = "Value: '%s' not numeric";
+    /**
+     * Formatted String: Account ID
+     */
     public static final String LIBRARY_CLEAR = "Failed to remove the library from account with ID: '%s'";
 
     //endregion

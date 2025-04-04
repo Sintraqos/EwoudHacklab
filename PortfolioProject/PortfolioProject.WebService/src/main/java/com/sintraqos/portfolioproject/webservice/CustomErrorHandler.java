@@ -27,7 +27,6 @@ public class CustomErrorHandler implements ErrorController {
             }
         }
 
-        // You can also add custom attributes to provide more context about the error
         return "error";
     }
 }

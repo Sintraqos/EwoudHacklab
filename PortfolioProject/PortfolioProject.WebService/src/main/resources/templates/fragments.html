@@ -10,6 +10,13 @@
     <!-- Header Text -->
     <h1 th:text="${headerText}">Header</h1>
 </div>
+<!-- Fragment for displaying the footer -->
+<footer th:fragment="footer">
+    <div class="footer-content">
+        <p>Author: Johnathan Caleb Smith</p>
+        <p><a href="mail@example.abc">mail@example.abc</a></p>
+    </div>
+</footer>
 
 <!-- Fragment for displaying a message -->
 <div th:fragment="messages">
@@ -121,6 +128,27 @@
         <div>
             <label for="changePassword_newPassword">New Password:</label>
             <input type="password" id="changePassword_newPassword" name="newPassword" required />
+        </div>
+
+        <!-- Submit Button -->
+        <div>
+            <button class="base" type="submit">Submit</button>
+        </div>
+    </form>
+</div>
+
+<!-- Fragment for the removal of an account-->
+<div th:fragment="deleteAccount">
+    <form th:action="@{/settings/deleteAccount}" method="post">
+        <!-- Password Input -->
+        <div>
+            <label for="deleteAccount_password">Enter Password:</label>
+            <input type="password" id="deleteAccount_password" name="password" required />
+        </div>
+        <!-- Password Confirm Input -->
+        <div>
+            <label for="deleteAccount_passwordConfirm">Confirm Password:</label>
+            <input type="password" id="deleteAccount_passwordConfirm" name="passwordConfirm" required />
         </div>
 
         <!-- Submit Button -->

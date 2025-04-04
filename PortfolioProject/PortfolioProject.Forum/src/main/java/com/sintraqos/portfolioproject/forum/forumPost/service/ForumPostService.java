@@ -4,7 +4,6 @@ import com.sintraqos.portfolioproject.forum.forumPost.DTO.ForumPostDTO;
 import com.sintraqos.portfolioproject.forum.forumPost.entities.ForumPostMessage;
 import com.sintraqos.portfolioproject.forum.forumPost.useCase.UseCaseAddForumPost;
 import com.sintraqos.portfolioproject.forum.forumPost.useCase.UseCaseGetForumPost;
-import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;

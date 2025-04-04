@@ -79,4 +79,7 @@ public class SettingsHandler {
 
     // API
     private String apiURl;
+
+    // Game Review Score
+    private int gameReviewScore;
 }
