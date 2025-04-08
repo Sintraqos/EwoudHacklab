@@ -1,5 +1,6 @@
+/* Layout: Body & Main Containers */
 body {
-    background-image: url('/images/Background.jpg');
+    background-image: url('/images/base/Background.jpg');
     background-size: auto;
     background-position: center;
     background-repeat: repeat;
@@ -11,20 +12,47 @@ body {
     flex-direction: column; /* Stack children vertically */
 }
 
-/* Content section that will take available space */
 .content {
     flex-grow: 1;  /* Ensure content grows to take available space */
-    padding: 20px;
+    padding: 10px;
+}
+
+.buttons-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    flex-grow: 1;  /* Allows the buttons container to grow vertically */
+}
+
+.buttons-container form {
+    margin-bottom: 10px; /* Adjust as needed */
+}
+
+/* Header & Footer */
+header {
+    background-image: url('/images/base/Banner.jpg');
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    color: white;
+    text-align: center;
+    margin-top: auto;
+}
+
+header.header-content{
+
 }
 
 footer {
-    background-image: url('/images/Banner.jpg');
+    background-image: url('/images/base/Banner.jpg');
     background-size: cover;
     background-position: center center;
     background-repeat: no-repeat;
     color: white;
     text-align: left;
-    margin-top: auto; /* This pushes the footer to the bottom */
+    margin-top: auto; /* Push footer to bottom */
 }
 
 footer.footer-content {
@@ -36,20 +64,11 @@ footer a {
     text-decoration: none;
 }
 
-/* Buttons and other content inside the .buttons-container */
-.buttons-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 20px;
-    flex-grow: 1;  /* Allows the buttons container to grow vertically */
-}
-
+/* Buttons */
 button.base {
     box-sizing: border-box;
     background: none;
-    background-image: url('/images/Banner.jpg');
+    background-image: url('/images/interactables/Button_Base.png');
     background-size: cover;
     background-position: center center;
     background-repeat: no-repeat;
@@ -58,10 +77,67 @@ button.base {
     text-align: center;
     display: inline-block;
     min-width: 150px;
-    min-height: 30px;
-    padding: 10px 20px;
+    min-height: 20px;
+    /*padding: 10px 10px;*/
+}
+
+button.base:hover {
+    background-image: url('/images/interactables/Button_Hover.png');
+}
+
+button.base:active {
+    background-image: url('/images/interactables/Button_Click.png');
 }
 
 button.base:focus {
     outline: none;
+}
+
+/* Forms & Inputs */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.form-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+label {
+    width: 180px; /* Adjust as needed */
+    text-align: right;
+}
+
+input {
+    flex: 1; /* Make input field expand */
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.submit-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+/* Forum Posts */
+.forum-posts-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    padding-left: 40px; /* Adjust padding as needed */
+}
+
+.forum-posts-wrapper table {
+    width: auto;
+}
+
+.forum-posts-wrapper td {
+    text-align: left;
+    padding: 5px 10px;
 }

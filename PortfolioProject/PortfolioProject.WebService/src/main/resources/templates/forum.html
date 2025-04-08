@@ -16,53 +16,61 @@
 
 <!-- Content of the page-->
 <div class="buttons-container">
-<!-- Wrapper for scrollable forum posts -->
-<div class="forum-posts-wrapper">
-  <!-- Display the list of forum posts -->
-  <table>
-    <tbody>
-    <tr th:each="forumPost : ${forumPosts.getForumPosts()}">
-      <td th:text="'[' + ${forumPost.timestamp} + '] ' + ${forumPost.username} + ': ' + ${forumPost.message}"></td>
-    </tr>
-    </tbody>
-  </table>
-</div>
+  <!-- Wrapper for scrollable forum posts -->
+  <div class="forum-posts-wrapper">
+    <!-- Display the list of forum posts -->
+    <table>
+      <tbody>
+      <tr th:each="forumPost : ${forumPosts.getForumPosts()}">
+        <td th:text="'[' + ${forumPost.timestamp} + '] ' + ${forumPost.username} + ': ' + ${forumPost.message}"></td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
 
-<!-- Page Controls -->
-<div>
-  <span th:if="${currentPage > 0}">
-    <a th:href="@{/forum/{gameID}(gameID=${game.gameID}, page=${currentPage - 1})}">
-      <button>Previous Page</button>
-    </a>
-  </span>
-  <span th:if="${currentPage < totalPages - 1}">
-    <a th:href="@{/forum/{gameID}(gameID=${game.gameID}, page=${currentPage + 1})}">
-      <button>Next Page</button>
-    </a>
-  </span>
-  <span th:if="${currentPage < (totalPages - 1)}">...</span>
-</div>
+  <!-- Page Controls -->
+  <div>
+    <!-- Display the previous page button if the currentpage is more than 0 -->
+    <span th:if="${currentPage > 0}">
+      <a th:href="@{/forum/{gameID}(gameID=${game.gameID}, page=${currentPage - 1})}">
+        <button class="base">Previous Page</button>
+      </a>
+    </span>
 
-<!-- Input form for posting a new message -->
+    <!-- Display the current page number -->
+    <span class="current-page" th:text="${currentPage + 1}">Page</span>
+
+    <!-- Display the next page button if the end hasn't been reached yet -->
+    <span th:if="${currentPage < totalPages - 1}">
+      <a th:href="@{/forum/{gameID}(gameID=${game.gameID}, page=${currentPage + 1})}">
+        <button class="base">Next Page</button>
+      </a>
+    </span>
+
+    <!-- When reaching the end display '...' instead of a button -->
+    <span th:if="${currentPage == (totalPages - 1)}">...</span>
+  </div>
+
+  <!-- Input form for posting a new message -->
   <h3>Post a New Message</h3>
   <form th:action="@{/forum/addPost}" method="post">
     <input type="hidden" th:value="${game.gameID}" name="gameID"/>
-    <label for="message">Message:</label>
+<!--    <label for="message">Message:</label>-->
     <textarea id="message" name="message" placeholder="Write your message here" required></textarea>
-    <button type="submit">Post Message</button>
+    <button type="submit" class="base">Post Message</button>
   </form>
 
-<!-- Back buttons -->
-<div>
-  <a href="#" th:href="@{/library}">
-    <button type="button">Back to Library</button>
-  </a>
-</div>
-<div>
-  <a href="#" th:href="@{/account}">
-    <button type="button">Back to Account</button>
-  </a>
-</div>
+  <!-- Back buttons -->
+  <div>
+    <a href="#" th:href="@{/library}">
+      <button type="button" class="base">Back to Library</button> <!-- ADDED class="base" -->
+    </a>
+  </div>
+  <div>
+    <a href="#" th:href="@{/account}">
+      <button type="button" class="base">Back to Account</button> <!-- ADDED class="base" -->
+    </a>
+  </div>
 </div>
 
 <!-- Display the footer of the page -->

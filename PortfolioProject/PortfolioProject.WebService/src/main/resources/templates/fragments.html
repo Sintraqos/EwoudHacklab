@@ -5,11 +5,15 @@
     <title>Fragments</title>
 </head>
 <body>
+
 <!-- Fragment for displaying the header -->
-<div th:fragment="header">
-    <!-- Header Text -->
-    <h1 th:text="${headerText}">Header</h1>
-</div>
+<header th:fragment="header">
+    <div class="header-content">
+        <!-- Header Text -->
+        <h1 th:text="${headerText}">Header</h1>
+    </div>
+</header>
+
 <!-- Fragment for displaying the footer -->
 <footer th:fragment="footer">
     <div class="footer-content">
@@ -42,10 +46,8 @@
     <h2>Game Results</h2>
     <div th:each="game : ${games}">
         <form th:action="@{/library/addGame}" method="get">
-            <input type="hidden" name="gameID" th:value="${game.gameID}" />
-            <button type="submit" class="base"
-                    th:text="${game.gameName}">
-            </button>
+            <input type="hidden" name="gameID" th:value="${game.gameID}"/>
+            <button type="submit" class="base" th:text="${game.gameName}"></button>
         </form>
         <hr>
     </div>
@@ -57,9 +59,7 @@
     <div th:each="user : ${users}">
         <form th:action="@{/adminAccountSettings}" method="get">
             <input type="hidden" name="username" th:value="${user.getUsername()}" />
-            <button type="submit" class="base"
-                    th:text="${user.getUsername()}">
-            </button>
+            <button type="submit" class="base" th:text="${user.getUsername()}"></button>
         </form>
         <hr>
     </div>
@@ -69,25 +69,25 @@
 <div th:fragment="changeUsername">
     <form th:action="@{/settings/changeUsername}" method="post">
         <!-- Current Username Input -->
-        <div>
+        <div class="form-group">
             <label for="changeUsername_currentUsername">Current Username:</label>
             <input type="text" id="changeUsername_currentUsername" name="currentUsername" required />
         </div>
 
         <!-- New Username Input -->
-        <div>
+        <div class="form-group">
             <label for="changeUsername_newUsername">New Username:</label>
             <input type="text" id="changeUsername_newUsername" name="newUsername" required />
         </div>
 
         <!-- Password Input -->
-        <div>
+        <div class="form-group">
             <label for="changeUsername_password">Password:</label>
             <input type="password" id="changeUsername_password" name="password" required />
         </div>
 
         <!-- Submit Button -->
-        <div>
+        <div class="submit-container">
             <button class="base" type="submit">Submit</button>
         </div>
     </form>
@@ -97,19 +97,19 @@
 <div th:fragment="changeEMail">
     <form th:action="@{/settings/changeUsername}" method="post">
         <!-- New E-Mail Input -->
-        <div>
+        <div class="form-group">
             <label for="changeEMail_newEMail">New E-Mail Address:</label>
             <input type="text" id="changeEMail_newEMail" name="eMail" required />
         </div>
 
         <!-- Password Input -->
-        <div>
+        <div class="form-group">
             <label for="changeEmail_password">Password:</label>
             <input type="password" id="changeEmail_password" name="password" required />
         </div>
 
         <!-- Submit Button -->
-        <div>
+        <div class="submit-container">
             <button class="base" type="submit">Submit</button>
         </div>
     </form>
@@ -119,19 +119,19 @@
 <div th:fragment="changePassword">
     <form th:action="@{/settings/changePassword}" method="post">
         <!-- Current Password Input -->
-        <div>
+        <div class="form-group">
             <label for="changePassword_currentPassword">Current Password:</label>
             <input type="password" id="changePassword_currentPassword" name="currentPassword" required />
         </div>
 
         <!-- New Password Input -->
-        <div>
+        <div class="form-group">
             <label for="changePassword_newPassword">New Password:</label>
             <input type="password" id="changePassword_newPassword" name="newPassword" required />
         </div>
 
         <!-- Submit Button -->
-        <div>
+        <div class="submit-container">
             <button class="base" type="submit">Submit</button>
         </div>
     </form>
@@ -141,18 +141,18 @@
 <div th:fragment="deleteAccount">
     <form th:action="@{/settings/deleteAccount}" method="post">
         <!-- Password Input -->
-        <div>
+        <div class="form-group">
             <label for="deleteAccount_password">Enter Password:</label>
             <input type="password" id="deleteAccount_password" name="password" required />
         </div>
         <!-- Password Confirm Input -->
-        <div>
+        <div class="form-group">
             <label for="deleteAccount_passwordConfirm">Confirm Password:</label>
             <input type="password" id="deleteAccount_passwordConfirm" name="passwordConfirm" required />
         </div>
 
         <!-- Submit Button -->
-        <div>
+        <div class="submit-container">
             <button class="base" type="submit">Submit</button>
         </div>
     </form>
