@@ -47,6 +47,21 @@ header {
     height: 100px;
 }
 
+header .logo{
+    background-image: url('/images/logo/Logo_White.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: left center;
+    height: 95px;
+    width: 95px;
+    position: absolute;
+    left: 10px;
+}
+
+header .header-text {
+    flex-grow: 1; /* Ensures the text stays centered */
+}
+
 footer {
     background-image: url('/images/base/Banner.jpg');
     background-size: cover;
