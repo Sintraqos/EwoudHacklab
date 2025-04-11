@@ -30,6 +30,10 @@
 
   <!-- Page Controls -->
   <div>
+
+    <!-- When reaching the start of the list display '...' instead of a button -->
+    <span th:if="${currentPage == 0}">...</span>
+
     <!-- Display the previous page button if the currentpage is more than 0 -->
     <span th:if="${currentPage > 0}">
       <a th:href="@{/forum/{gameID}(gameID=${game.gameID}, page=${currentPage - 1})}">
@@ -47,7 +51,7 @@
       </a>
     </span>
 
-    <!-- When reaching the end display '...' instead of a button -->
+    <!-- When reaching the end of the list display '...' instead of a button -->
     <span th:if="${currentPage == (totalPages - 1)}">...</span>
   </div>
 

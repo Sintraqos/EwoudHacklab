@@ -10,6 +10,7 @@ body {
     margin: 0; /* Remove any default margin */
     display: flex; /* Make the body a flex container */
     flex-direction: column; /* Stack children vertically */
+    font-size: 20px;
 }
 
 .content {
@@ -24,6 +25,7 @@ body {
     align-items: center;
     gap: 10px;
     flex-grow: 1;  /* Allows the buttons container to grow vertically */
+    padding-bottom: 40px; /* or margin-bottom */
 }
 
 .buttons-container form {
@@ -38,11 +40,11 @@ header {
     background-repeat: no-repeat;
     color: white;
     text-align: center;
-    margin-top: auto;
-}
-
-header.header-content{
-
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 25px;
+    height: 100px;
 }
 
 footer {
@@ -52,15 +54,12 @@ footer {
     background-repeat: no-repeat;
     color: white;
     text-align: left;
-    margin-top: auto; /* Push footer to bottom */
-}
-
-footer.footer-content {
-    padding: 10px 5px;
+    margin-top: auto;
+    font-size: 15px;
 }
 
 footer a {
-    color: cyan; /* Styling for the footer link */
+    color: cyan;
     text-decoration: none;
 }
 
@@ -76,9 +75,10 @@ button.base {
     cursor: pointer;
     text-align: center;
     display: inline-block;
-    min-width: 150px;
-    min-height: 20px;
-    /*padding: 10px 10px;*/
+    min-width: 200px;
+    min-height: 30px;
+    padding: 0 10px;
+    font-size: 20px;
 }
 
 button.base:hover {
@@ -91,6 +91,37 @@ button.base:active {
 
 button.base:focus {
     outline: none;
+    box-shadow: none;
+}
+
+button.full-width-btn{
+    box-sizing: border-box;
+    background: none;
+    background-image: url('/images/interactables/Button_Base.png');
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    border: none;
+    cursor: pointer;
+    text-align: left;
+    display: inline-block;
+    min-width: 150px;
+    min-height: 40px;
+    padding: 0 10px;
+    font-size: 20px;
+}
+
+button.full-width-btn:hover {
+    background-image: url('/images/interactables/Button_Hover.png');
+}
+
+button.full-width-btn:active {
+    background-image: url('/images/interactables/Button_Click.png');
+}
+
+button.full-width-btn:focus {
+    outline: none;
+    box-shadow: none;
 }
 
 /* Forms & Inputs */
