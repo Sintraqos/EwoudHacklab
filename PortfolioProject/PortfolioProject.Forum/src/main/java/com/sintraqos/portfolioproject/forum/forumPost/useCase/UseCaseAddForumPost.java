@@ -26,7 +26,8 @@ public class UseCaseAddForumPost {
     @Autowired
     public UseCaseAddForumPost(ForumPostRepository forumPostRepository,
                                CensorService censorService,
-                               SettingsHandler settingsHandler, Logger logger) {
+                               SettingsHandler settingsHandler,
+                               Logger logger) {
         this.forumPostRepository = forumPostRepository;
         this.censorService = censorService;
         this.settingsHandler = settingsHandler;

@@ -126,10 +126,18 @@ public class UserService  implements UserDetailsService {
     /**
      * Find all accounts containing the given username
      *
-     * @param username the ID of the account
+     * @param username the username of the account
      */
     public UserMessage getAccounts(String username) {
         return getAccount.getAccounts(username);
+    }
+    /**
+     * Find all accounts containing the given username
+     *
+     * @param role the role of the account
+     */
+    public UserMessage getAccounts(Enums.Role role) {
+        return getAccount.getAccounts(role);
     }
 
     /**

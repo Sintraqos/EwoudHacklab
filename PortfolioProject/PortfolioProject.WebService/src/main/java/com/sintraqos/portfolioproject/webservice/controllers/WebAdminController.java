@@ -1,5 +1,6 @@
 package com.sintraqos.portfolioproject.webservice.controllers;
 
+import com.sintraqos.portfolioproject.user.DAL.UserEntity;
 import com.sintraqos.portfolioproject.user.entities.User;
 import com.sintraqos.portfolioproject.user.entities.UserMessage;
 import com.sintraqos.portfolioproject.user.service.UserService;
@@ -13,6 +14,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class WebAdminController {
@@ -35,8 +40,20 @@ public class WebAdminController {
      * @return the adminDashboard page
      */
     @PostMapping("/adminDashboard")
-    public String getAdminDashboard(Model model) {
+    public String getAdminDashboard(
+            Model model,
+            RedirectAttributes redirectAttributes) {
         model.addAttribute("headerText", "Dashboard");
+
+        UserMessage getAccounts = userService.getAccounts(Enums.Role.ADMIN);
+        if (!getAccounts.isSuccessful()) {
+            logger.error(getAccounts.getMessage());
+            redirectAttributes.addAttribute("error", getAccounts.getMessage());
+            return "redirect:/adminManageUsers";
+        }
+
+        model.addAttribute("users", getAccounts.getEntities());
+
         return "admin/adminDashboard"; // Render the home page
     }
 
@@ -55,7 +72,8 @@ public class WebAdminController {
     public String searchUserByName(
             @RequestParam("username") String username,
             RedirectAttributes redirectAttributes,
-            Model model) {
+            Model model,
+            @SessionAttribute("userObject") User user) {
 
         UserMessage getAccounts = userService.getAccounts(username);
         if (!getAccounts.isSuccessful()) {
@@ -64,7 +82,14 @@ public class WebAdminController {
             return "redirect:/adminManageUsers";
         }
 
-        model.addAttribute("users", getAccounts.getEntities());
+        // Since we don't want to manage our own account from here, remove from the list if present
+        List<UserEntity> users = getAccounts.getEntities();
+        Optional<UserEntity> currentUser = users.stream()
+                .filter(u -> u.getUsername().equals(user.getUsername()))
+                .findFirst();
+        currentUser.ifPresent(users::remove);
+
+        model.addAttribute("users", users);
         return getFragments("userResults");
     }
 
@@ -150,9 +175,7 @@ public class WebAdminController {
             RedirectAttributes redirectAttributes,
             @SessionAttribute("userObject") User user,
             @RequestParam("newRole") Enums.Role newRole) {
-
-        logger.info("Change Role request!");
-        System.out.println("Change Role request!");
+        logger.debug("Change Role request!");
 
         redirectAttributes.addAttribute("username", username);
 
@@ -175,10 +198,12 @@ public class WebAdminController {
         return "redirect:/adminAccountSettings";
     }
 
+    // Load in the fragment with extra attributes
     @GetMapping("/admin/adminSetUserRoleFragment")
     public String getSetUserRoleFragment(@RequestParam("username") String username,Model model) {
         model.addAttribute("username", username); // Add username to model
-        model.addAttribute("roles", Enums.Role.values());
+        model.addAttribute("roles", Enums.Role.values()); // Add role to the model
+
         return getFragments("changeRole");  // Return the fragment as a view
     }
 

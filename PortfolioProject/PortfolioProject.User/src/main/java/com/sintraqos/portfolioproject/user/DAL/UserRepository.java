@@ -1,6 +1,7 @@
 package com.sintraqos.portfolioproject.user.DAL;
 
 import com.sintraqos.portfolioproject.caching.CacheConfig;
+import com.sintraqos.portfolioproject.user.statics.Enums;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Caching;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -21,4 +22,6 @@ public interface UserRepository extends JpaRepository<UserEntity, Integer> {
 
     @Caching(evict = {@CacheEvict(value = CacheConfig.USER_CACHE, key = "#username")})
     List<UserEntity> findByUsernameContaining(String username);
+
+    List<UserEntity> findAllByRole(Enums.Role role);
 }

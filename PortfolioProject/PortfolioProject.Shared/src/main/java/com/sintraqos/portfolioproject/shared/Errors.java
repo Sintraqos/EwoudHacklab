@@ -1,7 +1,6 @@
 package com.sintraqos.portfolioproject.shared;
 
 public class Errors {
-
     //region Database
 
     public static final String AUTH_FAILED = "Authentication Failed";
@@ -21,6 +20,10 @@ public class Errors {
      * Formatted String: username
      */
     public static final String FIND_USER_NAME_FAILED = "Couldn't find account by name: '%s'";
+    /**
+     * Formatted String: username
+     */
+    public static final String FIND_USER_ROLE_FAILED = "Couldn't find accounts with role: '%s'";
     /**
      * Formatted String: Game ID
      */
@@ -53,7 +56,6 @@ public class Errors {
     public static final String USER_INVALID_ROLE = "You don't have permission to use this function, you need to be a(n): '%s' to use this";
 
     // Username
-
     /**
      * Formatted String: username
      */

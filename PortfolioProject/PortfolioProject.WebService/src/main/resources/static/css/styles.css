@@ -57,6 +57,14 @@ header .logo{
     position: absolute;
     left: 10px;
 }
+.logo-link {
+    display: inline-block;
+    height: 95px;
+    width: 95px;
+    position: absolute;
+    left: 10px;
+    text-decoration: none;
+}
 
 header .header-text {
     flex-grow: 1; /* Ensures the text stays centered */
@@ -76,6 +84,21 @@ footer {
 footer a {
     color: cyan;
     text-decoration: none;
+}
+
+.label-base {
+    display: inline-block;
+    background-image: url('/images/interactables/Button_Base.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    min-width: 200px;
+    max-width: 300px;
+    min-height: 30px;
+    padding: 0 10px;
+    font-size: 20px;
+    text-align: center;
+    line-height: 30px;
 }
 
 /* Buttons */

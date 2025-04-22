@@ -7,6 +7,7 @@ import com.sintraqos.portfolioproject.user.DAL.UserEntity;
 import com.sintraqos.portfolioproject.user.DAL.UserRepository;
 import com.sintraqos.portfolioproject.user.DTO.UserDTO;
 import com.sintraqos.portfolioproject.user.entities.UserMessage;
+import com.sintraqos.portfolioproject.user.statics.Enums;
 import com.sintraqos.portfolioproject.userLibrary.DAL.UserLibraryEntity;
 import com.sintraqos.portfolioproject.userLibrary.DAL.UserLibraryRepository;
 import com.sintraqos.portfolioproject.userLibrary.DTO.UserLibraryDTO;
@@ -118,6 +119,28 @@ public class UseCaseGetAccount {
             logger.debug(message);
 
             return new UserMessage(Errors.FIND_USER_NAME_FAILED.formatted(username));
+        }
+    }
+
+    /**
+     * Get all users containing the username
+     *
+     * @param role the role of the users
+     */
+    public UserMessage getAccounts(Enums.Role role) {
+        logger.debug("Attempting to get accounts with role: '%s'".formatted(role));
+        List<UserEntity> accounts = userRepository.findAllByRole(role);
+
+        if (accounts != null) {
+            String message = "Accounts found containing: '%s'".formatted(role);
+            logger.debug(message);
+
+            return new UserMessage(accounts, message);
+        } else {
+            String message = Errors.FIND_USER_ROLE_FAILED.formatted(role);
+            logger.debug(message);
+
+            return new UserMessage(Errors.FIND_USER_ROLE_FAILED.formatted(role));
         }
     }
 }

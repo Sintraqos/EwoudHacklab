@@ -13,6 +13,16 @@
 <!--<div th:replace="~{fragments::changeRole}"></div>-->
 <!-- Display a message if exists -->
 <div class="buttons-container">
+    <table>
+        <tbody>
+        <!-- Loop through the gameLibrary in the User object -->
+        <tr th:each="user : ${users}">
+            <td>
+                <label class="label-base" th:text="${user.username}">Username</label>
+            </td>
+        </tr>
+        </tbody>
+    </table>
     <div>
         <a href="#" th:href="@{/account}">
             <button class="base" type="button">Back to Account</button>
