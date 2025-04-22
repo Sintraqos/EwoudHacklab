@@ -61,9 +61,6 @@ public class WebAuthController {
             return "redirect:/register";
         }
 
-        // Hash the password
-//        String passwordHash = passwordEncoder.encode(password);
-
         // Go to the userManager to save the account
         UserMessage registerAccountMessage = userService.registerAccount(username, eMail, password);
 

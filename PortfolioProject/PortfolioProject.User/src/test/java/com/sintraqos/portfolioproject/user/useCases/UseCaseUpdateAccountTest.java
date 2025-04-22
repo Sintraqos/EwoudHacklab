@@ -321,7 +321,7 @@ class UseCaseUpdateAccountTest {
         when(getAccount.getAccount(adminAccountID)).thenReturn(new UserMessage(Errors.FIND_USER_ID_FAILED.formatted(adminAccountID)));
 
         // Update the user using the base class
-        UserMessage result = useCaseUpdateAccount.changeRole(adminAccountID, currentPassword, accountID, Enums.Role.ADMIN);
+        UserMessage result = useCaseUpdateAccount.changeRole(adminAccountID, accountID, Enums.Role.ADMIN);
 
         // Assert
         Assertions.assertEquals(Errors.FIND_USER_ID_FAILED.formatted(adminAccountID), result.getMessage());
@@ -340,7 +340,7 @@ class UseCaseUpdateAccountTest {
         when(getAccount.getAccount(adminAccountID)).thenReturn(new UserMessage(new UserDTO(adminEntity), adminEntity, "User found"));
 
         // Update the user using the base class
-        UserMessage result = useCaseUpdateAccount.changeRole(adminAccountID, currentPassword, accountID, Enums.Role.ADMIN);
+        UserMessage result = useCaseUpdateAccount.changeRole(adminAccountID, accountID, Enums.Role.ADMIN);
 
         // Assert
         Assertions.assertEquals(Errors.USER_INVALID_ROLE.formatted(Enums.Role.ADMIN.toString()), result.getMessage());
@@ -362,33 +362,13 @@ class UseCaseUpdateAccountTest {
         when(getAccount.getAccount(accountID)).thenReturn(new UserMessage(Errors.FIND_USER_ID_FAILED.formatted(adminAccountID)));
 
         // Update the user using the base class
-        UserMessage result = useCaseUpdateAccount.changeRole(adminAccountID, currentPassword, accountID, Enums.Role.ADMIN);
+        UserMessage result = useCaseUpdateAccount.changeRole(adminAccountID, accountID, Enums.Role.ADMIN);
 
         // Assert
         Assertions.assertEquals(Errors.FIND_USER_ID_FAILED.formatted(adminAccountID), result.getMessage());
 
         // Verify
         verify(logger).debug(anyString());
-    }
-
-    @Test
-    void testChangeRole_Fail_Password() {
-        // Create UserEntity object
-        UserEntity adminEntity = Instancio.create(UserEntity.class);
-        adminEntity.setRole(Enums.Role.USER); // Since we need to test it for an invalid admin role set it to Role.USER beforehand
-
-        // Mock the correct method calls
-        when(getAccount.getAccount(currentUsername)).thenReturn(new UserMessage(new UserDTO(adminEntity), adminEntity, "User found"));
-        when(validateUser.comparePassword(adminEntity.getPasswordHash(), currentPassword)).thenReturn(new UserMessage(Errors.PASSWORD_INCORRECT));
-
-        // Update the user using the base class
-        UserMessage result = useCaseUpdateAccount.changeEMail(currentUsername, newEMail, currentPassword);
-
-        // Assert
-        Assertions.assertEquals(Errors.PASSWORD_INCORRECT, result.getMessage());
-
-        // Verify
-        verify(logger, times(2)).debug(anyString());
     }
 
     @Test
@@ -399,10 +379,9 @@ class UseCaseUpdateAccountTest {
 
         // Mock the correct method calls
         when(getAccount.getAccount(adminAccountID)).thenReturn(new UserMessage(new UserDTO(adminEntity), adminEntity, "User found"));
-        when(validateUser.comparePassword(adminEntity.getPasswordHash(), currentPassword)).thenReturn(new UserMessage(true, Errors.PASSWORD_MATCH));
 
         // Update the user using the base class
-        UserMessage result = useCaseUpdateAccount.changeRole(adminAccountID, currentPassword, accountID, Enums.Role.ADMIN);
+        UserMessage result = useCaseUpdateAccount.changeRole(adminAccountID, accountID, Enums.Role.ADMIN);
 
         // Assert
         Assertions.assertTrue(result.isSuccessful());

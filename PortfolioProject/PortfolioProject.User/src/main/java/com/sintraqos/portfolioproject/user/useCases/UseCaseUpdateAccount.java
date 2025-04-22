@@ -174,7 +174,7 @@ public class UseCaseUpdateAccount {
      * @param accountID      the ID of the account
      * @param role           the role which needs to be assigned to the account
      */
-    public UserMessage changeRole(int adminAccountID, String password, int accountID, Enums.Role role) {
+    public UserMessage changeRole(int adminAccountID, int accountID, Enums.Role role) {
         logger.debug("Attempting to change the role of account with ID: '%s'".formatted(adminAccountID));
         // Retrieve the user from the database
         UserMessage userMessage = getAccount.getAccount(adminAccountID);
@@ -188,13 +188,6 @@ public class UseCaseUpdateAccount {
             logger.debug(message);
 
             return new UserMessage(message);
-        }
-
-        // Check if the given password is valid
-        UserMessage passwordCheck = validateUser.comparePassword(userMessage.getUserDTO().getPassword(), password);
-        if (!passwordCheck.isSuccessful()) {
-            logger.debug(passwordCheck.getMessage());
-            return passwordCheck;
         }
 
         // Retrieve the user which role to update from the database

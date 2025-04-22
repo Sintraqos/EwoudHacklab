@@ -3,6 +3,7 @@ package com.sintraqos.portfolioproject.webservice.controllers;
 import com.sintraqos.portfolioproject.user.entities.User;
 import com.sintraqos.portfolioproject.user.entities.UserMessage;
 import com.sintraqos.portfolioproject.user.service.UserService;
+import com.sintraqos.portfolioproject.user.statics.Enums;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
@@ -92,10 +94,10 @@ public class WebAdminController {
             @RequestParam("username") String username,
             RedirectAttributes redirectAttributes) {
 
-        redirectAttributes.addAttribute("username",username);
+        redirectAttributes.addAttribute("username", username);
 
         // Get the account from the database
-        UserMessage getAccountMessage = userService.getAccounts(username);
+        UserMessage getAccountMessage = userService.getAccount(username);
         if (!getAccountMessage.isSuccessful()) {
             logger.warn(getAccountMessage.getMessage());
             redirectAttributes.addAttribute("warning", getAccountMessage.getMessage());
@@ -119,14 +121,14 @@ public class WebAdminController {
             @RequestParam("username") String username,
             RedirectAttributes redirectAttributes) {
 
-        redirectAttributes.addAttribute("username",username);
+        redirectAttributes.addAttribute("username", username);
 
         // Get the account from the database
-        UserMessage getAccountMessage = userService.getAccounts(username);
+        UserMessage getAccountMessage = userService.getAccount(username);
         if (!getAccountMessage.isSuccessful()) {
             logger.warn(getAccountMessage.getMessage());
             redirectAttributes.addAttribute("warning", getAccountMessage.getMessage());
-            redirectAttributes.addAttribute("username",username);
+            redirectAttributes.addAttribute("username", username);
             return "redirect:/adminAccountSettings";
         }
 
@@ -144,25 +146,45 @@ public class WebAdminController {
 
     @PostMapping("admin/adminSetUserRole")
     public String adminSetUserRole(
-            @RequestParam("username") String username,
-            RedirectAttributes redirectAttributes) {
-        redirectAttributes.addAttribute("username",username);
+            @RequestParam("username") String username, // Ensure username is captured
+            RedirectAttributes redirectAttributes,
+            @SessionAttribute("userObject") User user,
+            @RequestParam("newRole") Enums.Role newRole) {
+
+        logger.info("Change Role request!");
+        System.out.println("Change Role request!");
+
+        redirectAttributes.addAttribute("username", username);
 
         // Get the account from the database
-        UserMessage getAccountMessage = userService.getAccounts(username);
+        UserMessage getAccountMessage = userService.getAccount(username);
         if (!getAccountMessage.isSuccessful()) {
             logger.warn(getAccountMessage.getMessage());
             redirectAttributes.addAttribute("warning", getAccountMessage.getMessage());
             return "redirect:/adminAccountSettings";
         }
 
-        redirectAttributes.addAttribute("admin", getAccountMessage.getMessage());
+        UserMessage setRoleMessage = userService.setAccountRole(user.getAccountID(), getAccountMessage.getUserDTO().getAccountID(), newRole);
+        if (!setRoleMessage.isSuccessful()) {
+            logger.warn(setRoleMessage.getMessage());
+            redirectAttributes.addAttribute("warning", setRoleMessage.getMessage());
+            return "redirect:/adminAccountSettings";
+        }
+
+        redirectAttributes.addAttribute("admin", setRoleMessage.getMessage());
         return "redirect:/adminAccountSettings";
+    }
+
+    @GetMapping("/admin/adminSetUserRoleFragment")
+    public String getSetUserRoleFragment(@RequestParam("username") String username,Model model) {
+        model.addAttribute("username", username); // Add username to model
+        model.addAttribute("roles", Enums.Role.values());
+        return getFragments("changeRole");  // Return the fragment as a view
     }
 
     //endregion
 
-    String getFragments(String fragmentsPage){
+    String getFragments(String fragmentsPage) {
         return "fragments :: %s".formatted(fragmentsPage);
     }
 }

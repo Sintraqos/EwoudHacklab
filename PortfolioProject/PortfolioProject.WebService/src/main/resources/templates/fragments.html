@@ -138,6 +138,23 @@
     </form>
 </div>
 
+<!-- Fragment for the updating of an account's role -->
+<div th:fragment="changeRole">
+    <form th:action="@{/admin/adminSetUserRole}" method="post">
+        <!-- Hidden input for username -->
+        <input type="hidden" name="username" th:value="${username}" />
+        <label for="newRole">Role:</label>
+        <select id="newRole" name="newRole">
+            <!-- Loop through roles -->
+            <th:block th:each="role : ${roles}">
+                <option th:value="${role.name()}"
+                        th:text="${#strings.capitalize(role.name().toLowerCase())}"></option>
+            </th:block>
+        </select>
+        <button class="base" type="submit">Update Role</button>
+    </form>
+</div>
+
 <!-- Fragment for the removal of an account-->
 <div th:fragment="deleteAccount">
     <form th:action="@{/settings/deleteAccount}" method="post">
@@ -159,6 +176,6 @@
     </form>
 </div>
 
-</body>
+</body>s
 </html>
 

@@ -138,8 +138,8 @@ public class UserService  implements UserDetailsService {
      * @param accountID the ID of the account
      * @param role      the role which needs to be assigned to the account
      */
-    public UserMessage setAccountRole(int accountID, String password, int newRoleAccountID, Enums.Role role) {
-        return updateAccount.changeRole(accountID, password, newRoleAccountID, role);
+    public UserMessage setAccountRole(int accountID, int newRoleAccountID, Enums.Role role) {
+        return updateAccount.changeRole(accountID, newRoleAccountID, role);
     }
 
     /**

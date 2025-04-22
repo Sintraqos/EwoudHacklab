@@ -9,7 +9,7 @@
 
   <!-- Link to a navigation bar icon -->
   <link rel="icon" href="/images/logo/Logo_Black.png" type="image/png">
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js">  </script>
 </head>
 <body>
 
@@ -23,6 +23,8 @@
 <div class="buttons-container">
   <!-- Admin settings page -->
   <div th:if="${showAdminPage}">
+<!--    <input type="hidden" id="username" value="actualUsername" />-->
+
     <div sec:authorize="hasRole('ROLE_ADMIN')">
       <h1 th:text="'Admin Page'"></h1>
       <form th:action="@{/admin/adminBanUser}" method="post">
@@ -35,7 +37,8 @@
       </form>
       <form th:action="@{/admin/adminSetUserRole}" method="post">
         <input type="hidden" name="username" th:value="${user.getUsername()}" />
-        <button class="base" type="submit">Set User Role</button>
+        <button class="base changeRoleBtn" type="button"
+                th:attr="data-username=${user.getUsername()}">Set User Role</button>
       </form>
     </div>
   </div>
@@ -119,6 +122,19 @@
         $('#dynamicContent').html(response); // Inject the fragment into the placeholder
       },
       error: function() {
+        alert("Error loading fragment.");
+      }
+    });
+  });
+  $(".changeRoleBtn").click(function () {
+    var username = $(this).data("username");
+    $.ajax({
+      url: `/admin/adminSetUserRoleFragment?username=${username}`,
+      type: 'GET',
+      success: function (response) {
+        $('#dynamicContent').html(response);
+      },
+      error: function () {
         alert("Error loading fragment.");
       }
     });
