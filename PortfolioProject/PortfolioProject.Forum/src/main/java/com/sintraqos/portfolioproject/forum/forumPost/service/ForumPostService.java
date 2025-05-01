@@ -1,9 +1,11 @@
 package com.sintraqos.portfolioproject.forum.forumPost.service;
 
+// Project components
 import com.sintraqos.portfolioproject.forum.forumPost.DTO.ForumPostDTO;
 import com.sintraqos.portfolioproject.forum.forumPost.entities.ForumPostMessage;
-import com.sintraqos.portfolioproject.forum.forumPost.useCase.UseCaseAddForumPost;
-import com.sintraqos.portfolioproject.forum.forumPost.useCase.UseCaseGetForumPost;
+import com.sintraqos.portfolioproject.forum.forumPost.useCase.*;
+
+// Spring components
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -14,9 +16,7 @@ public class ForumPostService {
     private final UseCaseGetForumPost getForumPost;
 
     @Autowired
-    public ForumPostService(
-            UseCaseAddForumPost addForumPost,
-            UseCaseGetForumPost getForumPost) {
+    public ForumPostService(UseCaseAddForumPost addForumPost, UseCaseGetForumPost getForumPost) {
         this.addForumPost = addForumPost;
         this.getForumPost = getForumPost;
     }
@@ -32,7 +32,7 @@ public class ForumPostService {
         if (message.isEmpty()) {
             return new ForumPostMessage("Message was empty");
         }
-        return  addForumPost.addForumPost(new ForumPostDTO(accountID, gameID, message));
+        return addForumPost.addForumPost(new ForumPostDTO(accountID, gameID, message));
     }
 
     /**
@@ -45,7 +45,7 @@ public class ForumPostService {
     }
 
     /**
-     * Find all forumPosts using their UserID
+     * Find all forumPosts using their accountID
      *
      * @param accountID the ID of the account
      */

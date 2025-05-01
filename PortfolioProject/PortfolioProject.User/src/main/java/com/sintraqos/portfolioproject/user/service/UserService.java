@@ -1,15 +1,16 @@
 package com.sintraqos.portfolioproject.user.service;
 
+// Project components
 import com.sintraqos.portfolioproject.shared.Errors;
 import com.sintraqos.portfolioproject.user.DAL.UserEntity;
+import com.sintraqos.portfolioproject.user.entities.*;
 import com.sintraqos.portfolioproject.user.entities.User;
-import com.sintraqos.portfolioproject.user.entities.UserMessage;
 import com.sintraqos.portfolioproject.user.statics.Enums;
 import com.sintraqos.portfolioproject.user.useCases.*;
+
+// Spring components
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.userdetails.*;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -69,12 +70,12 @@ public class UserService  implements UserDetailsService {
      * @param role     the role of the account
      */
     public UserMessage registerAccount(String username, String eMail, String password, Enums.Role role) {
-        UserMessage message = registerAccount.registerAccount(username, eMail, password,role);
+        UserMessage message = registerAccount.registerAccount(username, eMail, password, role);
         if (!message.isSuccessful()) {
             return new UserMessage("Failed to create user with username: '%s', reason: '%s'".formatted(username, message.getMessage()));
-        } else {
-            return message;
         }
+
+        return message;
     }
 
     /**
@@ -85,12 +86,11 @@ public class UserService  implements UserDetailsService {
      */
     public UserMessage deleteAccount(String username, String password) {
         UserMessage message = deleteAccount.deleteAccount(username, password);
-
-        if (message.isSuccessful()) {
-            return message;
-        } else {
+        if (!message.isSuccessful()) {
             return new UserMessage("Failed to remove user with username: '%s', reason: '%s'".formatted(username, message.getMessage()));
         }
+
+        return message;
     }
 
     /**
@@ -100,7 +100,6 @@ public class UserService  implements UserDetailsService {
      */
     public UserMessage getAccount(int accountID) {
         UserMessage message = getAccount.getAccount(accountID);
-
         if (!message.isSuccessful()) {
             return new UserMessage("Failed to retrieve user with ID: '%s', reason: '%s'".formatted(accountID, message.getMessage()));
         }
@@ -115,7 +114,6 @@ public class UserService  implements UserDetailsService {
      */
     public UserMessage getAccount(String username) {
         UserMessage message = getAccount.getAccount(username);
-
         if (!message.isSuccessful()) {
             return new UserMessage("Failed to retrieve user with username: '%s', reason: '%s'".formatted(username, message.getMessage()));
         }

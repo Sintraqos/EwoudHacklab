@@ -1,14 +1,17 @@
 package com.sintraqos.portfolioproject.shared;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import lombok.Getter;
-import org.slf4j.Logger;
+// Spring components
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import java.io.File;
-import java.io.IOException;
-import java.util.List;
-import java.util.Objects;
+
+// External components
+import org.slf4j.Logger;
+import lombok.Getter;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+// Java components
+import java.io.*;
+import java.util.*;
 import java.util.regex.Pattern;
 
 @Getter

@@ -1,10 +1,13 @@
 package com.sintraqos.portfolioproject.webservice;
 
-import jakarta.servlet.http.HttpServletRequest;
+// Spring components=
 import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+// External components
+import jakarta.servlet.http.HttpServletRequest;
 
 @Controller
 public class CustomErrorHandler implements ErrorController {

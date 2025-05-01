@@ -1,23 +1,26 @@
 package com.sintraqos.portfolioproject.user.useCases;
 
+// Project components
 import com.sintraqos.portfolioproject.game.DAL.GameRepository;
 import com.sintraqos.portfolioproject.game.DTO.GameDTO;
 import com.sintraqos.portfolioproject.shared.Errors;
-import com.sintraqos.portfolioproject.user.DAL.UserEntity;
-import com.sintraqos.portfolioproject.user.DAL.UserRepository;
+import com.sintraqos.portfolioproject.user.DAL.*;
 import com.sintraqos.portfolioproject.user.DTO.UserDTO;
 import com.sintraqos.portfolioproject.user.entities.UserMessage;
 import com.sintraqos.portfolioproject.user.statics.Enums;
-import com.sintraqos.portfolioproject.userLibrary.DAL.UserLibraryEntity;
-import com.sintraqos.portfolioproject.userLibrary.DAL.UserLibraryRepository;
+import com.sintraqos.portfolioproject.userLibrary.DAL.*;
 import com.sintraqos.portfolioproject.userLibrary.DTO.UserLibraryDTO;
-import lombok.Getter;
-import org.slf4j.Logger;
+
+// Spring components
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
-import java.util.List;
+// External components
+import org.slf4j.Logger;
+import lombok.Getter;
+
+// Java components
+import java.util.*;
 
 /**
  * UseCase for getting accounts from the database
@@ -67,7 +70,7 @@ public class UseCaseGetAccount {
 
             // Return the found user
             logger.debug("Retrieved user successfully");
-            return new UserMessage(new UserDTO(userEntity, new UserLibraryDTO(gameList)), userEntity, "Account data retrieved");
+            return new UserMessage(new UserDTO(userEntity, new UserLibraryDTO(gameList)), "Account data retrieved");
         } else {
             logger.debug(Errors.FIND_USER_NAME_FAILED.formatted(username));
             return new UserMessage(Errors.FIND_USER_NAME_FAILED.formatted(username));

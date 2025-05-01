@@ -1,9 +1,10 @@
 package com.sintraqos.portfolioproject.shared;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
+// Spring components
+import org.springframework.context.annotation.*;
+
+// External components
+import org.slf4j.*;
 
 @Configuration
 public class SharedBeans {

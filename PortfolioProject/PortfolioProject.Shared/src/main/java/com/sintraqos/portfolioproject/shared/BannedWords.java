@@ -1,8 +1,10 @@
 package com.sintraqos.portfolioproject.shared;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+// External components
 import lombok.Getter;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
+// Java components
 import java.util.List;
 
 @Getter

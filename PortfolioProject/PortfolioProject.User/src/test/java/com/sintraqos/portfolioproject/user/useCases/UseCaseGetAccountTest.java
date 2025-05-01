@@ -1,19 +1,19 @@
 package com.sintraqos.portfolioproject.user.useCases;
 
+// Project components
 import com.sintraqos.portfolioproject.game.DAL.GameRepository;
 import com.sintraqos.portfolioproject.shared.Errors;
-import com.sintraqos.portfolioproject.user.DAL.UserEntity;
-import com.sintraqos.portfolioproject.user.DAL.UserRepository;
+import com.sintraqos.portfolioproject.user.DAL.*;
 import com.sintraqos.portfolioproject.user.entities.UserMessage;
 import com.sintraqos.portfolioproject.userLibrary.DAL.UserLibraryRepository;
-import org.instancio.Instancio;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-import org.slf4j.Logger;
 
+// External components
+import org.slf4j.Logger;
+import org.instancio.Instancio;
+
+// Test components
+import org.junit.jupiter.api.*;
+import org.mockito.*;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
 

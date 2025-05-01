@@ -1,7 +1,9 @@
 package com.sintraqos.portfolioproject;
 
+// Project components
 import com.sintraqos.portfolioproject.shared.SettingsHandler;
-import org.slf4j.Logger;
+
+// Spring components
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.SpringApplication;
@@ -10,6 +12,9 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.event.EventListener;
 import org.springframework.scheduling.annotation.EnableScheduling;
+
+// External components
+import org.slf4j.Logger;
 
 @SpringBootApplication(scanBasePackages = "com.sintraqos.portfolioproject")
 @EnableCaching

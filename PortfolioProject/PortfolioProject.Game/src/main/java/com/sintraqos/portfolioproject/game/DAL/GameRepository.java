@@ -1,11 +1,14 @@
 package com.sintraqos.portfolioproject.game.DAL;
 
+// Project components
 import com.sintraqos.portfolioproject.caching.CacheConfig;
-import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.Caching;
+
+// Spring components
+import org.springframework.cache.annotation.*;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+// Java components
 import java.util.List;
 
 @Repository

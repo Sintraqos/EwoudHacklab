@@ -1,8 +1,10 @@
 package com.sintraqos.portfolioproject.game;
 
+// Project components
 import com.sintraqos.portfolioproject.game.service.GameService;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
+
+// Spring components
+import org.springframework.context.annotation.*;
 
 @Configuration
 public class GameBeans {

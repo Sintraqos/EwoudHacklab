@@ -1,18 +1,19 @@
 package com.sintraqos.portfolioproject.game.useCases;
 
-import com.sintraqos.portfolioproject.game.DAL.GameEntity;
-import com.sintraqos.portfolioproject.game.DAL.GameRepository;
-import com.sintraqos.portfolioproject.game.entities.Game;
-import com.sintraqos.portfolioproject.game.entities.GameEntityMessage;
+// Project components
+import com.sintraqos.portfolioproject.game.DAL.*;
+import com.sintraqos.portfolioproject.game.entities.*;
 import com.sintraqos.portfolioproject.shared.Errors;
+
+// External components
+import org.slf4j.Logger;
 import org.instancio.Instancio;
+
+// Test components
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+import org.mockito.*;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.slf4j.Logger;
-
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
 
@@ -43,11 +44,11 @@ class UseCaseAddGameTest {
         Game game = Instancio.create(Game.class);
 
         // Mock the correct method calls
-        GameEntityMessage existingGameMessage = new GameEntityMessage(Instancio.create(GameEntity.class), Errors.GAME_EXISTS.formatted(game.getGameName()));
+        GameMessage existingGameMessage = new GameMessage(Instancio.create(GameEntity.class), Errors.GAME_EXISTS.formatted(game.getGameName()));
         when(getGame.getGame(game.getGameName())).thenReturn(existingGameMessage);  // Mock the correct method call
 
         // Add the game using the base class
-        GameEntityMessage result = useCaseAddGame.addGame(game);
+        GameMessage result = useCaseAddGame.addGame(game);
 
         // Assert
         Assertions.assertEquals(Errors.GAME_EXISTS.formatted(game.getGameName()), result.getMessage());
@@ -62,11 +63,11 @@ class UseCaseAddGameTest {
         Game game = Instancio.create(Game.class);
 
         // Mock the correct method calls
-        GameEntityMessage existingGameMessage = new GameEntityMessage(false, "");
+        GameMessage existingGameMessage = new GameMessage(false, "");
         when(getGame.getGame(game.getGameName())).thenReturn(existingGameMessage);  // Mock the correct method call
 
         // Add the game using the base class
-        GameEntityMessage result = useCaseAddGame.addGame(game);
+        GameMessage result = useCaseAddGame.addGame(game);
 
         // Assert
         Assertions.assertTrue(result.isSuccessful());

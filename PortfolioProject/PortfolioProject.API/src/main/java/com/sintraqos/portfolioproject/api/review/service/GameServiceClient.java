@@ -1,21 +1,25 @@
 package com.sintraqos.portfolioproject.api.review.service;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
+// Project components
 import com.sintraqos.portfolioproject.game.DTO.GameDTO;
 import com.sintraqos.portfolioproject.game.service.GameService;
 import com.sintraqos.portfolioproject.scheduler.events.RetrieveGameEventHandler;
 import com.sintraqos.portfolioproject.shared.Errors;
 import com.sintraqos.portfolioproject.shared.SettingsHandler;
-import org.slf4j.Logger;
+
+// Spring components
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+// External components
+import org.slf4j.Logger;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+// Java components
+import java.util.*;
 
 @Service
 public class GameServiceClient {

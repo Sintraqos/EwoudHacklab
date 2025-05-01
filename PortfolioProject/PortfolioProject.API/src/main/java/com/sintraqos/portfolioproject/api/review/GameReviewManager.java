@@ -1,16 +1,17 @@
 package com.sintraqos.portfolioproject.api.review;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.stream.Collectors;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
-import lombok.Getter;
-import org.slf4j.Logger;
+// Spring components
 import org.springframework.stereotype.Service;
+
+// External components
+import org.slf4j.Logger;
+import lombok.Getter;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+// Java components
+import java.io.*;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 @Getter
@@ -34,6 +35,13 @@ public class GameReviewManager {
         }
     }
 
+    /**
+     * Return a list of GameReviewObject with at least the same score as the given value
+     *
+     * @param gameScore the minimum gameScore requireds
+     *
+     * @return List of GameReviewObjects
+     */
     public List<GameReviewObject> getReviewObjectsFromScore(int gameScore) {
         return gamesList.stream()
                 .filter(reviewObject -> reviewObject.getGameScore() >= gameScore)

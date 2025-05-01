@@ -1,19 +1,19 @@
 package com.sintraqos.portfolioproject.webservice.authentication;
 
+// Project components
 import com.sintraqos.portfolioproject.user.service.UserService;
 import com.sintraqos.portfolioproject.shared.Errors;
-import org.slf4j.Logger;
+
+// Spring components
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.AuthenticationProvider;
-import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.authentication.InternalAuthenticationServiceException;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.authentication.*;
+import org.springframework.security.core.*;
+import org.springframework.security.core.userdetails.*;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
+
+// External components
+import org.slf4j.Logger;
 
 @Component
 public class CustomAuthenticationHandler implements AuthenticationProvider {

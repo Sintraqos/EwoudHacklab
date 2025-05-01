@@ -1,20 +1,20 @@
 package com.sintraqos.portfolioproject.userLibrary.useCases;
 
-import com.sintraqos.portfolioproject.game.entities.GameEntityMessage;
+// Project components
+import com.sintraqos.portfolioproject.game.entities.GameMessage;
 import com.sintraqos.portfolioproject.game.service.GameService;
 import com.sintraqos.portfolioproject.shared.Errors;
-import com.sintraqos.portfolioproject.userLibrary.DAL.UserLibraryEntity;
-import com.sintraqos.portfolioproject.userLibrary.DAL.UserLibraryRepository;
+import com.sintraqos.portfolioproject.userLibrary.DAL.*;
 import com.sintraqos.portfolioproject.userLibrary.entities.UserLibraryEntityMessage;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-import org.mockito.junit.jupiter.MockitoExtension;
+
+// External components
 import org.slf4j.Logger;
 
+// Test components
+import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.*;
+import org.mockito.junit.jupiter.MockitoExtension;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
 
@@ -45,7 +45,7 @@ class UseCaseLibraryAddGameTest {
     @Test
     void testAddGame_Fail_GameDoesNotExist() {
         // Mock the correct method calls
-        when(gameService.getGame(gameID)).thenReturn(new GameEntityMessage("Game not found"));
+        when(gameService.getGame(gameID)).thenReturn(new GameMessage("Game not found"));
 
         // Post the message using the base class
         UserLibraryEntityMessage result = useCaseLibraryAddGame.addGame(accountID,gameID);
@@ -61,7 +61,7 @@ class UseCaseLibraryAddGameTest {
     @Test
     void testAddGame_Fail_UserHasGame() {
         // Mock the correct method calls
-        when(gameService.getGame(gameID)).thenReturn(new GameEntityMessage(true,"Game found"));
+        when(gameService.getGame(gameID)).thenReturn(new GameMessage(true,"Game found"));
         when(libraryRepository.findByAccountIDAndGameID(accountID, gameID)).thenReturn(new UserLibraryEntity());
 
         // Post the message using the base class
@@ -78,7 +78,7 @@ class UseCaseLibraryAddGameTest {
     @Test
     void testAddGame_Success(){
         // Mock the correct method calls
-        when(gameService.getGame(gameID)).thenReturn(new GameEntityMessage(true,"Game found"));
+        when(gameService.getGame(gameID)).thenReturn(new GameMessage(true,"Game found"));
         when(libraryRepository.findByAccountIDAndGameID(accountID, gameID)).thenReturn(null);
 
         // Post the message using the base class

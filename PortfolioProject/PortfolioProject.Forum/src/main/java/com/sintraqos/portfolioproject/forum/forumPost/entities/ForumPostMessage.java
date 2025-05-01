@@ -1,8 +1,13 @@
 package com.sintraqos.portfolioproject.forum.forumPost.entities;
 
+// Project components
 import com.sintraqos.portfolioproject.forum.forumPost.DAL.ForumPostEntity;
-import lombok.Getter;
+
+// Spring components
 import org.springframework.data.domain.Page;
+
+// External components
+import lombok.Getter;
 
 @Getter
 public class ForumPostMessage   {
@@ -23,7 +28,7 @@ public class ForumPostMessage   {
     }
 
     /**
-     * Create a new Message object
+     * Create a new Message object, always returns false
      *
      * @param message the message the sender wishes to send back
      */
@@ -32,6 +37,11 @@ public class ForumPostMessage   {
         this.message = message;
     }
 
+    /**
+     * Create a new Message object containing a list of ForumPostEntity, always returns true
+     *
+     * @param message the message the sender wishes to send back
+     */
     public ForumPostMessage(Page<ForumPostEntity> forumPostEntities, String message) {
         this.isSuccessful = true;
         this.message = message;

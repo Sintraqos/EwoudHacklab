@@ -1,15 +1,19 @@
 package com.sintraqos.portfolioproject.user.useCases;
 
-import com.sintraqos.portfolioproject.shared.CensorService;
-import com.sintraqos.portfolioproject.shared.Errors;
-import com.sintraqos.portfolioproject.shared.SettingsHandler;
+// Project components
+import com.sintraqos.portfolioproject.shared.*;
 import com.sintraqos.portfolioproject.user.DAL.UserRepository;
 import com.sintraqos.portfolioproject.user.entities.UserMessage;
-import org.slf4j.Logger;
+
+// Spring components
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
+// External components
+import org.slf4j.Logger;
+
+// Java components
 import java.util.regex.Pattern;
 
 @Component

@@ -1,9 +1,13 @@
 package com.sintraqos.portfolioproject.game.entities;
 
+// Project components
 import com.sintraqos.portfolioproject.game.DAL.GameEntity;
 import com.sintraqos.portfolioproject.game.DTO.GameDTO;
+
+// External components
 import lombok.Getter;
 
+// Java components
 import java.util.Date;
 
 /**

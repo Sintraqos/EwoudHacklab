@@ -1,8 +1,9 @@
 package com.sintraqos.portfolioproject.forum.forumPost.entities;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
+// External components
+import lombok.*;
 
+// Java components
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 
@@ -18,6 +19,7 @@ public class ForumPost {
     private Timestamp postDate;
 
     public String getTimestamp() {
+        // Get current date and time as: 01-02-1234 - 12:34
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy - HH:mm");
         return sdf.format(postDate);
     }

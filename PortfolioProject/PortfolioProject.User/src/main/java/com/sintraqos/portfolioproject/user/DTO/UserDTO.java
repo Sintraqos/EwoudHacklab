@@ -1,8 +1,11 @@
 package com.sintraqos.portfolioproject.user.DTO;
 
+// Project components
 import com.sintraqos.portfolioproject.user.DAL.UserEntity;
 import com.sintraqos.portfolioproject.user.statics.Enums;
 import com.sintraqos.portfolioproject.userLibrary.DTO.UserLibraryDTO;
+
+// External components
 import lombok.Getter;
 
 /**

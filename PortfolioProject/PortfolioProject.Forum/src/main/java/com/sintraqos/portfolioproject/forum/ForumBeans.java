@@ -1,9 +1,9 @@
 package com.sintraqos.portfolioproject.forum;
 
+// Spring components
 import org.springframework.boot.autoconfigure.cache.CacheManagerCustomizer;
 import org.springframework.cache.concurrent.ConcurrentMapCacheManager;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.*;
 
 @Configuration
 public class ForumBeans {

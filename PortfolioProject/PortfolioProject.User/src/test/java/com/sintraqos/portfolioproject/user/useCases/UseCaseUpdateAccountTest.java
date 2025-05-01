@@ -1,22 +1,24 @@
 package com.sintraqos.portfolioproject.user.useCases;
 
+// Project components
 import com.sintraqos.portfolioproject.shared.Errors;
-import com.sintraqos.portfolioproject.user.DAL.UserEntity;
-import com.sintraqos.portfolioproject.user.DAL.UserRepository;
+import com.sintraqos.portfolioproject.user.DAL.*;
 import com.sintraqos.portfolioproject.user.DTO.UserDTO;
 import com.sintraqos.portfolioproject.user.entities.UserMessage;
 import com.sintraqos.portfolioproject.user.statics.Enums;
-import org.instancio.Instancio;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-import org.mockito.junit.jupiter.MockitoExtension;
-import org.slf4j.Logger;
+
+// Spring components
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+// External components
+import org.slf4j.Logger;
+import org.instancio.Instancio;
+
+// Test components
+import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.*;
+import org.mockito.junit.jupiter.MockitoExtension;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
 
@@ -94,7 +96,7 @@ class UseCaseUpdateAccountTest {
 
         // Mock the correct method calls
         when(validateUser.validateUsername(newUsername)).thenReturn(new UserMessage(true, "User valid"));
-        when(getAccount.getAccount(currentUsername)).thenReturn(new UserMessage(new UserDTO(userEntity), userEntity, "User found"));
+        when(getAccount.getAccount(currentUsername)).thenReturn(new UserMessage(new UserDTO(userEntity), "User found"));
         when(validateUser.comparePassword(userEntity.getPasswordHash(), currentPassword)).thenReturn(new UserMessage(Errors.PASSWORD_INCORRECT));
 
         // Update the user using the base class
@@ -114,7 +116,7 @@ class UseCaseUpdateAccountTest {
 
         // Mock the correct method calls
         when(validateUser.validateUsername(newUsername)).thenReturn(new UserMessage(true, "User valid"));
-        when(getAccount.getAccount(currentUsername)).thenReturn(new UserMessage(new UserDTO(userEntity), userEntity, "User found"));
+        when(getAccount.getAccount(currentUsername)).thenReturn(new UserMessage(new UserDTO(userEntity), "User found"));
         when(validateUser.comparePassword(userEntity.getPasswordHash(), currentPassword)).thenReturn(new UserMessage(true, Errors.PASSWORD_MATCH));
         when(userRepository.findByUsername(newUsername)).thenReturn(Instancio.create(UserEntity.class));
 
@@ -135,7 +137,7 @@ class UseCaseUpdateAccountTest {
 
         // Mock the correct method calls
         when(validateUser.validateUsername(newUsername)).thenReturn(new UserMessage(true, "User valid"));
-        when(getAccount.getAccount(currentUsername)).thenReturn(new UserMessage(new UserDTO(userEntity), userEntity, "User found"));
+        when(getAccount.getAccount(currentUsername)).thenReturn(new UserMessage(new UserDTO(userEntity), "User found"));
         when(validateUser.comparePassword(userEntity.getPasswordHash(), currentPassword)).thenReturn(new UserMessage(true, Errors.PASSWORD_MATCH));
         when(userRepository.findByUsername(newUsername)).thenReturn(null);
 
@@ -176,7 +178,7 @@ class UseCaseUpdateAccountTest {
         UserEntity userEntity = Instancio.create(UserEntity.class);
 
         // Mock the correct method calls
-        when(getAccount.getAccount(currentUsername)).thenReturn(new UserMessage(new UserDTO(userEntity), userEntity, "User found"));
+        when(getAccount.getAccount(currentUsername)).thenReturn(new UserMessage(new UserDTO(userEntity), "User found"));
         when(validateUser.comparePassword(userEntity.getPasswordHash(), currentPassword)).thenReturn(new UserMessage(Errors.PASSWORD_INCORRECT));
 
         // Update the user using the base class
@@ -195,7 +197,7 @@ class UseCaseUpdateAccountTest {
         UserEntity userEntity = Instancio.create(UserEntity.class);
 
         // Mock the correct method calls
-        when(getAccount.getAccount(currentUsername)).thenReturn(new UserMessage(new UserDTO(userEntity), userEntity, "User found"));
+        when(getAccount.getAccount(currentUsername)).thenReturn(new UserMessage(new UserDTO(userEntity), "User found"));
         when(validateUser.comparePassword(userEntity.getPasswordHash(), currentPassword)).thenReturn(new UserMessage(true, Errors.PASSWORD_MATCH));
         when(validateUser.validateEMail(newEMail)).thenReturn(new UserMessage(Errors.EMAIL_ALREADY_IN_USE));
 
@@ -215,7 +217,7 @@ class UseCaseUpdateAccountTest {
         UserEntity userEntity = Instancio.create(UserEntity.class);
 
         // Mock the correct method calls
-        when(getAccount.getAccount(currentUsername)).thenReturn(new UserMessage(new UserDTO(userEntity), userEntity, "User found"));
+        when(getAccount.getAccount(currentUsername)).thenReturn(new UserMessage(new UserDTO(userEntity), "User found"));
         when(validateUser.comparePassword(userEntity.getPasswordHash(), currentPassword)).thenReturn(new UserMessage(true, "Password valid"));
         when(validateUser.validateEMail(newEMail)).thenReturn(new UserMessage(true, "Email valid"));
 
@@ -256,7 +258,7 @@ class UseCaseUpdateAccountTest {
         UserEntity userEntity = Instancio.create(UserEntity.class);
 
         // Mock the correct method calls
-        when(getAccount.getAccount(currentUsername)).thenReturn(new UserMessage(new UserDTO(userEntity), userEntity, "User found"));
+        when(getAccount.getAccount(currentUsername)).thenReturn(new UserMessage(new UserDTO(userEntity), "User found"));
         when(validateUser.validatePassword(newPassword)).thenReturn(new UserMessage(Errors.PASSWORD_INVALID_CAPITAL_CHAR));
 
         // Update the user using the base class
@@ -275,7 +277,7 @@ class UseCaseUpdateAccountTest {
         UserEntity userEntity = Instancio.create(UserEntity.class);
 
         // Mock the correct method calls
-        when(getAccount.getAccount(currentUsername)).thenReturn(new UserMessage(new UserDTO(userEntity), userEntity, "User found"));
+        when(getAccount.getAccount(currentUsername)).thenReturn(new UserMessage(new UserDTO(userEntity), "User found"));
         when(validateUser.validatePassword(newPassword)).thenReturn(new UserMessage(true, "Password valid"));
         when(validateUser.comparePassword(userEntity.getPasswordHash(), currentPassword)).thenReturn(new UserMessage(Errors.PASSWORD_MATCH));
 
@@ -295,7 +297,7 @@ class UseCaseUpdateAccountTest {
         UserEntity userEntity = Instancio.create(UserEntity.class);
 
         // Mock the correct method calls
-        when(getAccount.getAccount(currentUsername)).thenReturn(new UserMessage(new UserDTO(userEntity), userEntity, "User found"));
+        when(getAccount.getAccount(currentUsername)).thenReturn(new UserMessage(new UserDTO(userEntity), "User found"));
         when(validateUser.validatePassword(newPassword)).thenReturn(new UserMessage(true, "Password valid"));
         when(validateUser.comparePassword(userEntity.getPasswordHash(), currentPassword)).thenReturn(new UserMessage(true, "Password is new"));
 
@@ -337,7 +339,7 @@ class UseCaseUpdateAccountTest {
         adminEntity.setRole(Enums.Role.USER); // Since we need to test it for an invalid admin role set it to Role.USER beforehand
 
         // Mock the correct method calls
-        when(getAccount.getAccount(adminAccountID)).thenReturn(new UserMessage(new UserDTO(adminEntity), adminEntity, "User found"));
+        when(getAccount.getAccount(adminAccountID)).thenReturn(new UserMessage(new UserDTO(adminEntity), "User found"));
 
         // Update the user using the base class
         UserMessage result = useCaseUpdateAccount.changeRole(adminAccountID, accountID, Enums.Role.ADMIN);
@@ -358,7 +360,7 @@ class UseCaseUpdateAccountTest {
         userEntity.setRole(Enums.Role.USER);
 
         // Mock the correct method calls
-        when(getAccount.getAccount(adminAccountID)).thenReturn(new UserMessage(new UserDTO(adminEntity), adminEntity, "User found"));
+        when(getAccount.getAccount(adminAccountID)).thenReturn(new UserMessage(new UserDTO(adminEntity), "User found"));
         when(getAccount.getAccount(accountID)).thenReturn(new UserMessage(Errors.FIND_USER_ID_FAILED.formatted(adminAccountID)));
 
         // Update the user using the base class
@@ -378,7 +380,7 @@ class UseCaseUpdateAccountTest {
         adminEntity.setRole(Enums.Role.ADMIN); // Since we need to test it with a valid admin role set it to Role.ADMIN beforehand
 
         // Mock the correct method calls
-        when(getAccount.getAccount(adminAccountID)).thenReturn(new UserMessage(new UserDTO(adminEntity), adminEntity, "User found"));
+        when(getAccount.getAccount(adminAccountID)).thenReturn(new UserMessage(new UserDTO(adminEntity), "User found"));
 
         // Update the user using the base class
         UserMessage result = useCaseUpdateAccount.changeRole(adminAccountID, accountID, Enums.Role.ADMIN);

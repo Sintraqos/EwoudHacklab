@@ -1,9 +1,10 @@
 package com.sintraqos.portfolioproject.forum.forumPost.DAL;
 
+// External components
+import lombok.*;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
 
+// Java components
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 

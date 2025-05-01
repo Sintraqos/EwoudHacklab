@@ -1,19 +1,20 @@
 package com.sintraqos.portfolioproject.game.useCases;
 
+// Project components
 import com.sintraqos.portfolioproject.game.DAL.GameEntity;
 import com.sintraqos.portfolioproject.game.DAL.GameRepository;
-import com.sintraqos.portfolioproject.game.entities.GameEntityMessage;
+import com.sintraqos.portfolioproject.game.entities.GameMessage;
 import com.sintraqos.portfolioproject.shared.Errors;
-import org.instancio.Instancio;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-import org.mockito.junit.jupiter.MockitoExtension;
-import org.slf4j.Logger;
 
+// External components
+import org.slf4j.Logger;
+import org.instancio.Instancio;
+
+// Test components
+import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.*;
+import org.mockito.junit.jupiter.MockitoExtension;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
 
@@ -42,7 +43,7 @@ class UseCaseGetGameTest {
     void getGameID_Fail() {
         // Mock the correct method calls
         when(gameRepository.findByGameID(gameID)).thenReturn(null);
-        GameEntityMessage result = useCaseGetGame.getGame(gameID);
+        GameMessage result = useCaseGetGame.getGame(gameID);
 
         // Assert
         Assertions.assertFalse(result.isSuccessful());
@@ -57,7 +58,7 @@ class UseCaseGetGameTest {
     void getGameID_Success() {
         // Mock the correct method calls
         when(gameRepository.findByGameID(gameID)).thenReturn(Instancio.create(GameEntity.class));
-        GameEntityMessage result = useCaseGetGame.getGame(gameID);
+        GameMessage result = useCaseGetGame.getGame(gameID);
 
         // Assert
         Assertions.assertTrue(result.isSuccessful());
@@ -72,7 +73,7 @@ class UseCaseGetGameTest {
     void getGameName_Fail() {
         // Mock the correct method calls
         when(gameRepository.findByGameName(gameName)).thenReturn(null);
-        GameEntityMessage result = useCaseGetGame.getGame(gameName);
+        GameMessage result = useCaseGetGame.getGame(gameName);
 
         // Assert
         Assertions.assertFalse(result.isSuccessful());
@@ -87,7 +88,7 @@ class UseCaseGetGameTest {
     void getGameName_Success() {
         // Mock the correct method calls
         when(gameRepository.findByGameName(gameName)).thenReturn(Instancio.create(GameEntity.class));
-        GameEntityMessage result = useCaseGetGame.getGame(gameName);
+        GameMessage result = useCaseGetGame.getGame(gameName);
 
         // Assert
         Assertions.assertTrue(result.isSuccessful());
@@ -102,7 +103,7 @@ class UseCaseGetGameTest {
     void getGames_Fail() {
         // Mock the correct method calls
         when(gameRepository.findByGameNameContaining(gameName)).thenReturn(null);
-        GameEntityMessage result = useCaseGetGame.getGames(gameName);
+        GameMessage result = useCaseGetGame.getGames(gameName);
 
         // Assert
         Assertions.assertFalse(result.isSuccessful());
@@ -117,7 +118,7 @@ class UseCaseGetGameTest {
     void getGames_Success() {
         // Mock the correct method calls
         when(gameRepository.findByGameNameContaining(gameName)).thenReturn(Instancio.createList(GameEntity.class));
-        GameEntityMessage result = useCaseGetGame.getGames(gameName);
+        GameMessage result = useCaseGetGame.getGames(gameName);
 
         // Assert
         Assertions.assertTrue(result.isSuccessful());

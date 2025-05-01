@@ -1,15 +1,19 @@
 package com.sintraqos.portfolioproject.user.useCases;
 
+// Project components
 import com.sintraqos.portfolioproject.shared.Errors;
-import com.sintraqos.portfolioproject.user.DAL.UserEntity;
-import com.sintraqos.portfolioproject.user.DAL.UserRepository;
+import com.sintraqos.portfolioproject.user.DAL.*;
 import com.sintraqos.portfolioproject.user.entities.UserMessage;
 import com.sintraqos.portfolioproject.user.statics.Enums;
-import lombok.Getter;
-import org.slf4j.Logger;
+
+// Spring components
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
+
+// External components
+import org.slf4j.Logger;
+import lombok.Getter;
 
 /**
  * UseCase of handling the updating of the stored information of a given account
@@ -202,19 +206,24 @@ public class UseCaseUpdateAccount {
         user.setRole(role);
         userRepository.save(user);
 
-        UserMessage updateMessage = new UserMessage(true, "Role successfully updated to: '%s' for account with ID: %s".formatted(role, adminAccountID));
+        UserMessage updateMessage = new UserMessage(true, "Role successfully updated to: '%s' for account: %s".formatted(role, userMessage.getUserDTO().getUsername()));
         logger.debug(updateMessage.getMessage());
 
         return updateMessage;
     }
 
     UserMessage handleUpdateAccount(UserEntity user, String username, String eMail, String password, Enums.Role role) {
+        // Overwrite the given user with the new variables, and save it inside the database
         user.setUsername(username);
         user.setEmail(eMail);
         user.setPasswordHash(password);
         user.setRole(role);
         userRepository.save(user);
 
-        return new UserMessage(true, "Successfully updated account");
+        // Return the message
+        String message = "Successfully updated account";
+
+        logger.debug(message);
+        return new UserMessage(true, message);
     }
 }

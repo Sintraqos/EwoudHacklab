@@ -1,11 +1,14 @@
 package com.sintraqos.portfolioproject.webservice.authentication;
 
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
+// Spring components
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 
+// External components
+import jakarta.servlet.http.*;
+
+// Java components
 import java.io.IOException;
 
 @Component

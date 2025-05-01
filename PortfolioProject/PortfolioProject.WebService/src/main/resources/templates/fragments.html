@@ -51,7 +51,6 @@
             <input type="hidden" name="gameID" th:value="${game.gameID}"/>
             <button type="submit" class="base" th:text="${game.gameName}"></button>
         </form>
-        <hr>
     </div>
 </div>
 
@@ -63,7 +62,6 @@
             <input type="hidden" name="username" th:value="${user.getUsername()}" />
             <button type="submit" class="base" th:text="${user.getUsername()}"></button>
         </form>
-        <hr>
     </div>
 </div>
 
@@ -145,11 +143,10 @@
         <!-- Hidden input for username -->
         <input type="hidden" name="username" th:value="${username}" />
         <label for="newRole">Role:</label>
-        <select id="newRole" name="newRole">
+        <select class="base" id="newRole" name="newRole">
             <!-- Loop through roles -->
             <th:block th:each="role : ${roles}">
-                <option th:value="${role.name()}"
-                        th:text="${#strings.capitalize(role.name().toLowerCase())}"></option>
+                <option th:value="${role.name()}" th:text="${#strings.capitalize(role.name().toLowerCase())}"></option>
             </th:block>
         </select>
         <button class="base" type="submit">Update Role</button>
@@ -177,6 +174,6 @@
     </form>
 </div>
 
-</body>s
+</body>
 </html>
 

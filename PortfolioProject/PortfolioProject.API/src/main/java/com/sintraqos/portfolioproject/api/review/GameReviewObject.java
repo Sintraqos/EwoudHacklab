@@ -1,7 +1,7 @@
 package com.sintraqos.portfolioproject.api.review;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
+// External components
+import lombok.*;
 import org.hibernate.validator.constraints.Range;
 
 @Getter

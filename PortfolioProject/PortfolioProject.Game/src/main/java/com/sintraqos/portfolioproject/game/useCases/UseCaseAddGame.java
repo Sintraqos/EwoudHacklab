@@ -1,16 +1,20 @@
 package com.sintraqos.portfolioproject.game.useCases;
 
-import com.sintraqos.portfolioproject.game.DAL.GameEntity;
-import com.sintraqos.portfolioproject.game.DAL.GameRepository;
+// Project components
+import com.sintraqos.portfolioproject.game.DAL.*;
 import com.sintraqos.portfolioproject.game.DTO.GameDTO;
-import com.sintraqos.portfolioproject.game.entities.Game;
-import com.sintraqos.portfolioproject.game.entities.GameEntityMessage;
+import com.sintraqos.portfolioproject.game.entities.*;
 import com.sintraqos.portfolioproject.shared.Errors;
-import lombok.Getter;
-import org.slf4j.Logger;
+
+// Spring components
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+// External components
+import org.slf4j.Logger;
+import lombok.Getter;
+
+// Java components
 import java.util.List;
 
 /**
@@ -27,8 +31,7 @@ public class UseCaseAddGame {
     public UseCaseAddGame(
             UseCaseGetGame getGame,
             GameRepository gameRepository,
-            Logger logger
-    ) {
+            Logger logger) {
         this.getGame = getGame;
         this.gameRepository = gameRepository;
         this.logger = logger;
@@ -39,27 +42,27 @@ public class UseCaseAddGame {
      *
      * @param game the game Object to be added to the list
      */
-    public GameEntityMessage addGame(Game game) {
+    public GameMessage addGame(Game game) {
         logger.debug("Attempting to add new game: '%s'".formatted(game.getGameName()));
 
         // Check if a game with the given name already exists
         if (getGame.getGame(game.getGameName()).isSuccessful()) {
             logger.debug(Errors.GAME_EXISTS.formatted(game.getGameName()));
-            return new GameEntityMessage(Errors.GAME_EXISTS.formatted(game.getGameName()));
+            return new GameMessage(Errors.GAME_EXISTS.formatted(game.getGameName()));
         }
 
         // Add new game
         GameEntity gameEntity = new GameEntity(game);
         String message = "Added new game: '%s'".formatted(game.getGameName());
         logger.debug(message);
-        return new GameEntityMessage(gameRepository.save(gameEntity), message);
+        return new GameMessage(gameRepository.save(gameEntity), message);
     }
 
-    public GameEntityMessage addGames(List<GameDTO> games){
+    public GameMessage addGames(List<GameDTO> games){
         StringBuilder returnString = new StringBuilder();
 
         for (GameDTO game : games) {
-            GameEntityMessage message = addGame(new Game(game));
+            GameMessage message = addGame(new Game(game));
 
             if (!message.isSuccessful()) {
                 logger.debug("Failed to add new game: '%s'".formatted(message.getMessage()));
@@ -68,10 +71,10 @@ public class UseCaseAddGame {
         }
 
         if (!returnString.isEmpty()) {
-            return new GameEntityMessage(returnString.toString());
+            return new GameMessage(returnString.toString());
         } else {
             logger.debug("Added all games successfully");
-            return new GameEntityMessage(true, "Added all games successfully");
+            return new GameMessage(true, "Added all games successfully");
         }
     }
 }

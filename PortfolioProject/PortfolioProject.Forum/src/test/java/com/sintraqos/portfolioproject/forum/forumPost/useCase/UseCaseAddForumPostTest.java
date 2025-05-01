@@ -1,15 +1,19 @@
 package com.sintraqos.portfolioproject.forum.forumPost.useCase;
 
+// Project components
 import com.sintraqos.portfolioproject.forum.forumPost.DAL.ForumPostRepository;
 import com.sintraqos.portfolioproject.forum.forumPost.DTO.ForumPostDTO;
 import com.sintraqos.portfolioproject.forum.forumPost.entities.ForumPostMessage;
 import com.sintraqos.portfolioproject.shared.*;
+
+// External components
+import org.slf4j.Logger;
+
+// Test components
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.*;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.slf4j.Logger;
-
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)

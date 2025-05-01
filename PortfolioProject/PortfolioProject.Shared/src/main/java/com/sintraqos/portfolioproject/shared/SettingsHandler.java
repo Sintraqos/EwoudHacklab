@@ -1,11 +1,13 @@
 package com.sintraqos.portfolioproject.shared;
 
-import lombok.Getter;
-import lombok.Setter;
-import org.slf4j.Logger;
+// Spring components
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
+
+// External components
+import org.slf4j.Logger;
+import lombok.*;
 
 @Getter
 @Setter

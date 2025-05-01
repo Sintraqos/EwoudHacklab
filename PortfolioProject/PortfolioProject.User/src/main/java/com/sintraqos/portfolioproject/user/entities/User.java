@@ -1,18 +1,22 @@
 package com.sintraqos.portfolioproject.user.entities;
 
+// Project components
 import com.sintraqos.portfolioproject.game.entities.Game;
 import com.sintraqos.portfolioproject.user.DAL.UserEntity;
 import com.sintraqos.portfolioproject.user.DTO.UserDTO;
 import com.sintraqos.portfolioproject.user.statics.Enums;
 import com.sintraqos.portfolioproject.userLibrary.entities.UserLibrary;
-import lombok.Getter;
+
+// Spring components
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+// External components
+import lombok.Getter;
+
+// Java components
+import java.util.*;
 
 /**
  * Use for storing account data locally

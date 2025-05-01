@@ -1,12 +1,15 @@
 package com.sintraqos.portfolioproject.user.DAL;
 
+// Project components
 import com.sintraqos.portfolioproject.caching.CacheConfig;
 import com.sintraqos.portfolioproject.user.statics.Enums;
-import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.Caching;
+
+// Spring components
+import org.springframework.cache.annotation.*;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+// Java components
 import java.util.List;
 
 @Repository

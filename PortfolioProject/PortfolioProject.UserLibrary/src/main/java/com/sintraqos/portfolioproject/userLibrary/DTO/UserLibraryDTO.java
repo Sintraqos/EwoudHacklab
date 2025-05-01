@@ -1,7 +1,12 @@
 package com.sintraqos.portfolioproject.userLibrary.DTO;
 
+// Project components
 import com.sintraqos.portfolioproject.game.DTO.GameDTO;
+
+// External components
 import lombok.Getter;
+
+// Java components
 import java.util.ArrayList;
 
 /**

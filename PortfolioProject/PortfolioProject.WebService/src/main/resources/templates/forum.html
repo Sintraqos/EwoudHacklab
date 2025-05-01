@@ -26,8 +26,10 @@
     <!-- Display the list of forum posts -->
     <table>
       <tbody>
-      <tr th:each="forumPost : ${forumPosts.getForumPosts()}">
-        <td th:text="'[' + ${forumPost.timestamp} + '] ' + ${forumPost.username} + ': ' + ${forumPost.message}"></td>
+        <tr th:each="forumPost : ${forumPosts.getForumPosts()}">
+        <td>
+          <label class="label-fullWidth" th:text="'[' + ${forumPost.timestamp} + '] ' + ${forumPost.username} + ': ' + ${forumPost.message}"></label>
+        </td>
       </tr>
       </tbody>
     </table>
@@ -35,27 +37,22 @@
 
   <!-- Page Controls -->
   <div>
-
     <!-- When reaching the start of the list display '...' instead of a button -->
     <span th:if="${currentPage == 0}">...</span>
-
     <!-- Display the previous page button if the currentpage is more than 0 -->
     <span th:if="${currentPage > 0}">
       <a th:href="@{/forum/{gameID}(gameID=${game.gameID}, page=${currentPage - 1})}">
         <button class="base">Previous Page</button>
       </a>
     </span>
-
     <!-- Display the current page number -->
     <span class="current-page" th:text="${currentPage + 1}">Page</span>
-
     <!-- Display the next page button if the end hasn't been reached yet -->
     <span th:if="${currentPage < totalPages - 1}">
       <a th:href="@{/forum/{gameID}(gameID=${game.gameID}, page=${currentPage + 1})}">
         <button class="base">Next Page</button>
       </a>
     </span>
-
     <!-- When reaching the end of the list display '...' instead of a button -->
     <span th:if="${currentPage == (totalPages - 1)}">...</span>
   </div>
@@ -64,7 +61,6 @@
   <h3>Post a New Message</h3>
   <form th:action="@{/forum/addPost}" method="post">
     <input type="hidden" th:value="${game.gameID}" name="gameID"/>
-<!--    <label for="message">Message:</label>-->
     <textarea id="message" name="message" placeholder="Write your message here" required></textarea>
     <button type="submit" class="base">Post Message</button>
   </form>

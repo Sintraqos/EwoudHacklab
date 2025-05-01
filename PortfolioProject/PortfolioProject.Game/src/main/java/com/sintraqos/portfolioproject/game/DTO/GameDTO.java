@@ -1,9 +1,13 @@
 package com.sintraqos.portfolioproject.game.DTO;
 
+// Project components
 import com.sintraqos.portfolioproject.game.entities.Game;
 import com.sintraqos.portfolioproject.game.DAL.GameEntity;
+
+// External components
 import lombok.Getter;
 
+// Java components
 import java.util.Date;
 
 /**
@@ -34,8 +38,7 @@ public class GameDTO {
         this.gamePlayTime = 0;
     }
 
-    public GameDTO(Game game)
-    {
+    public GameDTO(Game game){
         this.gameID = game.getGameID();
         this.gameName = game.getGameName();
         this.gameDescription = game.getGameDescription();
@@ -50,8 +53,7 @@ public class GameDTO {
             GameEntity gameEntity,
             Date gameAcquired,
             Date gameLastPlayed,
-            int gamePlayTime
-    ){
+            int gamePlayTime){
         this.gameID = gameEntity.getGameID();
         this.gameName = gameEntity.getGameName();
         this.gameDescription = gameEntity.getGameDescription();

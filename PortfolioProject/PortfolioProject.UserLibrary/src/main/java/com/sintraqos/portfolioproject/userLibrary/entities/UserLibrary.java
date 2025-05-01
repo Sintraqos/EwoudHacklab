@@ -1,10 +1,14 @@
 package com.sintraqos.portfolioproject.userLibrary.entities;
 
+// Project components
 import com.sintraqos.portfolioproject.game.DTO.GameDTO;
 import com.sintraqos.portfolioproject.game.entities.Game;
 import com.sintraqos.portfolioproject.userLibrary.DTO.UserLibraryDTO;
+
+// External components
 import lombok.Getter;
 
+// Java components
 import java.util.ArrayList;
 
 /**
@@ -21,6 +25,9 @@ public class UserLibrary {
         gameLibrary = new ArrayList<>();
     }
 
+    /**
+     * Create a new AccountLibrary object based on the UserLibraryDTO
+     */
     public UserLibrary(UserLibraryDTO userLibraryDTO) {
         for (GameDTO gameDTO : userLibraryDTO.getGameLibrary()) {
             gameLibrary.add(new Game(gameDTO));

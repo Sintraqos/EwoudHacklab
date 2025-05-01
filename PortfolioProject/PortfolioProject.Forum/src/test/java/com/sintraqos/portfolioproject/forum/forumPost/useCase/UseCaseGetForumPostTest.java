@@ -1,21 +1,24 @@
 package com.sintraqos.portfolioproject.forum.forumPost.useCase;
 
-import com.sintraqos.portfolioproject.forum.forumPost.DAL.ForumPostEntity;
-import com.sintraqos.portfolioproject.forum.forumPost.DAL.ForumPostRepository;
+// Project components
+import com.sintraqos.portfolioproject.forum.forumPost.DAL.*;
 import com.sintraqos.portfolioproject.forum.forumPost.entities.ForumPostMessage;
 import com.sintraqos.portfolioproject.shared.Errors;
-import lombok.Getter;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-import org.slf4j.Logger;
+
+// Spring components
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Component;
 
+// External components
+import org.slf4j.Logger;
+import lombok.Getter;
+
+// Java components
 import java.util.List;
 
+// Test components
+import org.junit.jupiter.api.*;
+import org.mockito.*;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
 

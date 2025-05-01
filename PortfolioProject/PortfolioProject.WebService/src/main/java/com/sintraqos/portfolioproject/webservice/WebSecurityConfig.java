@@ -1,11 +1,12 @@
 package com.sintraqos.portfolioproject.webservice;
 
+// Project components
 import com.sintraqos.portfolioproject.user.service.UserService;
-import com.sintraqos.portfolioproject.webservice.authentication.CustomAuthenticationFailureHandler;
-import com.sintraqos.portfolioproject.webservice.authentication.CustomAuthenticationHandler;
+import com.sintraqos.portfolioproject.webservice.authentication.*;
+
+// Spring components
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.*;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -13,8 +14,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
-import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.config.annotation.*;
 import org.springframework.web.servlet.resource.PathResourceResolver;
 
 /**
@@ -38,8 +38,7 @@ public class WebSecurityConfig  implements WebMvcConfigurer {
             UserService userService,
             PasswordEncoder passwordEncoder,
             CustomAuthenticationFailureHandler customAuthenticationFailureHandler,
-            CustomAuthenticationHandler customAuthenticationHandler
-    ){
+            CustomAuthenticationHandler customAuthenticationHandler){
         this.userService = userService;
         this.passwordEncoder = passwordEncoder;
         this.customAuthenticationFailureHandler = customAuthenticationFailureHandler;
@@ -63,6 +62,7 @@ public class WebSecurityConfig  implements WebMvcConfigurer {
                         .authenticated()
                         .requestMatchers("/admin/**").hasRole("ADMIN")
                         .requestMatchers("/images/**").permitAll()  // Allow static image access
+                        .requestMatchers("/fonts/**").permitAll()  // Allow static font access
                         .requestMatchers("/css/**").permitAll()     // Allow style access
                         .anyRequest().authenticated()
                 )

@@ -1,14 +1,19 @@
 package com.sintraqos.portfolioproject.user.DAL;
 
+// Project components
 import com.sintraqos.portfolioproject.user.DTO.UserDTO;
 import com.sintraqos.portfolioproject.user.statics.Enums;
-import jakarta.persistence.*;
-import lombok.*;
+
+// Spring components
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
-import java.util.Collection;
-import java.util.List;
+// External components
+import lombok.*;
+import jakarta.persistence.*;
+
+// Java components
+import java.util.*;
 
 /**
  * Account Entity Object, use for creating new Database Tables, and for storing the data from the database

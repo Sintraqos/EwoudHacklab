@@ -1,9 +1,11 @@
 package com.sintraqos.portfolioproject.caching;
 
+// Spring components
 import org.springframework.boot.autoconfigure.cache.CacheManagerCustomizer;
 import org.springframework.cache.concurrent.ConcurrentMapCacheManager;
 import org.springframework.stereotype.Component;
 
+// Java components
 import java.util.List;
 
 @Component

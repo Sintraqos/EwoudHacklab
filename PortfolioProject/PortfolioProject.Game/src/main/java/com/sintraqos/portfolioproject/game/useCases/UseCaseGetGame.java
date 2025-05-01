@@ -1,14 +1,19 @@
 package com.sintraqos.portfolioproject.game.useCases;
 
-import com.sintraqos.portfolioproject.game.DAL.GameEntity;
-import com.sintraqos.portfolioproject.game.DAL.GameRepository;
-import com.sintraqos.portfolioproject.game.entities.GameEntityMessage;
+// Project components
+import com.sintraqos.portfolioproject.game.DAL.*;
+import com.sintraqos.portfolioproject.game.entities.GameMessage;
 import com.sintraqos.portfolioproject.shared.Errors;
-import lombok.Getter;
-import org.slf4j.Logger;
+
+// Spring components
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+// External components
+import org.slf4j.Logger;
+import lombok.Getter;
+
+// Java components
 import java.util.List;
 
 /**
@@ -34,7 +39,7 @@ public class UseCaseGetGame {
      * @param gameID the ID of the game we're looking for
      * @return the game from the library, if it isn't in the list returns null
      */
-    public GameEntityMessage getGame(int gameID) {
+    public GameMessage getGame(int gameID) {
         logger.debug("Attempting to get game with ID: '%s'".formatted(gameID));
         // Get the account
         GameEntity game = gameRepository.findByGameID(gameID);
@@ -44,14 +49,14 @@ public class UseCaseGetGame {
             String message ="Game with ID: '%s' found".formatted(gameID);
             logger.debug(message);
 
-            return new GameEntityMessage(game, message);
+            return new GameMessage(game, message);
         }
         // Otherwise return the message
         else {
             String message =Errors.FIND_GAME_ID_FAILED.formatted(gameID);
             logger.debug(message);
 
-            return new GameEntityMessage(false, message);
+            return new GameMessage(false, message);
         }
     }
 
@@ -61,7 +66,7 @@ public class UseCaseGetGame {
      * @param gameName the name of the game we're looking for
      * @return the game from the library, if it isn't in the list returns null
      */
-    public GameEntityMessage getGame(String gameName) {
+    public GameMessage getGame(String gameName) {
         logger.debug("Attempting to get game with name: '%s'".formatted(gameName));
 
         // Get the account
@@ -72,14 +77,14 @@ public class UseCaseGetGame {
             String message ="Game with name: '%s' found".formatted(gameName);
             logger.debug(message);
 
-            return new GameEntityMessage(game, message);
+            return new GameMessage(game, message);
         }
         // Otherwise return the message
         else {
             String message =Errors.FIND_GAME_NAME_FAILED.formatted(gameName);
             logger.debug(message);
 
-            return new GameEntityMessage(false, message);
+            return new GameMessage(false, message);
         }
     }
 
@@ -89,19 +94,19 @@ public class UseCaseGetGame {
      * @param gameName the name of the game we're looking for
      * @return the game from the library, if it isn't in the list returns null
      */
-    public GameEntityMessage getGames(String gameName) {
+    public GameMessage getGames(String gameName) {
         List<GameEntity> games = gameRepository.findByGameNameContaining(gameName);
 
         if (games != null) {
             String message ="Games containing: '%s' found".formatted(gameName);
             logger.debug(message);
 
-            return new GameEntityMessage(games, message);
+            return new GameMessage(games, message);
         } else {
             String message =Errors.FIND_GAME_NAME_FAILED.formatted(gameName);
             logger.debug(message);
 
-            return new GameEntityMessage(false, message);
+            return new GameMessage(false, message);
         }
     }
 }

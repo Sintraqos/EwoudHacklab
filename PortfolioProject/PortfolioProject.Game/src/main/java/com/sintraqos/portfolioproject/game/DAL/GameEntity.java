@@ -1,9 +1,11 @@
 package com.sintraqos.portfolioproject.game.DAL;
 
+// Project components
 import com.sintraqos.portfolioproject.game.entities.Game;
+
+// External components
+import lombok.*;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
 
 /**
  * Game Entity Object, use for creating new Database Tables, and for storing the data from the database

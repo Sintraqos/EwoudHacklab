@@ -1,13 +1,15 @@
 package com.sintraqos.portfolioproject.game.service;
 
-import com.sintraqos.portfolioproject.game.entities.Game;
+// Project components
+import com.sintraqos.portfolioproject.game.entities.*;
 import com.sintraqos.portfolioproject.game.DTO.GameDTO;
-import com.sintraqos.portfolioproject.game.entities.GameEntityMessage;
-import com.sintraqos.portfolioproject.game.useCases.UseCaseAddGame;
-import com.sintraqos.portfolioproject.game.useCases.UseCaseGetGame;
+import com.sintraqos.portfolioproject.game.useCases.*;
+
+// Spring components
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+// Java components
 import java.util.List;
 
 @Service
@@ -22,11 +24,11 @@ public class GameService {
      * Add a new game to the database
      * @param gameDTO the game to be added
      */
-    public GameEntityMessage addGame(GameDTO gameDTO) {
+    public GameMessage addGame(GameDTO gameDTO) {
         return addGame.addGame(new Game(gameDTO));
     }
 
-    public GameEntityMessage addGames(List<GameDTO> games){
+    public GameMessage addGames(List<GameDTO> games){
         return addGame.addGames(games);
     }
 
@@ -35,7 +37,7 @@ public class GameService {
      *
      * @param gameID the ID of the account
      */
-    public GameEntityMessage getGame(int gameID) {
+    public GameMessage getGame(int gameID) {
         return getGame.getGame(gameID);
     }
 
@@ -44,7 +46,7 @@ public class GameService {
      *
      * @param gameName the name of the game
      */
-    public GameEntityMessage getGames(String gameName) {
+    public GameMessage getGames(String gameName) {
         return getGame.getGames(gameName);
     }
 }

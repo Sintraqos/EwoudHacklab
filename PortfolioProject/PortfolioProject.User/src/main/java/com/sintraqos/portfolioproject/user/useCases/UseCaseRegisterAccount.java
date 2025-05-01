@@ -1,15 +1,19 @@
 package com.sintraqos.portfolioproject.user.useCases;
 
-import com.sintraqos.portfolioproject.user.DAL.UserEntity;
-import com.sintraqos.portfolioproject.user.DAL.UserRepository;
+// Project components
+import com.sintraqos.portfolioproject.user.DAL.*;
 import com.sintraqos.portfolioproject.user.entities.UserMessage;
 import com.sintraqos.portfolioproject.user.statics.Enums;
 import com.sintraqos.portfolioproject.userLibrary.service.UserLibraryService;
-import lombok.Getter;
-import org.slf4j.Logger;
+
+// Spring components
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
+
+// External components
+import org.slf4j.Logger;
+import lombok.Getter;
 
 /**
  * UseCase for handling registration of a new account
@@ -61,7 +65,7 @@ public class UseCaseRegisterAccount {
         userEntity.setEnabled(true);
         userRepository.save(userEntity);
 
-        // Cast the accountEntity to an AccountDTO object for transfer
+        // Return the message
         String message = "Created new account: '%s'".formatted(username);
         logger.debug(message);
 

@@ -1,16 +1,18 @@
 package com.sintraqos.portfolioproject.forum.forumPost.useCase;
 
-import com.sintraqos.portfolioproject.forum.forumPost.DAL.ForumPostEntity;
-import com.sintraqos.portfolioproject.forum.forumPost.DAL.ForumPostRepository;
+// Project components
+import com.sintraqos.portfolioproject.forum.forumPost.DAL.*;
 import com.sintraqos.portfolioproject.forum.forumPost.entities.ForumPostMessage;
 import com.sintraqos.portfolioproject.forum.forumPost.DTO.ForumPostDTO;
-import com.sintraqos.portfolioproject.shared.CensorService;
-import com.sintraqos.portfolioproject.shared.Errors;
-import com.sintraqos.portfolioproject.shared.SettingsHandler;
-import lombok.Getter;
-import org.slf4j.Logger;
+import com.sintraqos.portfolioproject.shared.*;
+
+// Spring components
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+// External components
+import org.slf4j.Logger;
+import lombok.Getter;
 
 /**
  * UseCase for handling adding a new forumPost
@@ -47,6 +49,7 @@ public class UseCaseAddForumPost {
 
             return new ForumPostMessage(message);
         }
+
         // Message too long
         if (messageLength > settingsHandler.getMessageMaxLength()) {
             String message = Errors.FORUM_INVALID_LENGTH_LONG.formatted(settingsHandler.getMessageMinLength(), settingsHandler.getMessageMaxLength());

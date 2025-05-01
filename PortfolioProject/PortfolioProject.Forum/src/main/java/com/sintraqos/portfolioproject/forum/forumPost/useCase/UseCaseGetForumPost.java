@@ -1,15 +1,18 @@
 package com.sintraqos.portfolioproject.forum.forumPost.useCase;
 
-import com.sintraqos.portfolioproject.forum.forumPost.DAL.ForumPostEntity;
-import com.sintraqos.portfolioproject.forum.forumPost.DAL.ForumPostRepository;
+// Project components
+import com.sintraqos.portfolioproject.forum.forumPost.DAL.*;
 import com.sintraqos.portfolioproject.forum.forumPost.entities.ForumPostMessage;
 import com.sintraqos.portfolioproject.shared.Errors;
-import lombok.Getter;
-import org.slf4j.Logger;
+
+// Spring components
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Component;
+
+// External components
+import org.slf4j.Logger;
+import lombok.Getter;
 
 /**
  * UseCase for handling retrieving forumPosts

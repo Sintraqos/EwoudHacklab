@@ -1,18 +1,17 @@
 package com.sintraqos.portfolioproject.webservice.controllers;
 
+// Project components
 import com.sintraqos.portfolioproject.forum.forumPost.DTO.ForumPostDTO;
 import com.sintraqos.portfolioproject.forum.forumPost.DAL.ForumPostEntity;
 import com.sintraqos.portfolioproject.forum.forumPost.entities.ForumPostMessage;
 import com.sintraqos.portfolioproject.forum.forumPost.service.ForumPostService;
-import com.sintraqos.portfolioproject.game.entities.GameEntityMessage;
+import com.sintraqos.portfolioproject.game.entities.GameMessage;
 import com.sintraqos.portfolioproject.game.service.GameService;
 import com.sintraqos.portfolioproject.shared.Errors;
-import com.sintraqos.portfolioproject.user.entities.User;
-import com.sintraqos.portfolioproject.user.entities.UserMessage;
+import com.sintraqos.portfolioproject.user.entities.*;
 import com.sintraqos.portfolioproject.user.service.UserService;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import org.slf4j.Logger;
+
+// Spring components
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
@@ -20,9 +19,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+// External components
+import org.slf4j.Logger;
+import lombok.*;
+
+// Java components
+import java.util.*;
 
 @Controller
 public class WebForumController {
@@ -36,21 +38,20 @@ public class WebForumController {
             UserService userService,
             GameService gameService,
             ForumPostService forumPostService,
-            Logger logger
-    ) {
+            Logger logger) {
         this.userService = userService;
         this.gameService = gameService;
         this.forumPostService = forumPostService;
         this.logger = logger;
     }
 
-    private GameEntityMessage getGame(int gameID, RedirectAttributes redirectAttributes) {
-        GameEntityMessage getGameMessage = gameService.getGame(gameID);
+    private GameMessage getGame(int gameID, RedirectAttributes redirectAttributes) {
+        GameMessage getGameMessage = gameService.getGame(gameID);
         if (!getGameMessage.isSuccessful()) {
             logger.error(getGameMessage.getMessage());
             redirectAttributes.addAttribute("error", getGameMessage.getMessage());
 
-            return new GameEntityMessage(getGameMessage.getMessage());
+            return new GameMessage(getGameMessage.getMessage());
         }
 
         return getGameMessage;
@@ -74,15 +75,12 @@ public class WebForumController {
             int parsedGameID = Integer.parseInt(gameID);
 
             // Retrieve the game details using the gameID
-            GameEntityMessage gameMessage = getGame(parsedGameID, redirectAttributes);
+            GameMessage gameMessage = getGame(parsedGameID, redirectAttributes);
             if (!gameMessage.isSuccessful()) {
                 logger.error(gameMessage.getMessage());
                 redirectAttributes.addAttribute("error", gameMessage.getMessage());
                 return "redirect:/account";
             }
-
-            // Add the game to the model, so it can be accessed in the Thymeleaf template
-            model.addAttribute("game", gameMessage.getEntity());
 
             // Add the forum posts to the mode
             ForumPostMessage getForumPostMessage = forumPostService.getForumPosts_Game(parsedGameID, PageRequest.of(page, size));
@@ -94,6 +92,7 @@ public class WebForumController {
             }
 
             // Update session with new posts
+            model.addAttribute("game", gameMessage.getEntity());
             model.addAttribute("headerText", "Forum");
             model.addAttribute("forumPosts", setForumPostContainer(getForumPostMessage, gameMessage));
             model.addAttribute("currentPage", page);
@@ -111,7 +110,7 @@ public class WebForumController {
         return "forum";  // Return the Thymeleaf template for the forum page
     }
 
-    ForumPostContainer setForumPostContainer(ForumPostMessage forumPostMessage, GameEntityMessage gameMessage) {
+    ForumPostContainer setForumPostContainer(ForumPostMessage forumPostMessage, GameMessage gameMessage) {
         // Convert the forum post entities to DTOs
         List<ForumPostDTO> forumPosts = new ArrayList<>();
         for (ForumPostEntity forumPostEntity : forumPostMessage.getForumPostEntities()) {

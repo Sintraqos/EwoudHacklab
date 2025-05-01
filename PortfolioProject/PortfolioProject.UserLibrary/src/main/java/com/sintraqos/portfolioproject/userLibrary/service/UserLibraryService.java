@@ -1,7 +1,10 @@
 package com.sintraqos.portfolioproject.userLibrary.service;
 
+// Project components
 import com.sintraqos.portfolioproject.userLibrary.entities.UserLibraryEntityMessage;
 import com.sintraqos.portfolioproject.userLibrary.useCases.UseCaseLibraryDeleteGame;
+
+// Spring components
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

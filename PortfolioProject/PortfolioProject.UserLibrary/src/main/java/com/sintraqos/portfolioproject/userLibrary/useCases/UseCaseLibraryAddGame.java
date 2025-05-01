@@ -1,14 +1,18 @@
 package com.sintraqos.portfolioproject.userLibrary.useCases;
 
+// Project components
 import com.sintraqos.portfolioproject.game.service.GameService;
 import com.sintraqos.portfolioproject.shared.Errors;
-import com.sintraqos.portfolioproject.userLibrary.DAL.UserLibraryEntity;
-import com.sintraqos.portfolioproject.userLibrary.DAL.UserLibraryRepository;
+import com.sintraqos.portfolioproject.userLibrary.DAL.*;
 import com.sintraqos.portfolioproject.userLibrary.entities.UserLibraryEntityMessage;
-import lombok.Getter;
-import org.slf4j.Logger;
+
+// Spring components
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+// External components
+import org.slf4j.Logger;
+import lombok.Getter;
 
 /**
  * UseCase of handling updating the user library
