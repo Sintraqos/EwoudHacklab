@@ -147,6 +147,11 @@ public class WebForumController {
             @RequestParam("gameID") String gameID,
             @RequestParam("message") String message,
             RedirectAttributes redirectAttributes) {
+        // If there was no message posted return back to the forum as is
+        if(message.isEmpty())
+            return "redirect:/forum/{gameID}";
+
+        // try to add the forum post
         try {
             // Convert the accountID and gameID to integers
             int parsedGameID = Integer.parseInt(gameID);

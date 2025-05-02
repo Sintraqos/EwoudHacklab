@@ -75,6 +75,7 @@ public class SettingsHandler {
     // Forum
     private int messageMinLength;
     private int messageMaxLength;
+    private float messageCooldown;
 
     // Schedule
     private String retrieveGameTime;

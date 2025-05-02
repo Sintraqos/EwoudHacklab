@@ -8,11 +8,17 @@ import com.sintraqos.portfolioproject.shared.*;
 
 // Spring components
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Component;
 
 // External components
 import org.slf4j.Logger;
 import lombok.Getter;
+
+// Java components
+import java.time.*;
+import java.util.List;
+import java.util.regex.Pattern;
 
 /**
  * UseCase for handling adding a new forumPost
@@ -21,6 +27,7 @@ import lombok.Getter;
 @Component
 public class UseCaseAddForumPost {
     private final ForumPostRepository forumPostRepository;
+    private  final UseCaseValidateForumPost validateForumPost;
     private final CensorService censorService;
     private final SettingsHandler settingsHandler;
     private final Logger logger;
@@ -28,45 +35,36 @@ public class UseCaseAddForumPost {
     @Autowired
     public UseCaseAddForumPost(ForumPostRepository forumPostRepository,
                                CensorService censorService,
+                               UseCaseValidateForumPost validateForumPost,
                                SettingsHandler settingsHandler,
                                Logger logger) {
         this.forumPostRepository = forumPostRepository;
         this.censorService = censorService;
+        this.validateForumPost = validateForumPost;
         this.settingsHandler = settingsHandler;
         this.logger = logger;
     }
 
     public ForumPostMessage addForumPost(ForumPostDTO forumPost) {
-        // Check if the message is a valid length
-        int messageLength = forumPost.getMessage().length();
+        ForumPostMessage validatedForumPost = validateForumPost.validateForumPost(forumPost);
 
-        String baseMessage = "Failed to add message from user with ID: '%s'. Reason: %s";
-
-        // Message too short
-        if (messageLength < settingsHandler.getMessageMinLength()) {
-            String message = Errors.FORUM_INVALID_LENGTH_SHORT.formatted(settingsHandler.getMessageMinLength(), settingsHandler.getMessageMaxLength());
-            logger.warn(baseMessage.formatted(forumPost.getAccountID(), message));
-
-            return new ForumPostMessage(message);
-        }
-
-        // Message too long
-        if (messageLength > settingsHandler.getMessageMaxLength()) {
-            String message = Errors.FORUM_INVALID_LENGTH_LONG.formatted(settingsHandler.getMessageMinLength(), settingsHandler.getMessageMaxLength());
-            logger.warn(baseMessage.formatted(forumPost.getAccountID(), message));
-
-            return new ForumPostMessage(message);
+        // Check if the forum post was validated
+        if(!validatedForumPost.isSuccessful()){
+            logger.warn(forumPost.getMessage());
+            return validatedForumPost;
         }
 
         // Create a new ForumPostEntity object and save that in the database
         ForumPostEntity forumPostEntity = new ForumPostEntity(
                 forumPost.getAccountID(),
                 forumPost.getGameID(),
-                censorService.validateString(forumPost.getMessage()));
+                forumPost.getMessage());
         forumPostRepository.save(forumPostEntity);
 
         logger.debug("Added new message: '%s'".formatted(forumPost.getMessage()));
 
         return new ForumPostMessage(true, "Added new message: '%s'".formatted(forumPost.getMessage()));
     }
+
+
 }

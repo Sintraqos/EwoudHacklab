@@ -49,7 +49,7 @@ public class UseCaseGetForumPost {
 
     public ForumPostMessage getForumPosts_Account(int accountID,PageRequest pageRequest) {
         logger.debug("Attempting to get all forum posts from account");
-        Page<ForumPostEntity> forumPostEntities = forumPostRepository.findAllByAccountIDOrderByPostDateDesc(accountID, pageRequest);
+        Page<ForumPostEntity> forumPostEntities = (Page<ForumPostEntity>) forumPostRepository.findAllByAccountIDOrderByPostDateDesc(accountID, pageRequest);
 
         // Check if the list returned is null or empty
         if (forumPostEntities == null) {

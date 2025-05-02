@@ -9,7 +9,7 @@ import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 /**
- * Message Entity Object, use for creating new Database Tables, and for storing the data from the database
+ * Forum Post Entity Object, use for creating new Database Tables, and for storing the data from the database
  */
 @Getter
 @NoArgsConstructor

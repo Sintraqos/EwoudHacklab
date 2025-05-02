@@ -23,6 +23,9 @@ class UseCaseAddForumPostTest {
     ForumPostRepository forumPostRepository;
 
     @Mock
+    UseCaseValidateForumPost validateForumPost;
+
+    @Mock
     CensorService censorService;
 
     @Mock
@@ -37,7 +40,7 @@ class UseCaseAddForumPostTest {
     void setUp() {
         // Initialize mocks before each test
         MockitoAnnotations.openMocks(this);
-        useCaseAddForumPost = new UseCaseAddForumPost(forumPostRepository, censorService, settingsHandler, logger);
+        useCaseAddForumPost = new UseCaseAddForumPost(forumPostRepository, censorService, validateForumPost, settingsHandler, logger);
     }
 
     int minLength = 8;  // Min length of the message

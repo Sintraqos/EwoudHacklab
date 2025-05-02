@@ -117,6 +117,13 @@ public class Errors {
      */
     public static final String FORUM_USER_ID_FAILED = "Failed to retrieve forum posts for account with ID: '%s'";
 
+    public static final String FORUM_HAS_EXCESSIVE_REPEATED_CHARS=  "Message contains too many repeated characters.";
+    public static final String FORUM_POST_TOO_SOON = "Message was posted too soon after the previous message. Please wait for a few seconds before trying again.";
+    public static final String FORUM_POST_CONTAINS_SQL = "Message contains SQL query.";
+    public static final String FORUM_POST_CONTAINS_URL = "Message contains URL.";
+    public static final String FORUM_POST_CONTAINS_HTML_CODE = "Message contains HTML or code.";
+    public static final String FORUM_POST_CONTAINS_NON_SUPPORTED_CHARS = "Message contains HTML or code.";
+
     //endregion
 
     //region Various

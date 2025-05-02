@@ -111,7 +111,7 @@ class UseCaseGetForumPostTest {
         );
 
         // Mock the correct method calls
-        when(forumPostRepository.findAllByAccountIDOrderByPostDateDesc(accountID, pageRequest)).thenReturn(mockedPage);
+        when(forumPostRepository.findAllByAccountIDOrderByPostDateDesc(accountID, pageRequest)).thenReturn((List<ForumPostEntity>) mockedPage);
 
         // Retrieve the message using the base class
         ForumPostMessage result = useCaseGetForumPost.getForumPosts_Account(accountID, pageRequest);
