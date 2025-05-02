@@ -8,17 +8,11 @@ import com.sintraqos.portfolioproject.shared.*;
 
 // Spring components
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Component;
 
 // External components
 import org.slf4j.Logger;
 import lombok.Getter;
-
-// Java components
-import java.time.*;
-import java.util.List;
-import java.util.regex.Pattern;
 
 /**
  * UseCase for handling adding a new forumPost
@@ -59,12 +53,17 @@ public class UseCaseAddForumPost {
                 forumPost.getAccountID(),
                 forumPost.getGameID(),
                 forumPost.getMessage());
-        forumPostRepository.save(forumPostEntity);
+        forumPostEntity=  forumPostRepository.save(forumPostEntity);
 
-        logger.debug("Added new message: '%s'".formatted(forumPost.getMessage()));
-
-        return new ForumPostMessage(true, "Added new message: '%s'".formatted(forumPost.getMessage()));
+        // Check if the save was successful
+        if (forumPostEntity.getForumPostID() >= 0) {
+            String message = "Added new message: '%s'".formatted(forumPost.getMessage());
+            logger.debug(message);
+            return new ForumPostMessage(true, "Added new message: '%s'".formatted(forumPost.getMessage()));
+        } else {
+            String errorMessage = "Failed to add new game: '%s'".formatted(forumPost.getMessage());
+            logger.debug(errorMessage);
+            return new ForumPostMessage(errorMessage);
+        }
     }
-
-
 }

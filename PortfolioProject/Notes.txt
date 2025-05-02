@@ -155,7 +155,7 @@ Minimal viable product:
 ---------------------------------------------
 
 Notes:
-     Lookup theme for the front end, and how to implement that into the current project's pages
+     Check incoming games from the API if the incoming message can be added to the database. If it cannot add that item, skip that one
 
 
 

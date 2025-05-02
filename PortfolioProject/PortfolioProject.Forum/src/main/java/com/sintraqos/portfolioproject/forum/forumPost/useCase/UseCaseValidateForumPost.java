@@ -35,8 +35,10 @@ public class UseCaseValidateForumPost {
     private final Logger logger;
 
     int maxRepetitions = 4;
-    private final Pattern SQL_PATTERN = Pattern.compile("(?i)\\b(SELECT|INSERT|UPDATE|DELETE|DROP|ALTER|CREATE|EXEC|UNION|--|;|\\*|FROM|WHERE)\\b");
+
+    private final Pattern SQL_PATTERN = Pattern.compile("(?i)(SELECT|INSERT|UPDATE|DELETE|DROP|ALTER|CREATE|EXEC|UNION|--|;|\\*|FROM|WHERE)[^\\w]*\\b(SELECT|INSERT|UPDATE|DELETE|DROP|ALTER|CREATE|EXEC|UNION|WHERE|FROM|\\*|;|--|\\b.*\\b)\\b");
     private final Pattern URL_PATTERN = Pattern.compile("(?i)\\b(?:https?|ftp)://[^\\s/$.?#].\\S*|(?:www\\.)?[a-z0-9-]+(?:\\.[a-z0-9-]+)+(?::\\d+)?(?:/\\S*)?\\b");
+    private final Pattern CODE_PATTERN = Pattern.compile(".*<[^>]+>.*");
 
     @Autowired
     public UseCaseValidateForumPost(ForumPostRepository forumPostRepository,
@@ -124,7 +126,7 @@ public class UseCaseValidateForumPost {
      * @param message the message to check
      */
     boolean containsHTMLOrScript(String message) {
-        return message.matches(".*<[^>]+>.*");
+        return CODE_PATTERN.matcher(message).find();
     }
 
     /**
@@ -140,7 +142,6 @@ public class UseCaseValidateForumPost {
      * Check if the given message is valid to be posted
      *
      * @param forumPost the forum post to validate
-     *
      * @return either a new ForumPostMessage containing the error, or the validated message that will be posted
      */
     public ForumPostMessage validateForumPost(ForumPostDTO forumPost) {
@@ -183,7 +184,7 @@ public class UseCaseValidateForumPost {
         }
 
         // Check if the message contains HTML or other code fragments
-        if(containsHTMLOrScript(validatedMessage)){
+        if (containsHTMLOrScript(validatedMessage)) {
             String message = Errors.FORUM_POST_CONTAINS_HTML_CODE;
             logger.warn(baseMessage.formatted(forumPost.getAccountID(), message));
 
@@ -191,7 +192,7 @@ public class UseCaseValidateForumPost {
         }
 
         // Check if the message contains non-supported characters
-        if(containsUnsupportedLanguage(validatedMessage)){
+        if (containsUnsupportedLanguage(validatedMessage)) {
             String message = Errors.FORUM_POST_CONTAINS_NON_SUPPORTED_CHARS;
             logger.warn(baseMessage.formatted(forumPost.getAccountID(), message));
 

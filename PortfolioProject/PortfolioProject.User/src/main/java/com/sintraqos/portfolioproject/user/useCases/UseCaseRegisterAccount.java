@@ -65,10 +65,15 @@ public class UseCaseRegisterAccount {
         userEntity.setEnabled(true);
         userRepository.save(userEntity);
 
-        // Return the message
-        String message = "Created new account: '%s'".formatted(username);
-        logger.debug(message);
-
-        return new UserMessage(userEntity, message);
+        // Check if the save was successful
+        if (userEntity.getAccountID() >= 0) {
+            String message = "Created new account: '%s'".formatted(username);
+            logger.debug(message);
+            return new UserMessage(userEntity, message);
+        } else {
+            String errorMessage = "Failed to add new game: '%s'".formatted(userEntity.getUsername());
+            logger.debug(errorMessage);
+            return new UserMessage(errorMessage);
+        }
     }
 }

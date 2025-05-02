@@ -53,9 +53,18 @@ public class UseCaseAddGame {
 
         // Add new game
         GameEntity gameEntity = new GameEntity(game);
-        String message = "Added new game: '%s'".formatted(game.getGameName());
-        logger.debug(message);
-        return new GameMessage(gameRepository.save(gameEntity), message);
+        gameEntity = gameRepository.save(gameEntity);
+
+        // Check if the save was successful
+        if (gameEntity.getGameID() >= 0) {
+            String message = "Added new game: '%s'".formatted(game.getGameName());
+            logger.debug(message);
+            return new GameMessage(gameEntity, message);
+        } else {
+            String errorMessage = "Failed to add new game: '%s'".formatted(game.getGameName());
+            logger.debug(errorMessage);
+            return new GameMessage(errorMessage);
+        }
     }
 
     public GameMessage addGames(List<GameDTO> games){

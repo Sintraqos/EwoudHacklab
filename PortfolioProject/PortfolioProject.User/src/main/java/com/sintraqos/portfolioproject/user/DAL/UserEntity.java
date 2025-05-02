@@ -27,7 +27,7 @@ import java.util.*;
 public class UserEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int accountID;
+    private int accountID = -1;
 
     @Column(nullable = false, length = 100)
     private String username;

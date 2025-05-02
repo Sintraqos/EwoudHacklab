@@ -66,15 +66,22 @@ public class UseCaseBanAccount {
         }
 
         // Set the account banned status
-        UserEntity user = new UserEntity(userMessage.getUserDTO());
-        user.setEnabled(!isBanned); // Since if the account is banned and receives a 'true' statement it should be set to 'false'
-        user.setAccountNonLocked(!isBanned);
-        userRepository.save(user);
+        UserEntity userEntity = new UserEntity(userMessage.getUserDTO());
+        userEntity.setEnabled(!isBanned); // Since if the account is banned and receives a 'true' statement it should be set to 'false'
+        userEntity.setAccountNonLocked(!isBanned);
+        userEntity=   userRepository.save(userEntity);
 
-        // Return the message
-        String returnMessage = (isBanned ? "Successfully banned account: '%s'".formatted(username) :"Successfully unbanned account: '%s'".formatted(username)) ;
+        // Check if the save was successful
+        if (userEntity.getAccountID() >= 0) {
+            String message = (isBanned ? "Successfully banned account: '%s'".formatted(username) :"Successfully unbanned account: '%s'".formatted(username)) ;
+            logger.debug(message);
 
-        logger.debug(returnMessage);
-        return new UserMessage(true, returnMessage);
+            return new UserMessage(userEntity, message);
+        } else {
+            String errorMessage = "Failed to update user: '%s'".formatted(userEntity.getUsername());
+            logger.debug(errorMessage);
+
+            return new UserMessage(errorMessage);
+        }
     }
 }

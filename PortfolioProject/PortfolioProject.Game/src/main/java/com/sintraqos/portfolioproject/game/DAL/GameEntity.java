@@ -18,7 +18,7 @@ public class GameEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int gameID;
+    private int gameID = -1;
 
     @Column(nullable = false, length = 100)
     private String gameName;

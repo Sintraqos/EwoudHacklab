@@ -212,18 +212,23 @@ public class UseCaseUpdateAccount {
         return updateMessage;
     }
 
-    UserMessage handleUpdateAccount(UserEntity user, String username, String eMail, String password, Enums.Role role) {
+    UserMessage handleUpdateAccount(UserEntity userEntity, String username, String eMail, String password, Enums.Role role) {
         // Overwrite the given user with the new variables, and save it inside the database
-        user.setUsername(username);
-        user.setEmail(eMail);
-        user.setPasswordHash(password);
-        user.setRole(role);
-        userRepository.save(user);
+        userEntity.setUsername(username);
+        userEntity.setEmail(eMail);
+        userEntity.setPasswordHash(password);
+        userEntity.setRole(role);
+        userRepository.save(userEntity);
 
-        // Return the message
-        String message = "Successfully updated account";
-
-        logger.debug(message);
-        return new UserMessage(true, message);
+        // Check if the save was successful
+        if (userEntity.getAccountID() >= 0) {
+            String message = "Successfully updated account";
+            logger.debug(message);
+            return new UserMessage(userEntity, message);
+        } else {
+            String errorMessage = "Failed to add new game: '%s'".formatted(userEntity.getUsername());
+            logger.debug(errorMessage);
+            return new UserMessage(errorMessage);
+        }
     }
 }

@@ -19,7 +19,7 @@ public class ForumPostEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int forumPostID;
+    private int forumPostID = -1;
 
     @Column(columnDefinition = "INT")
     private int accountID;
