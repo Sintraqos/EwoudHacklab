@@ -201,15 +201,13 @@ public class UseCaseUpdateAccount {
             return userMessage;
         }
 
-        // Update the role inside the userRepository
-        UserEntity user = new UserEntity(userMessage.getUserDTO());
-        user.setRole(role);
-        userRepository.save(user);
+        UserEntity user = userMessage.getUserEntity();
 
-        UserMessage updateMessage = new UserMessage(true, "Role successfully updated to: '%s' for account: %s".formatted(role, userMessage.getUserDTO().getUsername()));
-        logger.debug(updateMessage.getMessage());
+        // Return the message
+        UserMessage updateAccount = handleUpdateAccount(user, user.getUsername(), user.getPassword(), user.getPassword(), user.getRole());
+        logger.debug(updateAccount.getMessage());
 
-        return updateMessage;
+        return updateAccount;
     }
 
     UserMessage handleUpdateAccount(UserEntity userEntity, String username, String eMail, String password, Enums.Role role) {

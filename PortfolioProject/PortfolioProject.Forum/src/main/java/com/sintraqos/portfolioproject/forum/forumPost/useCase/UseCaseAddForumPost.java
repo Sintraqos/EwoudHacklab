@@ -61,7 +61,7 @@ public class UseCaseAddForumPost {
             logger.debug(message);
             return new ForumPostMessage(true, "Added new message: '%s'".formatted(forumPost.getMessage()));
         } else {
-            String errorMessage = "Failed to add new game: '%s'".formatted(forumPost.getMessage());
+            String errorMessage = "Failed to add new message: '%s'".formatted(forumPost.getMessage());
             logger.debug(errorMessage);
             return new ForumPostMessage(errorMessage);
         }

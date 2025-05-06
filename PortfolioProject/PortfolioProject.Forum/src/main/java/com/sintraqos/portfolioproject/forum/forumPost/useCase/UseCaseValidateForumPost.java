@@ -103,15 +103,6 @@ public class UseCaseValidateForumPost {
     }
 
     /**
-     * Check if the message contains an SQL query
-     *
-     * @param message the message to check
-     */
-    boolean containsSQL(String message) {
-        return SQL_PATTERN.matcher(message).find();
-    }
-
-    /**
      * Check if the message contains a URl
      *
      * @param message the message to check
@@ -149,7 +140,6 @@ public class UseCaseValidateForumPost {
         int messageLength = forumPost.getMessage().length();
 
         String baseMessage = "Failed to add message from user with ID: '%s'. Reason: %s";
-        String validatedMessage = censorService.validateString(forumPost.getMessage()); // Immediately clean up the given message from banned words
 
         // Spam protection
         if (!canPost(forumPost.getAccountID())) {
@@ -160,23 +150,15 @@ public class UseCaseValidateForumPost {
         }
 
         // Check if the message contains excessive use of repeated characters
-        if (hasExcessiveRepeatedChars(validatedMessage)) {
+        if (hasExcessiveRepeatedChars(forumPost.getMessage())) {
             String message = Errors.FORUM_HAS_EXCESSIVE_REPEATED_CHARS;
             logger.warn(baseMessage.formatted(forumPost.getAccountID(), message));
 
             return new ForumPostMessage(message);
         }
 
-        // Check if the message contains a SQL query
-        if (containsSQL(validatedMessage)) {
-            String message = Errors.FORUM_POST_CONTAINS_SQL;
-            logger.warn(baseMessage.formatted(forumPost.getAccountID(), message));
-
-            return new ForumPostMessage(message);
-        }
-
         // Check if the message contains a URL
-        if (containsURL(validatedMessage)) {
+        if (containsURL(forumPost.getMessage())) {
             String message = Errors.FORUM_POST_CONTAINS_URL;
             logger.warn(baseMessage.formatted(forumPost.getAccountID(), message));
 
@@ -184,7 +166,7 @@ public class UseCaseValidateForumPost {
         }
 
         // Check if the message contains HTML or other code fragments
-        if (containsHTMLOrScript(validatedMessage)) {
+        if (containsHTMLOrScript(forumPost.getMessage())) {
             String message = Errors.FORUM_POST_CONTAINS_HTML_CODE;
             logger.warn(baseMessage.formatted(forumPost.getAccountID(), message));
 
@@ -192,7 +174,7 @@ public class UseCaseValidateForumPost {
         }
 
         // Check if the message contains non-supported characters
-        if (containsUnsupportedLanguage(validatedMessage)) {
+        if (containsUnsupportedLanguage(forumPost.getMessage())) {
             String message = Errors.FORUM_POST_CONTAINS_NON_SUPPORTED_CHARS;
             logger.warn(baseMessage.formatted(forumPost.getAccountID(), message));
 
@@ -214,6 +196,8 @@ public class UseCaseValidateForumPost {
 
             return new ForumPostMessage(message);
         }
+
+        String validatedMessage = censorService.validateString(forumPost.getMessage()); // Finally clean up the given message from banned words
 
         return new ForumPostMessage(true, validatedMessage);
     }
