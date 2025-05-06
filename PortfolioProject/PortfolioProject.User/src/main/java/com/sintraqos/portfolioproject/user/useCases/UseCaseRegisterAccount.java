@@ -48,7 +48,7 @@ public class UseCaseRegisterAccount {
      * @param eMail    the e-Mail address of the new user
      * @param password the password of the new user
      */
-    public UserMessage registerAccount(String username, String eMail, String password,Enums.Role role) {
+    public UserMessage registerAccount(String username, String eMail, String password, Enums.Role role) {
         logger.debug("Attempting to register new account with username: '%s'".formatted(username));
         // Check if the user is valid
         UserMessage validateUserMessage = validateUser.validateUser(username, eMail, password);
@@ -63,7 +63,7 @@ public class UseCaseRegisterAccount {
         userEntity.setAccountNonLocked(true);
         userEntity.setCredentialsNonExpired(true);
         userEntity.setEnabled(true);
-        userRepository.save(userEntity);
+        userEntity = userRepository.save(userEntity);
 
         // Check if the save was successful
         if (userEntity.getAccountID() >= 0) {
@@ -71,7 +71,7 @@ public class UseCaseRegisterAccount {
             logger.debug(message);
             return new UserMessage(userEntity, message);
         } else {
-            String errorMessage = "Failed to add new game: '%s'".formatted(userEntity.getUsername());
+            String errorMessage = "Failed to add new account: '%s'".formatted(userEntity.getUsername());
             logger.debug(errorMessage);
             return new UserMessage(errorMessage);
         }

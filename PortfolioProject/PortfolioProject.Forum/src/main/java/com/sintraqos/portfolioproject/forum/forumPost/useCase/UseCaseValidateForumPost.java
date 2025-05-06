@@ -36,7 +36,6 @@ public class UseCaseValidateForumPost {
 
     int maxRepetitions = 4;
 
-    private final Pattern SQL_PATTERN = Pattern.compile("(?i)(SELECT|INSERT|UPDATE|DELETE|DROP|ALTER|CREATE|EXEC|UNION|--|;|\\*|FROM|WHERE)[^\\w]*\\b(SELECT|INSERT|UPDATE|DELETE|DROP|ALTER|CREATE|EXEC|UNION|WHERE|FROM|\\*|;|--|\\b.*\\b)\\b");
     private final Pattern URL_PATTERN = Pattern.compile("(?i)\\b(?:https?|ftp)://[^\\s/$.?#].\\S*|(?:www\\.)?[a-z0-9-]+(?:\\.[a-z0-9-]+)+(?::\\d+)?(?:/\\S*)?\\b");
     private final Pattern CODE_PATTERN = Pattern.compile(".*<[^>]+>.*");
 
@@ -151,7 +150,7 @@ public class UseCaseValidateForumPost {
 
         // Check if the message contains excessive use of repeated characters
         if (hasExcessiveRepeatedChars(forumPost.getMessage())) {
-            String message = Errors.FORUM_HAS_EXCESSIVE_REPEATED_CHARS;
+            String message = Errors.INPUT_HAS_EXCESSIVE_REPEATED_CHARS;
             logger.warn(baseMessage.formatted(forumPost.getAccountID(), message));
 
             return new ForumPostMessage(message);
@@ -159,7 +158,7 @@ public class UseCaseValidateForumPost {
 
         // Check if the message contains a URL
         if (containsURL(forumPost.getMessage())) {
-            String message = Errors.FORUM_POST_CONTAINS_URL;
+            String message = Errors.INPUT_CONTAINS_URL;
             logger.warn(baseMessage.formatted(forumPost.getAccountID(), message));
 
             return new ForumPostMessage(message);
@@ -167,7 +166,7 @@ public class UseCaseValidateForumPost {
 
         // Check if the message contains HTML or other code fragments
         if (containsHTMLOrScript(forumPost.getMessage())) {
-            String message = Errors.FORUM_POST_CONTAINS_HTML_CODE;
+            String message = Errors.INPUT_CONTAINS_HTML_OR_CODE1;
             logger.warn(baseMessage.formatted(forumPost.getAccountID(), message));
 
             return new ForumPostMessage(message);
@@ -175,7 +174,7 @@ public class UseCaseValidateForumPost {
 
         // Check if the message contains non-supported characters
         if (containsUnsupportedLanguage(forumPost.getMessage())) {
-            String message = Errors.FORUM_POST_CONTAINS_NON_SUPPORTED_CHARS;
+            String message = Errors.INPUT_CONTAINS_NON_SUPPORTED_CHARS;
             logger.warn(baseMessage.formatted(forumPost.getAccountID(), message));
 
             return new ForumPostMessage(message);

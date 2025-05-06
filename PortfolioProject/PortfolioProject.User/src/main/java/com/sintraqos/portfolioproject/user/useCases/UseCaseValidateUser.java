@@ -29,6 +29,11 @@ public class UseCaseValidateUser {
     String capitalRegex = "[A-Z]";
     String eMailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,}$";
 
+    int maxRepetitions = 4;
+
+    private final Pattern URL_PATTERN = Pattern.compile("(?i)\\b(?:https?|ftp)://[^\\s/$.?#].\\S*|(?:www\\.)?[a-z0-9-]+(?:\\.[a-z0-9-]+)+(?::\\d+)?(?:/\\S*)?\\b");
+    private final Pattern CODE_PATTERN = Pattern.compile(".*<[^>]+>.*");
+
     @Autowired
     public UseCaseValidateUser(UserRepository userRepository,
                                SettingsHandler settingsHandler,
@@ -64,6 +69,60 @@ public class UseCaseValidateUser {
         return new UserMessage(true, "User valid");
     }
 
+    /**
+     * Check if the message contains repeating characters, prevents sending a message like: 'aaaa', but still be able to sent a message containing 'aa'
+     *
+     * @param message the message to check
+     */
+    boolean hasExcessiveRepeatedChars(String message) {
+        if (message == null || message.isEmpty()) return false;
+
+        char prevChar = message.charAt(0);
+        int count = 1;
+
+        for (int i = 1; i < message.length(); i++) {
+            char currentChar = message.charAt(i);
+            if (currentChar == prevChar) {
+                count++;
+                if (count > maxRepetitions) {
+                    return true;
+                }
+            } else {
+                count = 1;
+                prevChar = currentChar;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Check if the message contains a URl
+     *
+     * @param message the message to check
+     */
+    boolean containsURL(String message) {
+        return URL_PATTERN.matcher(message).find();
+    }
+
+    /**
+     * Check if the message contains HTML or code fragments
+     *
+     * @param message the message to check
+     */
+    boolean containsHTMLOrScript(String message) {
+        return CODE_PATTERN.matcher(message).find();
+    }
+
+    /**
+     * Check if the message contains characters not supported by the database
+     *
+     * @param message the message to check
+     */
+    boolean containsUnsupportedLanguage(String message) {
+        return message.matches("[^\\x00-\\x7F]+");  // Matches non-ASCII characters
+    }
+
     public UserMessage validateUsername(String username) {
         // Check if the username is a valid length
         int usernameLength = username.length();
@@ -80,6 +139,7 @@ public class UseCaseValidateUser {
 
             return new UserMessage(message);
         }
+
         // Username is too long
         if (usernameLength > settingsHandler.getUsernameMaxLength()) {
             String message = Errors.USERNAME_INVALID_LENGTH_LONG.formatted(settingsHandler.getUsernameMinLength(), settingsHandler.getUsernameMaxLength());

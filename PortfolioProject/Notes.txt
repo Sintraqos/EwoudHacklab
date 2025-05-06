@@ -157,5 +157,7 @@ Minimal viable product:
 Notes:
      Check incoming games from the API if the incoming message can be added to the database. If it cannot add that item, skip that one
 
+Zoek 3-5 vacs uit \
+Waarom die precies
 
 
