@@ -21,7 +21,7 @@ import lombok.Getter;
 @Component
 public class UseCaseAddForumPost {
     private final ForumPostRepository forumPostRepository;
-    private  final UseCaseValidateForumPost validateForumPost;
+    private final UseCaseValidateForumPost validateForumPost;
     private final CensorService censorService;
     private final SettingsHandler settingsHandler;
     private final Logger logger;
@@ -43,7 +43,7 @@ public class UseCaseAddForumPost {
         ForumPostMessage validatedForumPost = validateForumPost.validateForumPost(forumPost);
 
         // Check if the forum post was validated
-        if(!validatedForumPost.isSuccessful()){
+        if (!validatedForumPost.isSuccessful()) {
             logger.warn(forumPost.getMessage());
             return validatedForumPost;
         }
@@ -52,8 +52,8 @@ public class UseCaseAddForumPost {
         ForumPostEntity forumPostEntity = new ForumPostEntity(
                 forumPost.getAccountID(),
                 forumPost.getGameID(),
-                forumPost.getMessage());
-        forumPostEntity=  forumPostRepository.save(forumPostEntity);
+                validatedForumPost.getMessage());
+        forumPostEntity = forumPostRepository.save(forumPostEntity);
 
         // Check if the save was successful
         if (forumPostEntity.getForumPostID() >= 0) {
