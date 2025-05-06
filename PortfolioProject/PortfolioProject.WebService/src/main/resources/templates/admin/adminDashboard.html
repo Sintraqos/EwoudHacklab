@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+<!-- Display the header of the page -->
+<div th:replace="~{fragments::header}"></div>
+
+<!--<div th:replace="~{fragments::changeRole}"></div>-->
+<!-- Display a message if exists -->
+<div class="buttons-container">
+    <table>
+        <tbody>
+            <!-- Loop through the gameLibrary in the User object -->
+            <tr th:each="user : ${users}">
+            <td>
+                <label class="label-base" th:text="${user.username}">Username</label>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <div>
+        <a href="#" th:href="@{/account}">
+            <button class="base" type="button">Back to Account</button>
+        </a>
+    </div>
+</div>
+
+<!-- Display the footer of the page -->
+<div th:replace="~{fragments::footer}"></div>
+
+</body>
+</html>

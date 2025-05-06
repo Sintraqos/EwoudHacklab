@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+  <title>Account</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Link to the css file -->
+  <link rel="stylesheet" href="/css/styles.css">
+
+  <!-- Link to a navigation bar icon -->
+  <link rel="icon" href="/images/logo/Logo_Black.png" type="image/png">
+</head>
+<body>
+
+<!-- Display the header of the page -->
+<div th:replace="~{fragments::header}"></div>
+
+<!-- Display a message if exists -->
+<div th:replace="~{fragments :: messages}"></div>
+
+<!-- Content of the page-->
+<!-- Links for navigation to other pages -->
+<div class="buttons-container">
+  <form th:action="@{/getAccount}" method="post">
+    <div>
+      <a th:href="@{/library}">
+        <button class="base" type="button">Game Library</button>
+      </a>
+    </div>
+    <div>
+      <a th:href="@{/settings}">
+        <button class="base" type="button">Settings</button>
+      </a>
+    </div>
+  </form>
+
+  <!-- Conditionally Display Admin-Only Buttons -->
+  <div sec:authorize="hasRole('ROLE_ADMIN')">
+    <form th:action="@{/adminDashboard}" method="post">
+      <button class="base" type="submit">Admin Dashboard</button>
+    </form>
+    <form th:action="@{/adminManageUsers}" method="post">
+      <button class="base" type="submit">Manage Users</button>
+    </form>
+  </div>
+
+  <!-- Logout Button -->
+  <form th:action="@{/logout}" method="post">
+  <div>
+    <button class="base" type="submit">Logout</button>
+  </div>
+  </form>
+</div>
+
+<!-- Display the footer of the page -->
+<div th:replace="~{fragments::footer}"></div>
+
+</body>
+</html>

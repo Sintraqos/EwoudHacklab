@@ -1,0 +1,316 @@
+{
+  "baseGames": [
+    {
+      "gameName": "Star Wars: Knights of the Old Republic",
+      "gameDescription": "A role-playing game set in the Star Wars universe, where players shape their destiny as they battle the forces of the Sith.",
+      "gameDeveloper": "BioWare",
+      "gamePublisher": "Lucas Learning",
+      "gameScore": 9,
+      "gameReview": "An excellent RPG with a great storyline and memorable characters. A must-play for Star Wars fans."
+    },
+    {
+      "gameName": "Star Wars: Knights of the Old Republic II - The Sith Lords",
+      "gameDescription": "The sequel to Knights of the Old Republic, where players must navigate the galaxy as a Jedi exiled from the Order.",
+      "gameDeveloper": "Obsidian Entertainment",
+      "gamePublisher": "LucasArts",
+      "gameScore": 8,
+      "gameReview": "A solid sequel with deep dialogue choices, but it has some unfinished business and a rushed ending."
+    },
+    {
+      "gameName": "World of Warcraft",
+      "gameDescription": "A massively multiplayer online role-playing game (MMORPG) set in the fantasy world of Azeroth.",
+      "gameDeveloper": "Blizzard Entertainment",
+      "gamePublisher": "Blizzard Entertainment",
+      "gameScore": 9,
+      "gameReview": "A genre-defining MMORPG with deep lore, expansive world-building, and addictive gameplay."
+    },
+    {
+      "gameName": "Final Fantasy VII",
+      "gameDescription": "A legendary RPG that follows Cloud Strife and his battle against the megacorporation Shinra and Sephiroth.",
+      "gameDeveloper": "SquareSoft",
+      "gamePublisher": "SquareSoft",
+      "gameScore": 10,
+      "gameReview": "One of the greatest RPGs ever made, with an iconic story, memorable characters, and an emotional soundtrack."
+    },
+    {
+      "gameName": "Final Fantasy XIV",
+      "gameDescription": "An MMORPG set in the world of Eorzea, featuring deep storytelling, rich lore, and extensive multiplayer content.",
+      "gameDeveloper": "Square Enix",
+      "gamePublisher": "Square Enix",
+      "gameScore": 9,
+      "gameReview": "A masterclass in MMORPG design with an amazing community and constantly evolving content."
+    },
+    {
+      "gameName": "RuneScape",
+      "gameDescription": "A long-running MMORPG featuring an open-ended gameplay experience with skills, quests, and PvP content.",
+      "gameDeveloper": "Jagex",
+      "gamePublisher": "Jagex",
+      "gameScore": 8,
+      "gameReview": "A nostalgic and engaging MMORPG with endless possibilities and an active community."
+    },
+    {
+      "gameName": "Mass Effect 2",
+      "gameDescription": "A sci-fi action RPG where Commander Shepard recruits a team to face a galactic threat known as the Collectors.",
+      "gameDeveloper": "BioWare",
+      "gamePublisher": "Electronic Arts",
+      "gameScore": 10,
+      "gameReview": "An RPG masterpiece with deep storytelling, well-developed characters, and satisfying combat."
+    },
+    {
+      "gameName": "The Witcher 3: Wild Hunt",
+      "gameDescription": "An open-world RPG where players control Geralt of Rivia, a monster hunter searching for his lost adopted daughter.",
+      "gameDeveloper": "CD Projekt Red",
+      "gamePublisher": "CD Projekt",
+      "gameScore": 10,
+      "gameReview": "One of the greatest RPGs of all time, with a rich world, deep choices, and stunning storytelling."
+    },
+    {
+      "gameName": "The Elder Scrolls V: Skyrim",
+      "gameDescription": "An open-world fantasy RPG set in the land of Skyrim, where players take on the role of the Dragonborn.",
+      "gameDeveloper": "Bethesda Game Studios",
+      "gamePublisher": "Bethesda Softworks",
+      "gameScore": 9,
+      "gameReview": "An incredibly immersive RPG with a vast open world and countless adventures to embark on."
+    },
+    {
+      "gameName": "Dark Souls",
+      "gameDescription": "A challenging action RPG set in a dark fantasy world filled with powerful enemies and deep lore.",
+      "gameDeveloper": "FromSoftware",
+      "gamePublisher": "Bandai Namco Entertainment",
+      "gameScore": 9,
+      "gameReview": "A brutal but rewarding experience with deep combat mechanics and atmospheric storytelling."
+    },
+    {
+      "gameName": "Bloodborne",
+      "gameDescription": "A gothic horror action RPG set in the cursed city of Yharnam, filled with Lovecraftian horrors.",
+      "gameDeveloper": "FromSoftware",
+      "gamePublisher": "Sony Computer Entertainment",
+      "gameScore": 10,
+      "gameReview": "An unforgettable and intense action RPG with a gripping atmosphere and fast-paced combat."
+    },
+    {
+      "gameName": "Cyberpunk 2077",
+      "gameDescription": "A futuristic open-world RPG set in Night City, where players take on the role of a mercenary named V.",
+      "gameDeveloper": "CD Projekt Red",
+      "gamePublisher": "CD Projekt",
+      "gameScore": 8,
+      "gameReview": "A visually stunning RPG with deep story choices, though it launched with technical issues."
+    },
+    {
+      "gameName": "Red Dead Redemption 2",
+      "gameDescription": "A Western-themed open-world game following Arthur Morgan, an outlaw navigating the decline of the Wild West.",
+      "gameDeveloper": "Rockstar Games",
+      "gamePublisher": "Rockstar Games",
+      "gameScore": 10,
+      "gameReview": "A breathtakingly immersive experience with a deep story, detailed world, and emotional weight."
+    },
+    {
+      "gameName": "Halo: Combat Evolved",
+      "gameDescription": "A sci-fi FPS where players take on the role of Master Chief, battling the alien Covenant on the ringworld Halo.",
+      "gameDeveloper": "Bungie",
+      "gamePublisher": "Microsoft Game Studios",
+      "gameScore": 9,
+      "gameReview": "A revolutionary FPS with great level design, an epic story, and memorable gameplay."
+    },
+    {
+      "gameName": "Minecraft",
+      "gameDescription": "A sandbox survival game where players can explore, build, and survive in an infinite blocky world.",
+      "gameDeveloper": "Mojang Studios",
+      "gamePublisher": "Microsoft",
+      "gameScore": 10,
+      "gameReview": "An endlessly creative and engaging game that continues to be a cultural phenomenon."
+    },
+    {
+      "gameName": "The Legend of Zelda: Breath of the Wild",
+      "gameDescription": "An open-world action-adventure game where players control Link as he explores the vast land of Hyrule to defeat Calamity Ganon.",
+      "gameDeveloper": "Nintendo",
+      "gamePublisher": "Nintendo",
+      "gameScore": 10,
+      "gameReview": "A masterpiece that redefines open-world exploration and adventure gaming."
+    },
+    {
+      "gameName": "The Legend of Zelda: Ocarina of Time",
+      "gameDescription": "An action-adventure game where Link embarks on a quest to stop Ganondorf and save Hyrule.",
+      "gameDeveloper": "Nintendo",
+      "gamePublisher": "Nintendo",
+      "gameScore": 10,
+      "gameReview": "One of the greatest games ever made, revolutionizing the action-adventure genre."
+    },
+    {
+      "gameName": "The Legend of Zelda: Majora's Mask",
+      "gameDescription": "A dark, time-based adventure where Link must stop the moon from crashing into the world.",
+      "gameDeveloper": "Nintendo",
+      "gamePublisher": "Nintendo",
+      "gameScore": 9,
+      "gameReview": "A unique and deeply atmospheric Zelda experience with an unforgettable story."
+    },
+    {
+      "gameName": "Hollow Knight",
+      "gameDescription": "A beautifully crafted 2D Metroidvania game set in the haunting world of Hallownest, filled with deep lore and challenging gameplay.",
+      "gameDeveloper": "Team Cherry",
+      "gamePublisher": "Team Cherry",
+      "gameScore": 9,
+      "gameReview": "A mesmerizing indie gem with fluid combat, deep exploration, and a hauntingly beautiful world."
+    },
+    {
+      "gameName": "Doom (2016)",
+      "gameDescription": "A fast-paced first-person shooter where players take on the role of the Doom Slayer battling demonic hordes.",
+      "gameDeveloper": "id Software",
+      "gamePublisher": "Bethesda Softworks",
+      "gameScore": 9,
+      "gameReview": "A brutal and exhilarating FPS experience with fast combat and stunning visuals."
+    },
+    {
+      "gameName": "Doom Eternal",
+      "gameDescription": "A sequel to Doom (2016) with even more intense combat, new abilities, and improved mechanics.",
+      "gameDeveloper": "id Software",
+      "gamePublisher": "Bethesda Softworks",
+      "gameScore": 9,
+      "gameReview": "An adrenaline-fueled masterpiece that improves upon its predecessor in every way."
+    },
+    {
+      "gameName": "Persona 5 Royal",
+      "gameDescription": "A stylish turn-based RPG that follows the story of a group of high school students who double as phantom thieves.",
+      "gameDeveloper": "Atlus",
+      "gamePublisher": "Sega",
+      "gameScore": 10,
+      "gameReview": "A masterpiece of storytelling, character development, and stylish gameplay."
+    },
+    {
+      "gameName": "Persona 4 Golden",
+      "gameDescription": "A turn-based RPG where a group of students investigate a series of murders in a mysterious town.",
+      "gameDeveloper": "Atlus",
+      "gamePublisher": "Atlus",
+      "gameScore": 9,
+      "gameReview": "A deeply engaging RPG with charming characters and an enthralling mystery."
+    },
+    {
+      "gameName": "Persona 3 Reload",
+      "gameDescription": "A remake of Persona 3, where players balance high school life and fighting creatures from the Dark Hour.",
+      "gameDeveloper": "Atlus",
+      "gamePublisher": "Atlus",
+      "gameScore": 9,
+      "gameReview": "A great remake that brings the classic Persona 3 experience into the modern era."
+    },
+    {
+      "gameName": "Monster Hunter: World",
+      "gameDescription": "An action RPG where players hunt giant monsters in a beautifully crafted open world.",
+      "gameDeveloper": "Capcom",
+      "gamePublisher": "Capcom",
+      "gameScore": 9,
+      "gameReview": "A highly addictive action RPG with deep combat mechanics and stunning environments."
+    },
+    {
+      "gameName": "Monster Hunter Rise",
+      "gameDescription": "A fast-paced hunting action game featuring new mobility options and cooperative gameplay.",
+      "gameDeveloper": "Capcom",
+      "gamePublisher": "Capcom",
+      "gameScore": 9,
+      "gameReview": "A fresh and innovative entry into the Monster Hunter series with exciting new features."
+    },
+    {
+      "gameName": "Hades",
+      "gameDescription": "A roguelike dungeon crawler where players take on the role of Zagreus, son of Hades, as he attempts to escape the Underworld.",
+      "gameDeveloper": "Supergiant Games",
+      "gamePublisher": "Supergiant Games",
+      "gameScore": 10,
+      "gameReview": "A perfect blend of fast-paced action, compelling story, and gorgeous art design."
+    },
+    {
+      "gameName": "Hades II",
+      "gameDescription": "A sequel to Hades, introducing new characters, weapons, and gameplay mechanics while continuing the roguelike experience.",
+      "gameDeveloper": "Supergiant Games",
+      "gamePublisher": "Supergiant Games",
+      "gameScore": 10,
+      "gameReview": "An amazing follow-up to one of the best roguelikes ever made."
+    },
+    {
+      "gameName": "Terraria",
+      "gameDescription": "A 2D sandbox adventure game with crafting, exploration, and combat elements.",
+      "gameDeveloper": "Re-Logic",
+      "gamePublisher": "Re-Logic",
+      "gameScore": 9,
+      "gameReview": "A creative and endlessly enjoyable sandbox experience with limitless possibilities."
+    },
+    {
+      "gameName": "Baldur’s Gate III",
+      "gameDescription": "A deep, narrative-driven RPG based on Dungeons & Dragons rules, offering immense player choice and consequence.",
+      "gameDeveloper": "Larian Studios",
+      "gamePublisher": "Larian Studios",
+      "gameScore": 10,
+      "gameReview": "A groundbreaking RPG with complex characters, engaging tactical combat, and unparalleled freedom of choice."
+    },
+    {
+      "gameName": "Divinity: Original Sin 2",
+      "gameDescription": "A tactical RPG with rich storytelling, cooperative gameplay, and turn-based combat.",
+      "gameDeveloper": "Larian Studios",
+      "gamePublisher": "Larian Studios",
+      "gameScore": 10,
+      "gameReview": "A masterpiece of RPG design with intricate mechanics and a fantastic story."
+    },
+    {
+      "gameName": "Elden Ring",
+      "gameDescription": "An open-world action RPG blending Souls-like combat with vast exploration.",
+      "gameDeveloper": "FromSoftware",
+      "gamePublisher": "Bandai Namco Entertainment",
+      "gameScore": 10,
+      "gameReview": "A breathtaking and challenging open-world experience that rewards curiosity and perseverance."
+    },
+    {
+      "gameName": "Sekiro: Shadows Die Twice",
+      "gameDescription": "A fast-paced action RPG set in a reimagined Sengoku-era Japan, featuring a unique posture-based combat system.",
+      "gameDeveloper": "FromSoftware",
+      "gamePublisher": "Activision",
+      "gameScore": 10,
+      "gameReview": "A brutally difficult yet deeply rewarding samurai experience with masterful combat."
+    },
+    {
+      "gameName": "Dragon Age: Origins",
+      "gameDescription": "A dark fantasy RPG where players shape the fate of Ferelden through deep choices.",
+      "gameDeveloper": "BioWare",
+      "gamePublisher": "Electronic Arts",
+      "gameScore": 9,
+      "gameReview": "One of the best RPGs of its time, with an engaging world, complex characters, and tactical combat."
+    },
+    {
+      "gameName": "Dragon Age: Inquisition",
+      "gameDescription": "A large-scale RPG where players lead the Inquisition to restore order to a war-torn world.",
+      "gameDeveloper": "BioWare",
+      "gamePublisher": "Electronic Arts",
+      "gameScore": 9,
+      "gameReview": "A vast and engaging RPG with meaningful choices and a well-crafted world."
+    },
+    {
+      "gameName": "Fallout: New Vegas",
+      "gameDescription": "A post-apocalyptic RPG set in the Mojave Wasteland with deep role-playing elements.",
+      "gameDeveloper": "Obsidian Entertainment",
+      "gamePublisher": "Bethesda Softworks",
+      "gameScore": 10,
+      "gameReview": "One of the best open-world RPGs ever, with top-tier writing and player choice."
+    },
+    {
+      "gameName": "Fallout 4",
+      "gameDescription": "A massive open-world RPG set in a nuclear-ravaged Boston.",
+      "gameDeveloper": "Bethesda Game Studios",
+      "gamePublisher": "Bethesda Softworks",
+      "gameScore": 9,
+      "gameReview": "A deep and engaging open-world RPG with endless exploration and customization."
+    },
+    {
+      "gameName": "Ghost of Tsushima",
+      "gameDescription": "A samurai action-adventure game set in feudal Japan during the Mongol invasion.",
+      "gameDeveloper": "Sucker Punch Productions",
+      "gamePublisher": "Sony Interactive Entertainment",
+      "gameScore": 10,
+      "gameReview": "A visually stunning and emotionally gripping samurai epic with fluid combat and breathtaking landscapes."
+    },
+    {
+      "gameName": "Nier: Automata",
+      "gameDescription": "A philosophical action RPG exploring existential themes through a fast-paced combat system.",
+      "gameDeveloper": "PlatinumGames",
+      "gamePublisher": "Square Enix",
+      "gameScore": 10,
+      "gameReview": "A profound and emotional journey with compelling gameplay and a hauntingly beautiful soundtrack."
+    }
+  ]
+}

@@ -1,0 +1,88 @@
+package com.sintraqos.portfolioproject.shared;
+
+// Spring components
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.stereotype.Component;
+
+// External components
+import org.slf4j.Logger;
+import lombok.*;
+
+@Getter
+@Setter
+@Component
+@ConfigurationProperties(prefix = "settings")
+public class SettingsHandler {
+
+    private final Logger logger;
+
+    @Autowired
+    public SettingsHandler(Logger logger) {
+        this.logger = logger;
+    }
+
+    public void logSettings() {
+        if (isLogSettings()) {
+            logger.info("""
+                    Settings:
+                    Username:
+                        - Min Length: %s
+                        - Max Length: %s
+                    Password:
+                        - Min Length: %s
+                        - Max Length: %s
+                        - Contain Capital: %s
+                        - Contain Special Character: %s
+                    Forum:
+                        - Min Length: %s
+                        - Max Length: %s
+                    Schedule:
+                        - Retrieve Game Time: %s
+                    API:
+                        - URL: %s
+                    """.formatted(
+                    // Username
+                    usernameMinLength,
+                    usernameMaxLength,
+                    // Password
+                    passwordMinLength,
+                    passwordMaxLength,
+                    passwordContainCapital,
+                    passwordContainSpecialChar,
+                    // Forum Post
+                    messageMinLength,
+                    messageMaxLength,
+                    // Schedule
+                    retrieveGameTime,
+                    // API
+                    apiURl
+            ));
+        }
+    }
+
+    private boolean logSettings;
+    // Username
+    private int usernameMinLength;
+    private int usernameMaxLength;
+
+    // Password
+    private int passwordMinLength;
+    private int passwordMaxLength;
+    private boolean passwordContainCapital;
+    private boolean passwordContainSpecialChar;
+
+    // Forum
+    private int messageMinLength;
+    private int messageMaxLength;
+    private float messageCooldown;
+
+    // Schedule
+    private String retrieveGameTime;
+
+    // API
+    private String apiURl;
+
+    // Game Review Score
+    private int gameReviewScore;
+}

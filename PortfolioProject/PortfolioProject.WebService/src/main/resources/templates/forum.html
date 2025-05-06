@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+<head>
+  <title>Forum</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Link to the css file -->
+  <link rel="stylesheet" href="/css/styles.css">
+
+  <!-- Link to a navigation bar icon -->
+  <link rel="icon" href="/images/logo/Logo_Black.png" type="image/png">
+</head>
+<body>
+
+<!-- Display the header of the page -->
+<div th:replace="~{fragments::header}"></div>
+
+<!-- Display a message if exists -->
+<div th:replace="~{fragments :: messages}"></div>
+
+<!-- Content of the page-->
+<div class="buttons-container">
+  <!-- Wrapper for scrollable forum posts -->
+  <div class="forum-posts-wrapper">
+    <!-- Display the list of forum posts -->
+    <table>
+      <tbody>
+        <tr th:each="forumPost : ${forumPosts.getForumPosts()}">
+        <td>
+          <label class="label-fullWidth" th:text="'[' + ${forumPost.timestamp} + '] ' + ${forumPost.username} + ': ' + ${forumPost.message}"></label>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Page Controls -->
+  <div>
+    <!-- When reaching the start of the list display '...' instead of a button -->
+    <span th:if="${currentPage == 0}">...</span>
+    <!-- Display the previous page button if the currentpage is more than 0 -->
+    <span th:if="${currentPage > 0}">
+      <a th:href="@{/forum/{gameID}(gameID=${game.gameID}, page=${currentPage - 1})}">
+        <button class="base">Previous Page</button>
+      </a>
+    </span>
+    <!-- Display the current page number -->
+    <span class="current-page" th:text="${currentPage + 1}">Page</span>
+    <!-- Display the next page button if the end hasn't been reached yet -->
+    <span th:if="${currentPage < totalPages - 1}">
+      <a th:href="@{/forum/{gameID}(gameID=${game.gameID}, page=${currentPage + 1})}">
+        <button class="base">Next Page</button>
+      </a>
+    </span>
+    <!-- When reaching the end of the list display '...' instead of a button -->
+    <span th:if="${currentPage == (totalPages - 1)}">...</span>
+  </div>
+
+  <!-- Input form for posting a new message -->
+  <h3>Post a New Message</h3>
+  <form th:action="@{/forum/addPost}" method="post">
+    <input type="hidden" th:value="${game.gameID}" name="gameID"/>
+    <textarea id="message" name="message" placeholder="Write your message here" required></textarea>
+    <button type="submit" class="base">Post Message</button>
+  </form>
+
+  <!-- Back buttons -->
+  <div>
+    <a href="#" th:href="@{/library}">
+      <button type="button" class="base">Back to Library</button> <!-- ADDED class="base" -->
+    </a>
+  </div>
+  <div>
+    <a href="#" th:href="@{/account}">
+      <button type="button" class="base">Back to Account</button> <!-- ADDED class="base" -->
+    </a>
+  </div>
+</div>
+
+<!-- Display the footer of the page -->
+<div th:replace="~{fragments::footer}"></div>
+
+</body>
+</html>

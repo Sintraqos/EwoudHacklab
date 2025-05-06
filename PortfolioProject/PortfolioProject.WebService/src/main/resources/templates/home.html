@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+<head>
+  <title>Home</title>
+  <script th:inline="javascript">
+    let currentIndex = 0;
+
+    // Inject the list into JavaScript
+    const reviewList = /*[[${reviewList}]]*/ [];
+
+    function updateText() {
+      // Get the text element to update
+      const textElement = document.getElementById("textDisplay");
+      if (reviewList.length > 0) {
+        const review = reviewList[currentIndex];
+        // textElement.textContent = reviewList[currentIndex];
+        textElement.textContent = `${review.gameName}: ${review.gameReview} - ${review.gameScore}/10`;
+        // Update the index for the next item, and loop back to the start if necessary
+        currentIndex = (currentIndex + 1) % reviewList.length;
+      }
+    }
+
+    // Update text every 10 seconds
+    setInterval(updateText, 10000);
+
+    // Update text immediately on page load
+    window.onload = updateText;
+  </script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Link to the css file -->
+  <link rel="stylesheet" href="/css/styles.css">
+
+  <!-- Link to a navigation bar icon -->
+  <link rel="icon" href="/images/logo/Logo_Black.png" type="image/png">
+</head>
+<body>
+
+<!-- Display the header of the page -->
+<div th:replace="~{fragments::header}"></div>
+
+<!-- Display a message if exists -->
+<div th:replace="~{fragments :: messages}"></div>
+
+<!-- Content of the page-->
+<!-- Dynamic Text Display -->
+<div style="text-align: center;"> <!-- Since we need to align the label object to the center of the page use this -->
+  <div id="textDisplay" class="label-fullWidth">Loading...</div>
+</div>
+
+<div class="buttons-container">
+  <!-- Login Form -->
+  <form th:action="@{/login}" method="get">
+    <div><button class="base" type="submit" name="action" value="Login">Login</button></div>
+  </form>
+
+  <!-- Register Form -->
+  <form th:action="@{/register}" method="get">
+    <div><button class="base" type="submit" name="action" value="Register">Register</button></div>
+  </form>
+</div>
+
+<!-- Display the footer of the page -->
+<div th:replace="~{fragments::footer}"></div>
+
+</body>
+</html>
